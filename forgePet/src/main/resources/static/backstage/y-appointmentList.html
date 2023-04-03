@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>挂号管理</title>
+    <link rel="stylesheet" href="../assets/bootstrap.min.css">
+</head>
+
+<body>
+<!-- 弹出框 -->
+<div class="modal fade" id="addRolePop" tabindex="-1" aria-labelledby="addRolePopLa" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addRolePopLa">添加挂号</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="d-grid gap-3" id="addRoleForm">
+                    <input type="hidden" id="appointmentId">
+                    <input type="hidden" id="clientId">
+                    <input type="hidden" id="departmentId">
+                    <input type="hidden" id="petId">
+                    <input type="hidden" id="doctorId">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="clientName">挂号人</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" list="clientOp" id="clientName" placeholder="挂号人"
+                                   autocomplete="off">
+                            <datalist id="clientOp">
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="petName">宠物</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" list="petOp" id="petName" placeholder="宠物"
+                                   autocomplete="off">
+                            <datalist id="petOp">
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="departmentName">科室</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" list="departmentOp" id="departmentName" placeholder="科室"
+                                   autocomplete="off">
+                            <datalist id="departmentOp">
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="doctorName">医生</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" list="doctorOp" id="doctorName" placeholder="医生"
+                                   autocomplete="off">
+                            <datalist id="doctorOp">
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="appointmentDate">就诊时间</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="appointmentDate" type="datetime-local">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="appointmentInfo">简短描述</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="appointmentInfo" type="text" placeholder="简短描述">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">关闭</button>
+                <button class="btn btn-primary" data-bs-dismiss="modal" type="button" id="submitForm">确认提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 搜索与添加与批量删除 -->
+<nav class="navbar bg-light sticky-top">
+    <div class="container-fluid">
+        <form class="d-flex" role="search" onsubmit="return false">
+            <label for="changSearch"></label><select class="text-success" id="changSearch">
+            <option value="0">客户</option>
+            <option value="1">宠物</option>
+            <option value="2">医生</option>
+            <option value="3">科室</option>
+        </select>
+            <input class="form-control me-2" type="search" placeholder="模糊搜索" aria-label="Search" id="searchInput">
+            <button class="btn btn-outline-success" type="submit" onclick="sss.getAll()">Search</button>
+        </form>
+        <div class="d-flex flex-row-reverse bd-highlight">
+            <button type="button" class="btn btn-danger ms-1" id="delALL">批量删除</button>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addRolePop"
+                    onclick="sss.addTit()">添加挂号
+            </button>
+        </div>
+    </div>
+</nav>
+<!-- 表格 -->
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+    <tr>
+        <th><input class="form-check-input ms-3" type="checkbox" id="checkALL"><label for="checkALL"></label></th>
+        <th>就诊时间</th>
+        <th>简介</th>
+        <th>挂号人</th>
+        <th>就诊宠物</th>
+        <th>科室</th>
+        <th>医生</th>
+        <th>挂号时间</th>
+        <th>状态</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody id="tb-main">
+    </tbody>
+</table>
+</body>
+<script src="../assets/bootstrap.bundle.min.js"></script>
+<script src="../assets/axios.js"></script>
+<script src="z-myJS.js"></script>
+<script type="text/javascript">
+    class MixRole2 extends MixRole {
+        getAll(numPage = 1) {
+            const searchInput = document.getElementById("searchInput")
+            const json = {"numPage": numPage, "pageSize": this.getPageSize()}
+            json["seaName"] = searchInput.value
+            json["seaType"] = document.getElementById("changSearch").value
+            axios.get(this._role + "/page", {
+                params: json
+            }).then(resp => {
+                this.addTableRow(resp.data["data"]);
+                this.pageStripWrite(resp.data["len"], numPage)
+            })
+        }
+    }// 建立对象
+    const sss = new MixRole2("appointment", "挂号")
+    window.onload = function () {
+        sss.getAll();
+        getOther("clientOp", "client")
+        getOther("departmentOp", "department")
+    }//更改搜索框的提示
+    const searchInput = document.getElementById("searchInput")
+    document.getElementById("changSearch").onchange = () => {
+        const groupSearch = ["客户", "宠物", "医生", "科室"]
+        const searchText = groupSearch[~~[document.getElementById("changSearch").value]]
+        searchInput.value = ''
+        searchInput.placeholder = searchText
+    }// 向表格类动态添加数据
+    function getDataRow(h) {
+        const row = document.createElement('tr');
+        const appointmentId = h["appointmentId"]
+        // 添加复选框
+        row.appendChild(sss.check(appointmentId));
+        // 添加其他列
+        h["createTime"] = h["createTime"].toString().replaceAll("T", ' ')
+        h["appointmentDate"] = h["appointmentDate"].toString().replaceAll("T", ' ')
+        const isSuc = h["isSuc"]
+        h["isSuc"] = `<span class="text-${isSuc ? 'success' : 'danger'}">${isSuc ? "已" : "未"}处理</span>`
+        const group02 = ["appointmentDate", "appointmentInfo",
+            "clientName", "petName", "departmentName", "doctorName", "createTime", "isSuc"]
+        for (let i = 0; i < group02.length; i++) {
+            row.appendChild(sss.cell(h[group02[i]]))
+        }
+        // 删除与修改按钮
+        row.appendChild(sss.opCell([appointmentId], h));
+        return row;
+    }// 与表单对应
+    const groupForm = ["appointmentId", "clientId", "clientName",
+        "petId", "petName", "departmentId", "departmentName",
+        "doctorId", "doctorName", "appointmentDate", "appointmentInfo"]//表单数据转json
+    function formToJson() {
+        return sss.getVal(groupForm)
+    }//json数据转表单
+    function jsonToForm(h) {
+        sss.setVal(groupForm, h)
+    }//查找特定角色数据并赋予下拉框
+    function getOther(dataId, role) {
+        axios.get(role).then(resp => changeSel(resp.data, dataId))
+
+        function changeSel(json) {
+            document.getElementById(dataId).innerHTML = ''
+            for (let i = 0; i < json.length; i++) {
+                const {roleName, roleId} = json[i]
+                document.getElementById(dataId).innerHTML += '<option value="' + roleId + '">' + roleName + '</option>'
+            }
+        }
+    }
+
+    (function () {//根据主人获取宠物
+        const option01 = (document.getElementById("clientOp")).getElementsByTagName("option")
+        const dataName01 = document.getElementById("clientName")
+        dataName01.onchange = () => {
+            const roleId = "pet/client?clientId=" + dataName01.value
+            getOther("petOp", roleId)
+            for (let i = 0; i < option01.length; i++) {
+                if (option01[i].value === dataName01.value) {
+                    document.getElementById("clientId").value = dataName01.value
+                    dataName01.value = option01[i].innerHTML
+                }
+            }
+        }//根据科室获取医生
+        const option02 = (document.getElementById("departmentOp")).getElementsByTagName("option")
+        const dataName02 = document.getElementById("departmentName")
+        dataName02.onchange = () => {
+            const roleId = "doctor/department?departmentId=" + dataName02.value
+            getOther("doctorOp", roleId)
+            for (let i = 0; i < option02.length; i++) {
+                if (option02[i].value === dataName02.value) {
+                    document.getElementById("departmentId").value = dataName02.value
+                    dataName02.value = option02[i].innerHTML
+                }
+            }
+        }
+        bindDataChange("pet");
+        bindDataChange("doctor");
+    }())
+</script>
+</html>

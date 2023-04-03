@@ -1,0 +1,85 @@
+// pages/clientPet/clientPet.js
+const mix = require("../../utils/mix");
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    base: "/images/",
+    petList: [{
+      petId: 3,
+      petName: "狸花",
+      petPhoto: "li-hua.jpg",
+      petVariety: "狸花猫",
+      petSex: 1,
+      petAge: "2000-12-12",
+      petInfo: "它很高兴",
+      petStatus:"状态"
+    }]
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad(options) {
+    if (options !== undefined) {
+      const id = options.id
+      mix.plain("pet/clientOne?clientId=" + id).then(res => {
+        this.setData({
+          base: mix.base + "common/download?name=",
+          petList: res
+        })
+      })
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage() {
+
+  }
+})

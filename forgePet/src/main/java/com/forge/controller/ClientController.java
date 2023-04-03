@@ -1,0 +1,77 @@
+package com.forge.controller;
+
+import com.forge.common.Result;
+import com.forge.vo.NameVo;
+import com.forge.vo.Page;
+import com.forge.entity.Client;
+import com.forge.service.IClientService;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * <p>
+ * 用户表 前端控制器
+ * </p>
+ *
+ * @author MixJade
+ * @since 2022-12-22
+ */
+@RestController
+@RequestMapping("/client")
+public class ClientController {
+    private final IClientService clientService;
+
+    @Autowired
+    public ClientController(IClientService clientService) {
+        this.clientService = clientService;
+    }
+
+    /**
+     * 查询用户的名字与id
+     */
+    @GetMapping
+    public List<NameVo> getAll() {
+        return clientService.selectName();
+    }
+
+    /**
+     * 根据id查询单个用户
+     */
+    @GetMapping("/one")
+    public Client getOne(Long id) {
+        return clientService.getById(id);
+    }
+
+    @GetMapping("/page")
+    public Page<List<Client>> getPage(int numPage, int pageSize, String clientName) {
+        return clientService.selectByPage(clientName, numPage, pageSize);
+    }
+
+    @PostMapping
+    public Result save(@RequestBody Client client) {
+        if (client.getClientName().isBlank()) return Result.error("用户名为空");
+        if (client.getClientUsername().isBlank()) return Result.error("用户账号为空");
+        return Result.choice("添加", clientService.save(client));
+    }
+
+    @DeleteMapping("/{id}")
+    @RequiresRoles("deputy")
+    public Result delete(@PathVariable Long id) {
+        return Result.choice("删除单个", clientService.deleteById(id));
+    }
+
+    @DeleteMapping("/batch/{ids}")
+    @RequiresRoles("deputy")
+    public Result deleteGroup(@PathVariable long[] ids) {
+        return Result.choice("删除多个", clientService.deleteByIds(ids));
+    }
+
+    @PutMapping
+    public Result update(@RequestBody Client client) {
+        return Result.choice("修改", clientService.updateById(client));
+    }
+
+}

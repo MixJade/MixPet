@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>单人详情</title>
+    <link href="../assets/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 基础区域 */
+        #basePage {
+            position: absolute;
+            width: 60%;
+            left: 20%;
+            top: 5%;
+        }
+
+        /* 用户区域 */
+        .rolePa {
+            position: absolute;
+            left: 15%;
+        }
+
+        /*向上消失动画*/
+        @keyframes byeBye {
+            100% {
+                transform: translateY(-110%);
+                opacity: 0;
+            }
+        }
+
+        /*向下出现动画*/
+        @keyframes hello {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* 按钮组 */
+        #btnGroup {
+            position: absolute;
+            left: 10%;
+            top: 10%;
+        }
+
+        /*翻转*/
+        .mixJ {
+            position: absolute;
+            backface-visibility: hidden;
+            transition: all 1s;
+        }
+
+        #opTwo_2 {
+            transform: rotateY(-108deg);
+        }
+    </style>
+</head>
+
+<body>
+<!--左侧导航-->
+<div class="btn-group-vertical" id="btnGroup">
+    <input type="radio" class="btn-check" name="vb-radio" id="vb-radio0" onclick="history.back()">
+    <label class="btn btn-outline-primary" for="vb-radio0">返回</label>
+    <input type="radio" class="btn-check" name="vb-radio" id="vb-radio1" onclick="sayHi(0)" checked>
+    <label class="btn btn-outline-success" for="vb-radio1">用户信息</label>
+    <input type="radio" class="btn-check" name="vb-radio" id="vb-radio2" onclick="sayHi(1)">
+    <label class="btn btn-outline-danger" for="vb-radio2">宠物信息</label>
+    <input type="radio" class="btn-check" name="vb-radio" id="vb-radio3" onclick="sayHi(2)">
+    <label class="btn btn-outline-info" for="vb-radio3">挂号管理</label></div>
+<!--修改密码弹出框-->
+<div class="modal fade" id="putModal" tabindex="-1" aria-labelledby="putModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="putModalLabel">修改密码</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="container" style="width: 80%;" onsubmit="return false">
+                    <input type="hidden" id="finUse">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="finMail" placeholder="fin@qq.com"
+                               autocomplete="off">
+                        <label for="finMail">注册邮箱</label>
+                    </div>
+                    <div class="d-flex">
+                        <div class="form-floating" style="width: 60%;">
+                            <input type="text" class="form-control" id="finCode" placeholder="fin"
+                                   autocomplete="off">
+                            <label for="finCode">验证码</label>
+                        </div>
+                        <input class="btn btn-primary" type="button" style="width: 40%;" value="发送验证码"
+                               onclick="finCodeS(this)"/>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="finPwd" placeholder="fin"
+                               autocomplete="off">
+                        <label for="finPwd">设置新密码</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">关闭</button>
+                <button class="btn btn-primary" type="button" onclick="toFind()">确认提交
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--用户信息展示-->
+<div id="basePage">
+    <div class="container rolePa">
+        <fieldset id="fieldset" disabled>
+            <form class="d-grid gap-3" id="addRoleForm">
+                <input type="hidden" id="clientId">
+                <input type="hidden" id="clientPhoto">
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="myFile">用户头像</label>
+                    <div class="col-md-8">
+                        <label for="myFile">
+                            <img src="../picture/none.png" class="rounded-circle img-fluid p-3" alt=""
+                                 id="rolePhoto"/>
+                        </label>
+                        <input type="file" id="myFile" hidden="hidden" onchange="imgChange(this)"/>
+                        <label for="myFile" id="myFileText"
+                               style="color: red;display: none">上传文件大小应小于3MB</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="clientUsername">用户账号</label>
+                    <div class="col-sm-5">
+                        <input class="form-control" id="clientUsername" type="text" disabled>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="clientName">用户姓名</label>
+                    <div class="col-md-5">
+                        <input class="form-control" id="clientName" type="text" autocomplete="off"
+                               placeholder="用户姓名">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="clientGender">性别</label>
+                    <div class="col-sm-5">
+                        <select class="form-select" id="clientGender">
+                            <option value="true">男</option>
+                            <option value="false">女</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="clientTel">联系方式</label>
+                    <div class="col-md-5">
+                        <input class="form-control" id="clientTel" type="text" disabled>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="clientAge">出生日期</label>
+                    <div class="col-sm-5">
+                        <input class="form-control" id="clientAge" type="date">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" for="clientInfo">用户简介</label>
+                    <div class="col-sm-5">
+                        <input class="form-control" id="clientInfo" autocomplete="off" type="text"
+                               placeholder="用户简介">
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+        <br>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label">操作</label>
+            <div class="col-sm-5">
+                <div class="mixJ" id="opTwo_1">
+                    <input class="btn-check" name="op" id="op_1" type="radio" data-bs-toggle="modal"
+                           data-bs-target="#putModal">
+                    <label class="btn btn-secondary" for="op_1">修改密码</label>
+                    <input class="btn-check" name="op" id="op_2" type="radio">
+                    <label class="btn btn-primary" for="op_2">修改资料</label>
+                </div>
+                <div class="mixJ" id="opTwo_2">
+                    <input class="btn-check" name="op" id="op_3" type="radio">
+                    <label class="btn btn-primary" for="op_3">提交修改</label>
+                    <input class="btn-check" name="op" id="op_4" type="radio">
+                    <label class="btn btn-secondary" for="op_4">放弃修改</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 宠物信息 -->
+    <div class="rolePa" id="petPa" style="z-index: 9;display: none;">
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                你目前还没有领养宠物
+            </div>
+        </div>
+    </div>
+    <!-- 挂号信息 -->
+    <div class="rolePa" id="appointPa" style="z-index: 9;display: none;">
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                你目前还没有挂号
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../assets/bootstrap.bundle.min.js"></script>
+<script src="../assets/axios.js"></script>
+<script src="js/request.js"></script>
+<script src="js/z-alert.js"></script>
+<script>
+    window.onload = () => {
+        getUser();
+        const href = window.location.href
+        if (href.indexOf("?") !== -1) {
+            if (href.split("?")[1] === "pet") document.getElementById("vb-radio2").click();
+            else if (href.split("?")[1] === "appoint") document.getElementById("vb-radio3").click();
+        }
+    }// 获取当前用户信息
+    function getUser() {
+        axios("login/user").then(resp => {
+            setForm(resp.data)
+            const clientId = resp.data["clientId"]
+            Promise.all([axios("pet/clientOne?clientId=" + clientId),
+                axios("appointment/client?clientId=" + clientId)])
+                .then(results => {
+                    writePet(results[0]["data"])
+                    writeAppoint(results[1]["data"])
+                })
+        })
+    }//单个用户：json转表单
+    function setForm(h) {
+        document.getElementById("rolePhoto").setAttribute("src", 'http://localhost:8080/common/download?name=' + h["clientPhoto"])
+        const group = ["clientId", "clientUsername", "clientName", "clientTel",
+            "clientPhoto", "clientAge", "clientInfo", "clientGender"];
+        for (let i = 0; i < group.length; i++) {
+            document.getElementById(group[i]).value = h[group[i]]
+        }
+        document.getElementById("finUse").value = h["clientUsername"]
+    }//单个用户：表单转json
+    document.getElementById("op_3").onclick = () => {
+        const json = {
+            "clientId": '', "clientName": '', "clientPhoto": '', "clientAge": '', "clientInfo": '', "clientGender": ''
+        };
+        for (const key in json) {
+            json[key] = document.getElementById(key).value;
+        }
+        axios.put("client", json).then(resp => {
+            const data = resp.data;
+            (data["code"] === 0) ? showAlert(data["msg"]) : showAlert(data["msg"], "alert-success");
+            setTimeout(() => {
+                document.getElementById('op_4').click();
+                getUser();
+            }, 1000);
+        })
+    }// 上传后改变图片
+    function imgChange(file) {
+        const myFileText = document.getElementById("myFileText").style,
+            myFile = file.files[0]
+        if (myFile.size > 3145700) {
+            myFileText.display = "";
+        } else {
+            myFileText.display = "none";
+            const formData = new FormData();
+            formData.append("myFile", myFile)
+            axios.post("common/upload", formData).then(resp => {
+                const imgName = resp.data
+                document.getElementById("rolePhoto").setAttribute("src", 'http://localhost:8080/common/download?name=' + imgName);
+                document.getElementById("clientPhoto").value = imgName;
+            })
+        }
+    }//写入宠物信息
+    function writePet(json) {
+        if (json.length > 0) {
+            document.getElementById("petPa").innerHTML = ''
+            for (let i = 0; i < json.length; i++) {
+                writePetCard(json[i])
+            }
+        }
+    }//写入单个宠物
+    function writePetCard(h) {
+        const {petName, petVariety, petSex, petAge, petStatus, petInfo, petPhoto} = h
+        document.getElementById("petPa").innerHTML += `
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="http://localhost:8080/common/download?name=${petPhoto}" class="rounded-circle img-fluid p-3" alt=""/>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">${petName}</h5>
+                        <p class="card-text">品种:${petVariety}&nbsp;&nbsp;性别:${petSex ? "公" : "母"}&nbsp;&nbsp;年龄:${age(petAge)}岁</p>
+                        <p class="card-text">最近动态:${petInfo}</p>
+                        <p class="card-text"><small class="text-muted">健康状况:${petStatus}</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>`
+    }//获取年数差
+    function age(birthday) {
+        const birthYear = birthday.split("-")[0],
+            nowYear = new Date().getFullYear();
+        return nowYear - birthYear
+    }//写入挂号信息
+    function writeAppoint(json) {
+        if (json.length > 0) {
+            document.getElementById("appointPa").innerHTML = ''
+            for (let i = 0; i < json.length; i++) {
+                writeAppointCard(json[i])
+            }
+        }
+    }//写入单个挂号
+    function writeAppointCard(h) {
+        const {appointmentId, appointmentDate, petName, departmentName, appointmentInfo, doctorName, createTime} = h
+        document.getElementById("appointPa").innerHTML += `
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="card-body">
+                    <h5 class="card-title">单号：${appointmentId}</h5>
+                    <p class="card-text">就诊时间:${moveT(appointmentDate)}</p>
+                    <p class="card-text">宠物:${petName}&nbsp;&nbsp;&nbsp;科室:${departmentName}&nbsp;&nbsp;&nbsp;医生:${doctorName}</p>
+                    <p class="card-text">描述:${appointmentInfo}</p>
+                    <p class="card-text"><small class="text-muted">挂号日期:${moveT(createTime)}</small></p>
+                </div>
+            </div>
+        </div>`
+    }//去除T
+    function moveT(s) {
+        return s.toString().replaceAll("T", ' ')
+    }
+
+
+    (function () {// 表单允许与禁止访问
+        const opTwo_1 = document.getElementById("opTwo_1")
+        const opTwo_2 = document.getElementById("opTwo_2")
+        document.getElementById("op_2").onclick = () => {
+            document.getElementById("fieldset").removeAttribute("disabled");
+            opTwo_1.style.transform = "rotateY(180deg)"
+            opTwo_2.style.transform = "rotateY(0deg)";
+        }
+        document.getElementById("op_4").onclick = () => {
+            document.getElementById("fieldset").setAttribute("disabled", "disabled");
+            getUser();
+            opTwo_2.style.transform = "rotateY(180deg)"
+            opTwo_1.style.transform = "rotateY(0deg)";
+        }
+        const rolePa = document.getElementsByClassName("rolePa");
+        let a = 0;
+        window.sayHi = b => {
+            rolePa[a].style.animation = "byeBye 1.2s forwards";
+            rolePa[b].style.display = "";
+            rolePa[b].style.animation = "hello 1.2s forwards";
+            a = b;
+        }
+    }());
+
+    //根据json键值进行赋值
+    function jVal(json) {
+        for (const key in json) {
+            json[key] = document.getElementById(json[key]).value;
+        }
+        return json;
+    }//找回密码发送验证码
+    function finCodeS(val) {
+        setTime(val)
+        const mail = document.getElementById("finMail").value;
+        const username = document.getElementById("finUse").value;
+        axios.get(`login/finMail?mail=${mail}&username=${username}`).then(resp => {
+            if (resp.data["code"] === 0) showAlert(resp.data["msg"])
+        })
+    }//进行找回密码
+    function toFind() {
+        const json = jVal({
+            "checkCode": "finCode", "clientUsername": "finUse", "clientPassword": "finPwd", "clientTel": "finMail"
+        });
+        axios.post("login/find", json).then(resp => finRes(resp.data))
+    }//重置密码结果
+    function finRes(data) {
+        (data["code"] === 0) ? showAlert(data["msg"]) : showAlert(data["msg"], "alert-success");
+        setTimeout(() => {
+            document.getElementById('close').click();
+        }, 1000);
+    }
+</script>
+
+</html>

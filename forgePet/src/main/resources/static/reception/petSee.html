@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宠物管理</title>
+    <link rel="stylesheet" href="../assets/bootstrap.min.css">
+</head>
+
+<body>
+<nav class="bg-black" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:history.back()">主页</a></li>
+        <li class="breadcrumb-item active" aria-current="page">待领养宠物详情</li>
+    </ol>
+</nav>
+<!--卡片-->
+<div class="container">
+    <div class="row g-4" id="cardAll"></div>
+</div>
+</body>
+<script src="../assets/axios.js"></script>
+<script src="js/z-myUntJs.js"></script>
+<script src="js/z-rollPage.js"></script>
+<script type="text/javascript">
+    const unt = new FrontUntil(),
+        cardAll = document.getElementById("cardAll");
+    window.onload = () => getAll(1)// 分页查询
+    function getAll(numPage) {
+        const json = {"numPage": numPage, "pageSize": 8}
+        axios.get("pet/four", {
+            params: json
+        }).then(resp => {
+            getPet(resp.data["data"]);
+            maxNum = resp.data["len"] / 8
+        })
+    }//获取宠物
+    function getPet(doc) {
+        for (let i = 0; i < doc.length; i++) {
+            const {petId, petName, petVariety, petSex, petAge, petInfo, petPhoto} = doc[i]
+            const petSex01 = petSex ? "公" : "母"
+            const link = "petOne.html?" + petId
+            unt.writeCard(cardAll, petName, petPhoto, petInfo, petAge, petSex01, petVariety, link)
+        }
+    }
+</script>
+
+</html>

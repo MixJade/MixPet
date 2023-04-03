@@ -1,0 +1,52 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/login",
+    "pages/register/register",
+    "pages/findPwd/findPwd",
+    "pages/clientCenter/clientCenter",
+    "pages/clientDetail/clientDetail",
+    "pages/clientPet/clientPet",
+    "pages/appointment/appointment",
+    "pages/clientUpdate/clientUpdate",
+    "pages/doctorAppoint/doctorAppoint",
+    "pages/doctorSee/doctorSee",
+    "pages/chatClient/chatClient",
+    "pages/petFoster/petFoster",
+    "pages/petSee/petSee",
+    "pages/petOne/petOne"
+  ],
+  "tabBar": {
+    "list": [{
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "/images/tab/ico_med.png",
+        "selectedIconPath": "/images/tab/ico_med_active.png"
+      },
+      {
+        "pagePath": "pages/clientCenter/clientCenter",
+        "text": "个人中心",
+        "iconPath": "/images/tab/man_med.png",
+        "selectedIconPath": "/images/tab/man_med_active.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#b5826d",
+    "navigationBarTitleText": "样本小程序",
+    "enablePullDownRefresh": true,
+    "backgroundColor": "#e9be9e"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+  "usingComponents": {
+    "van-button": "vant-weapp/button",
+    "van-field": "vant-weapp/field",
+    "van-card": "vant-weapp/card",
+    "van-cell": "vant-weapp/cell",
+    "van-cell-group": "vant-weapp/cell-group",
+    "van-popup": "vant-weapp/popup"
+  }
+}

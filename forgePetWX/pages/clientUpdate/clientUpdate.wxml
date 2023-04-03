@@ -1,0 +1,17 @@
+<!--pages/clientUpdate/clientUpdate.wxml-->
+用户头像：<image class="clienImage" bindtap="chooseImg" src="{{base}}{{clientPhoto}}"></image>
+<van-field model:value="{{ clientUsername }}" label="账号" placeholder="暂无" disabled />
+<van-field model:value="{{ clientName }}" label="姓名" placeholder="暂无" />
+<picker bindchange="onConfirm01" value="{{index}}" range="{{columns01}}">
+  <van-field model:value="{{clientGender==1?'男':'女'}}" label="性别" placeholder="暂无" required readonly />
+</picker>
+<van-field model:value="{{ clientTel }}" label="邮箱" placeholder="暂无" disabled />
+<picker mode="date" value="{{clientAge}}" start="2000-09-01" end="2023-09-01" bindchange="onConfirm02">
+  <van-field model:value="{{ clientAge }}" label="生日" placeholder="暂无" readonly />
+</picker>
+<van-field model:value="{{ clientInfo  }}" label="简介" placeholder="暂无" type="textarea" autosize />
+<text>\n</text>
+<van-button block plain size="large" type="danger" bindtap="updateClient">提交修改</van-button>
+<navigator open-type="navigateBack">
+  <van-button block plain size="large" type="warning">返回主页</van-button>
+</navigator>

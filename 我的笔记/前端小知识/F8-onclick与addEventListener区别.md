@@ -1,0 +1,4 @@
+# onclick与addEventListener区别
+
+区别就是onclick一个元素只能添加一个，如果一个元素添加了多个onclick，后面的方法就会覆盖前面的
+而addEventListener可以添加多个，哪怕之前有onclick也能添加，不会覆盖

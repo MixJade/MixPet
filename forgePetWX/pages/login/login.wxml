@@ -1,0 +1,17 @@
+<image src="/images/mia.svg" mode="aspectFit" class="loginImage"></image>
+<view>
+  <van-cell-group>
+    <van-field model:value="{{ username }}" required label="账号" placeholder="请输入账号" />
+    <van-field model:value="{{ password }}" type="password" label="密码" placeholder="请输入密码" required border="{{ false }}" />
+  </van-cell-group>
+  <text>\n</text>
+  <van-button block size="large" type="info" bindtap="toLogin"> 登录</van-button>
+  <text>\n</text>
+  <navigator url="/pages/register/register">
+    <van-button block plain size="large" type="warning">前往注册</van-button>
+  </navigator>
+  <text>\n</text>
+  <navigator url="/pages/findPwd/findPwd">
+    <van-button block plain size="large" type="danger"> 找回密码</van-button>
+  </navigator>
+</view>

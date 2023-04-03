@@ -1,0 +1,12 @@
+<!--pages/clientDetail/clientDetail.wxml-->
+用户头像：<image class="clienImage" src="{{base}}{{c.clientPhoto}}"></image>
+<van-field value="{{ c.clientUsername }}" label="账号" placeholder="暂无" readonly />
+<van-field value="{{ c.clientName }}" label="姓名" placeholder="暂无" readonly />
+<van-field value="{{c.clientGender==1?'男':'女'}}" label="性别" placeholder="暂无" readonly />
+<van-field value="{{ c.clientTel }}" label="邮箱" placeholder="暂无" readonly />
+<van-field value="{{ c.clientAge }}" label="生日" placeholder="暂无" readonly />
+<van-field value="{{ c.clientInfo }}" label="简介" placeholder="暂无" type="textarea" autosize readonly />
+<text>\n\n</text>
+<navigator open-type="navigateBack">
+  <van-button block plain size="large" type="warning">返回主页</van-button>
+</navigator>

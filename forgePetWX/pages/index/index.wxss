@@ -1,0 +1,21 @@
+.swiper-container {
+  height: 100px;
+}
+
+.item {
+  height: 100%;
+  line-height: 100px;
+  text-align: center;
+}
+
+.myContent {
+  text-align: center;
+  width: 700rpx;
+  margin-left: 25rpx;
+  margin-top: 10px;
+}
+
+.doctorCards {
+  width: 700rpx;
+  margin-left: 25rpx;
+}

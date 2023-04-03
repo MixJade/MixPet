@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>宠物详情</title>
+    <link href="../assets/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 基础区域 */
+        #basePage {
+            position: absolute;
+            text-align: center;
+            /*left: 25%;*/
+            top: 5%;
+            box-shadow: 7px 7px 17px rgba(52, 56, 66, 0.5);
+            border-radius: 5px;
+            background-color: whitesmoke;
+        }
+
+        /* 返回链接 */
+        #reA {
+            position: absolute;
+            left: 0;
+            text-decoration: none;
+        }
+
+        body {
+            background-image: url("../picture/background.jpg");
+        }
+    </style>
+</head>
+
+<body>
+<!--基础展示-->
+<div class="col-12 col-sm-8 col-md-6 position-absolute start-50 translate-middle-x" id="basePage">
+    <a href="javascript:history.back()" id="reA">←返回</a>
+    <img src="../picture/none.png" class="rounded-circle img-fluid p-3" alt="" id="petPhoto"/>
+    <h2 id="petName">姓名</h2>
+    <span id="petId" hidden="hidden"></span>
+    <p><span id="petVariety">品种</span>&nbsp;&nbsp;<span id="petSex">性别</span>&nbsp;&nbsp;<span
+            id="petAge">年龄</span></p>
+    <p>健康状况:&nbsp; <span id="petStatus"></span></p>
+    <p>最近动态:&nbsp; <span id="petInfo"></span></p>
+    <button class="btn btn-primary" id="firstBtn" data-bs-toggle="modal" data-bs-target="#addRolePop">申请领养</button>
+    <button class="btn btn-secondary" id="secondBtn" disabled style="display: none">等待审批</button>
+    <br>
+    <br>
+</div>
+<!-- 弹出框 -->
+<div class="modal fade" id="addRolePop" tabindex="-1" aria-labelledby="addRolePopLa" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addRolePopLa">添加领养</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="d-grid gap-3">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="adoptInfo">申请理由</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="adoptInfo" placeholder="申请理由" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="adoptMoney">押金</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="adoptMoney" type="number" autocomplete="off">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">关闭</button>
+                <button class="btn btn-primary" data-bs-dismiss="modal" type="button" onclick="addAdopt()">确认申请
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../assets/axios.js"></script>
+<script src="js/z-myUntJs.js"></script>
+<script src="../assets/bootstrap.bundle.min.js"></script>
+<script src="js/z-alert.js"></script>
+<script>
+    // 建立对象
+    const unt = new FrontUntil()
+    window.onload = () => {
+        const href = window.location.href;
+        if (href.indexOf("?") === -1) return;
+        const petId = href.split("?")[1];
+        if (!isNaN(parseInt(petId))) {
+            Promise.all([axios("pet/one?petId=" + petId),
+                axios("adopt/inAdopt?petId=" + petId)])
+                .then(result => {
+                    petMes(result[0]["data"]);
+                    if (result[1]["data"] > 0) {
+                        document.getElementById("firstBtn").style.display = "none"
+                        document.getElementById("secondBtn").style.display = ""
+                    }
+                })
+        }
+    }// 宠物信息
+    function petMes(h) {
+        const {petSex, petAge, petPhoto} = h
+        document.getElementById("petPhoto").src = myBackStage + 'common/download?name=' + petPhoto;
+        h["petSex"] = petSex ? "公" : "母"
+        h["petAge"] = unt.age(petAge)
+        unt.setInnerText(h, ["petName", "petSex", "petAge", "petVariety", "petStatus", "petInfo", "petId"])
+    }
+
+    // 提交申请
+    function addAdopt() {
+        const json = {
+            "petId": document.getElementById("petId").innerText,
+            "adoptInfo": document.getElementById("adoptInfo").value,
+            "adoptMoney": document.getElementById("adoptMoney").value
+        }
+        axios.post("adopt/adoptPet", json).then(resp => {
+            showAlert(resp.data["msg"], "alert-success")
+            document.getElementById("firstBtn").style.display = "none"
+            document.getElementById("secondBtn").style.display = ""
+        })
+    }
+</script>
+
+</html>

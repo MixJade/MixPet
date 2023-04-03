@@ -1,0 +1,24 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}
+
+.loginImage {
+  height: 120rpx;
+  width: 120rpx;
+  margin-left: 315rpx;
+}
+
+.primary {
+  color: #0d6efd;
+}
+
+page {
+  background-color: #f3e7e9;
+}

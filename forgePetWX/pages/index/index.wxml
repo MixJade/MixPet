@@ -1,0 +1,32 @@
+<!--pages/index/index.wxml-->
+<!-- 轮播图 -->
+<swiper class="swiper-container" indicator-dots autoplay interval="2000" circular>
+  <swiper-item>
+    <image class="item" src="{{swiper.img1}}" mode="heightFix"></image>
+  </swiper-item>
+  <swiper-item>
+    <image class="item" src="{{swiper.img2}}" mode="heightFix"></image>
+  </swiper-item>
+  <swiper-item>
+    <image class="item" src="{{swiper.img3}}" mode="heightFix"></image>
+  </swiper-item>
+</swiper>
+<!-- 公告区域 -->
+<view class="myContent">
+  <text>最新公告</text>
+  <van-cell-group wx:for="{{notices}}" wx:for-item="notice" wx:key="noticeId">
+    <van-cell title="{{notice.noticeTitle}}" bindtap="showNotice" data-text="{{notice.textNotice}}" data-title="{{notice.noticeTitle}}" />
+  </van-cell-group>
+  <text>\n功能入口</text>
+  <van-cell-group>
+    <navigator url="/pages/petSee/petSee">
+      <van-cell title="查看可领养宠物" />
+    </navigator>
+    <navigator url="/pages/petFoster/petFoster">
+      <van-cell title="寄养宠物展示" />
+    </navigator>
+    <navigator class="primary" url="/pages/doctorSee/doctorSee">
+      <van-cell title="查看全部医生" />
+    </navigator>
+  </van-cell-group>
+</view>

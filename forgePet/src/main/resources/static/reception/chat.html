@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>聊天室</title>
+    <link href="../assets/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .myImg {
+            height: 64px;
+            width: 64px;
+        }
+
+        body {
+            background-image: url("../picture/background.jpg");
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+<div class="container p-2">
+    <div class="card">
+        <div class="card-header bg-success text-light">
+            <a class="text-light" href="javascript:history.back()">←返回</a>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="panel-container col-sm-12 col-md-2 border-end border-5">
+                    &nbsp;<b>当前医生</b>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" id="nowDoctorName">当前医生</li>
+                    </ul>
+                    &nbsp;<b>其它医生</b>
+                    <ul class="list-group list-group-flush" id="otherDoctor" style="cursor: pointer;">
+                    </ul>
+                </div>
+                <!-- 消息显示 -->
+                <div class="col-sm-12 col-md-8" style="height: 450px; overflow-y: auto;" id="showMsg">
+                    <div class="container" id="msgContainer">
+                    </div>
+                </div>
+                <!-- 发送框-->
+                <div class="card-footer">
+                    <form class="input-group" onsubmit="return false">
+                        <label class="mx-3" for="myFile">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"
+                                 class="bi bi-image" viewBox="0 0 16 16">
+                                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                                <path
+                                        d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                            </svg>
+                        </label>
+                        <input type="file" id="myFile" accept="image/*" hidden="hidden"/>
+                        <label for="waitSend"></label><input type="text" class="form-control" placeholder="输入消息"
+                                                             id="waitSend"/>
+                        <button class="btn btn-success" type="submit" onclick="sendMsg()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-send" viewBox="0 0 16 16">
+                                <path
+                                        d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                            </svg>
+                            发送
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../assets/bootstrap.bundle.min.js"></script>
+<script src="../assets/axios.js"></script>
+<script src="js/request.js"></script>
+<script src="js/z-alert.js"></script>
+<script src="js/z-chatDate.js"></script>
+<script>
+    const msgContainer = document.getElementById("msgContainer");
+    let doctorId;
+    "use strict";
+    const ws = new WebSocket("ws://localhost:8080/chat");  // 建立WebSocket对象
+    window.onload = () => {
+        const href = window.location.href
+        if (href.indexOf("?") !== -1) {
+            const getId = href.split("?")[1]
+            if (!isNaN(parseInt(getId))) {
+                cutDoctor(getId, false)
+            }
+        } else axios("msg").then(resp => {
+            doctorId = resp.data
+            requestMsgList()
+            readGroup()
+        })
+    }// 读取消息列表
+    function requestMsgList() {
+        axios("msg/aDoctor?doctorId=" + doctorId).then(resp => {
+            const msgList = resp.data
+            msgContainer.innerHTML = ""
+            for (let i = 0; i < msgList.length; i++) parseOneLine(msgList[i]);
+            const showMsg = document.getElementById("showMsg");
+            setTimeout(()=>{
+                showMsg.scrollTop = showMsg.scrollHeight
+            },300)
+        })
+    }// 读取用户联系过的医生
+    function readGroup(isOld = true) {
+        axios("msg/group?doctorId=" + doctorId).then(resp => {
+            const groupList = resp.data,
+                otherDoctor = document.getElementById("otherDoctor"),
+                zero = groupList[0]
+            otherDoctor.innerHTML = ''
+            if (!isOld) {
+                for (let i = 0; i < groupList.length; i++) {
+                    if (~~doctorId === groupList[i]["doctorId"]) {
+                        isOld = true
+                        break
+                    }
+                }
+            }
+            if (isOld) document.getElementById("nowDoctorName").innerText = zero["doctorName"]
+            else otherDoctor.innerHTML += `<li class="list-group-item" onclick="cutDoctor(${zero["doctorId"]})">${zero["doctorName"]}</li>`
+            for (let i = 1; i < groupList.length; i++) {
+                const one = groupList[i]
+                otherDoctor.innerHTML += `<li class="list-group-item" onclick="cutDoctor(${one["doctorId"]})">${one["doctorName"]}</li>`
+            }
+        })
+    }//接受消息
+    ws.onmessage = function (ev) {
+        const dataStr = ev.data;
+        console.log(dataStr)
+        requestMsgList() // 这里是接受到消息之后刷新
+    }// 关闭链接
+    ws.onclose = function () {
+        showAlert("你已离线")
+    }// 读取并处理一行消息
+    function parseOneLine(ele) {
+        const {clientName, doctorName, isClient, msgContent, createTime, clientPhoto, doctorPhoto, isImg} = ele;
+        if (isClient) writeClient(clientName, msgContent, createTime, clientPhoto, isImg)
+        else writeDoctor(doctorName, msgContent, createTime, doctorPhoto, isImg)
+    }// 写入用户消息
+    function writeClient(clientName, msgContent, createTime, photo, isImg) {
+        if (isImg) msgContent = `<img src="http://localhost:8080/common/downChat?name=${msgContent}" class="w-100" alt="" />`
+        msgContainer.innerHTML += `<div class="d-flex justify-content-end my-3">
+                                <div class="card bg-success bg-gradient text-light w-50 ">
+                                    <div class="card-body">
+                                        <div class="card-title">
+                                            <small>${clientName} ${getDate(createTime)}</small>
+                                        </div>
+                                        <div class="card-text">
+                                            ${msgContent}
+                                        </div></div></div>
+                                <img src="http://localhost:8080/common/download?name=${photo}" class="rounded-circle myImg" alt="" />
+                            </div>`
+    }// 写入医生消息
+    function writeDoctor(doctorName, msgContent, createTime, photo, isImg) {
+        if (isImg) msgContent = `<img src="http://localhost:8080/common/downChat?name=${msgContent}" class="w-100" alt="" />`
+        msgContainer.innerHTML += `<div class="d-flex justify-content-start my-3">
+                                <img src="http://localhost:8080/common/download?name=${photo}" class="rounded-circle myImg" onclick="goDoctorOne()" alt="" />
+                                <div class="card w-50">
+                                    <div class="card-body">
+                                        <div class="card-title">
+                                            <small>${doctorName} ${getDate(createTime)}</small>
+                                        </div>
+                                        <div class="card-text">
+                                            ${msgContent}
+                                        </div></div></div></div>`
+    }// 点击其它的大夫
+    function cutDoctor(getID, isOld = true) {
+        doctorId = getID
+        axios("doctor/one?doctorId=" + getID).then(resp => {
+            document.getElementById("nowDoctorName").innerText = resp.data["doctorName"]
+        })
+        requestMsgList()
+        readGroup(isOld)
+    }// 点击发送按钮
+    function sendMsg() {
+        const waitSend = document.getElementById("waitSend");
+        const content = waitSend.value;
+        waitSend.value = "";
+        if (content === "") return;
+        const json = {"msgContent": content, "doctorId": doctorId, "isClient": true}
+        //保存数据
+        axios.post("msg", json).then(resp => {
+            if (resp.data["code"] === 1) requestMsgList();
+            else showAlert("发送失败");
+        })
+        //发送数据
+        ws.send(JSON.stringify(json));
+    }// 点击医生头像跳转
+    function goDoctorOne() {
+        location.href = "doctorOne.html?" + doctorId
+    }// 发送图片
+    document.getElementById("myFile").onchange = () => {
+        const myFile = this.myFile.files[0]
+        if (myFile.size > 3145700) showAlert("上传的图片应小于3MB")
+        else {
+            const formData = new FormData();
+            formData.append("myFile", myFile)
+            axios.post("common/upChat", formData).then(resp => {
+                const json = {"msgContent": resp.data, "doctorId": doctorId, "isClient": true, "isImg": true}
+                //保存数据
+                axios.post("msg", json).then(resp => {
+                    if (resp.data["code"] === 1) requestMsgList();
+                    else showAlert("发送失败");
+                })
+                //发送数据
+                ws.send(JSON.stringify(json));
+            })
+        }
+    }
+</script>
+
+</html>

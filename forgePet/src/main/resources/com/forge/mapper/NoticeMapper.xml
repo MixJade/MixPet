@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forge.mapper.NoticeMapper">
+    <!--逻辑删除单个-->
+    <update id="deleteId">
+        UPDATE notice
+        SET is_del=#{delDate}
+        WHERE notice_id = #{noticeId};
+    </update>
+    <!-- 逻辑删除多个-->
+    <update id="deleteIdGroup">
+        UPDATE notice
+        SET is_del=#{delDate}
+        WHERE notice_id IN
+        <foreach collection="idGroup" item="noticeId" separator="," open="(" close=")">
+            #{noticeId}
+        </foreach>
+    </update>
+    <!--查询分页的条目数-->
+    <select id="selectNoticeCount" resultType="int">
+        select
+        count(*)
+        from notice
+        WHERE is_del='0'
+        <if test="noticeName!=null and noticeName!=''">
+            and notice_title like "%"#{noticeName}"%"
+        </if>
+    </select>
+    <!--分页查询-->
+    <select id="selectNoticePage" resultType="com.forge.dto.NoticeDto">
+        select notice_id, notice_title, notice_file, creat_id, a.create_time, update_id, a.update_time, is_disable,
+        a.is_del ,b.employee_name as create_name,c.employee_name as update_name
+        FROM notice AS a
+        LEFT JOIN employee AS b
+        ON a.creat_id=b.employee_id
+        LEFT JOIN employee AS c
+        ON a.update_id=c.employee_id
+        WHERE a.is_del='0'
+        <if test="noticeName!=null and noticeName!=''">
+            and notice_title like "%"#{noticeName}"%"
+        </if>
+        limit #{begin},#{pageItem};
+    </select>
+    <!--主页：查询-->
+    <select id="selectFour" resultType="com.forge.dto.NoticeDto">
+        select notice_id, notice_title, notice_file
+        FROM notice
+        WHERE is_del = '0'
+          AND is_disable = '0'
+        limit 0,3
+    </select>
+    <!--修改公告信息-->
+    <update id="updateNotice">
+        UPDATE notice
+        SET notice_title=#{noticeTitle},
+            update_id=#{updateId},
+            update_time=now()
+        WHERE notice_id = #{noticeId}
+    </update>
+    <!--添加公告-->
+    <insert id="addNotice">
+        insert into notice
+        (notice_title, notice_file, creat_id, create_time, update_id, update_time)
+            value (#{noticeTitle},
+                   #{noticeFile},
+                   #{creatId},
+                   now(),
+                   creat_id,
+                   create_time)
+    </insert>
+</mapper>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寄养管理</title>
+    <link rel="stylesheet" href="../assets/bootstrap.min.css">
+</head>
+
+<body>
+<!-- 弹出框 -->
+<div class="modal fade" id="addRolePop" tabindex="-1" aria-labelledby="addRolePopLa" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addRolePopLa">添加寄养</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="d-grid gap-3" id="addRoleForm">
+                    <input type="hidden" id="fosterId">
+                    <input type="hidden" id="petId">
+                    <input type="hidden" id="clientId">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="fosterCode">订单号</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="fosterCode" placeholder="订单号" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="clientName">寄养人</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" list="clientOp" id="clientName" placeholder="寄养人"
+                                   autocomplete="off">
+                            <datalist id="clientOp">
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="petName">宠物</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" list="petOp" id="petName" placeholder="宠物"
+                                   autocomplete="off">
+                            <datalist id="petOp">
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="fosterInfo">备注</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="fosterInfo" placeholder="备注" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="fosterMoney">押金</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="fosterMoney" type="number" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="fosterTerm">到期时间</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="fosterTerm" type="date">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">关闭</button>
+                <button class="btn btn-primary" data-bs-dismiss="modal" type="button" id="submitForm">确认提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 搜索与添加与批量删除 -->
+<nav class="navbar bg-light sticky-top">
+    <div class="container-fluid">
+        <form class="d-flex" role="search" onsubmit="return false">
+            <input class="form-control me-2" type="search" placeholder="订单号" aria-label="Search" id="searchInput">
+            <button class="btn btn-outline-success" type="submit" onclick="sss.getAll()">Search</button>
+        </form>
+        <div class="d-flex flex-row-reverse bd-highlight">
+            <button type="button" class="btn btn-danger ms-1" id="delALL">批量删除</button>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addRolePop"
+                    onclick="sss.addTit()">添加寄养
+            </button>
+        </div>
+    </div>
+</nav>
+<!-- 表格 -->
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+    <tr>
+        <th><input class="form-check-input ms-3" type="checkbox" id="checkALL"><label for="checkALL"></label></th>
+        <th>寄养单号</th>
+        <th>寄养人</th>
+        <th>宠物</th>
+        <th>备注</th>
+        <th>押金</th>
+        <th>到期时间</th>
+        <th>是否到期</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody id="tb-main">
+    </tbody>
+</table>
+</body>
+<script src="../assets/bootstrap.bundle.min.js"></script>
+<script src="../assets/axios.js"></script>
+<script src="z-myJS.js"></script>
+<script type="text/javascript">
+    // 建立对象
+    const sss = new MixRole("foster", "寄养")
+    window.onload = function () {
+        sss.getAll();
+        getOther("clientOp", "client");
+        bindDataChange("pet");
+    }// 获取天数
+    const nowDate = new Date().getTime()//日期毫秒值
+    function getDate(fosterTerm) {
+        const term = Date.parse(fosterTerm)
+        if (nowDate >= term) {
+            return 0
+        }//最快取整
+        return ~~((term - nowDate) / (86400000)) + 1
+    }// 向表格类动态添加数据
+    function getDataRow(h) {
+        const row = document.createElement('tr');
+        const fosterId = h["fosterId"]
+        // 添加复选框
+        row.appendChild(sss.check(fosterId));
+        // 添加其他列
+        const group02 = ["fosterCode", "clientName", "petName",
+            "fosterInfo", "fosterMoney", "fosterTerm"]
+        for (let i = 0; i < group02.length; i++) {
+            row.appendChild(sss.cell(h[group02[i]]))
+        }// 识别是否到期
+        const day = getDate(h["fosterTerm"])
+        if (day === 0) {
+            row.appendChild(sss.cell("<span style='color: red'>已到期</span>"))
+        } else {
+            row.appendChild(sss.cell(day + "天"))
+        }
+        // 删除与修改按钮
+        row.appendChild(sss.opCell([fosterId], h));
+        return row;
+    }//表单数据转json
+    function formToJson() {
+        const groupForm = ["fosterId", "petId", "clientId", "fosterCode",
+            "fosterInfo", "fosterMoney", "fosterTerm"]
+        return sss.getVal(groupForm)
+    }//json数据转表单
+    function jsonToForm(h) {
+        const groupForm = ["fosterId", "petId", "clientId", "fosterCode",
+            "clientName", "petName", "fosterInfo", "fosterMoney", "fosterTerm"]
+        sss.setVal(groupForm, h)
+    }//查找特定角色数据并赋予下拉框
+    function getOther(dataId, role) {
+        axios.get(role).then(resp => changeSel(resp.data, dataId))
+
+        function changeSel(json) {
+            document.getElementById(dataId).innerHTML = ''
+            for (let i = 0; i < json.length; i++) {
+                const {roleName, roleId} = json[i]
+                document.getElementById(dataId).innerHTML += '<option value="' + roleId + '">' + roleName + '</option>'
+            }
+        }
+    }//根据主人获取宠物
+    (()=> {
+        const option01 = (document.getElementById("clientOp")).getElementsByTagName("option")
+            , dataName01 = document.getElementById("clientName")
+        dataName01.onchange = () => {
+            const roleId = "pet/client?clientId=" + dataName01.value
+            getOther("petOp", roleId)
+            for (let i = 0; i < option01.length; i++) {
+                if (option01[i].value === dataName01.value) {
+                    document.getElementById("clientId").value = dataName01.value
+                    dataName01.value = option01[i].innerHTML
+                }
+            }
+        }
+    })();
+</script>
+</html>

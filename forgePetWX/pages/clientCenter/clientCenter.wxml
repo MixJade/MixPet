@@ -1,0 +1,29 @@
+<!--pages/clientPa/clientPa.wxml-->
+<view wx:if="{{isLogin}}">
+  <van-card title="{{c.clientName}}" thumb="{{base}}{{ c.clientPhoto }}" thumb-link="/pages/clientDetail/clientDetail">
+    <view slot="desc">
+      <view>
+        账号：{{c.clientUsername}}
+      </view>
+      <view>
+        联系方式: {{c.clientTel}}
+      </view>
+      <view>
+        简介: {{c.clientInfo}}
+      </view>
+    </view>
+  </van-card>
+  <view style="width: 160rpx;margin-left: 295rpx;">个人中心</view>
+  <van-cell title="用户资料" link-type="navigateTo" url="/pages/clientDetail/clientDetail" value="查看详细信息" size="large" />
+  <van-cell title="宠物信息" link-type="navigateTo" url="/pages/clientPet/clientPet?id={{c.clientId}}" value="所拥有宠物" size="large" />
+  <van-cell title="挂号查看" link-type="navigateTo" url="/pages/appointment/appointment?id={{c.clientId}}" value="查看当前挂号" size="large" />
+  <van-cell title="修改资料" link-type="navigateTo" url="/pages/clientUpdate/clientUpdate" value="谨慎修改" size="large" label="修改资料或者密码" />
+
+  <text>\n</text>
+  <van-button block plain size="large" type="danger" bindtap="logout"> 退出登录</van-button>
+</view>
+<view class="container" wx:else>
+  <navigator url="/pages/login/login">
+    <van-button block plain size="large" type="info"> 登录</van-button>
+  </navigator>
+</view>

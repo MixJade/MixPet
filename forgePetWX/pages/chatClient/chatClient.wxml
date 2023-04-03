@@ -1,0 +1,40 @@
+<!--pages/chatClient/chatClient.wxml-->
+<view class="chatTit">与{{doctorName}}医生的谈话</view>
+<scroll-view style="height: {{myHeight}}px;" scroll-top="{{scrollTop}}" scroll-y="true">
+  <view id="chatBody">
+    <view wx:for="{{msgList}}" wx:for-item="m" wx:key="msgId">
+      <view class="msg justify-content-end" wx:if="{{m.isClient}}">
+        <!-- 用户消息 -->
+        <view class="w-50">
+          <text class="small">{{m.clientName}} {{m1.chatDate(m.createTime)}}</text>
+          <view wx:if="{{m.isImg}}">
+            <image class="chatImg bg-success" mode="aspectFit" show-menu-by-longpress src="{{baseChat}}{{m.msgContent}}"></image>
+          </view>
+          <view wx:else class="msgText bg-success">
+            {{m.msgContent}}</view>
+        </view>
+        <image class="msgImg" src="{{base}}{{m.clientPhoto}}"></image>
+      </view>
+      <view class="msg" wx:else>
+        <!-- 医生消息 -->
+        <image class="msgImg" src="{{base}}{{m.doctorPhoto}}"></image>
+        <view class="w-50">
+          <text class="small">{{m.doctorName}} {{m1.chatDate(m.createTime)}}</text>
+          <view wx:if="{{m.isImg}}">
+            <image class="chatImg bg-light" mode="aspectFit" show-menu-by-longpress src="{{baseChat}}{{m.msgContent}}"></image>
+          </view>
+          <view wx:else class="msgText bg-light">
+            {{m.msgContent}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+<view style="height: 50px;"></view>
+<view class="chatFoot">
+  <image src="/images/image.svg" bindtap="sendImg"></image>
+  <input class="bg-light" model:value="{{inputMsg}}"  bindinput="msgHander" placeholder="输入消息"/>
+  <button type="primary" size="mini" bindtap="sendMsg" style="width: 60px;height: 36px;">发送</button>
+</view>
+
+<wxs src="../../utils/until.wxs" module="m1"></wxs>

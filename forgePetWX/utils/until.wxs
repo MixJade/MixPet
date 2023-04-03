@@ -1,0 +1,27 @@
+  // 根据出生日期算年龄(简化版)
+  var nowYear = getDate().getFullYear();
+  var age = function (birthday) {
+    var birthYear = birthday.split("-")[0]
+    return nowYear - birthYear
+  }
+  //去除T
+ var moveT= function(s) {
+    return s.toString().replace("T",' ')
+}
+
+// 获取工龄天数
+var nowDate = getDate()//工龄毫秒值
+var chatDate= function(createTime) {
+    var hours = createTime.split("T")[1]
+    var start = Date.parse(createTime)
+    if (start >= nowDate) {
+        return hours
+    }//最快取整
+    var dayBad = ~~((nowDate - start) / (86400000))
+    if (dayBad > 0) return dayBad + "天前 " + hours
+    return hours
+}
+
+  module.exports.age = age;
+  module.exports.moveT = moveT;
+  module.exports.chatDate = chatDate;

@@ -1,0 +1,12 @@
+<!--pages/petSee/petSee.wxml-->
+<view wx:for="{{petList}}" wx:for-item="pet" wx:key="petId">
+  <van-card title="{{pet.petName}}" thumb="{{base}}{{ pet.petPhoto }}" thumb-link="../petOne/petOne?id={{pet.petId}}">
+    <view slot="desc">
+      <view>品种：{{pet.petVariety}}</view>
+      <view>性别：{{pet.petSex==1?"公":"母"}}</view>
+      <view> 生日：{{pet.petAge}}</view>
+      <view>简介: {{pet.petInfo}}</view>
+      <navigator class="primary" url="../petOne/petOne?id={{pet.petId}}">查看详情</navigator>
+    </view>
+  </van-card>
+</view>

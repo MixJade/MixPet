@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forge.mapper.EmployeeMapper">
+    <!--逻辑删除单个-->
+    <update id="deleteId">
+        UPDATE employee
+        SET is_del=#{delDate}
+        WHERE employee_id = #{employeeId};
+    </update>
+    <!--查询分页的条目数-->
+    <select id="selectEmployeeCount" resultType="int">
+        select
+        count(*)
+        from employee
+        WHERE is_del='0'
+        <if test="employeeName!=null and employeeName!=''">
+            and employee_name like "%"#{employeeName}"%"
+        </if>
+    </select>
+    <!--分页查询-->
+    <select id="selectEmployeePage" resultType="com.forge.entity.Employee">
+        SELECT
+        employee_id, employee_username, employee_name, employee_level,employee_tel,employee_photo,create_time
+        FROM employee
+        WHERE is_del='0'
+        <if test="employeeName!=null and employeeName!=''">
+            and employee_name like "%"#{employeeName}"%"
+        </if>
+        order by employee_level desc
+        limit #{begin},#{pageItem};
+    </select>
+</mapper>

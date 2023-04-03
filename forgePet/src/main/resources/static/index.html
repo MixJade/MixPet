@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link rel="stylesheet" href="assets/bootstrap.min.css">
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        .carousel-item .carousel-caption {
+            background: rgba(0, 0, 0, 30%);
+        }
+
+        .text-center {
+            cursor: pointer;
+        }
+
+        #clientImgDiv {
+            cursor: pointer;
+        }
+
+        #clientNoneDiv {
+            width: 18rem;
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            z-index: 1100;
+            display: none;
+            margin-left: -9rem;
+        }
+
+        #clientImg {
+            height: 32px;
+            width: 32px;
+            z-index: 1200;
+            position: fixed;
+            top: 2%;
+            left: 50%;
+            margin-left: -16px;
+            transition: all 0.5s;
+        }
+
+        #clientImgDiv:hover #clientImg {
+            transform: scale(2.5) translate(0, 20px);
+        }
+
+        #clientImgDiv:hover #clientNoneDiv {
+            display: block;
+        }
+
+        /*跳转到聊天的按钮*/
+        #chatBtn {
+            position: fixed;
+            bottom: 10%;
+            right: 5%;
+        }
+    </style>
+</head>
+
+<body>
+<!-- 用户头像 -->
+<div id="clientImgDiv">
+    <img class="rounded-circle" id="clientImg" src="picture/none.png" alt="用户"/>
+    <div class="card" id="clientNoneDiv">
+        <div class="card-body" id="needLogin" style="display: none">
+            <h4 class="card-title" id="clientName">用户姓名</h4>
+            <br>
+            <h6 class="card-subtitle text-muted" id="clientInfo">一个好用户</h6>
+            <ul class="list-group list-group-flush ms-3">
+                <li class="list-group-item list-group-item-action">
+                    <a href="reception/oneClient.html">个人中心</a>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <a class="link-dark" href="reception/oneClient.html?pet">宠物管理</a>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <a class="link-dark" href="reception/oneClient.html?appoint">挂号信息</a>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <a class="link-dark" href="reception/chat.html">咨询医生</a>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <a class="text-danger" href="javascript:logout()">退出登录</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body" id="noLogin">
+            <h5 class="card-title">游客</h5>
+            <h6 class="card-subtitle mb-2 text-muted">你需要登录</h6>
+            <br>
+            <a class="w-100 btn btn-lg btn-primary" href="login.html">点击登录</a>
+        </div>
+    </div>
+</div>
+<!-- 导航 -->
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
+    <div class="container">
+        <a href="reception/oneClient.html" class="navbar-brand">
+            <img src="picture/mia.svg" alt="商标" width="30" height="30" class="d-inline-block align-text-top">
+            宠物医院
+        </a>
+        <!-- 将浏览器缩小，会出现汉堡包按钮 -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav-menu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="reception/doctorSee.html">医生信息</a></li>
+                <li class="nav-item"><a class="nav-link" href="reception/oneClient.html?pet">宠物信息</a></li>
+                <li class="nav-item"><a class="nav-link" href="reception/oneClient.html?appoint">挂号信息</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0);" onclick="aToNotice(0)">网站公告</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- 轮播 -->
+<div class="container">
+    <div id="carouselExampleCaptions" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="picture/lun-1.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption text-white">
+                    <h5>第一个轮播</h5>
+                    <p>
+                        精神病院里，两病人本来打得很激烈，但甲突然不打了，乙就问他为什么不打了。甲说：你当我傻啊，你个神经病，你打死我又不犯法，我打死你还得坐牢。</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="picture/lun-2.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption text-white">
+                    <h5>第二个轮播</h5>
+                    <p>
+                        精神病院里，一个精神病人每天都在一个空鱼缸里钓鱼。一天，一个护士开玩笑地问：“你今天钓了几条鱼啊？”精神病人突然跳起来叫道：“你脑子有毛病啊，没看见是空鱼缸吗？”</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="picture/lun-3.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption text-white">
+                    <h5>第三个轮播</h5>
+                    <p>大师：“你是半夜两点出生的吧！” 屌丝：“大师，你真神，你怎么猜出来的？” 大师：“半夜两点是丑时。”</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+<!-- 公告栏 -->
+<section class="p-5">
+    <div class="container">
+        <h2 class="text-center mb-4">网站公告</h2>
+        <div class="list-group" id="noticeGroup"></div>
+    </div>
+</section>
+<!-- 公告弹出框 -->
+<div class="modal fade" id="noticeModal" tabindex="-1" aria-labelledby="noticeLabel" aria-hidden="true"
+     style="z-index: 1300;">
+    <div class="modal-dialog modal-dialog-scrollable ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="noticeLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="noticeBody"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 功能卡片 -->
+<section>
+    <div class="container">
+        <h2 class="text-center user-select-none" onclick="toClient()">用户入口</h2>
+        <p class="lead text-center mb-5 user-select-none" id="needLoginText">
+            点击登录
+        </p>
+        <div class="row g-4">
+            <div class="col-md">
+                <div class="card border border-primary border-3">
+                    <div class="card-body text-center">
+                        <div class="card-title">挂号信息</div>
+                        <div class="card-text">
+                            点击这里可以查看自己的挂号信息，以及某位医生的挂号占用情况
+                        </div>
+                        <a href="reception/oneClient.html?appoint" class="btn btn-primary mt-2">自己的挂号</a>
+                        <a href="reception/doctorSee.html" class="btn btn-primary mt-2">医生的挂号</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="card border border-info border-3">
+                    <div class="card-body text-center">
+                        <div class="card-title">宠物信息</div>
+                        <div class="card-text">
+                            查看一些宠物最新的信息和最近的相关动态。
+                        </div>
+                        <a href="reception/oneClient.html?pet" class="btn btn-info mt-2">宠物详情</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="card border border-warning border-3">
+                    <div class="card-body text-center">
+                        <div class="card-title">领养寄养管理</div>
+                        <div class="card-text">
+                            查看可被领养的宠物的信息以及查看被寄养的宠物信息。
+                        </div>
+                        <a href="reception/petSee.html" class="btn btn-warning mt-2">领养详情</a>
+                        <a href="reception/petFoster.html" class="btn btn-warning mt-2">寄养详情</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- 卡片：可领养 -->
+<section class="p-5">
+    <div class="container">
+        <h2 class="text-center user-select-none" onclick="toAdopt()">可领养宠物</h2>
+        <p class="lead text-center mb-5 user-select-none" onclick="toAdopt()">
+            这里有一些无家可归的宠物，<a href="#">查看详情</a>
+        </p>
+        <div class="row g-4" id="petAdopt"></div>
+    </div>
+</section>
+<!-- 卡片：医生 -->
+<section class="p-5">
+    <div class="container">
+        <h2 class="text-center user-select-none" onclick="toDoctor()">医师介绍</h2>
+        <p class="lead text-center mb-5 user-select-none" onclick="toDoctor()">
+            我们拥有全村最优秀的医生，<a href="#">查看详情</a>
+        </p>
+        <div class="row g-4" id="doctorShow"></div>
+    </div>
+</section>
+<!-- 常见问题 -->
+<section class="p-5">
+    <div class="container">
+        <h2 class="text-center">常见问题</h2>
+        <div class="accordion-item shadow mb-7">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    狗子总是晚上叫怎么办？
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                 data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    多半是发情期，送来进行绝育手术
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item shadow mb-7">
+            <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    猫猫总是到处乱抓怎么办？
+                </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                 data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    多半是发情期，送来进行绝育手术
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item shadow mb-7">
+            <h2 class="accordion-header" id="flush-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    为什么我养的羊不产奶
+                </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                 data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    你养的是公羊
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--聊天跳转按钮-->
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-chat-dots-fill"
+     viewBox="0 0 16 16" id="chatBtn">
+    <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+</svg>
+<!--页面底部-->
+<footer>
+    <p style="text-align: center;color:#C0C0C0">@宠物医院管理系统</p>
+</footer>
+</body>
+<script src="assets/bootstrap.bundle.min.js"></script>
+<script src="assets/axios.js"></script>
+<script src="reception/js/z-myUntJs.js"></script>
+<script>
+    const unt = new FrontUntil();
+    window.onload = () => {
+        Promise.all([axios("login/user"),
+            axios("doctor/page?numPage=1&pageSize=4"),
+            axios("pet/four?numPage=1&pageSize=4"),
+            axios("notice/four")])
+            .then(results => {
+                getUser(results[0]["data"])
+                getDoctor(results[1]["data"]["data"])
+                getPet(results[2]["data"]["data"])
+                getNotice(results[3]["data"])
+            })
+    };
+
+    const doctorShow = document.getElementById("doctorShow"),//医生卡片
+        petAdopt = document.getElementById("petAdopt"),//宠物卡片
+        noticeModal = new bootstrap.Modal(document.getElementById("noticeModal")),//公告
+        noticeBody = document.getElementById("noticeBody"),//公告内容
+        noticeLabel = document.getElementById("noticeLabel"),//公告标题
+        noticeGroup = document.getElementById("noticeGroup"),//公告链接
+        noticeText = [],//公告文本
+        noticeTit = []//公告标题
+    //跳转医生
+    function toDoctor() {
+        window.location.href = "reception/doctorSee.html"
+    }//跳转可领养宠物
+    function toAdopt() {
+        window.location.href = "reception/petSee.html"
+    }//跳转用户
+    function toClient() {
+        window.location.href = "reception/oneClient.html"
+    }
+
+    //公告弹出
+    function aToNotice(num) {
+        noticeLabel.innerHTML = noticeTit[num]
+        noticeBody.innerHTML = noticeText[num]
+        noticeModal.show()
+    }
+
+    function getUser(da) {
+        if (da != null && da !== '') {
+            document.getElementById("needLogin").style.display = 'block'
+            document.getElementById("noLogin").style.display = 'none'
+            document.getElementById("needLoginText").innerText = "可以在这里查看挂号信息与宠物信息"
+            document.getElementById("clientImg").src = 'common/download?name=' + da["clientPhoto"]
+            document.getElementById("clientName").innerHTML = da["clientName"]
+            document.getElementById("clientInfo").innerHTML = da["clientInfo"]
+        }
+    }//获取医生
+    function getDoctor(doc) {
+        for (let i = 0; i < doc.length; i++) {
+            const {doctorId, doctorName, doctorPhoto, doctorInfo, doctorAge, doctorGender, doctorJob} = doc[i]
+            const doctorSex = doctorGender ? "男" : "女"
+            const link = "reception/doctorOne.html?" + doctorId
+            unt.writeCard(doctorShow, doctorName, doctorPhoto, doctorInfo, doctorAge, doctorSex, doctorJob, link)
+        }
+    }//获取宠物
+    function getPet(doc) {
+        for (let i = 0; i < doc.length; i++) {
+            const {petId, petName, petVariety, petSex, petAge, petInfo, petPhoto} = doc[i]
+            const petSex01 = petSex ? "公" : "母"
+            const link = "reception/petOne.html?" + petId
+            unt.writeCard(petAdopt, petName, petPhoto, petInfo, petAge, petSex01, petVariety, link)
+        }
+    }//获取公告
+    function getNotice(doc) {
+        for (let i = 0; i < doc.length; i++) {
+            noticeText.push(brText(doc[i]["textNotice"]))
+            noticeTit.push(doc[i]["noticeTitle"])
+            noticeGroup.innerHTML += '<a onclick="aToNotice(' + i + ')" class="list-group-item list-group-item-action">' + doc[i]["noticeTitle"] + '</a>'
+        }
+    } //处理公告文本
+    function brText(text) {
+        return text.replaceAll("\n", "<br>").replaceAll(" ", "&nbsp;")
+    }
+
+    // 跳转到页面
+    document.getElementById("chatBtn").onclick = () => window.location.href = "reception/chat.html"
+
+    // 退出登录
+    function logout() {
+        axios("login/bye").then(resp=> {
+            if (resp.data["code"] === 204) location.reload()
+        })
+    }
+</script>
+
+</html>

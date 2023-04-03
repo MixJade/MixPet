@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公告管理</title>
+    <link rel="stylesheet" href="../assets/bootstrap.min.css">
+</head>
+
+<body>
+<!--公告栏-->
+<div class="modal fade" id="noticeModal" tabindex="-1" aria-labelledby="noticeModalLabel" aria-hidden="true"
+     style="z-index: 1300;">
+    <div class="modal-dialog modal-dialog-scrollable ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="noticeModalLabel">公告标题</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 弹出框 -->
+<div class="modal fade" id="addRolePop" tabindex="-1" aria-labelledby="addRolePopLa" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addRolePopLa">添加公告</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="d-grid gap-3" id="addRoleForm">
+                    <input type="hidden" id="noticeId">
+                    <input type="hidden" id="noticeFile">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="noticeTitle">公告标题</label>
+                        <div class="col-md-8">
+                            <input class="form-control" id="noticeTitle" type="text" autocomplete="off"
+                                   placeholder="公告标题">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="textNotice">公告内容</label>
+                        <div class="col-md-8">
+                            <textarea class="form-control" id="textNotice" rows="7"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">关闭</button>
+                <button class="btn btn-primary" data-bs-dismiss="modal" type="button" id="submitForm">确认提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 搜索与添加与批量删除 -->
+<nav class="navbar bg-light sticky-top">
+    <div class="container-fluid">
+        <form class="d-flex" role="search" onsubmit="return false">
+            <input class="form-control me-2" type="search" placeholder="公告标题" aria-label="Search" id="searchInput">
+            <button class="btn btn-outline-success" type="submit" onclick="sss.getAll()">Search</button>
+        </form>
+        <div class="d-flex flex-row-reverse bd-highlight">
+            <button type="button" class="btn btn-danger ms-1" id="delALL">批量删除</button>
+            <button type="button" class="btn btn-secondary ms-1" id="delImg">删除冗余</button>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addRolePop"
+                    onclick="sss.addTit()">添加公告
+            </button>
+        </div>
+    </div>
+</nav>
+<!-- 表格 -->
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th><input class="form-check-input ms-3" type="checkbox" id="checkALL"><label for="checkALL"></label></th>
+        <th>公告标题</th>
+        <th>创建人</th>
+        <th>创建时间</th>
+        <th>修改人</th>
+        <th>修改时间</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody id="tb-main">
+    </tbody>
+</table>
+</body>
+<script src="../assets/bootstrap.bundle.min.js"></script>
+<script src="../assets/axios.js"></script>
+<script src="z-myJS.js"></script>
+<script type="text/javascript">
+    // 建立对象
+    const sss = new MixRole("notice", "公告")
+    window.onload = function () {
+        sss.getAll();
+    }// 向表格类动态添加数据
+    function getDataRow(h) {
+        const {isDisable, noticeId, noticeTitle, textNotice} = h
+        const row = document.createElement('tr'); //创建行
+        if (isDisable) {
+            row.setAttribute("class", "table-secondary")
+        } else {
+            row.setAttribute("class", "table-success")
+        }
+        // 添加复选框
+        row.appendChild(sss.check(noticeId));
+        // 添加其他列
+        h["createTime"] = h["createTime"].toString().replaceAll("T", ' ')
+        h["updateTime"] = h["updateTime"].toString().replaceAll("T", ' ')
+        const group02 = ["noticeTitle", "createName", "createTime", "updateName", "updateTime"]
+        for (let i = 0; i < group02.length; i++) {
+            row.appendChild(sss.cell(h[group02[i]]))
+        }
+        //删除与修改按钮
+        const disCell = sss.opCell(noticeId, h);
+        //禁用按钮
+        const btnDis = isDisable ? sss.btn('启用', 'btn-success') : sss.btn('禁用', 'btn-secondary');
+        btnDis.onclick = () => disableSet(noticeId, isDisable)
+        disCell.insertBefore(btnDis, disCell.getElementsByTagName("input")[0]);
+        //查看详情按钮
+        const btnSee = sss.btn('详情', 'btn-primary')
+        btnSee.onclick = () => showModal(noticeTitle, textNotice)
+        disCell.insertBefore(btnSee, disCell.getElementsByTagName("input")[0]);
+        row.appendChild(disCell);
+        return row;
+    }//表单数据转json
+    function formToJson() {
+        return sss.getVal(["noticeId", "noticeTitle", "textNotice", "noticeFile"])
+    }//json数据转表单
+    function jsonToForm(h) {
+        sss.setVal(["noticeId", "noticeTitle", "textNotice", "noticeFile"], h)
+    }
+
+    // 禁用与启用
+    function disableSet(noticeId, isDis) {
+        axios.delete("notice/disable/" + noticeId + "?isDis=" + isDis).then(resp => sss.commonResp(resp))
+    }//删除冗余图片
+    document.getElementById("delImg").onclick = () => {
+        axios.delete("notice/delImg").then(resp => sss.commonResp(resp))
+    }
+    (function () {
+        const noticeModal = document.getElementById("noticeModal"),
+            modal = new bootstrap.Modal(noticeModal, {keyboard: false})//开启公告栏
+        window.showModal = (title, text) => {
+            noticeModal.querySelector(".modal-title").innerHTML = title
+            noticeModal.querySelector(".modal-body").innerHTML = text.replaceAll("\n", "<br>").replaceAll(" ", "&nbsp;")
+            modal.show()
+        }
+    }());
+</script>
+
+</html>
