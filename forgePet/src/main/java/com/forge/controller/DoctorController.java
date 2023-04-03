@@ -1,0 +1,82 @@
+package com.forge.controller;
+
+import com.forge.common.Result;
+import com.forge.dto.DoctorDto;
+import com.forge.entity.Doctor;
+import com.forge.service.IDoctorService;
+import com.forge.vo.NameVo;
+import com.forge.vo.Page;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * <p>
+ * 医生表，外键部门 前端控制器
+ * </p>
+ *
+ * @author MixJade
+ * @since 2022-12-22
+ */
+@RestController
+@RequestMapping("/doctor")
+public class DoctorController {
+    private final IDoctorService doctorService;
+
+    @Autowired
+    public DoctorController(IDoctorService doctorService) {
+        this.doctorService = doctorService;
+    }
+
+    @GetMapping
+    public List<NameVo> getAll() {
+        return doctorService.selectName();
+    }
+
+    @GetMapping("/department")
+    public List<NameVo> getByDepartment(long departmentId) {
+        return doctorService.selectByDepartment(departmentId);
+    }
+
+    @GetMapping("/page")
+    public Page<List<DoctorDto>> getPage(int numPage, int pageSize, String doctorName, String departmentName) {
+        return doctorService.selectByPage(doctorName, departmentName, numPage, pageSize);
+    }
+
+    /**
+     * 根据id查询单个医生
+     *
+     * @param doctorId 网页读取get参数，必须用包装类，因为可能不是数字
+     * @return 医生信息
+     */
+    @GetMapping("/one")
+    public DoctorDto getOne(Long doctorId) {
+        return doctorService.selectById(doctorId);
+    }
+
+    @PostMapping
+    @RequiresRoles("deputy")
+    public Result save(@RequestBody Doctor doctor) {
+        return Result.choice("添加", doctorService.save(doctor));
+    }
+
+    @DeleteMapping("/{id}")
+    @RequiresRoles("deputy")
+    public Result delete(@PathVariable Long id) {
+        return Result.choice("删除单个", doctorService.deleteById(id));
+    }
+
+    @DeleteMapping("/batch/{ids}")
+    @RequiresRoles("deputy")
+    public Result deleteGroup(@PathVariable long[] ids) {
+        return Result.choice("删除多个", doctorService.deleteByIds(ids));
+    }
+
+    @PutMapping
+    @RequiresRoles("deputy")
+    public Result update(@RequestBody Doctor doctor) {
+        return Result.choice("修改", doctorService.updateById(doctor));
+    }
+}

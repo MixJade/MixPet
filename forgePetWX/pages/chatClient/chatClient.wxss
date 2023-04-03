@@ -1,0 +1,75 @@
+/* pages/chatClient/chatClient.wxss */
+#chatBody{
+  width: 720rpx;
+  margin-left: 15rpx;
+}
+
+.msg {
+  display: flex;
+}
+
+.chatImg{
+  width: 100%;
+  border-radius: 5%;
+  top: 0px;
+}
+
+.msgImg {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%
+}
+
+.small{
+  margin-left: 10px;
+  font-size:10px
+}
+
+.msgText {
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5%
+}
+
+.bg-light {
+  background-color: #f8f9fa;
+}
+
+.bg-success {
+  color: #f8f9fa;
+  background-color: #198754;
+}
+
+.w-50 {
+  width: 50%
+}
+
+.justify-content-end {
+  justify-content: flex-end
+}
+
+.chatTit {
+  text-align: center;
+  background-color: #f8f9fa;
+}
+
+.chatFoot {
+  height: 48px;
+  width: 750rpx;
+  background-color: lightgreen;
+  position: fixed;
+  bottom: 0px;
+  display: flex;
+  padding-top: 5px;
+}
+
+.chatFoot image {
+  width: 72rpx;
+  height: 36px;
+}
+
+.chatFoot input {
+  height: 36px;
+  width: 600rpx;
+  margin: 6rpx;
+}

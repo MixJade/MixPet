@@ -1,0 +1,12 @@
+/* pages/register/register.wxss */
+.mySex {
+  display: flex;
+  flex-wrap: wrap;
+  height: 70rpx;
+  background-color: white;
+  font-size: small;
+}
+
+radio {
+  margin-left: 60rpx;
+}

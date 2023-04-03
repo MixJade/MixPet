@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forge.mapper.AppointmentMapper">
+    <!--逻辑删除单个-->
+    <update id="deleteId">
+        UPDATE appointment
+        SET is_del=#{delDate}
+        WHERE appointment_id = #{appointmentId};
+    </update>
+    <!-- 逻辑删除多个-->
+    <update id="deleteIdGroup">
+        UPDATE appointment
+        SET is_del=#{delDate}
+        WHERE appointment_id IN
+        <foreach collection="idGroup" item="appointmentId" separator="," open="(" close=")">
+            #{appointmentId}
+        </foreach>
+    </update>
+    <!--查询分页的条目数-->
+    <select id="selectAppointmentCount" resultType="int">
+        select
+        count(*)
+        FROM appointment a,
+        client b,
+        pet c,
+        department d,
+        doctor e
+        WHERE a.is_del = '0'
+        AND a.client_id = b.client_id
+        AND a.pet_id = c.pet_id
+        AND a.department_id = d.department_id
+        AND a.doctor_id = e.doctor_id
+        <if test="seaName!=null and seaName!=''">
+            <choose>
+                <when test="seaType==0">
+                    and b.client_name like #{seaName}
+                </when>
+                <when test="seaType==1">
+                    and c.pet_Name like #{seaName}
+                </when>
+                <when test="seaType==2">
+                    and e.doctor_name like #{seaName}
+                </when>
+                <otherwise>
+                    and d.department_name like #{seaName}
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+    <!--分页查询-->
+    <select id="selectAppointmentPage" resultType="com.forge.dto.AppointmentDto">
+        SELECT appointment_id,
+        a.client_id,
+        a.pet_id,
+        appointment_date,
+        a.department_id,
+        a.doctor_id,
+        appointment_info,
+        a.create_time,
+        b.client_name,
+        c.pet_name,
+        d.department_name,
+        e.doctor_name,
+        a.is_suc
+        FROM appointment a,
+        client b,
+        pet c,
+        department d,
+        doctor e
+        WHERE a.is_del = '0'
+        AND a.client_id = b.client_id
+        AND a.pet_id = c.pet_id
+        AND a.department_id = d.department_id
+        AND a.doctor_id = e.doctor_id
+        <if test="seaName!=null and seaName!=''">
+            <choose>
+                <when test="seaType==0">
+                    and b.client_name like #{seaName}
+                </when>
+                <when test="seaType==1">
+                    and c.pet_Name like #{seaName}
+                </when>
+                <when test="seaType==2">
+                    and e.doctor_name like #{seaName}
+                </when>
+                <otherwise>
+                    and d.department_name like #{seaName}
+                </otherwise>
+            </choose>
+        </if>
+        order by appointment_date desc
+        limit #{begin},#{pageItem};
+    </select>
+    <!--根据医生查询订单-->
+    <select id="getDoctor" resultType="com.forge.dto.AppointmentDto">
+        SELECT appointment_id, appointment_date, appointment_info, b.client_name, c.pet_name
+        FROM appointment a,
+             client b,
+             pet c
+        WHERE a.is_del = '0'
+          AND a.client_id = b.client_id
+          AND a.pet_id = c.pet_id
+          AND doctor_id = #{doctorId}
+        order by appointment_date desc
+    </select>
+    <!--根据用户查询订单-->
+    <select id="getClient" resultType="com.forge.dto.AppointmentDto">
+        SELECT a.appointment_id,
+               a.client_id,
+               a.pet_id,
+               a.appointment_date,
+               a.doctor_id,
+               a.appointment_info,
+               a.create_time,
+               b.doctor_name,
+               c.pet_name,
+               d.department_name
+        FROM appointment a,
+             doctor b,
+             pet c,
+             department d
+        WHERE a.is_del = '0'
+          AND a.doctor_id = b.doctor_id
+          AND a.pet_id = c.pet_id
+          AND a.department_id = d.department_id
+          AND a.client_id = #{clientId}
+        order by appointment_date desc
+    </select>
+<!--医生：已登录查询订单-->
+    <select id="getDoctorLog" resultType="com.forge.dto.AppointmentDto2">
+        SELECT appointment_id,
+        a.client_id,
+        a.pet_id,
+        appointment_date,
+        a.department_id,
+        a.doctor_id,
+        appointment_info,
+        a.create_time,
+        b.client_name,
+        c.pet_name,
+        c.pet_photo,
+        c.pet_variety,
+        c.pet_sex,
+        c.pet_age,
+        d.department_name,
+        a.is_suc
+        FROM appointment a,
+        client b,
+        pet c,
+        department d
+        WHERE a.is_del = '0'
+        AND a.client_id = b.client_id
+        AND a.pet_id = c.pet_id
+        AND a.department_id = d.department_id
+        AND a.doctor_id = #{doctorId}
+        order by appointment_date desc
+    </select>
+</mapper>

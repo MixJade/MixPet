@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医生主页</title>
+    <link rel="stylesheet" href="../assets/bootstrap.min.css">
+    <style>
+
+        .text-center {
+            cursor: pointer;
+        }
+
+        #clientImgDiv {
+            cursor: pointer;
+        }
+
+        #clientNoneDiv {
+            width: 18rem;
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            z-index: 1100;
+            display: none;
+            margin-left: -9rem;
+        }
+
+        #clientImg {
+            height: 32px;
+            width: 32px;
+            z-index: 1200;
+            position: fixed;
+            top: 2%;
+            left: 50%;
+            margin-left: -16px;
+            transition: all 0.5s;
+        }
+
+        #clientImgDiv:hover #clientImg {
+            transform: scale(2.5) translate(0, 20px);
+        }
+
+        #clientImgDiv:hover #clientNoneDiv {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+<!-- 医生头像 -->
+<div id="clientImgDiv">
+    <img class="rounded-circle" id="clientImg" src="../picture/none.png" alt="医生"/>
+    <div class="card bg-light" id="clientNoneDiv">
+        <br>
+        <div class="card-body" id="cardDoctor">
+            <h5 class="card-title">尚未登录</h5>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="../login.html" class="btn btn-primary ms-1">前往登录</a>
+                    <a href="javascript:logout()" class="btn btn-danger ms-1">退出登录</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- 导航 -->
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
+    <div class="container">
+        <a href="oneDoctor.html" class="navbar-brand">
+            <img src="../picture/mia.svg" alt="商标" width="30" height="24" class="d-inline-block align-text-top">
+            宠物医院
+        </a>
+        <!-- 将浏览器缩小，会出现汉堡包按钮 -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav-menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav-menu">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="appointment.html">挂号信息</a></li>
+                <li class="nav-item"><a class="nav-link" href="chat.html">在线咨询</a></li>
+                <li class="nav-item"><a class="nav-link" href="oneDoctor.html">个人资料</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- 功能卡片 -->
+<section>
+    <div class="container">
+        <h1 class="text-center user-select-none">你好,医生</h1>
+        <p class="lead text-center mb-5 user-select-none">
+            欢迎使用宠物医院管理系统医生端
+        </p>
+        <div class="row g-4">
+            <div class="col-md">
+                <div class="card border border-primary border-3">
+                    <div class="card-body text-center">
+                        <div class="card-title">挂号信息</div>
+                        <br>
+                        <div class="card-text">
+                            查看当前挂号
+                        </div>
+                        <br>
+                        <a href="appointment.html" class="btn btn-primary mt-2">挂号详情</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="card border border-info border-3">
+                    <div class="card-body text-center">
+                        <div class="card-title">在线咨询</div>
+                        <br>
+                        <div class="card-text">
+                            望闻问切，答疑解惑
+                        </div>
+                        <br>
+                        <a href="chat.html" class="btn btn-info mt-2">开始聊天</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="card border border-warning border-3">
+                    <div class="card-body text-center">
+                        <div class="card-title">个人资料</div>
+                        <br>
+                        <div class="card-text">
+                            修改密码，查看简历
+                        </div>
+                        <br>
+                        <a href="oneDoctor.html" class="btn btn-warning mt-2">个人资料</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--页面底部-->
+<footer>
+    <p style="text-align: center;color:#C0C0C0">@宠物医院管理系统</p>
+</footer>
+</body>
+<script src="../assets/bootstrap.bundle.min.js"></script>
+<script src="../assets/axios.js"></script>
+<script src="../reception/js/request.js"></script>
+<script>
+    // 点击跳转主页
+    document.getElementById("clientImg").onclick = () => location.href = "oneDoctor.html"
+    // 信息卡片展示
+    axios("doctorLog").then(resp => {
+        const {doctorName, doctorCode, departmentName, doctorJob, doctorPhoto} = resp.data
+        document.getElementById("cardDoctor").innerHTML = `
+            <h5 class="card-title">${doctorName}</h5>
+            <ul class="list-group">
+                <li class="list-group-item">工号:${doctorCode}</li>
+                <li class="list-group-item">${departmentName}</li>
+                <li class="list-group-item">${doctorJob}</li>
+                <li class="list-group-item"><a href="javascript:logout()" class="btn btn-danger ms-5">退出登录</a>
+                </li>
+            </ul>
+        `
+        document.getElementById("clientImg").src = "http://localhost:8080/common/download?name=" + doctorPhoto
+    })// 退出登录
+    function logout(){
+        axios("login/bye").then(resp=> {
+            console.log(resp.data["code"])
+            if (resp.data["code"] === 204) window.top.location.href = "/login.html"
+        })
+    }
+</script>
+
+</html>

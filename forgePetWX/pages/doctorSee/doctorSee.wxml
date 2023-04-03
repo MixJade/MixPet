@@ -1,0 +1,15 @@
+<!--pages/doctorSee/doctorSee.wxml-->
+<view class="doctorCards" wx:for="{{doctors}}" wx:for-item="doctor" wx:key="doctorId">
+  <van-card title="{{doctor.doctorName}}" thumb="{{base}}{{doctor.doctorPhoto}}" thumb-link="/pages/doctorAppoint/doctorAppoint?id={{doctor.doctorId}}">
+    <view slot="desc">
+      <text>{{m1.age(doctor.doctorAge)}}岁 {{doctor.doctorGender?"男":"女"}} {{doctor.doctorJob}}
+        {{doctor.doctorInfo}}\n
+      </text>
+      <view>
+        <navigator class="primary" url="/pages/doctorAppoint/doctorAppoint?id={{doctor.doctorId}}">详情</navigator>
+      </view>
+    </view>
+  </van-card>
+</view>
+
+<wxs src="../../utils/until.wxs" module="m1"></wxs>

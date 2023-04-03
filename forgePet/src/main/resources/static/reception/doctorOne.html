@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>医生详情</title>
+    <link href="../assets/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 基础区域 */
+        #basePage {
+            position: absolute;
+            width: 80%;
+            left: 10%;
+            top: 5%;
+            box-shadow: 7px 7px 17px rgba(52, 56, 66, 0.5);
+            border-radius: 5px;
+            background-color: whitesmoke;
+        }
+
+        /* 医生信息 */
+        #leftDiv {
+            text-align: center;
+            float: left;
+        }
+
+        /* 右边内容 */
+        #rightDiv {
+            text-align: center;
+            float: left;
+        }
+
+        /* 返回链接 */
+        #reA {
+            position: absolute;
+            text-decoration: none;
+        }
+
+        body {
+            background-image: url("../picture/background.jpg");
+        }
+    </style>
+</head>
+
+<body>
+<div id="basePage">
+    <a href="javascript:history.back()" id="reA">←返回</a>
+    <div class="shadow col-12 col-sm-12 col-md-4" id="leftDiv">
+        <img src="../picture/none.png" class="rounded-circle img-fluid p-3" alt="" id="doctorPhoto"/>
+        <h2 id="doctorName">姓名</h2>
+        <p id="doctorCode">工号</p>
+        <p><span id="departmentName">科室:</span>&nbsp;<span id="doctorJob"></span></p>
+        <p><span id="doctorAge"></span>岁&nbsp;&nbsp;<span id="doctorGender"></span></p>
+        <p>邮箱:<span id="doctorTel"></span></p>
+        <p>简介:<span id="doctorInfo"></span></p>
+        <a id="goChat" href="chat.html">咨询</a>
+    </div>
+    <div class="col-12 col-sm-12 col-md-8" id="rightDiv">
+        <h3 class="shadow p-3">挂号情况</h3>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>挂号人</th>
+                <th>挂号宠物</th>
+                <th>描述</th>
+                <th>就诊时间</th>
+            </tr>
+            </thead>
+            <tbody id="tb-main">
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+<script src="../assets/axios.js"></script>
+<script src="js/z-myUntJs.js"></script>
+<script>
+    // 建立对象
+    const unt = new FrontUntil()
+    window.onload = () => {
+        const href = window.location.href
+        if (href.indexOf("?") !== -1) {
+            const doctorId = href.split("?")[1]
+            if (!isNaN(parseInt(doctorId))) {
+                document.getElementById("goChat").setAttribute("href","chat.html?"+doctorId)
+                Promise.all([axios("doctor/one?doctorId=" + doctorId), axios("appointment/doctor?doctorId=" + doctorId)])
+                    .then(results => {
+                        doctorMes(results[0]["data"])
+                        appointmentMes(results[1]["data"])
+                    })
+            }
+        }
+    }// 医生信息
+    function doctorMes(h) {
+        const {doctorGender, doctorAge, doctorPhoto} = h
+        document.getElementById("doctorPhoto").src = myBackStage + 'common/download?name=' + doctorPhoto;
+        h["doctorGender"] = doctorGender ? "男" : "女"
+        h["doctorAge"] = unt.age(doctorAge)
+        unt.setInnerText(h, ["doctorName", "doctorCode", "departmentName", "doctorJob"
+            , "doctorAge", "doctorGender", "doctorTel", "doctorInfo"])
+    }// 挂号信息
+    function appointmentMes(h) {
+        unt.addTable(h, ["clientName", "petName", "appointmentInfo", "appointmentDate"])
+    }
+</script>
+
+</html>

@@ -1,0 +1,13 @@
+<!--pages/petFoster/petFoster.wxml-->
+<view wx:for="{{fList}}" wx:for-item="f" wx:key="fosterId">
+  <van-card title="{{f.petName}}" thumb="{{base}}{{ f.petPhoto }}">
+    <view slot="desc">
+      <view>{{f.petVariety}} {{f.petSex==1?"公":"母"}} {{m1.age(f.petAge)}}岁</view>
+      <view>当前状态：{{f.petInfo}}</view>
+      <view>寄养备注：{{f.fosterInfo}}</view>
+      <view>寄养人: {{f.clientName}} </view>
+      <view>到期时间:{{f.fosterTerm}} </view>
+    </view>
+  </van-card>
+</view>
+<wxs src="../../utils/until.wxs" module="m1"></wxs>

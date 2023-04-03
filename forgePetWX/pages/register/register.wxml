@@ -1,0 +1,28 @@
+<!--pages/register/register.wxml-->
+<image src="/images/mia.svg" mode="aspectFit" class="loginImage"></image>
+<van-cell-group>
+  <van-field model:value="{{ email }}" required label="邮箱" placeholder="请输入邮箱" />
+  <van-field model:value="{{ sms }}" required label="验证码" placeholder="验证码" use-button-slot>
+    <button slot="button" size="mini" type="warn" disabled="{{btnDisable}}" bindtap="sendMail">{{btnText}}</button>
+  </van-field>
+  <van-field model:value="{{ name }}" required label="姓名" placeholder="请输入姓名" />
+  <view class="mySex">
+    <view style="margin-left: 35rpx;">性别:</view>
+    <radio-group style="margin-left: 50rpx;" bind:change="onChangeSex">
+      <label>
+        <radio value='true' checked="true" color="#fd7e14" />男
+      </label>
+      <label>
+        <radio value='false' color="#fd7e14" />女
+      </label>
+    </radio-group>
+  </view>
+  <van-field model:value="{{ username }}" required label="账号" placeholder="请设置账号" bindblur="sureUser" />
+  <van-field model:value="{{ password }}" type="password" label="密码" placeholder="请设置密码" required border="{{ false }}" />
+</van-cell-group>
+<text>\n</text>
+<van-button block size="large" type="warning" bindtap="toRegister"> 注册</van-button>
+<text>\n</text>
+<navigator open-type="navigateBack">
+  <van-button block plain size="large" type="info"> 前往登录</van-button>
+</navigator>

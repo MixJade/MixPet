@@ -1,0 +1,23 @@
+<!--pages/petOne/petOne.wxml-->
+<van-card title="{{pet.petName}}" thumb="{{base}}{{ pet.petPhoto }}">
+  <view slot="desc">
+    <view>品种：{{pet.petVariety}}</view>
+    <view>性别：{{pet.petSex?"公":"母"}}</view>
+    <view> 生日：{{pet.petAge}}</view>
+    <view>健康状态:{{pet.petStatus}}</view>
+    <view>近况: {{pet.petInfo}}</view>
+  </view>
+</van-card>
+<van-popup show="{{ showP }}" bind:close="onClose" custom-style="width:600rpx;height:180px;text-align: center;">
+  <van-field model:value="{{ adoptInfo }}" required label="申请领养理由:" placeholder="申请理由" />
+  <van-field model:value="{{ adoptMoney }}" bindinput="justNum" type="number" required label="打算支付押金:" placeholder="钱" />
+  <text>\n</text>
+  <van-button type="warning" bindtap="addAdopt">提交申请</van-button>
+</van-popup>
+<text>\n</text>
+<van-button wx:if="{{inAdopt}}" block plain type="warning" disabled>等待审核</van-button>
+<van-button wx:else block plain type="warning" bindtap="showPop">申请领养</van-button>
+<text>\n</text>
+<navigator open-type="navigateBack">
+  <van-button block plain type="info">返回</van-button>
+</navigator>

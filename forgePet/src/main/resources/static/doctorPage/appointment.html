@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>查看挂号</title>
+    <link rel="stylesheet" href="../assets/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url("../picture/background.jpg");
+        }
+    </style>
+</head>
+<body>
+<nav class="bg-black" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:history.back()">主页</a></li>
+        <li class="breadcrumb-item active" aria-current="page">查看挂号</li>
+    </ol>
+</nav>
+<!-- 卡片 -->
+<div class="container row g-3 ms-auto" id="appointCard">
+</div>
+</body>
+<script src="../assets/bootstrap.bundle.min.js"></script>
+<script src="../assets/axios.js"></script>
+<script src="../reception/js/request.js"></script>
+<script>
+    window.onload = () => getAppoint()// 获取当前挂号
+    function getAppoint() {
+        document.getElementById("appointCard").innerHTML = ''
+        axios("doctorLog/appoint").then(resp => {
+            const appointList = resp.data
+            for (let i = 0; i < appointList.length; i++) {
+                writeCard(appointList[i])
+            }
+        })
+    }// 写入挂号信息
+    function writeCard(h) {
+        const {
+            petPhoto,
+            petVariety,
+            petSex,
+            petAge,
+            petName,
+            appointmentInfo,
+            appointmentId,
+            clientName,
+            appointmentDate,
+            createTime,
+            isSuc
+        } = h
+        document.getElementById("appointCard").innerHTML += `
+        <div class="card col-md-5 mx-2">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="http://localhost:8080/common/download?name=${petPhoto}" class="rounded-circle img-fluid p-3" alt=""/>
+                <p class="card-text ms-3">品种:${petVariety}<br>性别:${petSex ? "公" : "母"}<br>年龄:${age(petAge)}</p>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">${petName}</h5>
+                    <p class="card-text">描述：${appointmentInfo}</p>
+                    <p class="card-text">单号：${appointmentId}&nbsp;&nbsp;挂号人:${clientName}</p>
+                    <p class="card-text">
+                    <small>就诊时间:${appointmentDate.toString().replaceAll("T", ' ')}</small>
+                    </p>
+                    <p class="card-text">
+                        <small class="text-muted">挂号时间:${createTime.toString().replaceAll("T", ' ')}</small>
+                    </p>
+                    <p class="card-text">
+                        ${isSuc ? '<span class=text-success>已处理</span>' : '<a href="javascript:void" onclick="deal(' + appointmentId + ')" class="btn btn-success">处理</a>'}
+                    </p></div></div></div></div>
+        `
+    }// 根据出生日期算年龄(简化版)
+    const nowYear = new Date().getFullYear()//获取年数差
+    function age(birthday) {
+        const birthYear = birthday.split("-")[0]
+        return nowYear - birthYear
+    }// 处理逻辑
+    function deal(id) {
+        const json = {
+            "appointmentId": id,
+            "isSuc": true
+        }
+        axios.put("appointment", json).then(resp => {
+            if (resp.data["code"] === 1) getAppoint()
+        })
+    }
+</script>
+</html>

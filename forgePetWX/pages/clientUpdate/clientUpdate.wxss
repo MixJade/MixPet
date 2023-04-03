@@ -1,0 +1,7 @@
+/* pages/clientUpdate/clientUpdate.wxss */
+.clienImage {
+  height: 140rpx;
+  width: 140rpx;
+  vertical-align: middle;
+  border: 5px solid #f8f9fa;
+}

@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>登录页面</title>
+    <link href="assets/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @media (min-width: 850px) {
+            .mixJade {
+                width: 38%;
+                left: 31%;
+            }
+        }
+
+        @media (max-width: 850px)and (min-width: 500px) {
+            .mixJade {
+                width: 60%;
+                left: 20%;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .mixJade {
+                width: 90%;
+                left: 5%;
+            }
+        }
+
+        .mixJade {
+            top: 15%;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 7px 7px 17px rgba(52, 56, 66, 0.5);
+            background: rgba(0, 0, 0, 40%);
+            border-radius: 5px;
+            position: absolute;
+            backface-visibility: hidden;
+            transition: all 1s;
+            user-select: none;
+        }
+
+        #pairJade02 {
+            transform: rotateY(180deg);
+        }
+
+        #pairJade03 {
+            transform: rotateX(180deg);
+        }
+
+        #pairJade04 {
+            transform: rotate3d(1, 1, 0, 180deg);
+        }
+
+        #pairJade05 {
+            transform: rotate3d(1, -1, 0, 180deg);
+        }
+
+        img {
+            cursor: pointer;
+        }
+
+        body {
+            background-image: url("picture/background.jpg");
+        }
+    </style>
+</head>
+
+<body>
+<!-- 用户登录 -->
+<div class="mixJade" id="pairJade">
+    <form class="container" style="width: 80%;" onsubmit="return false">
+        <img class="mb-4" id="myImg01" src="picture/mia.svg" alt="管理员入口" width="72" height="57">
+        <h3 class="h3 mb-3 fw-normal text-white">用户登录</h3>
+
+        <div class="form-floating">
+            <input type="text" class="form-control" id="clUse" placeholder="username">
+            <label for="clUse">账号</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="clPwd" placeholder="Password">
+            <label for="clPwd">密码</label>
+        </div>
+
+        <div class="mb-3">
+            <label class="text-white">
+                <input type="checkbox" id="remember01" checked> 记住我
+            </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" onclick="loginUser()">登录</button>
+        <div class="row row-cols-1 row-cols-md-3">
+            <a href="index.html">游客登录</a>
+            <a href="javascript:void(0);" id="toReg">进行注册</a>
+            <a href="javascript:void(0);" id="toFin">找回密码</a>
+        </div>
+        <p class="mt-5 mb-3 text-muted">&copy; 2022 - 2023</p>
+    </form>
+</div>
+<!-- 管理员登录 -->
+<div class="mixJade" id="pairJade02">
+    <form class="container" style="width: 80%;" onsubmit="return false">
+        <img class="mb-4" id="myImg02" src="picture/mia.svg" alt="普通入口" width="72" height="57">
+        <h3 class="h3 mb-3 fw-normal text-white">管理员登录</h3>
+
+        <div class="form-floating">
+            <input type="text" class="form-control" id="empUse" placeholder="username">
+            <label for="empUse">账号</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="empPwd" placeholder="Password">
+            <label for="empPwd">密码</label>
+        </div>
+        <div class="mb-3">
+            <label class="text-white">
+                <input type="checkbox" id="remember02" checked> 记住我
+            </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-success" type="submit" onclick="loginAdmin()">管理员登录</button>
+        <div class="row row-cols-1 row-cols-md-3">
+            <a class="link-light" href="javascript:void(0);" id="toDoctor">医生登录</a>
+        </div>
+        <p class="mt-5 mb-3 text-muted">&copy; 2022 - 2023</p>
+    </form>
+</div>
+<!-- 注册 -->
+<div class="mixJade" id="pairJade03" style="top: 5%;">
+    <form class="container" style="width: 80%;" onsubmit="return false">
+        <h3 class="h3 mb-3 fw-normal text-warning">注册</h3>
+        <div class="form-floating">
+            <input type="email" class="form-control" id="regMail" placeholder="reg@qq.com" autocomplete="off">
+            <label for="regMail">邮箱</label>
+        </div>
+        <div class="d-flex">
+            <div class="form-floating" style="width: 60%;">
+                <input type="text" class="form-control is-invalid" id="regCode" placeholder="reg"
+                       autocomplete="off">
+                <label for="regCode">验证码</label>
+            </div>
+            <input class="btn btn-warning" type="button" style="width: 40%;" value="发送验证码"
+                   onclick="regCodeS(this)"/>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="regName" placeholder="reg" autocomplete="off">
+            <label for="regName">姓名</label>
+        </div>
+        <div class="form-floating">
+            <select class="form-select" id="regSex">
+                <option value="true" selected>男</option>
+                <option value="false">女</option>
+            </select>
+            <label for="regSex">性别</label>
+        </div>
+
+        <div class="form-floating">
+            <input type="text" class="form-control" id="regUse" placeholder="reg" autocomplete="off">
+            <label for="regUse">设置账号</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="regPwd" placeholder="reg" autocomplete="off">
+            <label for="regPwd">设置密码</label>
+        </div>
+        <label class="text-white">
+            <input type="checkbox" id="remember03" checked> 记住我
+        </label>
+        <button class="w-100 btn btn-lg btn-warning" type="submit" onclick="toRegister()">进行注册</button>
+        <a class="link-light" href="javascript:void(0);" id="toLog">已有账号？前往登录</a>
+    </form>
+</div>
+<!-- 找回密码 -->
+<div class="mixJade" id="pairJade04">
+    <form class="container" style="width: 80%;" onsubmit="return false">
+        <h3 class="h3 mb-3 fw-bold text-danger">找回密码</h3>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="finUse" placeholder="fin" autocomplete="off">
+            <label for="finUse">账号</label>
+        </div>
+        <div class="form-floating">
+            <input type="email" class="form-control" id="finMail" placeholder="fin@qq.com" autocomplete="off">
+            <label for="finMail">注册邮箱</label>
+        </div>
+        <div class="d-flex">
+            <div class="form-floating" style="width: 60%;">
+                <input type="text" class="form-control is-invalid" id="finCode" placeholder="fin"
+                       autocomplete="off">
+                <label for="finCode">验证码</label>
+            </div>
+            <input class="btn btn-danger" type="button" style="width: 40%;" value="发送验证码"
+                   onclick="finCodeS(this)"/>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="finPwd" placeholder="fin" autocomplete="off">
+            <label for="finPwd">设置新密码</label>
+        </div>
+        <br>
+        <button class="w-100 btn btn-lg btn-danger" type="submit" onclick="toFind()">找回密码</button>
+        <a class="link-light" href="javascript:void(0);" id="toLog02">想起密码？前往登录</a>
+    </form>
+</div>
+<!-- 医生登录 -->
+<div class="mixJade" id="pairJade05">
+    <form class="container" style="width: 80%;" onsubmit="return false">
+        <img class="mb-4" id="toAdmin02" src="picture/mia.svg" alt="普通入口" width="72" height="57">
+        <h3 class="h3 mb-3 fw-normal text-white">医生登录</h3>
+        <div class="form-floating">
+            <input type="text" class="form-control" id="doctorCode" placeholder="username">
+            <label for="doctorCode">工号</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="doctorPassword" placeholder="Password">
+            <label for="doctorPassword">密码</label>
+        </div>
+        <div class="mb-3">
+            <label class="text-white">
+                <input type="checkbox" id="remember05" checked> 记住我
+            </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-light" type="submit" onclick="loginDoctor()">医生登录</button>
+        <div class="row row-cols-1 row-cols-md-3">
+            <a class="link-light" href="javascript:void(0);" id="toAdmin">管理员登录</a>
+        </div>
+        <p class="mt-5 mb-3 text-muted">&copy; 2022 - 2023</p>
+    </form>
+</div>
+</body>
+<script src="assets/axios.js"></script>
+<script src="assets/bootstrap.bundle.min.js"></script>
+<script src="reception/js/z-alert.js"></script>
+<script>
+    (function () {
+        const pairJade = document.getElementById("pairJade"),
+            pairJade02 = document.getElementById("pairJade02"),
+            pairJade03 = document.getElementById("pairJade03"),
+            pairJade04 = document.getElementById("pairJade04"),
+            pairJade05 = document.getElementById("pairJade05")
+        document.getElementById("myImg01").onclick = () => {
+            pairJade.style.transform = "rotateY(180deg)";
+            pairJade02.style.transform = "rotateY(0deg)";
+        }
+        document.getElementById("myImg02").onclick = () => {
+            pairJade02.style.transform = "rotateY(180deg)";
+            pairJade.style.transform = "rotateY(0deg)";
+        }
+        document.getElementById("toReg").onclick = () => {
+            pairJade.style.transform = "rotateX(180deg)";
+            pairJade03.style.transform = "rotateX(0deg)";
+        }
+        document.getElementById("toLog").onclick = () => {
+            pairJade03.style.transform = "rotateX(180deg)";
+            pairJade.style.transform = "rotateX(0deg)";
+        }
+        document.getElementById("toFin").onclick = () => {
+            pairJade.style.transform = "rotate3d(1, 1, 0, 180deg)";
+            pairJade04.style.transform = "rotate3d(1, 1, 0, 0deg)";
+        }
+        document.getElementById("toLog02").onclick = () => {
+            pairJade04.style.transform = "rotate3d(1, 1, 0, 180deg)";
+            pairJade.style.transform = "rotate3d(1, 1, 0, 0deg)";
+        }
+        document.getElementById("toDoctor").onclick = () => {
+            pairJade02.style.transform = "rotate3d(1, -1, 0, 180deg)";
+            pairJade05.style.transform = "rotate3d(1, -1, 0, 0deg)";
+        }
+        document.getElementById("toAdmin").onclick = () => {
+            pairJade05.style.transform = "rotate3d(1, -1, 0, 180deg)";
+            pairJade02.style.transform = "rotate3d(1, -1, 0, 0deg)";
+        }
+        document.getElementById("toAdmin02").onclick = () => {
+            pairJade05.style.transform = "rotate3d(1, -1, 0, 180deg)";
+            pairJade02.style.transform = "rotate3d(1, -1, 0, 0deg)";
+        }
+    }());
+
+
+    axios.defaults.baseURL = "http://localhost:8080/login/";
+    //处理get请求
+    window.onload = function () {
+        const href = window.location.href
+        if (href.indexOf("?") !== -1 && href.split("?")[1] === "noPower") {
+            showAlert("你没有权限")
+        }
+        roleHas()
+    }// 用户登录
+    function loginUser() {
+        const formJson = jVal({
+            "username": "clUse",
+            "password": "clPwd"
+        });
+        axios.post("user", formJson).then(resp => {
+            if (resp.data["code"] === 1) {
+                location.href = "index.html"
+            } else {
+                showAlert(resp.data["msg"])
+            }
+        })
+    }// 管理员登录
+    function loginAdmin() {
+        const formJson = jVal({
+            "username": "empUse",
+            "password": "empPwd"
+        }, "remember02");
+        axios.post("admin", formJson).then(resp => {
+            if (resp.data["code"] === 1) {
+                location.href = "backstage/index.html"
+            } else {
+                showAlert(resp.data["msg"])
+            }
+        })
+    }// 医生登录
+    function loginDoctor() {
+        const formJson = jVal({
+            "username": "doctorCode",
+            "password": "doctorPassword"
+        }, "remember05");
+        axios.post("doctor", formJson).then(resp => {
+            if (resp.data["code"] === 1) {
+                location.href = "doctorPage/index.html"
+            } else {
+                showAlert(resp.data["msg"])
+            }
+        })
+    }//如果有相应的角色就跳转到页面
+    function roleHas() {
+        axios().then(reap => {
+            const name = reap.data
+            if (name === "admin") {
+                window.location.href = "backstage/index.html"
+            } else if (name === "user") {
+                window.location.href = "index.html"
+            } else if (name === "doctor") {
+                window.location.href = "doctorPage/index.html"
+            }
+        })
+    }//根据json键值进行赋值
+    function jVal(json, remember = "remember01") {
+        for (const key in json) {
+            json[key] = document.getElementById(json[key]).value;
+        }
+        json["remember"] = document.getElementById(remember).checked;
+        return json;
+    }
+    //注册发送验证码
+    function regCodeS(val) {
+        const mail = document.getElementById("regMail").value
+        const str = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
+        if (str.test(mail)) {
+            axios.get("regMail?mail=" + mail)
+            setTime(val)
+        } else {
+            showAlert("邮箱格式不正确")
+        }
+    }//进行注册
+    function toRegister() {
+        const json = jVal({
+            "checkCode": "regCode", "clientTel": "regMail", "clientName": "regName",
+            "clientGender": "regSex", "clientUsername": "regUse", "clientPassword": "regPwd"
+        });
+        for (const key in json) {
+            if (json[key]===""){
+                showAlert("表单存在空值")
+                return;
+            }
+        }
+        axios.post("register", json).then(resp => {
+            const data = resp.data;
+            (data["code"] === 0) ? showAlert(data["msg"]) : regToLog(data["msg"])
+        })
+    }//注册成功后进行登录
+    function regToLog(text) {
+        showAlert(text, "alert-success")
+        const forJson = jVal({"username": "regUse", "password": "regPwd"}, "remember03");
+        setTimeout(() => {
+            axios.post("user", forJson).then(resp => {
+                if (resp.data["code"] === 1) location.href = "index.html";
+            })
+        }, 1000)
+    }//找回密码发送验证码
+    function finCodeS(val) {
+        setTime(val)
+        const mail = document.getElementById("finMail").value;
+        const username = document.getElementById("finUse").value;
+        axios.get(`finMail?mail=${mail}&username=${username}`).then(resp => {
+            if (resp.data["code"] === 0) showAlert(resp.data["msg"])
+        })
+    }//进行找回密码
+    function toFind() {
+        const json = jVal({
+            "checkCode": "finCode", "clientTel": "finMail", "clientUsername": "finUse", "clientPassword": "finPwd"
+        });
+        axios.post("find", json).then(resp => {
+            const data = resp.data;
+            (data["code"] === 0) ? showAlert(data["msg"]) : finToLogin(data["msg"])
+        })
+    }//找回密码之后跳转登录
+    function finToLogin(text) {
+        showAlert(text, "alert-success")
+        document.getElementById("toLog02").click();
+        document.getElementById("clUse").value = document.getElementById("finUse").value;
+        document.getElementById("clPwd").value = document.getElementById("finPwd").value;
+        setTimeout(() => {
+            document.getElementById('myAlert').click();
+        }, 1000)
+    }//注册时，检查当前账号是否存在
+    document.getElementById("regUse").onchange=()=>{
+        const regUse=document.getElementById("regUse").value
+        axios("isExist?regUse="+regUse).then(resp=>{
+            if (resp.data["code"]===0) showAlert(resp.data["msg"])
+        })
+    }
+</script>
+
+</html>

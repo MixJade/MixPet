@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宠物医院后台管理系统</title>
+    <link rel="stylesheet" href="../assets/bootstrap.min.css">
+    <style>
+        .a-jade {
+            cursor: pointer;
+        }
+
+        .a-pointer {
+            cursor: pointer;
+        }
+
+        .a-hide {
+            border: 3px solid green;
+            border-radius: 5px;
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+<!-- 导航 -->
+<nav class="navbar navbar-expand-lg bg-dark sticky-top">
+    <a class="navbar-brand link-light" data-bs-toggle="offcanvas" href="#popLeft" role="button" aria-controls="popLeft">
+        <img src="../picture/mia.svg" alt="商标" width="30" height="30">
+        宠物医院
+    </a>
+    <!-- 将浏览器缩小，会出现汉堡包按钮 -->
+    <button class="navbar-toggler navbar-dark" type="button" data-bs-toggle="collapse" data-bs-target="#nav-menu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav-menu">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item me-2">
+                <a class="btn btn-success" data-bs-toggle="offcanvas" href="#popLeft" role="button"
+                   aria-controls="popLeft" id="admin01">功能列表</a>
+            </li>
+            <li class="nav-item"><a class="a-jade nav-link a-hide" onclick="getEle(0)">用户管理</a></li>
+            <li class="nav-item"><a class="a-jade nav-link" onclick="getEle(1)">医生管理</a></li>
+            <li class="nav-item"><a class="a-jade nav-link" onclick="getEle(2)">宠物管理</a></li>
+            <li class="nav-item"><a class="a-jade nav-link" onclick="getEle(3)">挂号管理</a></li>
+            <li class="nav-item"><a class="a-jade nav-link" onclick="getEle(4)">领养管理</a></li>
+            <li class="nav-item"><a class="a-jade nav-link" onclick="getEle(5)">寄养管理</a></li>
+            <li class="nav-item"><a class="a-jade nav-link" onclick="getEle(6)">网站公告</a></li>
+        </ul>
+    </div>
+</nav>
+<!-- 左弹出框 -->
+<div class="offcanvas offcanvas-start" tabindex="-1" id="popLeft" aria-labelledby="popLeftTitle">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="popLeftTitle">功能菜单</h5>
+        <button class="btn-close text-reset" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body" style="text-align: center">
+        <div class="a-pointer" data-bs-toggle="modal" data-bs-target="#putModal">
+            <img class="mb-3 rounded-circle" id="adminPhoto" src="../picture/none.png" alt="管理员头像">
+            <p>欢迎您!<a class="text-decoration-none" id="admin02">管理员</a></p>
+        </div>
+        <div class="list-group">
+            <a class="a-jade list-group-item list-group-item-primary" data-bs-dismiss="offcanvas" aria-label="Close"
+               onclick="getEle(7)">员工列表</a>
+            <a class="a-jade list-group-item list-group-item-primary" data-bs-dismiss="offcanvas" aria-label="Close"
+               onclick="getEle(8)">科室列表</a>
+            <a class="a-pointer list-group-item list-group-item-warning" data-bs-toggle="modal"
+               data-bs-target="#putModal">修改密码</a>
+            <a class="list-group-item list-group-item-danger" href="javascript:logout()">退出登录</a>
+        </div>
+    </div>
+</div>
+<!--弹出框-->
+<div class="modal fade" id="putModal" tabindex="-1" aria-labelledby="putModalLabel" aria-hidden="true"
+     style="z-index: 1300;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="putModalLabel">修改密码</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="d-grid gap-3" id="putForm">
+                    <input type="hidden" id="employeeId">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="myFile">员工头像</label>
+                        <div class="col-md-8">
+                            <label for="myFile"><img id="rolePhoto" src="../picture/none.png" alt=""
+                                                     style="height: 60px;width: 60px"/></label>
+                            <input type="file" id="myFile" accept="image/*" hidden="hidden"/>
+                            <label for="myFile" id="myFileText"
+                                   style="color: red;display: none">上传文件大小应小于3MB</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="employeeUsername">账号</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="employeeUsername" type="text" placeholder="员工账号"
+                                   disabled readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="employeeName">姓名</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="employeeName" type="text" placeholder="员工名称"
+                                   disabled readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="employeeTel">联系方式</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="employeeTel" type="text" placeholder="联系方式">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="employeePassword">密码</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="employeePassword" type="password">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">关闭</button>
+                <button class="btn btn-primary" data-bs-dismiss="modal" type="button" onclick="formSub()">确认提交
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 吐司消息 -->
+<div class="position-fixed bottom-50 p-3" style="z-index: 5;left: 30%;">
+    <div class="toast hide text-white bg-success bg-gradient" id="toast01" data-bs-delay="1200" role="alert"
+         aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-check-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                </svg>
+                <span class="myTos">成功！</span>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+        </div>
+    </div>
+    <div class="toast hide text-white bg-danger bg-gradient" id="toast02" data-bs-delay="1200" role="alert"
+         aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                </svg>
+                <span class="myTos">失败！</span>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+<!-- 确认删除框 -->
+<button data-bs-toggle="modal" data-bs-target="#delModal" id="fatherDelBtn" hidden="hidden">确认删除</button>
+<div class="modal fade" id="delModal" tabindex="-1" aria-labelledby="delModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="delModalLabel">删除确认</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                一旦删除，数据无法找回，是否删除
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-dismiss="modal" type="button">取消</button>
+                <button class="btn btn-danger" data-bs-dismiss="modal" id="sureDelBtn" type="button">删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--网页框架-->
+<iframe src="y-clientList.html" id="myFrame" title="myFrame" onload="changeFrameHeight()"
+        style="width: 100%;border:0">
+</iframe>
+<!--页面底部-->
+<footer><p style="text-align: center;color:#C0C0C0">@宠物医院后台管理系统</p></footer>
+</body>
+<script src="../assets/bootstrap.bundle.min.js"></script>
+<script src="../assets/axios.js"></script>
+<script type="text/javascript">
+    axios.defaults.baseURL = "http://localhost:8080/";
+    axios.interceptors.response.use(resp => {
+        if (resp.data["code"] === 401) window.top.location.href = "/login.html"
+        return resp;
+    }, error => {
+        window.top.location.href = "/login.html"
+        return Promise.reject(error);
+    });
+
+    class MixImg2 {
+        constructor() {
+            this.myFile = document.getElementById("myFile")
+            this.myFile.onchange = () => this.imgChange()
+            this._myImg = document.getElementById("rolePhoto");
+            this.myFileText = document.getElementById("myFileText")
+        }// 获取图片名
+        get myImg() {
+            return this._myImg.alt;
+        }// 上传框变化时，检查图片大小
+        imgChange() {
+            const myFileText = this.myFileText.style
+            const myFile = this.myFile.files[0]
+            if (myFile.size > 3145700) {
+                myFileText.display = "";
+            } else {
+                myFileText.display = "none";
+                const formData = new FormData();
+                formData.append("myFile", myFile)
+                axios.post("common/upload", formData).then(resp => {
+                    this.change(resp.data)
+                })
+            }
+        }// 改变表单图片
+        change(imgName) {
+            const myImg = this._myImg
+            const myFileText = this.myFileText.style
+            if (imgName === '' || imgName === null) {
+                myFileText.display = "none";
+                myImg.setAttribute("src", '../picture/none.png')
+                myImg.setAttribute("alt", '')
+            } else {
+                myImg.setAttribute("src", 'http://localhost:8080/common/download?name=' + imgName)
+                myImg.setAttribute("alt", imgName)
+            }
+        }
+    }
+
+    const srcFrame = ["y-clientList.html", "y-doctorList.html", "y-petList.html", "y-appointmentList.html",
+            "y-adoptList.html", "y-fosterList.html", "y-noticeList.html", "x-employeeList.html", "x-departmentList.html"
+        ],
+        aJade = document.getElementsByClassName("a-jade"),
+        ifm = document.getElementById("myFrame"),
+        toast01 = document.getElementById("toast01"),// 成功消息
+        toast02 = document.getElementById("toast02"),// 失败消息
+        bbb = new MixImg2();
+    let nowHave = 0;
+
+    // 改变iframe高度
+    function changeFrameHeight() {
+        ifm.height = document.documentElement.clientHeight + 80;
+    }// 动态改变iframe高度
+    window.onresize = function () {
+        changeFrameHeight();
+    }// 导航选中效果
+    function getEle(index) {
+        aJade[nowHave].classList.remove("a-hide")
+        nowHave = index
+        aJade[index].classList.add("a-hide")
+        ifm.src = srcFrame[index]
+    }// 获取当前登录用户
+    window.onload = function () {
+        getAdm()
+    }//获取管理员信息
+    function getAdm() {
+        axios.get("adminLog").then(resp => jsonToForm(resp.data))
+    }//将json变成表单
+    function jsonToForm(h) {
+        const {employeeName, employeePhoto} = h
+        // 名字
+        document.getElementById("admin01").innerHTML = employeeName
+        document.getElementById("admin02").innerHTML = employeeName
+        //图片
+        const adminPhoto = document.getElementById("adminPhoto")
+        if (employeePhoto !== '' && employeePhoto != null) {
+            adminPhoto.src = 'http://localhost:8080/common/download?name=' + employeePhoto
+        } else {
+            adminPhoto.src = '../picture/none.png'
+        }
+        bbb.change(employeePhoto)
+        //其他选项
+        const group = ["employeeId", "employeeUsername", "employeeName", "employeeTel"]
+        for (let i = 0; i < group.length; i++) {
+            document.getElementById(group[i]).value = h[group[i]]
+        }
+    }//提交表单
+    function formSub() {
+        const group = ["employeeId", "employeeUsername", "employeeName", "employeeTel", "employeePassword"]
+        const json = {};
+        for (let i = 0; i < group.length; i++) {
+            json[group[i]] = document.getElementById(group[i]).value
+        }
+        json["employeePhoto"] = bbb.myImg
+        axios.put("adminLog", json).then(resp => adminResp(resp))
+    }// 修改操作的解析
+    function adminResp(resp) {
+        if (resp.data["code"] === 1) {
+            sucToast(resp.data["msg"])
+            document.getElementById("employeePassword").value = ''
+            getAdm()
+        } else if (resp.data["code"] === 0) {
+            errToast(resp.data["msg"])
+        } else {
+            errToast("服务器无响应")
+        }
+    }// 成功消息
+    function sucToast(msg) {
+        toast01.querySelector(".myTos").innerHTML = msg;
+        new bootstrap.Toast(toast01).show();
+    }// 失败消息
+    function errToast(msg) {
+        toast02.querySelector(".myTos").innerHTML = msg;
+        new bootstrap.Toast(toast02).show();
+    }// 退出登录
+    function logout() {
+        axios("login/bye").then(resp=> {
+            if (resp.data["code"] === 204) window.top.location.href = "/login.html"
+        })
+    }
+</script>
+
+</html>

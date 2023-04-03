@@ -1,0 +1,18 @@
+<!--pages/appointment/appointment.wxml-->
+<view wx:for="{{appoint}}" wx:for-item="a" wx:key="appointmentId">
+  <van-cell title="单号:{{a.appointmentId}}" value="{{a.petName}}" size="large" use-label-slot>
+    <view slot="label">
+      <text>描述：{{a.appointmentInfo}}
+        科室：{{a.departmentName}}
+        就诊时间：
+        {{m1.moveT(a.appointmentDate)}}
+      </text>
+    </view>
+  </van-cell>
+</view>
+<text>\n</text>
+<navigator open-type="navigateBack">
+  <van-button block plain size="large" type="warning">返回主页</van-button>
+</navigator>
+
+<wxs src="../../utils/until.wxs" module="m1"></wxs>

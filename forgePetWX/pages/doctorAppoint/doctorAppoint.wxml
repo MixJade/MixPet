@@ -1,0 +1,29 @@
+<!--pages/doctorAppoint/doctorAppoint.wxml-->
+<van-card title="{{doctor.doctorName}}" thumb="{{base}}{{doctor.doctorPhoto}}" thumb-link="/pages/chatClient/chatClient?id={{doctor.doctorId}}&name={{doctor.doctorName}}">
+  <view slot="desc">
+    <text>{{m1.age(doctor.doctorAge)}}岁 {{doctor.doctorGender?"男":"女"}} {{doctor.doctorJob}}
+      {{doctor.doctorInfo}}\n工号:{{doctor.doctorCode}}
+    </text>
+    <view>
+      <navigator class="primary" url="/pages/chatClient/chatClient?id={{doctor.doctorId}}&name={{doctor.doctorName}}">咨询</navigator>
+    </view>
+  </view>
+</van-card>
+<view wx:if="{{appoint.length==0}}">该医生暂无挂号占用</view>
+<view wx:else>该医生当前挂号：</view>
+<view wx:for="{{appoint}}" wx:for-item="a" wx:key="appointmentId">
+  <van-cell title="单号:{{a.appointmentId}}" value="{{a.petName}}" size="large" use-label-slot>
+    <view slot="label">
+      <text>描述：{{a.appointmentInfo}}
+        挂号人：{{a.clientName}}
+        就诊时间：
+        {{m1.moveT(a.appointmentDate)}}
+      </text>
+    </view>
+  </van-cell>
+</view>
+<navigator open-type="navigateBack">
+  <van-button block plain type="warning">返回上级</van-button>
+</navigator>
+
+<wxs src="../../utils/until.wxs" module="m1"></wxs>

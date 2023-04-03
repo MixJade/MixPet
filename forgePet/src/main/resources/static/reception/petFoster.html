@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宠物管理</title>
+    <link rel="stylesheet" href="../assets/bootstrap.min.css">
+</head>
+
+<body>
+<nav class="bg-black" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:history.back()">主页</a></li>
+        <li class="breadcrumb-item active" aria-current="page">寄养宠物详情</li>
+    </ol>
+</nav>
+<!--卡片-->
+<div class="container">
+    <div class="row g-4" id="cardAll">
+        暂时没有在寄养中的宠物
+    </div>
+</div>
+</body>
+<script src="../assets/axios.js"></script>
+<script src="js/z-myUntJs.js"></script>
+<script type="text/javascript">
+    const unt = new FrontUntil(),
+        cardAll = document.getElementById("cardAll");
+    window.onload = () => axios("foster/pet").then(resp => getFosterCard(resp.data));
+
+    function getFosterCard(doc) {
+        cardAll.innerHTML = ''
+        for (let i = 0; i < doc.length; i++) {
+            writeFosterCard(doc[i])
+        }
+    }
+
+    function writeFosterCard(h) {
+        const {
+            petPhoto,
+            petName,
+            petAge,
+            petSex,
+            petVariety,
+            petInfo,
+            fosterCode,
+            fosterInfo,
+            clientName,
+            fosterTerm
+        } = h;
+        cardAll.innerHTML += `<div class="col-md-6 col-lg-3">
+            <div class="card bg-light">
+                <div class="card-body text-center">
+                    <img src="${myBackStage}common/download?name=${petPhoto}" class="mb-3 rounded-circle" alt=""/>
+                    <h3 class="card-title">${petName}</h3>
+                    <h6 class="card-subtitle mb-2 text-muted">${unt.age(petAge)}岁 ${petSex ? "公" : "母"} ${petVariety}</h6>
+                    <p class="card-text">${petInfo}</p>
+                    <p class="card-text text-muted">
+                        订单号:${fosterCode}
+                        <br>寄养备注：${fosterInfo}
+                        <br>寄养人：${clientName}
+                        <br>到期时间:${fosterTerm}</p>
+                </div>
+            </div>
+        </div>`
+    }
+</script>
+
+</html>

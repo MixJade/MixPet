@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.forge.mapper.MsgMapper">
+    <!--查询用户最近谈话的医生-->
+    <select id="getByClient" resultType="Long">
+        select doctor_id
+        from msg
+        where is_del = '0'
+          and client_id = #{clientId}
+        order by create_time desc
+        limit 0,1
+    </select>
+    <!-- 查询特定用户与医生对话-->
+    <select id="getADoctor" resultType="com.forge.dto.MsgDto">
+        select msg_id,
+               m.client_id,
+               m.doctor_id,
+               c.client_name,
+               c.client_photo,
+               d.doctor_name,
+               d.doctor_photo,
+               is_client,
+               msg_content,
+               is_img,
+               m.create_time
+        from msg m,
+             client c,
+             doctor d
+        where m.is_del = '0'
+          and m.client_id = #{clientId}
+          and m.doctor_id = #{doctorId}
+          and m.client_id = c.client_id
+          and m.doctor_id = d.doctor_id
+    </select>
+    <!-- 查询与用户有过联系的医生-->
+    <select id="getDoctorGroup" resultType="com.forge.vo.MsgDoctorNameVo">
+        SELECT if(m.doctor_id = #{doctorId}, 0, 1) as flag, m.doctor_id, d.doctor_name
+        FROM msg m,
+             doctor d
+        WHERE client_id = #{clientId}
+          AND m.doctor_id = d.doctor_id
+        GROUP BY doctor_id
+        ORDER BY flag
+    </select>
+    <!--查询医生最近谈话的用户-->
+    <select id="getByDoctor" resultType="Long">
+        select client_id
+        from msg
+        where is_del = '0'
+          and doctor_id = #{doctorId}
+        order by create_time desc
+        limit 0,1
+    </select>
+    <!-- 查询特定医生与用户对话-->
+    <select id="getAClient" resultType="com.forge.dto.MsgDto">
+        select msg_id,
+               m.client_id,
+               m.doctor_id,
+               c.client_name,
+               c.client_photo,
+               d.doctor_name,
+               d.doctor_photo,
+               is_client,
+               msg_content,
+               is_img,
+               m.create_time
+        from msg m,
+             client c,
+             doctor d
+        where m.is_del = '0'
+          and m.client_id = #{clientId}
+          and m.doctor_id = #{doctorId}
+          and m.client_id = c.client_id
+          and m.doctor_id = d.doctor_id
+    </select>
+    <!-- 医生谈过话的用户-->
+    <select id="getClientGroup" resultType="com.forge.vo.MsgClientNameVo">
+        SELECT if(m.client_id = #{clientId}, 0, 1) as flag, m.client_id, c.client_name
+        FROM msg m,
+             client c
+        WHERE m.doctor_id = #{doctorId}
+          AND m.client_id = c.client_id
+        GROUP BY client_id
+        ORDER BY flag
+    </select>
+</mapper>
