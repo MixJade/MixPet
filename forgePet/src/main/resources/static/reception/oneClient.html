@@ -237,7 +237,7 @@
         })
     }//单个用户：json转表单
     function setForm(h) {
-        document.getElementById("rolePhoto").setAttribute("src", 'http://localhost:8080/common/download?name=' + h["clientPhoto"])
+        document.getElementById("rolePhoto").setAttribute("src", 'http://localhost:8083/common/download?name=' + h["clientPhoto"])
         const group = ["clientId", "clientUsername", "clientName", "clientTel",
             "clientPhoto", "clientAge", "clientInfo", "clientGender"];
         for (let i = 0; i < group.length; i++) {
@@ -272,7 +272,7 @@
             formData.append("myFile", myFile)
             axios.post("common/upload", formData).then(resp => {
                 const imgName = resp.data
-                document.getElementById("rolePhoto").setAttribute("src", 'http://localhost:8080/common/download?name=' + imgName);
+                document.getElementById("rolePhoto").setAttribute("src", 'http://localhost:8083/common/download?name=' + imgName);
                 document.getElementById("clientPhoto").value = imgName;
             })
         }
@@ -291,7 +291,7 @@
         <div class="card mb-3" style="max-width: 540px;">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="http://localhost:8080/common/download?name=${petPhoto}" class="rounded-circle img-fluid p-3" alt=""/>
+                    <img src="http://localhost:8083/common/download?name=${petPhoto}" class="rounded-circle img-fluid p-3" alt=""/>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">

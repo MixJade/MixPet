@@ -193,7 +193,7 @@
 <script src="../assets/bootstrap.bundle.min.js"></script>
 <script src="../assets/axios.js"></script>
 <script type="text/javascript">
-    axios.defaults.baseURL = "http://localhost:8080/";
+    axios.defaults.baseURL = "http://localhost:8083/";
     axios.interceptors.response.use(resp => {
         if (resp.data["code"] === 401) window.top.location.href = "/login.html"
         return resp;
@@ -234,7 +234,7 @@
                 myImg.setAttribute("src", '../picture/none.png')
                 myImg.setAttribute("alt", '')
             } else {
-                myImg.setAttribute("src", 'http://localhost:8080/common/download?name=' + imgName)
+                myImg.setAttribute("src", 'http://localhost:8083/common/download?name=' + imgName)
                 myImg.setAttribute("alt", imgName)
             }
         }
@@ -277,7 +277,7 @@
         //图片
         const adminPhoto = document.getElementById("adminPhoto")
         if (employeePhoto !== '' && employeePhoto != null) {
-            adminPhoto.src = 'http://localhost:8080/common/download?name=' + employeePhoto
+            adminPhoto.src = 'http://localhost:8083/common/download?name=' + employeePhoto
         } else {
             adminPhoto.src = '../picture/none.png'
         }

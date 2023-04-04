@@ -12,6 +12,6 @@ public class ForgePetApplication {
     public static void main(String[] args) {
         SpringApplication.run(ForgePetApplication.class, args);
         log.info("宠物医院管理系统启动");
-        log.info("http://localhost:8080/login.html");
+        log.info("http://localhost:8083/login.html");
     }
 }
