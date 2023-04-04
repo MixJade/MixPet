@@ -15,8 +15,4 @@ public enum ResultEnum {
         this.code = code;
         this.msg = msg;
     }
-
-    public Result getR() {
-        return new Result(code, msg);
-    }
 }
