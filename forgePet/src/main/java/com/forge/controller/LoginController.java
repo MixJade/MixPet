@@ -47,14 +47,14 @@ public class LoginController {
     public Result logout() {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        return ResultEnum.LOGOUT.getR();
+        return new Result(ResultEnum.LOGOUT);
     }
     /**
      * 没有角色权限
      */
     @GetMapping("/noPower")
     public Result noPower() {
-        return ResultEnum.NO_POWER.getR();
+        return new Result(ResultEnum.NO_POWER);
     }
 
     /**
@@ -64,7 +64,7 @@ public class LoginController {
      */
     @GetMapping("/noLogin")
     public Result noLogin() {
-        return ResultEnum.NO_LOGIN.getR();
+        return new Result(ResultEnum.NO_LOGIN);
     }
 
     /**
