@@ -182,7 +182,7 @@
         })
     }//单个医生：json转表单
     function setForm(h) {
-        document.getElementById("rolePhoto").setAttribute("src", 'http://localhost:8080/common/download?name=' + h["doctorPhoto"])
+        document.getElementById("rolePhoto").setAttribute("src", 'http://localhost:8083/common/download?name=' + h["doctorPhoto"])
         const group = ["doctorCode", "doctorName", "doctorTel", "doctorJob",
             "doctorPhoto", "doctorAge", "doctorInfo", "doctorGender", "departmentName"];
         for (let i = 0; i < group.length; i++) {
@@ -216,7 +216,7 @@
             formData.append("myFile", myFile)
             axios.post("common/upload", formData).then(resp => {
                 const imgName = resp.data
-                document.getElementById("rolePhoto").setAttribute("src", 'http://localhost:8080/common/download?name=' + imgName);
+                document.getElementById("rolePhoto").setAttribute("src", 'http://localhost:8083/common/download?name=' + imgName);
                 document.getElementById("doctorPhoto").value = imgName;
             })
         }

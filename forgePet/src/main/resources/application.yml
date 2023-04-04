@@ -14,7 +14,11 @@ spring:
     multipart:
       max-file-size: 3MB # 让上传的文件可以为3MB
 ---
-#设置日志输出
+# 改变服务端口
+server:
+  port: 8083
+---
+# 设置日志输出
 logging:
   pattern:
     dateformat: MM-dd HH:mm
@@ -29,7 +33,7 @@ mybatis-plus:
       logic-not-delete-value: 0
   mapper-locations: classpath:com/forge/mapper/*.xml
 #  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 打印sql语句
 ---
 shiro:
   loginUrl: /login/noLogin # 前后端分离，应该重定向到控制器，只返回json

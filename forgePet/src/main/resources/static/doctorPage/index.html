@@ -159,7 +159,7 @@
                 </li>
             </ul>
         `
-        document.getElementById("clientImg").src = "http://localhost:8080/common/download?name=" + doctorPhoto
+        document.getElementById("clientImg").src = "http://localhost:8083/common/download?name=" + doctorPhoto
     })// 退出登录
     function logout(){
         axios("login/bye").then(resp=> {

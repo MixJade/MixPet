@@ -78,9 +78,12 @@ Page({
   },
   // 公告点击展示
   showNotice(e) {
+    const originText = e.target.dataset.text
+    const content= originText.replace(/\n/g, "\r\n")
+    console.log(content);
     wx.showModal({
       title: e.target.dataset.title,
-      content: e.target.dataset.text,
+      content: content,
       showCancel: false
     });
   }

@@ -1,5 +1,5 @@
 "use strict";
-axios.defaults.baseURL = "http://localhost:8080/";
+axios.defaults.baseURL = "http://localhost:8083/";
 axios.interceptors.response.use(resp => {
     if (resp.data["code"]===401) window.top.location.href = "/login.html"
     if (resp.data["code"]===403){
@@ -113,7 +113,7 @@ class MixRole {
     }// 表格图片
     img(rolePhoto) {
         if (rolePhoto != null) {
-            return `<img src="http://localhost:8080/common/download?name=${rolePhoto}" height="45px" width="45px" alt="${rolePhoto}"/>`
+            return `<img src="http://localhost:8083/common/download?name=${rolePhoto}" height="45px" width="45px" alt="${rolePhoto}"/>`
         } else {
             return ''
         }
@@ -278,7 +278,7 @@ class MixImg {
             myImg.setAttribute("src", '../picture/none.png')
             myImg.setAttribute("alt", '')
         } else {
-            myImg.setAttribute("src", "http://localhost:8080/common/download?name=" + imgName)
+            myImg.setAttribute("src", "http://localhost:8083/common/download?name=" + imgName)
             myImg.setAttribute("alt", imgName)
         }
     }

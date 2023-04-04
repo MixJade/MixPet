@@ -88,7 +88,7 @@ public class NoticeController {
     @RequiresRoles("deputy")
     public Result update(@RequestBody NoticeDto noticeDto) {
         Employee employee = (Employee) SecurityUtils.getSubject().getPrincipal();
-        noticeDto.setCreatId(employee.getEmployeeId());
+        noticeDto.setUpdateId(employee.getEmployeeId());
         return Result.choice("修改", noticeService.updateNotice(noticeDto));
     }
 
