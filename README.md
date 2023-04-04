@@ -52,9 +52,9 @@ spring:
 
 ```yml
 pet-forge:
-   images-path: C:\MixPet\images\ # 照片存储路径
-   notice-path: C:\MixPet\notice\ # 公告存储路径
-   chatImg-path: C:\MixPet\chatImg\ # 聊天图片存储路径
+   images-path: C:\MixJade\MixPet\images\ # 照片存储路径
+   notice-path: C:\MixJade\MixPet\notice\ # 公告存储路径
+   chatImg-path: C:\MixJade\MixPet\chatImg\ # 聊天图片存储路径
 ```
 
 *以下为修改教程：*
@@ -68,7 +68,8 @@ pet-forge:
     * 注意：配置文件中`spring.datasource.url`为数据源，其中`pet_forge`为数据库名,
     * 如果你不将数据库命名为`pet_forge`，这里记得修改
 2. 资源文件夹的路径(绝对路径):
-    * 如果不想改配置文件，只需在C盘下新建名为`MixPet`的文件夹，然后将本项目放入即可
+    * 如果不想改配置文件，只需在C盘下新建名为`MixJade`的文件夹，
+    * 再在`MixJade`中新建名为`MixPet`的文件夹，然后将本项目放入`MixPet`即可
     * 如果需要自己配置资源文件夹：
         * 将本项目中的`chatImg`、`notice`、`images`文件夹放在自己配置的资源文件夹中
         * 然后修改配置文件中`pet-forge`属性之下的三个文件夹路径为自己的资源路径即可(一定要用绝对路径)
