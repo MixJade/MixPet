@@ -87,9 +87,10 @@ public class NoticeController {
     @PutMapping
     @RequiresRoles("deputy")
     public Result update(@RequestBody NoticeDto noticeDto) {
-        Employee employee = (Employee) SecurityUtils.getSubject().getPrincipal();
-        noticeDto.setCreatId(employee.getEmployeeId());
-        return Result.choice("修改", noticeService.updateNotice(noticeDto));
+        if (SecurityUtils.getSubject().getPrincipal() instanceof Employee employee) {
+            noticeDto.setUpdateId(employee.getEmployeeId());
+            return Result.choice("修改", noticeService.updateNotice(noticeDto));
+        } else return Result.error("当前未登录");
     }
 
 }
