@@ -10,14 +10,9 @@
 
 .myContent {
   text-align: center;
-  width: 700rpx;
-  margin-left: 25rpx;
+  width: 670rpx;
+  margin-left: 40rpx;
   margin-top: 10px;
-}
-
-.doctorCards {
-  width: 700rpx;
-  margin-left: 25rpx;
 }
 
 .textTit {
