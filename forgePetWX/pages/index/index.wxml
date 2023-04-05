@@ -15,7 +15,7 @@
 <view class="myContent">
   <text>最新公告</text>
   <van-cell-group wx:for="{{notices}}" wx:for-item="notice" wx:key="noticeId">
-    <van-cell title="{{notice.noticeTitle}}" bindtap="showNotice" data-text="{{notice.textNotice}}" data-title="{{notice.noticeTitle}}" />
+    <van-cell title="{{notice.noticeTitle}}" bindtap="showPop" data-text="{{notice.textNotice}}" data-title="{{notice.noticeTitle}}" />
   </van-cell-group>
   <text>\n功能入口</text>
   <van-cell-group>
@@ -30,3 +30,12 @@
     </navigator>
   </van-cell-group>
 </view>
+<van-popup show="{{ isShowNotice }}" bind:close="onClose" custom-style="width:600rpx;height:320px;border-radius: 5%;padding-top: 5px;">
+  <view class="textTit">
+    <text>{{showNoticeTitle}}\n</text>
+  </view>
+  <scroll-view scroll-y class="textContent">
+    <text>{{showNoticeText}}</text>
+  </scroll-view>
+  <button type="primary" bindtap="onClose">确定</button>
+</van-popup>

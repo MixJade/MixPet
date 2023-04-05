@@ -5,6 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isShowNotice: true, //公告展示
+    showNoticeText:"少时诵诗书所所所所所所所所所所所所所所所所所所所所所所所所所所所少时诵诗书所所所所所所所所所所所所所所所所所所所所所所所", //公告内容
+    showNoticeTitle:"神鼎飞丹砂",
     swiper: { //轮播图
       img1: "/images/swiper/img1.jpg",
       img2: "/images/swiper/img2.jpg",
@@ -86,5 +89,21 @@ Page({
       content: content,
       showCancel: false
     });
-  }
+  },
+    // 展示弹出层
+    showPop(e) {
+      const originText = e.target.dataset.text,
+      title= e.target.dataset.title
+      this.setData({
+        isShowNotice: true,
+        showNoticeText:originText,
+        showNoticeTitle:title
+      });
+    },
+    // 关闭弹出层
+    onClose() {
+      this.setData({
+        isShowNotice: false
+      });
+    },
 })
