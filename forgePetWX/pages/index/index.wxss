@@ -19,3 +19,19 @@
   width: 700rpx;
   margin-left: 25rpx;
 }
+
+.textTit {
+  width: 600rpx;
+  text-align: center;
+}
+
+.textTit text {
+  font-size: 45rpx;
+  font-weight: bolder;
+}
+
+.textContent {
+  height: 220px;
+  width: 570rpx;
+  border: 10px solid #fff;
+}
