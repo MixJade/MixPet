@@ -8,6 +8,7 @@ Page({
     isShowNotice: false, //公告展示
     showNoticeText:"公告内容",
     showNoticeTitle:"公告标题",
+    topNum:-1,
     swiper: { //轮播图
       img1: "/images/swiper/img1.jpg",
       img2: "/images/swiper/img2.jpg",
@@ -80,21 +81,22 @@ Page({
 
   },
   // 公告点击展示
-  showNotice(e) {
-    const originText = e.target.dataset.text
-    const content= originText.replace(/\n/g, "\r\n")
-    console.log(content);
-    wx.showModal({
-      title: e.target.dataset.title,
-      content: content,
-      showCancel: false
-    });
-  },
+  // showNotice(e) {
+  //   const originText = e.target.dataset.text
+  //   const content= originText.replace(/\n/g, "\r\n")
+  //   console.log(content);
+  //   wx.showModal({
+  //     title: e.target.dataset.title,
+  //     content: content,
+  //     showCancel: false
+  //   });
+  // },
     // 展示弹出层
     showPop(e) {
       const originText = e.target.dataset.text,
       title= e.target.dataset.title
       this.setData({
+        topNum:0,
         isShowNotice: true,
         showNoticeText:originText,
         showNoticeTitle:title
@@ -103,7 +105,8 @@ Page({
     // 关闭弹出层
     onClose() {
       this.setData({
-        isShowNotice: false
+        isShowNotice: false,
+        topNum:-1,
       });
     },
 })
