@@ -34,7 +34,7 @@
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#b5826d",
-    "navigationBarTitleText": "样本小程序",
+    "navigationBarTitleText": "宠物医院管理系统",
     "enablePullDownRefresh": true,
     "backgroundColor": "#e9be9e"
   },
