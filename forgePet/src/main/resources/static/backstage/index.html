@@ -202,9 +202,9 @@
         window.top.location.href = "/login.html"
         return Promise.reject(error);
     });// 根据id获取对象
-    function byId(id) {
-        return document.getElementById(id)
-    }// 自建类
+    const byId = id => document.getElementById(id)
+
+    // 自建类
     class MixImg2 {
         constructor() {
             this.myFile = byId("myFile")
@@ -270,26 +270,27 @@
         getAdm()
     }//获取管理员信息
     function getAdm() {
-        axios.get("adminLog").then(resp => jsonToForm(resp.data))
-    }//将json变成表单
-    function jsonToForm(h) {
-        const {employeeName, employeePhoto} = h
-        // 名字
-        byId("admin01").innerHTML = employeeName
-        byId("admin02").innerHTML = employeeName
-        //图片
-        const adminPhoto = byId("adminPhoto")
-        if (employeePhoto !== '' && employeePhoto != null) {
-            adminPhoto.src = 'http://localhost:8083/common/download?name=' + employeePhoto
-        } else {
-            adminPhoto.src = '../picture/none.png'
-        }
-        bbb.change(employeePhoto)
-        //其他选项
-        const group = ["employeeId", "employeeUsername", "employeeName", "employeeTel"]
-        for (let i = 0; i < group.length; i++) {
-            byId(group[i]).value = h[group[i]]
-        }
+        axios.get("adminLog")
+            .then(resp => resp.data)
+            .then(h => {
+                const {employeeName, employeePhoto} = h
+                // 名字
+                byId("admin01").innerHTML = employeeName
+                byId("admin02").innerHTML = employeeName
+                //图片
+                const adminPhoto = byId("adminPhoto")
+                if (employeePhoto !== '' && employeePhoto != null) {
+                    adminPhoto.src = 'http://localhost:8083/common/download?name=' + employeePhoto
+                } else {
+                    adminPhoto.src = '../picture/none.png'
+                }
+                bbb.change(employeePhoto)
+                //其他选项
+                const group = ["employeeId", "employeeUsername", "employeeName", "employeeTel"]
+                for (let i = 0; i < group.length; i++) {
+                    byId(group[i]).value = h[group[i]]
+                }
+            })
     }//提交表单
     function formSub() {
         const json = {

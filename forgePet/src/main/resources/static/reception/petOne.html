@@ -65,7 +65,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="adoptMoney">押金</label>
                         <div class="col-sm-8">
-                            <input class="form-control" id="adoptMoney" type="number" autocomplete="off">
+                            <input class="form-control" id="adoptMoney" type="number"  autocomplete="off" value="200">
                         </div>
                     </div>
                 </form>
@@ -86,41 +86,39 @@
 <script>
     // 建立对象
     const unt = new FrontUntil()
+    const byID = id => document.getElementById(id)
     window.onload = () => {
         const href = window.location.href;
         if (href.indexOf("?") === -1) return;
         const petId = href.split("?")[1];
-        if (!isNaN(parseInt(petId))) {
-            Promise.all([axios("pet/one?petId=" + petId),
-                axios("adopt/inAdopt?petId=" + petId)])
-                .then(result => {
-                    petMes(result[0]["data"]);
-                    if (result[1]["data"] > 0) {
-                        document.getElementById("firstBtn").style.display = "none"
-                        document.getElementById("secondBtn").style.display = ""
-                    }
-                })
-        }
+        if (isNaN(parseInt(petId))) return;
+        Promise.all([axios("pet/one?petId=" + petId),
+            axios("adopt/inAdopt?petId=" + petId)])
+            .then(result => {
+                petMes(result[0]["data"]);
+                if (result[1]["data"] > 0) {
+                    byID("firstBtn").style.display = "none"
+                    byID("secondBtn").style.display = ""
+                }
+            })
     }// 宠物信息
-    function petMes(h) {
+    const petMes = h => {
         const {petSex, petAge, petPhoto} = h
-        document.getElementById("petPhoto").src = myBackStage + 'common/download?name=' + petPhoto;
+        byID("petPhoto").src = myBackStage + 'common/download?name=' + petPhoto;
         h["petSex"] = petSex ? "公" : "母"
         h["petAge"] = unt.age(petAge)
         unt.setInnerText(h, ["petName", "petSex", "petAge", "petVariety", "petStatus", "petInfo", "petId"])
-    }
-
-    // 提交申请
-    function addAdopt() {
+    }// 提交申请
+    const addAdopt = () => {
         const json = {
-            "petId": document.getElementById("petId").innerText,
-            "adoptInfo": document.getElementById("adoptInfo").value,
-            "adoptMoney": document.getElementById("adoptMoney").value
+            "petId": byID("petId").innerText,
+            "adoptInfo": byID("adoptInfo").value,
+            "adoptMoney": byID("adoptMoney").value
         }
         axios.post("adopt/adoptPet", json).then(resp => {
             showAlert(resp.data["msg"], "alert-success")
-            document.getElementById("firstBtn").style.display = "none"
-            document.getElementById("secondBtn").style.display = ""
+            byID("firstBtn").style.display = "none"
+            byID("secondBtn").style.display = ""
         })
     }
 </script>

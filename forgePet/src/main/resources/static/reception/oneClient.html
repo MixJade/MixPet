@@ -216,12 +216,13 @@
 <script src="js/request.js"></script>
 <script src="js/z-alert.js"></script>
 <script>
+    const byID = id => document.getElementById(id)
     window.onload = () => {
         getUser();
         const href = window.location.href
         if (href.indexOf("?") !== -1) {
-            if (href.split("?")[1] === "pet") document.getElementById("vb-radio2").click();
-            else if (href.split("?")[1] === "appoint") document.getElementById("vb-radio3").click();
+            if (href.split("?")[1] === "pet") byID("vb-radio2").click();
+            else if (href.split("?")[1] === "appoint") byID("vb-radio3").click();
         }
     }// 获取当前用户信息
     function getUser() {
@@ -237,32 +238,32 @@
         })
     }//单个用户：json转表单
     function setForm(h) {
-        document.getElementById("rolePhoto").setAttribute("src", 'http://localhost:8083/common/download?name=' + h["clientPhoto"])
+        byID("rolePhoto").setAttribute("src", 'http://localhost:8083/common/download?name=' + h["clientPhoto"])
         const group = ["clientId", "clientUsername", "clientName", "clientTel",
             "clientPhoto", "clientAge", "clientInfo", "clientGender"];
         for (let i = 0; i < group.length; i++) {
-            document.getElementById(group[i]).value = h[group[i]]
+            byID(group[i]).value = h[group[i]]
         }
-        document.getElementById("finUse").value = h["clientUsername"]
+        byID("finUse").value = h["clientUsername"]
     }//单个用户：表单转json
-    document.getElementById("op_3").onclick = () => {
+    byID("op_3").onclick = () => {
         const json = {
             "clientId": '', "clientName": '', "clientPhoto": '', "clientAge": '', "clientInfo": '', "clientGender": ''
         };
         for (const key in json) {
-            json[key] = document.getElementById(key).value;
+            json[key] = byID(key).value;
         }
         axios.put("client", json).then(resp => {
             const data = resp.data;
             (data["code"] === 0) ? showAlert(data["msg"]) : showAlert(data["msg"], "alert-success");
             setTimeout(() => {
-                document.getElementById('op_4').click();
+                byID('op_4').click();
                 getUser();
             }, 1000);
         })
     }// 上传后改变图片
     function imgChange(file) {
-        const myFileText = document.getElementById("myFileText").style,
+        const myFileText = byID("myFileText").style,
             myFile = file.files[0]
         if (myFile.size > 3145700) {
             myFileText.display = "";
@@ -272,14 +273,14 @@
             formData.append("myFile", myFile)
             axios.post("common/upload", formData).then(resp => {
                 const imgName = resp.data
-                document.getElementById("rolePhoto").setAttribute("src", 'http://localhost:8083/common/download?name=' + imgName);
-                document.getElementById("clientPhoto").value = imgName;
+                byID("rolePhoto").setAttribute("src", 'http://localhost:8083/common/download?name=' + imgName);
+                byID("clientPhoto").value = imgName;
             })
         }
     }//写入宠物信息
     function writePet(json) {
         if (json.length > 0) {
-            document.getElementById("petPa").innerHTML = ''
+            byID("petPa").innerHTML = ''
             for (let i = 0; i < json.length; i++) {
                 writePetCard(json[i])
             }
@@ -287,7 +288,7 @@
     }//写入单个宠物
     function writePetCard(h) {
         const {petName, petVariety, petSex, petAge, petStatus, petInfo, petPhoto} = h
-        document.getElementById("petPa").innerHTML += `
+        byID("petPa").innerHTML += `
         <div class="card mb-3" style="max-width: 540px;">
             <div class="row g-0">
                 <div class="col-md-4">
@@ -311,7 +312,7 @@
     }//写入挂号信息
     function writeAppoint(json) {
         if (json.length > 0) {
-            document.getElementById("appointPa").innerHTML = ''
+            byID("appointPa").innerHTML = ''
             for (let i = 0; i < json.length; i++) {
                 writeAppointCard(json[i])
             }
@@ -319,7 +320,7 @@
     }//写入单个挂号
     function writeAppointCard(h) {
         const {appointmentId, appointmentDate, petName, departmentName, appointmentInfo, doctorName, createTime} = h
-        document.getElementById("appointPa").innerHTML += `
+        byID("appointPa").innerHTML += `
         <div class="card mb-3" style="max-width: 540px;">
             <div class="row g-0">
                 <div class="card-body">
@@ -332,21 +333,18 @@
             </div>
         </div>`
     }//去除T
-    function moveT(s) {
-        return s.toString().replaceAll("T", ' ')
-    }
-
+    const moveT = s => s.toString().replaceAll("T", ' ');
 
     (function () {// 表单允许与禁止访问
-        const opTwo_1 = document.getElementById("opTwo_1")
-        const opTwo_2 = document.getElementById("opTwo_2")
-        document.getElementById("op_2").onclick = () => {
-            document.getElementById("fieldset").removeAttribute("disabled");
+        const opTwo_1 = byID("opTwo_1")
+        const opTwo_2 = byID("opTwo_2")
+        byID("op_2").onclick = () => {
+            byID("fieldset").removeAttribute("disabled");
             opTwo_1.style.transform = "rotateY(180deg)"
             opTwo_2.style.transform = "rotateY(0deg)";
         }
-        document.getElementById("op_4").onclick = () => {
-            document.getElementById("fieldset").setAttribute("disabled", "disabled");
+        byID("op_4").onclick = () => {
+            byID("fieldset").setAttribute("disabled", "disabled");
             getUser();
             opTwo_2.style.transform = "rotateY(180deg)"
             opTwo_1.style.transform = "rotateY(0deg)";
@@ -361,32 +359,29 @@
         }
     }());
 
-    //根据json键值进行赋值
-    function jVal(json) {
-        for (const key in json) {
-            json[key] = document.getElementById(json[key]).value;
-        }
-        return json;
-    }//找回密码发送验证码
+    //找回密码发送验证码
     function finCodeS(val) {
         setTime(val)
-        const mail = document.getElementById("finMail").value;
-        const username = document.getElementById("finUse").value;
+        const mail = byID("finMail").value;
+        const username = byID("finUse").value;
         axios.get(`login/finMail?mail=${mail}&username=${username}`).then(resp => {
             if (resp.data["code"] === 0) showAlert(resp.data["msg"])
         })
     }//进行找回密码
     function toFind() {
-        const json = jVal({
-            "checkCode": "finCode", "clientUsername": "finUse", "clientPassword": "finPwd", "clientTel": "finMail"
-        });
-        axios.post("login/find", json).then(resp => finRes(resp.data))
-    }//重置密码结果
-    function finRes(data) {
-        (data["code"] === 0) ? showAlert(data["msg"]) : showAlert(data["msg"], "alert-success");
-        setTimeout(() => {
-            document.getElementById('close').click();
-        }, 1000);
+        const jv = key => byID(key).value;
+        const json = {
+            "checkCode": jv("finCode"), "clientUsername": jv("finUse"),
+            "clientPassword": jv("finPwd"), "clientTel": jv("finMail")
+        }
+        axios.post("login/find", json)
+            .then(resp => resp.data)
+            .then(data => {//重置密码结果
+                (data["code"] === 0) ? showAlert(data["msg"]) : showAlert(data["msg"], "alert-success");
+                setTimeout(() => {
+                    byID('close').click();
+                }, 1000);
+            })
     }
 </script>
 
