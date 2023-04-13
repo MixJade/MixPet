@@ -19,7 +19,7 @@ public interface RoleConst {
     /**
      * 临时工
      */
-    String LOSER="loser";
+    String LOSER = "loser";
     /**
      * 医生
      */
