@@ -17,6 +17,10 @@ public interface RoleConst {
      */
     String NURSE = "nurse";
     /**
+     * 临时工
+     */
+    String LOSER="loser";
+    /**
      * 医生
      */
     String DOCTOR = "doctor";
