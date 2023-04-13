@@ -56,7 +56,7 @@ public class EmployeeRealm extends AuthorizingRealm {
                 case 2:
                     info.addRole(RoleConst.NURSE);
                 default:
-                    info.addRole(RoleConst.LOSER);
+                    break;
             }
             log.info("当前角色：" + info.getRoles());
             return info;
