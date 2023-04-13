@@ -289,7 +289,7 @@
         }
     }//提交表单
     function formSub() {
-        const group = ["employeeId", "employeeUsername", "employeeName", "employeeTel", "employeePassword"]
+        const group = ["employeeTel", "employeePassword"]
         const json = {};
         for (let i = 0; i < group.length; i++) {
             json[group[i]] = document.getElementById(group[i]).value

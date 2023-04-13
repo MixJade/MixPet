@@ -132,14 +132,14 @@ public class LoginController {
      * @return 当前登录的是管理员或用户或没有
      */
     @GetMapping
-    public String getLogin() {
+    public RealmEnum getLogin() {
         Object principal = SecurityUtils.getSubject().getPrincipal();
         if (principal instanceof Employee) {
-            return "admin";
+            return RealmEnum.EMPLOYEE;
         } else if (principal instanceof Client) {
-            return "user";
+            return RealmEnum.CLIENT;
         } else if (principal instanceof Doctor) {
-            return "doctor";
+            return RealmEnum.DOCTOR;
         }
         return null;
     }

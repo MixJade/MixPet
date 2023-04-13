@@ -2,6 +2,7 @@ package com.forge.controller;
 
 import com.forge.common.Result;
 import com.forge.dto.AppointmentDto;
+import com.forge.shiro.RoleConst;
 import com.forge.vo.Page;
 import com.forge.entity.Appointment;
 import com.forge.service.IAppointmentService;
@@ -57,25 +58,25 @@ public class AppointmentController {
     }
 
     @PostMapping
-    @RequiresRoles("nurse")
+    @RequiresRoles(RoleConst.NURSE)
     public Result save(@RequestBody Appointment appointment) {
         return Result.choice("添加", appointmentService.save(appointment));
     }
 
     @DeleteMapping("/{id}")
-    @RequiresRoles("deputy")
+    @RequiresRoles(RoleConst.MANAGER)
     public Result delete(@PathVariable Long id) {
         return Result.choice("删除单个", appointmentService.deleteById(id));
     }
 
     @DeleteMapping("/batch/{ids}")
-    @RequiresRoles("deputy")
+    @RequiresRoles(RoleConst.MANAGER)
     public Result deleteGroup(@PathVariable long[] ids) {
         return Result.choice("删除多个", appointmentService.deleteByIds(ids));
     }
 
     @PutMapping
-    @RequiresRoles(value={"deputy", "doctor"},logical= Logical.OR)
+    @RequiresRoles(value={RoleConst.MANAGER, RoleConst.DOCTOR},logical= Logical.OR)
     public Result update(@RequestBody Appointment appointment) {
         return Result.choice("修改", appointmentService.updateById(appointment));
     }

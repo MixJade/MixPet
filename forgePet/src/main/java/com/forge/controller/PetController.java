@@ -1,6 +1,7 @@
 package com.forge.controller;
 
 import com.forge.common.Result;
+import com.forge.shiro.RoleConst;
 import com.forge.vo.NameVo;
 import com.forge.vo.Page;
 import com.forge.dto.PetDto;
@@ -70,25 +71,25 @@ public class PetController {
     }
 
     @PostMapping
-    @RequiresRoles("nurse")
+    @RequiresRoles(RoleConst.NURSE)
     public Result save(@RequestBody Pet pet) {
         return Result.choice("添加", petService.save(pet));
     }
 
     @DeleteMapping("/{id}")
-    @RequiresRoles("deputy")
+    @RequiresRoles(RoleConst.MANAGER)
     public Result delete(@PathVariable Long id) {
         return Result.choice("删除单个", petService.deleteById(id));
     }
 
     @DeleteMapping("/batch/{ids}")
-    @RequiresRoles("deputy")
+    @RequiresRoles(RoleConst.MANAGER)
     public Result deleteGroup(@PathVariable long[] ids) {
         return Result.choice("删除多个", petService.deleteByIds(ids));
     }
 
     @PutMapping
-    @RequiresRoles("deputy")
+    @RequiresRoles(RoleConst.MANAGER)
     public Result update(@RequestBody Pet pet) {
         return Result.choice("修改", petService.updatePet(pet));
     }

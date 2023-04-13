@@ -3,6 +3,7 @@ package com.forge.shiro.realm;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.forge.entity.Employee;
 import com.forge.mapper.EmployeeMapper;
+import com.forge.shiro.RoleConst;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -49,13 +50,13 @@ public class EmployeeRealm extends AuthorizingRealm {
             int level = employee.getEmployeeLevel();
             switch (level) {
                 case 6:
-                    info.addRole("admin");
+                    info.addRole(RoleConst.ADMIN);
                 case 4:
-                    info.addRole("deputy");
+                    info.addRole(RoleConst.MANAGER);
                 case 2:
-                    info.addRole("nurse");
+                    info.addRole(RoleConst.NURSE);
                 default:
-                    break;
+                    info.addRole(RoleConst.LOSER);
             }
             log.info("当前角色：" + info.getRoles());
             return info;

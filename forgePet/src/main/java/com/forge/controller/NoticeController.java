@@ -2,6 +2,7 @@ package com.forge.controller;
 
 import com.forge.common.Result;
 import com.forge.dto.NoticeDto;
+import com.forge.shiro.RoleConst;
 import com.forge.vo.Page;
 import com.forge.entity.Employee;
 import com.forge.entity.Notice;
@@ -47,7 +48,7 @@ public class NoticeController {
     }
 
     @PostMapping
-    @RequiresRoles("deputy")
+    @RequiresRoles(RoleConst.MANAGER)
     public Result save(@RequestBody NoticeDto noticeDto) {
         Employee employee = (Employee) SecurityUtils.getSubject().getPrincipal();
         noticeDto.setCreatId(employee.getEmployeeId());
@@ -58,7 +59,7 @@ public class NoticeController {
      * 禁用与启用
      */
     @DeleteMapping("/disable/{id}")
-    @RequiresRoles("deputy")
+    @RequiresRoles(RoleConst.MANAGER)
     public Result disableSet(@PathVariable Long id, boolean isDis) {
         return Result.choice(isDis ? "启用" : "禁用", noticeService.disableNotice(id, isDis));
     }
@@ -73,19 +74,19 @@ public class NoticeController {
     }
 
     @DeleteMapping("/{id}")
-    @RequiresRoles("deputy")
+    @RequiresRoles(RoleConst.MANAGER)
     public Result delete(@PathVariable Long id) {
         return Result.choice("删除单个", noticeService.deleteById(id));
     }
 
     @DeleteMapping("/batch/{ids}")
-    @RequiresRoles("deputy")
+    @RequiresRoles(RoleConst.MANAGER)
     public Result deleteGroup(@PathVariable long[] ids) {
         return Result.choice("删除多个", noticeService.deleteByIds(ids));
     }
 
     @PutMapping
-    @RequiresRoles("deputy")
+    @RequiresRoles(RoleConst.MANAGER)
     public Result update(@RequestBody NoticeDto noticeDto) {
         Employee employee = (Employee) SecurityUtils.getSubject().getPrincipal();
         noticeDto.setUpdateId(employee.getEmployeeId());

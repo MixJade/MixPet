@@ -3,6 +3,7 @@ package com.forge.controller;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.forge.common.Result;
 import com.forge.dto.AdoptDto;
+import com.forge.shiro.RoleConst;
 import com.forge.vo.Page;
 import com.forge.entity.Adopt;
 import com.forge.entity.Client;
@@ -58,7 +59,7 @@ public class AdoptController {
      * 管理员添加领养订单
      */
     @PostMapping
-    @RequiresRoles("nurse")
+    @RequiresRoles(RoleConst.MANAGER)
     public Result save(@RequestBody Adopt adopt) {
         return Result.choice("添加", adoptService.save(adopt));
     }
@@ -76,19 +77,19 @@ public class AdoptController {
     }
 
     @DeleteMapping("/{id}")
-    @RequiresRoles("deputy")
+    @RequiresRoles(RoleConst.MANAGER)
     public Result delete(@PathVariable Long id) {
         return Result.choice("删除单个", adoptService.deleteById(id));
     }
 
     @DeleteMapping("/batch/{ids}")
-    @RequiresRoles("deputy")
+    @RequiresRoles(RoleConst.MANAGER)
     public Result deleteGroup(@PathVariable long[] ids) {
         return Result.choice("删除多个", adoptService.deleteByIds(ids));
     }
 
     @PutMapping
-    @RequiresRoles("deputy")
+    @RequiresRoles(RoleConst.MANAGER)
     public Result update(@RequestBody Adopt adopt) {
         return Result.choice("修改", adoptService.updateById(adopt));
     }
@@ -97,7 +98,7 @@ public class AdoptController {
      * 管理员审核订单
      */
     @PutMapping("/adopt")
-    @RequiresRoles("deputy")
+    @RequiresRoles(RoleConst.MANAGER)
     public Result toAdopt(@RequestBody AdoptVo adoptVo) {
         if (!adoptService.petMaster(adoptVo.adoptId())) return Result.error("名花有主");
         Boolean isAdopt = adoptVo.isAdopt();

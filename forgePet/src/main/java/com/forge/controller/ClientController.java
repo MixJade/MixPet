@@ -1,10 +1,12 @@
 package com.forge.controller;
 
 import com.forge.common.Result;
+import com.forge.shiro.RoleConst;
 import com.forge.vo.NameVo;
 import com.forge.vo.Page;
 import com.forge.entity.Client;
 import com.forge.service.IClientService;
+import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +53,7 @@ public class ClientController {
     }
 
     @PostMapping
+    @RequiresRoles(RoleConst.MANAGER)
     public Result save(@RequestBody Client client) {
         if (client.getClientName().isBlank()) return Result.error("用户名为空");
         if (client.getClientUsername().isBlank()) return Result.error("用户账号为空");
@@ -58,18 +61,19 @@ public class ClientController {
     }
 
     @DeleteMapping("/{id}")
-    @RequiresRoles("deputy")
+    @RequiresRoles(RoleConst.MANAGER)
     public Result delete(@PathVariable Long id) {
         return Result.choice("删除单个", clientService.deleteById(id));
     }
 
     @DeleteMapping("/batch/{ids}")
-    @RequiresRoles("deputy")
+    @RequiresRoles(RoleConst.MANAGER)
     public Result deleteGroup(@PathVariable long[] ids) {
         return Result.choice("删除多个", clientService.deleteByIds(ids));
     }
 
     @PutMapping
+    @RequiresRoles(value={RoleConst.MANAGER, RoleConst.CLIENT},logical= Logical.OR)
     public Result update(@RequestBody Client client) {
         return Result.choice("修改", clientService.updateById(client));
     }

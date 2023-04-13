@@ -323,11 +323,11 @@
     function roleHas() {
         axios().then(reap => {
             const name = reap.data
-            if (name === "admin") {
+            if (name === "EMPLOYEE") {
                 window.location.href = "backstage/index.html"
-            } else if (name === "user") {
+            } else if (name === "CLIENT") {
                 window.location.href = "index.html"
-            } else if (name === "doctor") {
+            } else if (name === "DOCTOR") {
                 window.location.href = "doctorPage/index.html"
             }
         })
