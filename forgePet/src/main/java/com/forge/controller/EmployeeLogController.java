@@ -3,6 +3,7 @@ package com.forge.controller;
 import com.forge.common.Result;
 import com.forge.entity.Employee;
 import com.forge.service.IEmployeeService;
+import com.forge.shiro.RoleConst;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/adminLog")
-@RequiresRoles("nurse")
+@RequiresRoles(RoleConst.NURSE)
 public class EmployeeLogController {
     private final IEmployeeService employeeService;
 

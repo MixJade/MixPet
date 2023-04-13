@@ -1,6 +1,7 @@
 package com.forge.controller;
 
 import com.forge.common.Result;
+import com.forge.shiro.RoleConst;
 import com.forge.vo.NameVo;
 import com.forge.vo.Page;
 import com.forge.entity.Department;
@@ -40,19 +41,19 @@ public class DepartmentController {
     }
 
     @PostMapping
-    @RequiresRoles("admin")
+    @RequiresRoles(RoleConst.ADMIN)
     public Result save(@RequestBody Department department) {
         return Result.choice("添加", departService.save(department));
     }
 
     @DeleteMapping("/{id}")
-    @RequiresRoles("admin")
+    @RequiresRoles(RoleConst.ADMIN)
     public Result delete(@PathVariable Long id) {
         return Result.choice("删除单个", departService.deleteById(id));
     }
 
     @PutMapping
-    @RequiresRoles("admin")
+    @RequiresRoles(RoleConst.ADMIN)
     public Result update(@RequestBody Department department) {
         return Result.choice("修改", departService.updateById(department));
     }

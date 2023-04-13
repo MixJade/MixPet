@@ -51,7 +51,7 @@ public class EmployeeRealm extends AuthorizingRealm {
                 case 6:
                     info.addRole("admin");
                 case 4:
-                    info.addRole("deputy");
+                    info.addRole("manager");
                 case 2:
                     info.addRole("nurse");
                 default:

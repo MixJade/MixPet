@@ -7,6 +7,7 @@ import com.forge.dto.DoctorDto;
 import com.forge.entity.Doctor;
 import com.forge.service.IAppointmentService;
 import com.forge.service.IDoctorService;
+import com.forge.shiro.RoleConst;
 import com.forge.vo.DoctorResetPwdVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/doctorLog")
-@RequiresRoles("doctor")
+@RequiresRoles(RoleConst.DOCTOR)
 public class DoctorLogController {
     private final IDoctorService doctorService;
     private final IAppointmentService appointService;
