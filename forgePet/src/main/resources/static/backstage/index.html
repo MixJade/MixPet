@@ -118,7 +118,8 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="employeePassword">密码</label>
                         <div class="col-sm-8">
-                            <input class="form-control" id="employeePassword" type="password">
+                            <input class="form-control" id="employeePassword" type="password"
+                                   placeholder="若不改密码，勿在此输入">
                         </div>
                     </div>
                 </form>
@@ -200,14 +201,16 @@
     }, error => {
         window.top.location.href = "/login.html"
         return Promise.reject(error);
-    });
-
+    });// 根据id获取对象
+    function byId(id) {
+        return document.getElementById(id)
+    }// 自建类
     class MixImg2 {
         constructor() {
-            this.myFile = document.getElementById("myFile")
+            this.myFile = byId("myFile")
             this.myFile.onchange = () => this.imgChange()
-            this._myImg = document.getElementById("rolePhoto");
-            this.myFileText = document.getElementById("myFileText")
+            this._myImg = byId("rolePhoto");
+            this.myFileText = byId("myFileText")
         }// 获取图片名
         get myImg() {
             return this._myImg.alt;
@@ -244,9 +247,9 @@
             "y-adoptList.html", "y-fosterList.html", "y-noticeList.html", "x-employeeList.html", "x-departmentList.html"
         ],
         aJade = document.getElementsByClassName("a-jade"),
-        ifm = document.getElementById("myFrame"),
-        toast01 = document.getElementById("toast01"),// 成功消息
-        toast02 = document.getElementById("toast02"),// 失败消息
+        ifm = byId("myFrame"),
+        toast01 = byId("toast01"),// 成功消息
+        toast02 = byId("toast02"),// 失败消息
         bbb = new MixImg2();
     let nowHave = 0;
 
@@ -263,7 +266,7 @@
         aJade[index].classList.add("a-hide")
         ifm.src = srcFrame[index]
     }// 获取当前登录用户
-    window.onload = function () {
+    window.onload = () => {
         getAdm()
     }//获取管理员信息
     function getAdm() {
@@ -272,10 +275,10 @@
     function jsonToForm(h) {
         const {employeeName, employeePhoto} = h
         // 名字
-        document.getElementById("admin01").innerHTML = employeeName
-        document.getElementById("admin02").innerHTML = employeeName
+        byId("admin01").innerHTML = employeeName
+        byId("admin02").innerHTML = employeeName
         //图片
-        const adminPhoto = document.getElementById("adminPhoto")
+        const adminPhoto = byId("adminPhoto")
         if (employeePhoto !== '' && employeePhoto != null) {
             adminPhoto.src = 'http://localhost:8083/common/download?name=' + employeePhoto
         } else {
@@ -285,28 +288,28 @@
         //其他选项
         const group = ["employeeId", "employeeUsername", "employeeName", "employeeTel"]
         for (let i = 0; i < group.length; i++) {
-            document.getElementById(group[i]).value = h[group[i]]
+            byId(group[i]).value = h[group[i]]
         }
     }//提交表单
     function formSub() {
-        const group = ["employeeTel", "employeePassword"]
-        const json = {};
-        for (let i = 0; i < group.length; i++) {
-            json[group[i]] = document.getElementById(group[i]).value
-        }
-        json["employeePhoto"] = bbb.myImg
-        axios.put("adminLog", json).then(resp => adminResp(resp))
-    }// 修改操作的解析
-    function adminResp(resp) {
-        if (resp.data["code"] === 1) {
-            sucToast(resp.data["msg"])
-            document.getElementById("employeePassword").value = ''
-            getAdm()
-        } else if (resp.data["code"] === 0) {
-            errToast(resp.data["msg"])
-        } else {
-            errToast("服务器无响应")
-        }
+        const json = {
+            "photo": bbb.myImg,
+            "tel": byId("employeeTel").value,
+            "password": byId("employeePassword").value
+        };
+        axios.put("adminLog", json)
+            .then(resp => resp.data)
+            .then(data => {
+                if (data["code"] === 1) {
+                    sucToast(data["msg"])
+                    byId("employeePassword").value = ''
+                    getAdm()
+                } else if (data["code"] === 0) {
+                    errToast(data["msg"])
+                } else {
+                    errToast("服务器无响应")
+                }
+            })
     }// 成功消息
     function sucToast(msg) {
         toast01.querySelector(".myTos").innerHTML = msg;
@@ -317,7 +320,7 @@
         new bootstrap.Toast(toast02).show();
     }// 退出登录
     function logout() {
-        axios("login/bye").then(resp=> {
+        axios("login/bye").then(resp => {
             if (resp.data["code"] === 204) window.top.location.href = "/login.html"
         })
     }

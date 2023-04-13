@@ -39,16 +39,17 @@ public class EmployeeLogController {
      */
     @PutMapping
     public Result updatePwd(@RequestBody EmployeePutVo putVo) {
-        if (SecurityUtils.getSubject().getPrincipal() instanceof Employee employee){
-            String pwd = putVo.employeePassword();
-            if (pwd == null || pwd.isBlank()) return Result.error("密码不能为空");
-            Md5Hash md5Hash = new Md5Hash(pwd, "pet");
-            employee.setEmployeePassword(md5Hash.toHex());
-            String tel=putVo.employeeTel();
-            String photo=putVo.employeePhoto();
+        if (SecurityUtils.getSubject().getPrincipal() instanceof Employee employee) {
+            String pwd = putVo.password();
+            if (pwd != null && !pwd.isBlank()) {
+                Md5Hash md5Hash = new Md5Hash(pwd, "pet");
+                employee.setEmployeePassword(md5Hash.toHex());
+            }
+            String tel = putVo.tel();
+            String photo = putVo.photo();
             if (!tel.isBlank()) employee.setEmployeeTel(tel);
             if (!photo.isBlank()) employee.setEmployeePhoto(photo);
-            return Result.choice("修改",employeeService.updateById(employee));
-        }else return Result.error("登录信息过时");
+            return Result.choice("修改", employeeService.updateById(employee));
+        } else return Result.error("登录信息过时");
     }
 }
