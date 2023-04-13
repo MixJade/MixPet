@@ -53,7 +53,7 @@ public class ClientController {
     }
 
     @PostMapping
-    @RequiresRoles(value={RoleConst.MANAGER, RoleConst.USER},logical= Logical.OR)
+    @RequiresRoles(RoleConst.MANAGER)
     public Result save(@RequestBody Client client) {
         if (client.getClientName().isBlank()) return Result.error("用户名为空");
         if (client.getClientUsername().isBlank()) return Result.error("用户账号为空");
@@ -73,7 +73,7 @@ public class ClientController {
     }
 
     @PutMapping
-    @RequiresRoles(value={RoleConst.MANAGER, RoleConst.USER},logical= Logical.OR)
+    @RequiresRoles(value={RoleConst.MANAGER, RoleConst.CLIENT},logical= Logical.OR)
     public Result update(@RequestBody Client client) {
         return Result.choice("修改", clientService.updateById(client));
     }

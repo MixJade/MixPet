@@ -3,6 +3,7 @@ package com.forge.shiro.realm;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.forge.entity.Doctor;
 import com.forge.mapper.DoctorMapper;
+import com.forge.shiro.RoleConst;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -45,7 +46,7 @@ public class DoctorRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         if (!(principalCollection.getPrimaryPrincipal() instanceof Doctor)) return null;
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        info.addRole("doctor");
+        info.addRole(RoleConst.DOCTOR);
         log.info("当前角色为医生");
         return info;
     }

@@ -3,6 +3,7 @@ package com.forge.shiro.realm;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.forge.entity.Client;
 import com.forge.mapper.ClientMapper;
+import com.forge.shiro.RoleConst;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -45,7 +46,7 @@ public class ClientRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         if (!(principalCollection.getPrimaryPrincipal() instanceof Client)) return null;
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        info.addRole("client");
+        info.addRole(RoleConst.CLIENT);
         log.info("当前角色为用户");
         return info;
     }

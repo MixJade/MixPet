@@ -23,5 +23,5 @@ public interface RoleConst {
     /**
      * 用户
      */
-    String USER = "user";
+    String CLIENT = "client";
 }
