@@ -202,9 +202,9 @@
         window.top.location.href = "/login.html"
         return Promise.reject(error);
     });// 根据id获取对象
-    function byId(id) {
-        return document.getElementById(id)
-    }// 自建类
+    const byId = id => document.getElementById(id)
+
+    // 自建类
     class MixImg2 {
         constructor() {
             this.myFile = byId("myFile")

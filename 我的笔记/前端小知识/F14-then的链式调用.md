@@ -14,25 +14,15 @@ axios.put("adminLog", json)
 ```
 
 * 这个then里的return也可以通过外部函数代劳
-* 比如(这里就不展示了)：
+* 这里是`const fun1 = x => x + "[1]"`为const定义函数方式，箭头后面直接返回
+* 比如：
 
 ```js
-    // 外部函数1
-function func1(str1) {
-    return new Promise(resolve => {
-        resolve(str1 + '=1=');
-    })
-}// 外部函数2
-function func2(x) {
-    return x + "=2=";
-}// 外部函数3
-function func3(x) {
-    return x + "=3="
-}// 进行链式调用
-func1("str1")
-    .then(res => func2(res))
-    .then(res => func3(res))
-    .then(res => {
-        console.log(res);
-    })
+const fun1 = x => x + "[1]"
+const fun2 = x => x + "[2]"
+// 进行链式调用
+new Promise(resolve => resolve("str1"))
+    .then(res => fun1(res))
+    .then(res => fun2(res))
+    .then(res => console.log(res))
 ```
