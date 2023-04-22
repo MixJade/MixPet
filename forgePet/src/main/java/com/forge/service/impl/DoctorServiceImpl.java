@@ -46,7 +46,7 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorMapper, Doctor> impleme
     }
 
     @Override
-    public Page<List<DoctorDto>> selectByPage(String doctorName, String departmentName, int numPage, int pageSize) {
+    public Page<DoctorDto> selectByPage(String doctorName, String departmentName, int numPage, int pageSize) {
         int maxCount = doctorMapper.selectDoctorCount(doctorName, departmentName);
         PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
         var doctorList = doctorMapper.selectDoctorPage(doctorName, departmentName, pu);

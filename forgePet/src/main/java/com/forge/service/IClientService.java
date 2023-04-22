@@ -40,7 +40,7 @@ public interface IClientService extends IService<Client> {
      * @param pageSize   当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    Page<List<Client>> selectByPage(String clientName, int numPage, int pageSize);
+    Page<Client> selectByPage(String clientName, int numPage, int pageSize);
 
     /**
      * 查询所有用户的姓名及对应id

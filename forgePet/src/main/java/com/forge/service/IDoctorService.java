@@ -42,7 +42,7 @@ public interface IDoctorService extends IService<Doctor> {
      * @param pageSize       当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    Page<List<DoctorDto>> selectByPage(String doctorName, String departmentName, int numPage, int pageSize);
+    Page<DoctorDto> selectByPage(String doctorName, String departmentName, int numPage, int pageSize);
 
     /**
      * 根据id查询医生

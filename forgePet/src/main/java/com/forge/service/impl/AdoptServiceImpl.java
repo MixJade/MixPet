@@ -45,7 +45,7 @@ public class AdoptServiceImpl extends ServiceImpl<AdoptMapper, Adopt> implements
     }
 
     @Override
-    public Page<List<AdoptDto>> selectByPage(String adoptCode, int numPage, int pageSize) {
+    public Page<AdoptDto> selectByPage(String adoptCode, int numPage, int pageSize) {
         int maxCount = adoptMapper.selectAdoptCount(adoptCode);
         PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
         var adoptList = adoptMapper.selectAdoptPage(adoptCode, pu);

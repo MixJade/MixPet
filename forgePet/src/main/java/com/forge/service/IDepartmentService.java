@@ -32,7 +32,7 @@ public interface IDepartmentService extends IService<Department> {
      * @param pageSize       当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    Page<List<Department>> selectByPage(String departmentName, int numPage, int pageSize);
+    Page<Department> selectByPage(String departmentName, int numPage, int pageSize);
 
     /**
      * 查询名字与对应id

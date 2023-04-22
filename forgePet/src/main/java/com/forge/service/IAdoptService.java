@@ -40,7 +40,7 @@ public interface IAdoptService extends IService<Adopt> {
      * @param pageSize  当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    Page<List<AdoptDto>> selectByPage(String adoptCode, int numPage, int pageSize);
+    Page<AdoptDto> selectByPage(String adoptCode, int numPage, int pageSize);
 
     /**
      * 审核通过之后更新相应宠物表

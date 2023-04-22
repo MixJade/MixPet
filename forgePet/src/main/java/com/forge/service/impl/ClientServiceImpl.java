@@ -44,7 +44,7 @@ public class ClientServiceImpl extends ServiceImpl<ClientMapper, Client> impleme
     }
 
     @Override
-    public Page<List<Client>> selectByPage(String clientName, int numPage, int pageSize) {
+    public Page<Client> selectByPage(String clientName, int numPage, int pageSize) {
         int maxCount = clientMapper.selectClientCount(clientName);
         PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
         var clientList = clientMapper.selectClientPage(clientName, pu);

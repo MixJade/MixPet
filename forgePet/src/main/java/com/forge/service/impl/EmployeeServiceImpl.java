@@ -38,7 +38,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     }
 
     @Override
-    public Page<List<Employee>> selectByPage(String employeeName, int numPage, int pageSize) {
+    public Page<Employee> selectByPage(String employeeName, int numPage, int pageSize) {
         int maxCount = employeeMapper.selectEmployeeCount(employeeName);
         PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
         var employeeList = employeeMapper.selectEmployeePage(employeeName, pu);

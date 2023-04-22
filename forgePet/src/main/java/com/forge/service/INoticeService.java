@@ -47,7 +47,7 @@ public interface INoticeService extends IService<Notice> {
      * @param pageSize   当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    Page<List<NoticeDto>> selectByPage(String noticeName, int numPage, int pageSize);
+    Page<NoticeDto> selectByPage(String noticeName, int numPage, int pageSize);
 
     /**
      * 主页的公告查询

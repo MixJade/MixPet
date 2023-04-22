@@ -101,7 +101,7 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
     }
 
     @Override
-    public Page<List<NoticeDto>> selectByPage(String noticeName, int numPage, int pageSize) {
+    public Page<NoticeDto> selectByPage(String noticeName, int numPage, int pageSize) {
         int maxCount = noticeMapper.selectNoticeCount(noticeName);
         PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
         List<NoticeDto> noticeList = noticeMapper.selectNoticePage(noticeName, pu);

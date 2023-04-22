@@ -36,7 +36,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/page")
-    public Page<List<Department>> getPage(int numPage, int pageSize, String departmentName) {
+    public Page<Department> getPage(int numPage, int pageSize, String departmentName) {
         return departService.selectByPage(departmentName, numPage, pageSize);
     }
 

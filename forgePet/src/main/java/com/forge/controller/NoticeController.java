@@ -38,7 +38,7 @@ public class NoticeController {
     }
 
     @GetMapping("/page")
-    public Page<List<NoticeDto>> getPage(int numPage, int pageSize, String noticeName) {
+    public Page<NoticeDto> getPage(int numPage, int pageSize, String noticeName) {
         return noticeService.selectByPage(noticeName, numPage, pageSize);
     }
 

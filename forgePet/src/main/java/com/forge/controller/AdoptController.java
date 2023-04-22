@@ -40,7 +40,7 @@ public class AdoptController {
     }
 
     @GetMapping("/page")
-    public Page<List<AdoptDto>> getPage(int numPage, int pageSize, String adoptName) {
+    public Page<AdoptDto> getPage(int numPage, int pageSize, String adoptName) {
         return adoptService.selectByPage(adoptName, numPage, pageSize);
     }
 
