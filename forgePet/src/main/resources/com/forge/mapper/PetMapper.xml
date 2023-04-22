@@ -45,7 +45,7 @@
         <if test="clientName!=null and clientName!=''">
             and b.client_name like "%"#{clientName}"%"
         </if>
-        limit #{begin},#{pageItem};
+        limit #{pu.begin},#{pu.size};
     </select>
     <!--查询:主页待领养-->
     <select id="selectFour" resultType="com.forge.entity.Pet">
