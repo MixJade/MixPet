@@ -32,10 +32,10 @@ public class ExceptionAdvice {
 
     @ExceptionHandler(UnauthenticatedException.class)//shiro:未登录
     public Result doUnauthenticatedException() {
-        return Result.error("未登录");
+        return new Result(ResultEnum.NO_LOGIN);
     }
 
-    @ExceptionHandler(Exception.class)// 其他异常，没有预计的异常，发送固定消息，安抚客户
+    @ExceptionHandler(Exception.class)// 其他异常，没有预计的异常，发送固定消息
     public Result doOtherException(Exception ex) {
         log.warn("出现了异常" + ex);
         ex.printStackTrace();

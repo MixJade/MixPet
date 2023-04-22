@@ -1,17 +1,4 @@
-"use strict";
-axios.defaults.baseURL = "http://localhost:8083/";
-axios.interceptors.response.use(resp => {
-    if (resp.data["code"]===401) window.top.location.href = "/login.html"
-    if (resp.data["code"]===403){
-        const toast02 = window.parent.document.getElementById("toast02");// 失败消息
-        toast02.querySelector(".myTos").innerHTML = "无权访问";
-        new bootstrap.Toast(toast02).show();
-    }
-    return resp;
-}, error => {
-    window.top.location.href = "/login.html"
-    return Promise.reject(error);
-});
+document.write(`<script src="../js/request.js"></script>`);
 
 //设置分页条
 (() => {
