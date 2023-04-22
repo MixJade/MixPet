@@ -76,6 +76,7 @@ public class ShiroConfig {
         definition.addPathDefinition("/assets/**", "anon");
         definition.addPathDefinition("/backstage/**", "anon");
         definition.addPathDefinition("/doctorPage/**", "anon");
+        definition.addPathDefinition("/js/**", "anon");
         definition.addPathDefinition("/picture/**", "anon");
         definition.addPathDefinition("/reception/**", "anon");
         definition.addPathDefinition("/favicon.ico", "anon");

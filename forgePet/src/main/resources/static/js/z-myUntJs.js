@@ -1,13 +1,4 @@
-"use strict";
-const myBackStage = "http://localhost:8083/";
-axios.defaults.baseURL = myBackStage;
-axios.interceptors.response.use(resp => {
-    if (resp.data["code"]===401) window.top.location.href = "/login.html"
-    return resp;
-}, error => {
-    window.top.location.href = "/login.html"
-    return Promise.reject(error);
-});
+document.write(`<script src="../js/request.js"></script>`);
 
 class FrontUntil {
     // 根据出生日期算年龄(简化版)
@@ -21,7 +12,7 @@ class FrontUntil {
             `<div class="col-md-6 col-lg-3">
             <div class="card bg-light">
             <div class="card-body text-center">
-            <img src="${myBackStage}common/download?name=${photoName}" class="mb-3 rounded-circle" alt="卡片"/>
+            <img src="http://localhost:8083/common/download?name=${photoName}" class="mb-3 rounded-circle" alt="卡片"/>
             <h4 class="card-title">${name}</h4>
             <h6 class="card-subtitle mb-2 text-muted">${this.age(age)}岁 ${sex} ${stats}</h6>
             <p class="card-text">${info}</p>

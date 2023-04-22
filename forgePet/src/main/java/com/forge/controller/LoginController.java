@@ -50,7 +50,7 @@ public class LoginController {
         return new Result(ResultEnum.LOGOUT);
     }
     /**
-     * 没有角色权限
+     * 没有角色权限，理论上不会执行，因为自定义异常捕获
      */
     @GetMapping("/noPower")
     public Result noPower() {
