@@ -46,7 +46,7 @@ public class PetServiceImpl extends ServiceImpl<PetMapper, Pet> implements IPetS
     }
 
     @Override
-    public Page<List<PetDto>> selectByPage(String petName, String clientName, int numPage, int pageSize) {
+    public Page<PetDto> selectByPage(String petName, String clientName, int numPage, int pageSize) {
         int maxCount = petMapper.selectPetCount(petName, clientName);
         PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
         var petList = petMapper.selectPetPage(petName, clientName, pu);
@@ -54,7 +54,7 @@ public class PetServiceImpl extends ServiceImpl<PetMapper, Pet> implements IPetS
     }
 
     @Override
-    public Page<List<Pet>> selectFour(int numPage, int pageSize) {
+    public Page<Pet> selectFour(int numPage, int pageSize) {
         int maxCount = petMapper.selectFourNum();
         PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
         return new Page<>(petMapper.selectFour(pu), maxCount);

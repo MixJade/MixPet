@@ -41,7 +41,7 @@ public interface IFosterService extends IService<Foster> {
      * @param pageSize   当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    Page<List<FosterDto>> selectByPage(String fosterCode, int numPage, int pageSize);
+    Page<FosterDto> selectByPage(String fosterCode, int numPage, int pageSize);
 
     /**
      * 查询被寄养宠物信息

@@ -37,7 +37,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/page")
-    public Page<List<AppointmentDto>> getPage(int numPage, int pageSize, String seaName, int seaType) {
+    public Page<AppointmentDto> getPage(int numPage, int pageSize, String seaName, int seaType) {
         return appointmentService.selectByPage(seaName, seaType, numPage, pageSize);
     }
 

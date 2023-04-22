@@ -56,12 +56,12 @@ public class PetController {
     }
 
     @GetMapping("/page")
-    public Page<List<PetDto>> getPage(int numPage, int pageSize, String petName, String clientName) {
+    public Page<PetDto> getPage(int numPage, int pageSize, String petName, String clientName) {
         return petService.selectByPage(petName, clientName, numPage, pageSize);
     }
 
     @GetMapping("/four")
-    public Page<List<Pet>> getFour(int numPage, int pageSize) {
+    public Page<Pet> getFour(int numPage, int pageSize) {
         return petService.selectFour(numPage, pageSize);
     }
 

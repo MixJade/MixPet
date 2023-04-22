@@ -42,12 +42,12 @@ public interface IPetService extends IService<Pet> {
      * @param pageSize   当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    Page<List<PetDto>> selectByPage(String petName, String clientName, int numPage, int pageSize);
+    Page<PetDto> selectByPage(String petName, String clientName, int numPage, int pageSize);
 
     /**
      * 主页的待领养宠物查询
      */
-    Page<List<Pet>> selectFour(int numPage, int pageSize);
+    Page<Pet> selectFour(int numPage, int pageSize);
 
     /**
      * 更新宠物信息，让主人id可以为null

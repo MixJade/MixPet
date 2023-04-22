@@ -48,7 +48,7 @@ public class ClientController {
     }
 
     @GetMapping("/page")
-    public Page<List<Client>> getPage(int numPage, int pageSize, String clientName) {
+    public Page<Client> getPage(int numPage, int pageSize, String clientName) {
         return clientService.selectByPage(clientName, numPage, pageSize);
     }
 

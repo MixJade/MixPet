@@ -31,5 +31,5 @@ public interface IEmployeeService extends IService<Employee> {
      * @param pageSize       当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    Page<List<Employee>> selectByPage(String employeeName, int numPage, int pageSize);
+    Page<Employee> selectByPage(String employeeName, int numPage, int pageSize);
 }

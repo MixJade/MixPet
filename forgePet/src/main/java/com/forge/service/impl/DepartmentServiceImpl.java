@@ -39,7 +39,7 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
     }
 
     @Override
-    public Page<List<Department>> selectByPage(String departmentName, int numPage, int pageSize) {
+    public Page<Department> selectByPage(String departmentName, int numPage, int pageSize) {
         int maxCount = departmentMapper.selectDepartmentCount(departmentName);
         PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
         var departmentList = departmentMapper.selectDepartmentPage(departmentName, pu);

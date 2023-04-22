@@ -42,7 +42,7 @@ public class DoctorController {
     }
 
     @GetMapping("/page")
-    public Page<List<DoctorDto>> getPage(int numPage, int pageSize, String doctorName, String departmentName) {
+    public Page<DoctorDto> getPage(int numPage, int pageSize, String doctorName, String departmentName) {
         return doctorService.selectByPage(doctorName, departmentName, numPage, pageSize);
     }
 

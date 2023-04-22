@@ -37,7 +37,7 @@ public class FosterController {
     }
 
     @GetMapping("/page")
-    public Page<List<FosterDto>> getPage(int numPage, int pageSize, String fosterName) {
+    public Page<FosterDto> getPage(int numPage, int pageSize, String fosterName) {
         return fosterService.selectByPage(fosterName, numPage, pageSize);
     }
 

@@ -42,7 +42,7 @@ public interface IAppointmentService extends IService<Appointment> {
      * @param pageSize 当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    Page<List<AppointmentDto>> selectByPage(String seaName, int seaType, int numPage, int pageSize);
+    Page<AppointmentDto> selectByPage(String seaName, int seaType, int numPage, int pageSize);
 
     /**
      * 根据医生查询挂号信息

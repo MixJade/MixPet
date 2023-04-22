@@ -46,7 +46,7 @@ public class FosterServiceImpl extends ServiceImpl<FosterMapper, Foster> impleme
     }
 
     @Override
-    public Page<List<FosterDto>> selectByPage(String fosterCode, int numPage, int pageSize) {
+    public Page<FosterDto> selectByPage(String fosterCode, int numPage, int pageSize) {
         int maxCount = fosterMapper.selectFosterCount(fosterCode);
         PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
         var fosterList = fosterMapper.selectFosterPage(fosterCode, pu);

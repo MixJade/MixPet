@@ -46,7 +46,7 @@ public class AppointmentServiceImpl extends ServiceImpl<AppointmentMapper, Appoi
     }
 
     @Override
-    public Page<List<AppointmentDto>> selectByPage(String seaName, int seaType, int numPage, int pageSize) {
+    public Page<AppointmentDto> selectByPage(String seaName, int seaType, int numPage, int pageSize) {
         if (seaName != null && !seaName.equals("")) seaName = "%" + seaName + "%";
         int maxCount = appointmentMapper.selectAppointmentCount(seaName, seaType);
         PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);

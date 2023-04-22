@@ -35,7 +35,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/page")
-    public Page<List<Employee>> getPage(int numPage, int pageSize, String employeeName) {
+    public Page<Employee> getPage(int numPage, int pageSize, String employeeName) {
         return employeeService.selectByPage(employeeName, numPage, pageSize);
     }
 
