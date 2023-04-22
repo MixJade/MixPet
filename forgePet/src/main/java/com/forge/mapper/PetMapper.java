@@ -1,6 +1,7 @@
 package com.forge.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.forge.common.PageUntil;
 import com.forge.dto.PetDto;
 import com.forge.entity.Pet;
 import com.forge.vo.NameVo;
@@ -26,7 +27,7 @@ public interface PetMapper extends BaseMapper<Pet> {
 
     int selectPetCount(@Param("petName") String petName, @Param("clientName") String clientName);
 
-    List<PetDto> selectPetPage(@Param("petName") String petName, @Param("clientName") String clientName, @Param("begin") int begin, @Param("pageItem") int pageItem);
+    List<PetDto> selectPetPage(@Param("petName") String petName, @Param("clientName") String clientName, @Param("pu") PageUntil pu);
 
     @Select("SELECT count(*) FROM pet WHERE is_del = '0' AND isNull(client_id)")
     int selectFourNum();
