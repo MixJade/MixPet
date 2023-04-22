@@ -104,7 +104,7 @@
     }// 宠物信息
     const petMes = h => {
         const {petSex, petAge, petPhoto} = h
-        byID("petPhoto").src = myBackStage + 'common/download?name=' + petPhoto;
+        byID("petPhoto").src = `${BACK_URL}common/download?name=${petPhoto}`;
         h["petSex"] = petSex ? "公" : "母"
         h["petAge"] = unt.age(petAge)
         unt.setInnerText(h, ["petName", "petSex", "petAge", "petVariety", "petStatus", "petInfo", "petId"])

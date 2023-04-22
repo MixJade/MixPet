@@ -100,7 +100,7 @@ class MixRole {
     }// 表格图片
     img(rolePhoto) {
         if (rolePhoto != null) {
-            return `<img src="http://localhost:8083/common/download?name=${rolePhoto}" height="45px" width="45px" alt="${rolePhoto}"/>`
+            return `<img src="${BACK_URL}common/download?name=${rolePhoto}" height="45px" width="45px" alt="${rolePhoto}"/>`
         } else {
             return ''
         }
@@ -265,7 +265,7 @@ class MixImg {
             myImg.setAttribute("src", '../picture/none.png')
             myImg.setAttribute("alt", '')
         } else {
-            myImg.setAttribute("src", "http://localhost:8083/common/download?name=" + imgName)
+            myImg.setAttribute("src", `${BACK_URL}common/download?name=${imgName}`)
             myImg.setAttribute("alt", imgName)
         }
     }

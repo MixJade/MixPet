@@ -131,9 +131,9 @@
         else writeDoctor(doctorName, msgContent, createTime, doctorPhoto, isImg)
     }// 写入用户消息
     function writeClient(clientName, msgContent, createTime, photo, isImg) {
-        if (isImg) msgContent = `<img src="http://localhost:8083/common/downChat?name=${msgContent}" class="w-100" alt="" />`
+        if (isImg) msgContent = `<img src="${BACK_URL}common/downChat?name=${msgContent}" class="w-100" alt="" />`
         msgContainer.innerHTML += `<div class="d-flex justify-content-start my-3">
-                                <img src="http://localhost:8083/common/download?name=${photo}" class="rounded-circle myImg" alt="" />
+                                <img src="${BACK_URL}common/download?name=${photo}" class="rounded-circle myImg" alt="" />
                                 <div class="card w-50">
                                     <div class="card-body">
                                         <div class="card-title">
@@ -144,7 +144,7 @@
                                         </div></div></div></div>`
     }// 写入医生消息
     function writeDoctor(doctorName, msgContent, createTime, photo, isImg) {
-        if (isImg) msgContent = `<img src="http://localhost:8083/common/downChat?name=${msgContent}" class="w-100" alt="" />`
+        if (isImg) msgContent = `<img src="${BACK_URL}common/downChat?name=${msgContent}" class="w-100" alt="" />`
         msgContainer.innerHTML += `<div class="d-flex justify-content-end my-3">
                                 <div class="card bg-success bg-gradient text-light w-50">
                                     <div class="card-body">
@@ -154,7 +154,7 @@
                                         <div class="card-text">
                                             ${msgContent}
                                         </div></div></div>
-                                <img src="http://localhost:8083/common/download?name=${photo}" class="rounded-circle myImg" alt="" />
+                                <img src="${BACK_URL}common/download?name=${photo}" class="rounded-circle myImg" alt="" />
                             </div>`
     }// 点击其它的用户
     function cutClient(getID, isOld = true) {

@@ -226,6 +226,7 @@
 <script src="assets/axios.js"></script>
 <script src="assets/bootstrap.bundle.min.js"></script>
 <script src="js/z-alert.js"></script>
+<script src="js/request.js"></script>
 <script>
     (function () {
         const pairJade = document.getElementById("pairJade"),
@@ -272,7 +273,7 @@
     }());
 
 
-    axios.defaults.baseURL = "http://localhost:8083/login/";
+    axios.defaults.baseURL = `${BACK_URL}login/`;
     //处理get请求
     window.onload = function () {
         const href = window.location.href

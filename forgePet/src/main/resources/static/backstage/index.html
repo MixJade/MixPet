@@ -193,15 +193,9 @@
 </body>
 <script src="../assets/bootstrap.bundle.min.js"></script>
 <script src="../assets/axios.js"></script>
+<script src="../js/request.js"></script>
 <script type="text/javascript">
-    axios.defaults.baseURL = "http://localhost:8083/";
-    axios.interceptors.response.use(resp => {
-        if (resp.data["code"] === 401) window.top.location.href = "/login.html"
-        return resp;
-    }, error => {
-        window.top.location.href = "/login.html"
-        return Promise.reject(error);
-    });// 根据id获取对象
+    // 根据id获取对象
     const byId = id => document.getElementById(id)
 
     // 自建类
@@ -237,7 +231,7 @@
                 myImg.setAttribute("src", '../picture/none.png')
                 myImg.setAttribute("alt", '')
             } else {
-                myImg.setAttribute("src", 'http://localhost:8083/common/download?name=' + imgName)
+                myImg.setAttribute("src", `${BACK_URL}common/download?name=${imgName}`)
                 myImg.setAttribute("alt", imgName)
             }
         }
@@ -280,7 +274,7 @@
                 //图片
                 const adminPhoto = byId("adminPhoto")
                 if (employeePhoto !== '' && employeePhoto != null) {
-                    adminPhoto.src = 'http://localhost:8083/common/download?name=' + employeePhoto
+                    adminPhoto.src = `${BACK_URL}common/download?name=${employeePhoto}`
                 } else {
                     adminPhoto.src = '../picture/none.png'
                 }

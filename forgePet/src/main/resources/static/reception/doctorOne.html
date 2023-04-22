@@ -81,7 +81,7 @@
         if (href.indexOf("?") !== -1) {
             const doctorId = href.split("?")[1]
             if (!isNaN(parseInt(doctorId))) {
-                document.getElementById("goChat").setAttribute("href","chat.html?"+doctorId)
+                document.getElementById("goChat").setAttribute("href", "chat.html?" + doctorId)
                 Promise.all([axios("doctor/one?doctorId=" + doctorId), axios("appointment/doctor?doctorId=" + doctorId)])
                     .then(results => {
                         doctorMes(results[0]["data"])
@@ -92,7 +92,7 @@
     }// 医生信息
     function doctorMes(h) {
         const {doctorGender, doctorAge, doctorPhoto} = h
-        document.getElementById("doctorPhoto").src = myBackStage + 'common/download?name=' + doctorPhoto;
+        document.getElementById("doctorPhoto").src = `${BACK_URL}common/download?name=${doctorPhoto}`;
         h["doctorGender"] = doctorGender ? "男" : "女"
         h["doctorAge"] = unt.age(doctorAge)
         unt.setInnerText(h, ["doctorName", "doctorCode", "departmentName", "doctorJob"
