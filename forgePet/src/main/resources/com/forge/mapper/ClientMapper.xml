@@ -35,6 +35,6 @@
         <if test="clientName!=null and clientName!=''">
             and client_name like "%"#{clientName}"%"
         </if>
-        limit #{begin},#{pageItem};
+        limit #{pu.begin},#{pu.size};
     </select>
 </mapper>

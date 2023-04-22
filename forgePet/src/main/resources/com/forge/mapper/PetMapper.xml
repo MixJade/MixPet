@@ -59,7 +59,7 @@
         FROM pet
         WHERE is_del = '0'
           and ISNULL(client_id)
-        limit #{begin},#{pageItem};
+        limit #{pu.begin},#{pu.size};
     </select>
     <!--更新操作，让主人可以为Null-->
     <update id="updatePet">

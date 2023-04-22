@@ -1,6 +1,7 @@
 package com.forge.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.forge.common.PageUntil;
 import com.forge.dto.NoticeDto;
 import com.forge.vo.Page;
 import com.forge.entity.Notice;
@@ -102,9 +103,8 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
     @Override
     public Page<List<NoticeDto>> selectByPage(String noticeName, int numPage, int pageSize) {
         int maxCount = noticeMapper.selectNoticeCount(noticeName);
-        int needBegin = (numPage - 1) * pageSize;
-        if (needBegin >= maxCount) needBegin = (maxCount / pageSize - 1) * pageSize;
-        List<NoticeDto> noticeList = noticeMapper.selectNoticePage(noticeName, needBegin, pageSize);
+        PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
+        List<NoticeDto> noticeList = noticeMapper.selectNoticePage(noticeName, pu);
         noticeList.forEach(noticeDto -> noticeDto.setTextNotice(getText(noticeDto.getNoticeFile())));
         return new Page<>(noticeList, maxCount);
     }

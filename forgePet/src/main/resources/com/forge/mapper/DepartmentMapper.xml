@@ -26,6 +26,6 @@
         <if test="departmentName!=null and departmentName!=''">
             and department_name like "%"#{departmentName}"%"
         </if>
-        limit #{begin},#{pageItem};
+        limit #{pu.begin},#{pu.size};
     </select>
 </mapper>

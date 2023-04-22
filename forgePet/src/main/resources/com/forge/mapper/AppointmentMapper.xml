@@ -89,7 +89,7 @@
             </choose>
         </if>
         order by appointment_date desc
-        limit #{begin},#{pageItem};
+        limit #{pu.begin},#{pu.size};
     </select>
     <!--根据医生查询订单-->
     <select id="getDoctor" resultType="com.forge.dto.AppointmentDto">

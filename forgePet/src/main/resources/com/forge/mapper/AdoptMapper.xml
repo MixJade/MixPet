@@ -48,7 +48,7 @@
             and adopt_code like "%"#{adoptCode}"%"
         </if>
         order by create_time desc
-        limit #{begin},#{pageItem};
+        limit #{pu.begin},#{pu.size};
     </select>
     <!--查询是否已有待审核订单-->
     <select id="sureInAdopt" resultType="int">

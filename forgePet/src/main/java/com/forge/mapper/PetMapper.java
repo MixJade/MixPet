@@ -32,7 +32,7 @@ public interface PetMapper extends BaseMapper<Pet> {
     @Select("SELECT count(*) FROM pet WHERE is_del = '0' AND isNull(client_id)")
     int selectFourNum();
 
-    List<Pet> selectFour(@Param("begin") int begin, @Param("pageItem") int pageItem);
+    List<Pet> selectFour(@Param("pu") PageUntil pu);
 
     @Select("SELECT pet_id as roleId, pet_name as roleName FROM pet WHERE is_del = '0'")
     List<NameVo> selectName();

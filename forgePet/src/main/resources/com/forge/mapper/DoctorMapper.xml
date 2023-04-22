@@ -45,7 +45,7 @@
         <if test="departmentName!=null and departmentName!=''">
             and b.department_name like "%"#{departmentName}"%"
         </if>
-        limit #{begin},#{pageItem};
+        limit #{pu.begin},#{pu.size};
     </select>
     <!--根据id查询单个-->
     <select id="selectOneId" resultType="com.forge.dto.DoctorDto">

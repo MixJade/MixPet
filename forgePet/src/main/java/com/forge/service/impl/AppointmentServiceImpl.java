@@ -1,6 +1,7 @@
 package com.forge.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.forge.common.PageUntil;
 import com.forge.dto.AppointmentDto;
 import com.forge.dto.AppointmentDto2;
 import com.forge.entity.Appointment;
@@ -48,9 +49,8 @@ public class AppointmentServiceImpl extends ServiceImpl<AppointmentMapper, Appoi
     public Page<List<AppointmentDto>> selectByPage(String seaName, int seaType, int numPage, int pageSize) {
         if (seaName != null && !seaName.equals("")) seaName = "%" + seaName + "%";
         int maxCount = appointmentMapper.selectAppointmentCount(seaName, seaType);
-        int needBegin = (numPage - 1) * pageSize;
-        if (needBegin >= maxCount) needBegin = (maxCount / pageSize - 1) * pageSize;
-        var appointmentList = appointmentMapper.selectAppointmentPage(seaName, seaType, needBegin, pageSize);
+        PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
+        var appointmentList = appointmentMapper.selectAppointmentPage(seaName, seaType, pu);
         return new Page<>(appointmentList, maxCount);
     }
 

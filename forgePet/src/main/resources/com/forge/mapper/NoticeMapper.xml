@@ -39,7 +39,7 @@
         <if test="noticeName!=null and noticeName!=''">
             and notice_title like "%"#{noticeName}"%"
         </if>
-        limit #{begin},#{pageItem};
+        limit #{pu.begin},#{pu.size};
     </select>
     <!--主页：查询-->
     <select id="selectFour" resultType="com.forge.dto.NoticeDto">
