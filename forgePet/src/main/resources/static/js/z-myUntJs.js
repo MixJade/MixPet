@@ -12,7 +12,7 @@ class FrontUntil {
             `<div class="col-md-6 col-lg-3">
             <div class="card bg-light">
             <div class="card-body text-center">
-            <img src="http://localhost:8083/common/download?name=${photoName}" class="mb-3 rounded-circle" alt="卡片"/>
+            <img src="${BACK_URL}common/download?name=${photoName}" class="mb-3 rounded-circle" alt="卡片"/>
             <h4 class="card-title">${name}</h4>
             <h6 class="card-subtitle mb-2 text-muted">${this.age(age)}岁 ${sex} ${stats}</h6>
             <p class="card-text">${info}</p>

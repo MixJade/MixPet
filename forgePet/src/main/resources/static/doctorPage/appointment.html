@@ -53,7 +53,7 @@
         <div class="card col-md-5 mx-2">
         <div class="row g-0">
             <div class="col-md-4">
-                <img src="http://localhost:8083/common/download?name=${petPhoto}" class="rounded-circle img-fluid p-3" alt=""/>
+                <img src="${BACK_URL}common/download?name=${petPhoto}" class="rounded-circle img-fluid p-3" alt=""/>
                 <p class="card-text ms-3">品种:${petVariety}<br>性别:${petSex ? "公" : "母"}<br>年龄:${age(petAge)}</p>
             </div>
             <div class="col-md-8">

@@ -231,7 +231,7 @@
                 myImg.setAttribute("src", '../picture/none.png')
                 myImg.setAttribute("alt", '')
             } else {
-                myImg.setAttribute("src", 'http://localhost:8083/common/download?name=' + imgName)
+                myImg.setAttribute("src", `${BACK_URL}common/download?name=${imgName}`)
                 myImg.setAttribute("alt", imgName)
             }
         }
@@ -274,7 +274,7 @@
                 //图片
                 const adminPhoto = byId("adminPhoto")
                 if (employeePhoto !== '' && employeePhoto != null) {
-                    adminPhoto.src = 'http://localhost:8083/common/download?name=' + employeePhoto
+                    adminPhoto.src = `${BACK_URL}common/download?name=${employeePhoto}`
                 } else {
                     adminPhoto.src = '../picture/none.png'
                 }
