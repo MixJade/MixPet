@@ -18,6 +18,8 @@ public record PageUntil(int begin, int size) {
     public static PageUntil pu(int num, int size, int max) {
         int begin = (num - 1) * size;
         if (begin >= max && max != 0) begin = (max / size - 1) * size;
+        if (begin < 0) begin = 0;
+        if (size < 1) size = 5;
         return new PageUntil(begin, size);
     }
 }
