@@ -1,6 +1,7 @@
 package com.forge.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.forge.common.PageUntil;
 import com.forge.dto.DoctorDto;
 import com.forge.vo.NameVo;
 import com.forge.entity.Doctor;
@@ -26,7 +27,7 @@ public interface DoctorMapper extends BaseMapper<Doctor> {
 
     int selectDoctorCount(@Param("doctorName") String doctorName, @Param("departmentName") String departmentName);
 
-    List<DoctorDto> selectDoctorPage(@Param("doctorName") String doctorName, @Param("departmentName") String departmentName, @Param("begin") int begin, @Param("pageItem") int pageItem);
+    List<DoctorDto> selectDoctorPage(@Param("doctorName") String doctorName, @Param("departmentName") String departmentName,@Param("pu") PageUntil pu);
 
     DoctorDto selectOneId(@Param("doctorId") long doctorId);
 

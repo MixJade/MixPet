@@ -37,7 +37,7 @@
         <if test="fosterCode!=null and fosterCode!=''">
             and foster_code like "%"#{fosterCode}"%"
         </if>
-        limit #{begin},#{pageItem};
+        limit #{pu.begin},#{pu.size};
     </select>
     <!--查询被寄养宠物信息-->
     <select id="fosterPet" resultType="com.forge.dto.FosterPetDto">

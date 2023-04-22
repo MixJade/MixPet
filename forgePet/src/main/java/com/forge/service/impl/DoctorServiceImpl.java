@@ -2,6 +2,7 @@ package com.forge.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.forge.common.CodeEnum;
+import com.forge.common.PageUntil;
 import com.forge.dto.DoctorDto;
 import com.forge.vo.Page;
 import com.forge.entity.Doctor;
@@ -47,9 +48,8 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorMapper, Doctor> impleme
     @Override
     public Page<List<DoctorDto>> selectByPage(String doctorName, String departmentName, int numPage, int pageSize) {
         int maxCount = doctorMapper.selectDoctorCount(doctorName, departmentName);
-        int needBegin = (numPage - 1) * pageSize;
-        if (needBegin >= maxCount) needBegin = (maxCount / pageSize - 1) * pageSize;
-        var doctorList = doctorMapper.selectDoctorPage(doctorName, departmentName, needBegin, pageSize);
+        PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
+        var doctorList = doctorMapper.selectDoctorPage(doctorName, departmentName, pu);
         return new Page<>(doctorList, maxCount);
     }
 

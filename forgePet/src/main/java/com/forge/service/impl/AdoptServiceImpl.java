@@ -2,6 +2,7 @@ package com.forge.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.forge.common.CodeEnum;
+import com.forge.common.PageUntil;
 import com.forge.dto.AdoptDto;
 import com.forge.vo.Page;
 import com.forge.entity.Adopt;
@@ -46,9 +47,8 @@ public class AdoptServiceImpl extends ServiceImpl<AdoptMapper, Adopt> implements
     @Override
     public Page<List<AdoptDto>> selectByPage(String adoptCode, int numPage, int pageSize) {
         int maxCount = adoptMapper.selectAdoptCount(adoptCode);
-        int needBegin = (numPage - 1) * pageSize;
-        if (needBegin >= maxCount) needBegin = (maxCount / pageSize - 1) * pageSize;
-        var adoptList = adoptMapper.selectAdoptPage(adoptCode, needBegin, pageSize);
+        PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
+        var adoptList = adoptMapper.selectAdoptPage(adoptCode, pu);
         return new Page<>(adoptList, maxCount);
     }
 

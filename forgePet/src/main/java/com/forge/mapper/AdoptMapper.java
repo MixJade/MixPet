@@ -1,5 +1,6 @@
 package com.forge.mapper;
 
+import com.forge.common.PageUntil;
 import com.forge.dto.AdoptDto;
 import com.forge.entity.Adopt;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -25,7 +26,7 @@ public interface AdoptMapper extends BaseMapper<Adopt> {
 
     int selectAdoptCount(@Param("adoptCode") String adoptCode);
 
-    List<AdoptDto> selectAdoptPage(@Param("adoptCode") String adoptCode, @Param("begin") int begin, @Param("pageItem") int pageItem);
+    List<AdoptDto> selectAdoptPage(@Param("adoptCode") String adoptCode, @Param("pu") PageUntil pu);
 
     @Select("select max(adopt_id) from adopt")
     Long getMaxId();

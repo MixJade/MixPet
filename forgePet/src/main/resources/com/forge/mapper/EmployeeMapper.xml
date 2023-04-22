@@ -27,6 +27,6 @@
             and employee_name like "%"#{employeeName}"%"
         </if>
         order by employee_level desc
-        limit #{begin},#{pageItem};
+        limit #{pu.begin},#{pu.size};
     </select>
 </mapper>

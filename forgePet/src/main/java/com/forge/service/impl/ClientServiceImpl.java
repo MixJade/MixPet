@@ -1,6 +1,7 @@
 package com.forge.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.forge.common.PageUntil;
 import com.forge.vo.NameVo;
 import com.forge.vo.Page;
 import com.forge.entity.Client;
@@ -45,9 +46,8 @@ public class ClientServiceImpl extends ServiceImpl<ClientMapper, Client> impleme
     @Override
     public Page<List<Client>> selectByPage(String clientName, int numPage, int pageSize) {
         int maxCount = clientMapper.selectClientCount(clientName);
-        int needBegin = (numPage - 1) * pageSize;
-        if (needBegin >= maxCount) needBegin = (maxCount / pageSize - 1) * pageSize;
-        var clientList = clientMapper.selectClientPage(clientName, needBegin, pageSize);
+        PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
+        var clientList = clientMapper.selectClientPage(clientName, pu);
         return new Page<>(clientList, maxCount);
     }
 

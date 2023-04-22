@@ -56,9 +56,8 @@ public class PetServiceImpl extends ServiceImpl<PetMapper, Pet> implements IPetS
     @Override
     public Page<List<Pet>> selectFour(int numPage, int pageSize) {
         int maxCount = petMapper.selectFourNum();
-        int needBegin = (numPage - 1) * pageSize;
-        if (needBegin >= maxCount) needBegin = (maxCount / pageSize - 1) * pageSize;
-        return new Page<>(petMapper.selectFour(needBegin, pageSize), maxCount);
+        PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
+        return new Page<>(petMapper.selectFour(pu), maxCount);
     }
 
     @Override

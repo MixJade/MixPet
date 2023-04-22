@@ -1,6 +1,7 @@
 package com.forge.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.forge.common.PageUntil;
 import com.forge.vo.Page;
 import com.forge.entity.Employee;
 import com.forge.mapper.EmployeeMapper;
@@ -39,9 +40,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Override
     public Page<List<Employee>> selectByPage(String employeeName, int numPage, int pageSize) {
         int maxCount = employeeMapper.selectEmployeeCount(employeeName);
-        int needBegin = (numPage - 1) * pageSize;
-        if (needBegin >= maxCount) needBegin = (maxCount / pageSize - 1) * pageSize;
-        var employeeList = employeeMapper.selectEmployeePage(employeeName, needBegin, pageSize);
+        PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
+        var employeeList = employeeMapper.selectEmployeePage(employeeName, pu);
         return new Page<>(employeeList, maxCount);
     }
 }
