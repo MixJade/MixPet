@@ -12,7 +12,6 @@ import com.forge.shiro.RoleConst;
 import com.forge.vo.DoctorResetPwdVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

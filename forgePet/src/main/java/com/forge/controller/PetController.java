@@ -1,19 +1,18 @@
 package com.forge.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.forge.common.Result;
-import com.forge.shiro.RoleConst;
-import com.forge.vo.NameVo;
-import com.forge.vo.Page;
 import com.forge.dto.PetDto;
 import com.forge.entity.Pet;
 import com.forge.service.IPetService;
+import com.forge.shiro.RoleConst;
+import com.forge.vo.NameVo;
+import com.forge.vo.Page;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -45,9 +44,9 @@ public class PetController {
 
     @GetMapping("/clientOne")
     public List<Pet> getByClientOne(long clientId) {
-        Map<String, Object> columnMap = new HashMap<>();
-        columnMap.put("client_id", clientId);
-        return petService.listByMap(columnMap);
+        var queryWrapper = new LambdaQueryWrapper<Pet>();
+        queryWrapper.eq(Pet::getClientId,clientId);
+        return petService.list(queryWrapper);
     }
 
     @GetMapping("/noClient")

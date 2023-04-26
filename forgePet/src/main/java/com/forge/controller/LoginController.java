@@ -221,6 +221,8 @@ public class LoginController {
      */
     @GetMapping("/finMail")
     public Result sendMail(String mail, String username, HttpSession session) {
+        if (StrUtil.isWhite(username)) return Result.error("账号不能为空");
+        if (StrUtil.isWhite(mail)) return Result.error("邮箱不能为空");
         if (clientMapper.sureMail(username, mail) == 0) return Result.error("账号邮箱不匹配");
         String code = sendMail.sendQQEmail(mail);
         if (code != null) session.setAttribute(mail, code);
