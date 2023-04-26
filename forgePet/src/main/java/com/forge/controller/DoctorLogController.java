@@ -2,6 +2,7 @@ package com.forge.controller;
 
 import com.forge.common.Result;
 import com.forge.common.SendMail;
+import com.forge.common.StrUtil;
 import com.forge.dto.AppointmentDto2;
 import com.forge.dto.DoctorDto;
 import com.forge.entity.Doctor;
@@ -11,7 +12,6 @@ import com.forge.shiro.RoleConst;
 import com.forge.vo.DoctorResetPwdVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -74,18 +74,18 @@ public class DoctorLogController {
      */
     @PutMapping("/resetPwd")
     public Result resetPwd(@RequestBody DoctorResetPwdVo pwdVo, HttpSession session) {
-        String password1 = pwdVo.password();
+        String password = pwdVo.password();
         String checkCode = pwdVo.checkCode();
-        if (SecurityUtils.getSubject().getPrincipal() instanceof Doctor doctor) {
+            if (SecurityUtils.getSubject().getPrincipal() instanceof Doctor doctor) {
             String mail = doctor.getDoctorTel();
             var sessionCode = session.getAttribute(mail);
-            if (checkCode == null || checkCode.isBlank()) return Result.error("验证码不能为空");
-            if (password1 == null || password1.isBlank()) return Result.error("密码不能为框");
+            if (StrUtil.isWhite(checkCode)) return Result.error("验证码不能为空");
+            if (StrUtil.isWhite(password)) return Result.error("密码不能为框");
             else if (sessionCode == null) return Result.error("请点击发送验证码");
             else if (sessionCode.equals(checkCode.toUpperCase())) {
                 session.invalidate();//销毁验证码
-                password1 = (new Md5Hash(password1, "pet")).toHex();
-                doctor.setDoctorPassword(password1);// 重新设置密码
+                password = StrUtil.tranPwd(password);
+                doctor.setDoctorPassword(password);// 重新设置密码
                 return Result.choice("密码重置", doctorService.updateById(doctor));
             } else return Result.error("验证码不正确");
         } else return Result.error("当前未登录");

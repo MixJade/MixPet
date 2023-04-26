@@ -31,9 +31,22 @@ public interface ClientMapper extends BaseMapper<Client> {
     @Select("SELECT client_id as roleId, client_name as roleName FROM client WHERE is_del = '0'")
     List<NameVo> selectName();
 
+    /**
+     * 登录控制器：密码找回时确定邮箱是否与账号匹配
+     *
+     * @param username 账号
+     * @param mail     邮箱
+     * @return 数据条数
+     */
     @Select("select count(*) from client where is_del=0 and client_username=#{username} and client_tel=#{mail}")
     int sureMail(@Param("username") String username, @Param("mail") String mail);
 
+    /**
+     * 登录控制器：注册时确定当前用户名独一无二
+     *
+     * @param username 用户名
+     * @return 数据条数
+     */
     @Select("select count(*) from client where is_del=0 and client_username=#{username}")
     int isExist(@Param("username") String username);
 }

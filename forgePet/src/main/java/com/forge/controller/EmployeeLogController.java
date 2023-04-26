@@ -1,6 +1,7 @@
 package com.forge.controller;
 
 import com.forge.common.Result;
+import com.forge.common.StrUtil;
 import com.forge.entity.Employee;
 import com.forge.service.IEmployeeService;
 import com.forge.vo.EmployeePutVo;
@@ -42,8 +43,7 @@ public class EmployeeLogController {
         if (SecurityUtils.getSubject().getPrincipal() instanceof Employee employee) {
             String pwd = putVo.password();
             if (pwd != null && !pwd.isBlank()) {
-                Md5Hash md5Hash = new Md5Hash(pwd, "pet");
-                employee.setEmployeePassword(md5Hash.toHex());
+                employee.setEmployeePassword(StrUtil.tranPwd(pwd));
             }
             String tel = putVo.tel();
             String photo = putVo.photo();

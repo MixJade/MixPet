@@ -1,23 +1,24 @@
 package com.forge.controller;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.forge.common.Result;
 import com.forge.common.ResultEnum;
 import com.forge.common.SendMail;
+import com.forge.common.StrUtil;
 import com.forge.dto.RegisterDto;
 import com.forge.entity.Client;
 import com.forge.entity.Doctor;
 import com.forge.entity.Employee;
 import com.forge.mapper.ClientMapper;
-import com.forge.shiro.authentic.RealmEnum;
 import com.forge.shiro.authentic.MyToken;
+import com.forge.shiro.authentic.RealmEnum;
 import com.forge.vo.LoginVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -179,7 +180,7 @@ public class LoginController {
      */
     @GetMapping("/isExist")
     public Result isExist(String regUse) {
-        if (regUse == null || regUse.isBlank()) return Result.success("空白字符");
+        if (StrUtil.isWhite(regUse)) return Result.success("空白字符");
         int nowExist = clientMapper.isExist(regUse);
         if (nowExist == 0) return Result.success("用户不存在");
         else return Result.error("该用户已存在");
@@ -195,17 +196,17 @@ public class LoginController {
     @PostMapping("/register")
     public Result register(@RequestBody RegisterDto registerDto, HttpSession session) {
         String username = registerDto.getClientUsername();
-        if (username == null || username.isBlank()) return Result.error("用户名不能为空");
+        if (StrUtil.isWhite(username)) return Result.error("用户名不能为空");
         String checkCode = registerDto.getCheckCode();
         String sessionCode = (String) session.getAttribute(registerDto.getClientTel());
-        if (checkCode == null || checkCode.equals("")) return Result.error("验证码不能为空");
+        if (StrUtil.isWhite(checkCode)) return Result.error("验证码不能为空");
         else if (sessionCode == null) return Result.error("未发送验证码");
         else if (sessionCode.equals(checkCode.toUpperCase())) {
             session.invalidate();//销毁验证码
             // 设置部分默认信息
             registerDto.setClientAge(LocalDate.now());
             String password = registerDto.getClientPassword();
-            registerDto.setClientPassword((new Md5Hash(password, "pet")).toHex());
+            registerDto.setClientPassword(StrUtil.tranPwd(password));
             return Result.choice("注册", clientMapper.insert(registerDto) > 0);
         } else return Result.error("验证码不正确");
     }
@@ -220,6 +221,8 @@ public class LoginController {
      */
     @GetMapping("/finMail")
     public Result sendMail(String mail, String username, HttpSession session) {
+        if (StrUtil.isWhite(username)) return Result.error("账号不能为空");
+        if (StrUtil.isWhite(mail)) return Result.error("邮箱不能为空");
         if (clientMapper.sureMail(username, mail) == 0) return Result.error("账号邮箱不匹配");
         String code = sendMail.sendQQEmail(mail);
         if (code != null) session.setAttribute(mail, code);
@@ -237,17 +240,18 @@ public class LoginController {
     public Result find(@RequestBody RegisterDto registerDto, HttpSession session) {
         String checkCode = registerDto.getCheckCode();
         String mail = registerDto.getClientTel();
-        if (mail == null || mail.isBlank()) return Result.error("未获取到邮箱");
+        if (StrUtil.isWhite(mail)) return Result.error("未获取到邮箱");
         String sessionCode = (String) session.getAttribute(mail);
-        if (checkCode == null || checkCode.equals("")) return Result.error("验证码不能为空");
+        if (StrUtil.isWhite(checkCode)) return Result.error("验证码不能为空");
         else if (sessionCode == null) return Result.error("未发送验证码");
         else if (sessionCode.equals(checkCode.toUpperCase())) {
             session.invalidate();//销毁验证码
             // 重新设置密码
-            UpdateWrapper<Client> updateWrapper = new UpdateWrapper<>();
-            updateWrapper.eq("client_username", registerDto.getClientUsername());
-            String password = (new Md5Hash(registerDto.getClientPassword(), "pet")).toHex();
-            updateWrapper.set("client_password", password);
+            var updateWrapper = new LambdaUpdateWrapper<Client>();
+            String username=registerDto.getClientUsername();
+            updateWrapper.eq(StringUtils.isNotBlank(username),Client::getClientUsername,username);
+            String password = StrUtil.tranPwd(registerDto.getClientPassword());
+            updateWrapper.set(Client::getClientPassword,password);
             return Result.choice("密码重置", clientMapper.update(null, updateWrapper) > 0);
         } else return Result.error("验证码不正确");
     }
