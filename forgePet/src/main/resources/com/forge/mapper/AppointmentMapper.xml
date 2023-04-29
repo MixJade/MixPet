@@ -126,33 +126,33 @@
           AND a.client_id = #{clientId}
         order by appointment_date desc
     </select>
-<!--医生：已登录查询订单-->
+    <!--医生：已登录查询订单-->
     <select id="getDoctorLog" resultType="com.forge.dto.AppointmentDto2">
         SELECT appointment_id,
-        a.client_id,
-        a.pet_id,
-        appointment_date,
-        a.department_id,
-        a.doctor_id,
-        appointment_info,
-        a.create_time,
-        b.client_name,
-        c.pet_name,
-        c.pet_photo,
-        c.pet_variety,
-        c.pet_sex,
-        c.pet_age,
-        d.department_name,
-        a.is_suc
+               a.client_id,
+               a.pet_id,
+               appointment_date,
+               a.department_id,
+               a.doctor_id,
+               appointment_info,
+               a.create_time,
+               b.client_name,
+               c.pet_name,
+               c.pet_photo,
+               c.pet_variety,
+               c.pet_sex,
+               c.pet_age,
+               d.department_name,
+               a.is_suc
         FROM appointment a,
-        client b,
-        pet c,
-        department d
+             client b,
+             pet c,
+             department d
         WHERE a.is_del = '0'
-        AND a.client_id = b.client_id
-        AND a.pet_id = c.pet_id
-        AND a.department_id = d.department_id
-        AND a.doctor_id = #{doctorId}
+          AND a.client_id = b.client_id
+          AND a.pet_id = c.pet_id
+          AND a.department_id = d.department_id
+          AND a.doctor_id = #{doctorId}
         order by appointment_date desc
     </select>
 </mapper>
