@@ -45,7 +45,8 @@
         AND a.pet_id = b.pet_id
         AND a.client_id = c.client_id
         <if test="adoptCode!=null and adoptCode!=''">
-            and adopt_code like "%"#{adoptCode}"%"
+            <bind name="code" value="'%'+adoptCode+'%'"/>
+            and adopt_code like #{code}
         </if>
         order by create_time desc
         limit #{pu.begin},#{pu.size};
