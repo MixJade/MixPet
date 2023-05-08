@@ -8,15 +8,78 @@
         body {
             background-image: url("../picture/background.jpg");
         }
+
+        #addAppoint {
+            position: absolute;
+            z-index: 100;
+            top: 10%;
+            left: 3%;
+        }
     </style>
 </head>
 <body>
+<!--导航栏-->
 <nav class="bg-black" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="javascript:history.back()">主页</a></li>
         <li class="breadcrumb-item active" aria-current="page">查看挂号</li>
     </ol>
 </nav>
+<!-- 弹出框 -->
+<div class="modal fade" id="addRolePop" tabindex="-1" aria-labelledby="addRolePopLa" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addRolePopLa">添加挂号</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="d-grid gap-3" id="addRoleForm">
+                    <input type="hidden" id="appointmentId">
+                    <input type="hidden" id="clientId">
+                    <input type="hidden" id="petId">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="clientName">挂号人</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" list="clientOp" id="clientName" placeholder="挂号人"
+                                   autocomplete="off">
+                            <datalist id="clientOp">
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="petName">宠物</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" list="petOp" id="petName" placeholder="宠物"
+                                   autocomplete="off">
+                            <datalist id="petOp">
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="appointmentDate">就诊时间</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="appointmentDate" type="datetime-local">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="appointmentInfo">简短描述</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="appointmentInfo" type="text" placeholder="简短描述">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">关闭</button>
+                <button class="btn btn-primary" data-bs-dismiss="modal" type="button" id="submitForm">确认提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--弹出框按钮-->
+<button type="button" id="addAppoint" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addRolePop">添加挂号
+</button>
 <!-- 卡片 -->
 <div class="container row g-3 ms-auto" id="appointCard">
 </div>
@@ -24,12 +87,17 @@
 <script src="../assets/bootstrap.bundle.min.js"></script>
 <script src="../assets/axios.js"></script>
 <script src="../js/request.js"></script>
+<script src="../js/z-alert.js"></script>
 <script>
-    window.onload = () => getAppoint()// 获取当前挂号
+    let appointList;
+    window.onload = () => {
+        getAppoint()
+        getOther("clientOp", "client")
+    }// 获取当前挂号
     function getAppoint() {
         document.getElementById("appointCard").innerHTML = ''
         axios("doctorLog/appoint").then(resp => {
-            const appointList = resp.data
+            appointList = resp.data
             for (let i = 0; i < appointList.length; i++) {
                 writeCard(appointList[i])
             }
@@ -68,7 +136,10 @@
                         <small class="text-muted">挂号时间:${createTime.toString().replaceAll("T", ' ')}</small>
                     </p>
                     <p class="card-text">
-                        ${isSuc ? '<span class=text-success>已处理</span>' : '<a href="javascript:void" onclick="deal(' + appointmentId + ')" class="btn btn-success">处理</a>'}
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRolePop"
+                            onclick="upAppoint(${appointmentId})"
+                        >修改</button>
+                        ${isSuc ? '<span class=text-success>已处理</span>' : '<button onclick="deal(' + appointmentId + ')" class="btn btn-success">处理</button>'}
                     </p></div></div></div></div>
         `
     }// 根据出生日期算年龄(简化版)
@@ -83,8 +154,102 @@
             "isSuc": true
         }
         axios.put("appointment", json).then(resp => {
-            if (resp.data["code"] === 1) getAppoint()
+            if (resp.data["code"] === 1) {
+                showAlert("处理成功", "alert-success")
+                getAppoint()
+            }
         })
+    }//查找特定角色数据并赋予下拉框
+    function getOther(dataId, role) {
+        axios.get(role).then(resp => changeSel(resp.data, dataId))
+        const changeSel = json => {
+            document.getElementById(dataId).innerHTML = ''
+            for (let i = 0; i < json.length; i++) {
+                const {roleName, roleId} = json[i]
+                document.getElementById(dataId).innerHTML += '<option value="' + roleId + '">' + roleName + '</option>'
+            }
+        }
     }
+
+    const modalTit = document.getElementById('addRolePopLa')
+    // 点击添加挂号
+    document.getElementById("addAppoint").onclick = () => {
+        const form = document.getElementById('addRoleForm')
+        form.reset();
+        const hidIds = form.querySelectorAll('input[type="hidden"]')
+        for (let i = 0; i < hidIds.length; i++) {
+            hidIds[i].value = ""
+        }
+        modalTit.innerHTML = "添加挂号"
+    }// 点击修改挂号
+    function upAppoint(appointmentId) {
+        let h;
+        for (let i = 0; i < appointList.length; i++) {
+            const appoint = appointList[i]
+            if (appoint["appointmentId"] === appointmentId) h = appoint
+        }
+        if (h === undefined) {
+            console.log("修改传参错误")
+            return
+        }
+        modalTit.innerHTML = "修改挂号"
+        const group = ["appointmentId", "clientId", "clientName",
+            "petId", "petName", "appointmentDate", "appointmentInfo"]
+        for (let i = 0; i < group.length; i++) {
+            document.getElementById(group[i]).value = h[group[i]]
+        }
+    }// 添加或者修改挂号
+    document.getElementById("submitForm").onclick = () => {
+        // 将表单转Json
+        const group = ["clientId", "petId", "appointmentDate", "appointmentInfo"]
+        const h = {}
+        for (let i = 0; i < group.length; i++) {
+            h[group[i]] = document.getElementById(group[i]).value
+        }// 校验表单
+        if (h["clientId"]==="") {
+            showAlert("请通过下拉框选择用户")
+            return
+        }else if (h["petId"]===""){
+            showAlert("请通过下拉框选择宠物")
+            return
+        }// 处理挂号或者修改逻辑
+        if (modalTit.innerHTML === "添加挂号") {
+            axios.post("doctorLog/appoint", h).then(resp => getResp(resp))
+        } else {
+            h["appointmentId"] = document.getElementById("appointmentId").value
+            axios.put("doctorLog/appoint", h).then(resp => getResp(resp))
+        }//响应逻辑
+        const getResp = resp => {
+            const {msg, code} = resp.data
+            if (code === 1) {
+                showAlert(msg, "alert-success")
+                getAppoint()
+            } else if (code === 0) showAlert(msg)
+        }
+    }
+    (function () {//根据主人获取宠物
+        const option01 = (document.getElementById("clientOp")).getElementsByTagName("option")
+        const dataName01 = document.getElementById("clientName")
+        dataName01.onchange = () => {
+            const roleId = "pet/client?clientId=" + dataName01.value
+            getOther("petOp", roleId)
+            for (let i = 0; i < option01.length; i++) {
+                if (option01[i].value === dataName01.value) {
+                    document.getElementById("clientId").value = dataName01.value
+                    dataName01.value = option01[i].innerHTML
+                }
+            }
+        }// 将选择的宠物赋予输入框
+        const option = (document.getElementById("petOp")).getElementsByTagName("option"),
+            dataName = document.getElementById("petName");
+        dataName.onchange = () => {
+            for (let i = 0; i < option.length; i++) {
+                if (option[i].value === dataName.value) {
+                    document.getElementById("petId").value = dataName.value
+                    dataName.value = option[i].innerHTML
+                }
+            }
+        }
+    }())
 </script>
 </html>

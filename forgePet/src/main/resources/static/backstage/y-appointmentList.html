@@ -108,13 +108,13 @@
     <thead>
     <tr>
         <th><input class="form-check-input ms-3" type="checkbox" id="checkALL"><label for="checkALL"></label></th>
-        <th>就诊时间</th>
+        <th>挂号时间</th>
         <th>简介</th>
         <th>挂号人</th>
         <th>就诊宠物</th>
         <th>科室</th>
         <th>医生</th>
-        <th>挂号时间</th>
+        <th>就诊时间</th>
         <th>状态</th>
         <th>操作</th>
     </tr>
@@ -164,8 +164,8 @@
         h["appointmentDate"] = h["appointmentDate"].toString().replaceAll("T", ' ')
         const isSuc = h["isSuc"]
         h["isSuc"] = `<span class="text-${isSuc ? 'success' : 'danger'}">${isSuc ? "已" : "未"}处理</span>`
-        const group02 = ["appointmentDate", "appointmentInfo",
-            "clientName", "petName", "departmentName", "doctorName", "createTime", "isSuc"]
+        const group02 = ["createTime", "appointmentInfo",
+            "clientName", "petName", "departmentName", "doctorName", "appointmentDate", "isSuc"]
         for (let i = 0; i < group02.length; i++) {
             row.appendChild(sss.cell(h[group02[i]]))
         }
