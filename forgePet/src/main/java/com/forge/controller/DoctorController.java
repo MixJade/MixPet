@@ -1,6 +1,7 @@
 package com.forge.controller;
 
 import com.forge.common.Result;
+import com.forge.common.StrUtil;
 import com.forge.dto.DoctorDto;
 import com.forge.entity.Doctor;
 import com.forge.service.IDoctorService;
@@ -60,6 +61,7 @@ public class DoctorController {
     @PostMapping
     @RequiresRoles(RoleConst.MANAGER)
     public Result save(@RequestBody Doctor doctor) {
+        if (StrUtil.isWhite(doctor.getDoctorJob())) doctor.setDoctorJob("医生");
         return Result.choice("添加", doctorService.save(doctor));
     }
 
