@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2023-04-04 14:10:30
+Date: 2023-05-08 22:36:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -93,8 +93,8 @@ INSERT INTO `appointment` VALUES ('7', '3', '12', '2023-02-18 14:30:00', '8', '4
 -- ----------------------------
 DROP TABLE IF EXISTS `client`;
 CREATE TABLE `client` (
-  `client_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '客户id',
-  `client_username` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '客户账号',
+  `client_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户id',
+  `client_username` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '用户账号',
   `client_password` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT '6b6864bf70c40ccbc2752cd9ef11e77b' COMMENT '用户密码',
   `client_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '用户姓名',
   `client_gender` tinyint(1) DEFAULT '0' COMMENT '用户性别',
@@ -163,7 +163,7 @@ CREATE TABLE `doctor` (
   `doctor_age` date NOT NULL DEFAULT '2001-01-03' COMMENT '医生生日',
   `doctor_photo` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'zs.jpg' COMMENT '医生照片名称',
   `doctor_tel` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '医生联系方式',
-  `doctor_job` varchar(16) DEFAULT NULL COMMENT '医生职位',
+  `doctor_job` varchar(16) DEFAULT '医生' COMMENT '医生职位',
   `doctor_info` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '医生简介',
   `doctor_password` varchar(32) NOT NULL DEFAULT '6b6864bf70c40ccbc2752cd9ef11e77b' COMMENT '医生密码',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
@@ -252,9 +252,9 @@ INSERT INTO `foster` VALUES ('5', '12301125', '32', '3', '2023-09-15', '200', '�
 DROP TABLE IF EXISTS `msg`;
 CREATE TABLE `msg` (
   `msg_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '记录ID',
-  `client_id` bigint(20) NOT NULL COMMENT '客户ID',
+  `client_id` bigint(20) NOT NULL COMMENT '用户ID',
   `doctor_id` bigint(20) NOT NULL COMMENT '医生ID',
-  `is_client` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1为客户发送，0为医生',
+  `is_client` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1为用户发送，0为医生',
   `msg_content` varchar(64) DEFAULT NULL COMMENT '消息内容',
   `is_img` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否为图片消息',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
