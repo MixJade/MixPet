@@ -5,6 +5,7 @@ import com.forge.common.SendMail;
 import com.forge.common.StrUtil;
 import com.forge.dto.AppointmentDto2;
 import com.forge.dto.DoctorDto;
+import com.forge.entity.Appointment;
 import com.forge.entity.Doctor;
 import com.forge.service.IAppointmentService;
 import com.forge.service.IDoctorService;
@@ -76,7 +77,7 @@ public class DoctorLogController {
     public Result resetPwd(@RequestBody DoctorResetPwdVo pwdVo, HttpSession session) {
         String password = pwdVo.password();
         String checkCode = pwdVo.checkCode();
-            if (SecurityUtils.getSubject().getPrincipal() instanceof Doctor doctor) {
+        if (SecurityUtils.getSubject().getPrincipal() instanceof Doctor doctor) {
             String mail = doctor.getDoctorTel();
             var sessionCode = session.getAttribute(mail);
             if (StrUtil.isWhite(checkCode)) return Result.error("验证码不能为空");
@@ -100,5 +101,29 @@ public class DoctorLogController {
             doctor.setDoctorId(doctorLog.getDoctorId());
             return Result.choice("修改", doctorService.updateById(doctor));
         } else return null;
+    }
+
+    /**
+     * 医生：添加挂号
+     */
+    @PostMapping("/appoint")
+    public Result addAppoint(@RequestBody Appointment appointment) {
+        if (SecurityUtils.getSubject().getPrincipal() instanceof Doctor doctorLog) {
+            appointment.setDoctorId(doctorLog.getDoctorId());
+            appointment.setDepartmentId(doctorLog.getDepartmentId());
+            return Result.choice("添加", appointService.save(appointment));
+        } else return Result.error("未获取登录信息");
+    }
+
+    /**
+     * 医生：修改挂号
+     */
+    @PutMapping("/appoint")
+    public Result upAppoint(@RequestBody Appointment appointment) {
+        if (SecurityUtils.getSubject().getPrincipal() instanceof Doctor doctorLog) {
+            appointment.setDoctorId(doctorLog.getDoctorId());
+            appointment.setDepartmentId(doctorLog.getDepartmentId());
+            return Result.choice("修改", appointService.updateById(appointment));
+        } else return Result.error("未获取登录信息");
     }
 }
