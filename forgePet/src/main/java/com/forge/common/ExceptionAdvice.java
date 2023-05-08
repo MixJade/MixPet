@@ -32,7 +32,7 @@ public class ExceptionAdvice {
 
     @ExceptionHandler(UnauthenticatedException.class) // shiro:未登录
     public Result doUnauthenticatedException() {
-        return new Result(ResultEnum.NO_LOGIN);
+        return ResultConst.NO_LOGIN;
     }
 
     @ExceptionHandler(Exception.class) // 其他异常，没有预计的异常，发送固定消息

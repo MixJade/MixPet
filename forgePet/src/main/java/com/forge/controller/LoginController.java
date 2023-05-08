@@ -2,10 +2,7 @@ package com.forge.controller;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.forge.common.Result;
-import com.forge.common.ResultEnum;
-import com.forge.common.SendMail;
-import com.forge.common.StrUtil;
+import com.forge.common.*;
 import com.forge.dto.RegisterDto;
 import com.forge.entity.Client;
 import com.forge.entity.Doctor;
@@ -48,7 +45,7 @@ public class LoginController {
     public Result logout() {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        return new Result(ResultEnum.LOGOUT);
+        return ResultConst.LOGOUT;
     }
 
     /**
@@ -57,7 +54,7 @@ public class LoginController {
      */
     @GetMapping("/noPower")
     public Result noPower() {
-        return new Result(ResultEnum.NO_POWER);
+        return ResultConst.NO_POWER;
     }
 
     /**
@@ -67,7 +64,7 @@ public class LoginController {
      */
     @GetMapping("/noLogin")
     public Result noLogin() {
-        return new Result(ResultEnum.NO_LOGIN);
+        return ResultConst.NO_LOGIN;
     }
 
     /**
