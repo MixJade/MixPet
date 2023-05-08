@@ -61,6 +61,7 @@ public class AdoptController {
     @PostMapping
     @RequiresRoles(RoleConst.MANAGER)
     public Result save(@RequestBody Adopt adopt) {
+        if (adopt.getAdoptMoney()<=0) return Result.error("金额必须大于零");
         return Result.choice("添加", adoptService.save(adopt));
     }
 
@@ -69,6 +70,7 @@ public class AdoptController {
      */
     @PostMapping("/adoptPet")
     public Result adoptPet(@RequestBody Adopt adopt) {
+        if (adopt.getAdoptMoney()<=0) return Result.error("金额必须大于零");
         if (SecurityUtils.getSubject().getPrincipal() instanceof Client client) {
             Long id = client.getClientId();
             adopt.setClientId(id);
@@ -91,6 +93,7 @@ public class AdoptController {
     @PutMapping
     @RequiresRoles(RoleConst.MANAGER)
     public Result update(@RequestBody Adopt adopt) {
+        if (adopt.getAdoptMoney()<=0) return Result.error("金额必须大于零");
         return Result.choice("修改", adoptService.updateById(adopt));
     }
 
