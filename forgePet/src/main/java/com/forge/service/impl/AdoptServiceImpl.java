@@ -1,8 +1,8 @@
 package com.forge.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.forge.common.CodeEnum;
-import com.forge.common.PageUntil;
+import com.forge.util.CodeEnum;
+import com.forge.util.PageUtil;
 import com.forge.dto.AdoptDto;
 import com.forge.vo.Page;
 import com.forge.entity.Adopt;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 /**
  * <p>
@@ -47,7 +46,7 @@ public class AdoptServiceImpl extends ServiceImpl<AdoptMapper, Adopt> implements
     @Override
     public Page<AdoptDto> selectByPage(String adoptCode, int numPage, int pageSize) {
         int maxCount = adoptMapper.selectAdoptCount(adoptCode);
-        PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
+        PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
         var adoptList = adoptMapper.selectAdoptPage(adoptCode, pu);
         return new Page<>(adoptList, maxCount);
     }

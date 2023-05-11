@@ -1,7 +1,7 @@
 package com.forge.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.forge.common.PageUntil;
+import com.forge.util.PageUtil;
 import com.forge.entity.Employee;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -23,6 +23,6 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
 
     int selectEmployeeCount(@Param("employeeName") String employeeName);
 
-    List<Employee> selectEmployeePage(@Param("employeeName") String employeeName, @Param("pu") PageUntil pu);
+    List<Employee> selectEmployeePage(@Param("employeeName") String employeeName, @Param("pu") PageUtil pu);
 
 }

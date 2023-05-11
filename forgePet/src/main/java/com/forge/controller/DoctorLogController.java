@@ -2,7 +2,7 @@ package com.forge.controller;
 
 import com.forge.common.Result;
 import com.forge.common.SendMail;
-import com.forge.common.StrUtil;
+import com.forge.util.StrUtil;
 import com.forge.dto.AppointmentDto2;
 import com.forge.dto.DoctorDto;
 import com.forge.entity.Appointment;

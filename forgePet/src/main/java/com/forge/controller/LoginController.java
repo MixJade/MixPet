@@ -10,6 +10,7 @@ import com.forge.entity.Employee;
 import com.forge.mapper.ClientMapper;
 import com.forge.shiro.authentic.MyToken;
 import com.forge.shiro.authentic.RealmEnum;
+import com.forge.util.StrUtil;
 import com.forge.vo.LoginVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;

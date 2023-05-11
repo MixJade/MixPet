@@ -1,7 +1,7 @@
 package com.forge.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.forge.common.PageUntil;
+import com.forge.util.PageUtil;
 import com.forge.dto.AppointmentDto;
 import com.forge.dto.AppointmentDto2;
 import com.forge.entity.Appointment;
@@ -26,7 +26,7 @@ public interface AppointmentMapper extends BaseMapper<Appointment> {
 
     int selectAppointmentCount(@Param("seaName") String seaName, @Param("seaType") int seaType);
 
-    List<AppointmentDto> selectAppointmentPage(@Param("seaName") String seaName, @Param("seaType") int seaType, @Param("pu") PageUntil pu);
+    List<AppointmentDto> selectAppointmentPage(@Param("seaName") String seaName, @Param("seaType") int seaType, @Param("pu") PageUtil pu);
 
     /**
      * 用户：根据医生查询订单

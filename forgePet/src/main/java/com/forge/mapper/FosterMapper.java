@@ -1,6 +1,6 @@
 package com.forge.mapper;
 
-import com.forge.common.PageUntil;
+import com.forge.util.PageUtil;
 import com.forge.dto.FosterDto;
 import com.forge.dto.FosterPetDto;
 import com.forge.entity.Foster;
@@ -27,7 +27,7 @@ public interface FosterMapper extends BaseMapper<Foster> {
 
     int selectFosterCount(@Param("fosterCode") String fosterCode);
 
-    List<FosterDto> selectFosterPage(@Param("fosterCode") String fosterCode, @Param("pu") PageUntil pu);
+    List<FosterDto> selectFosterPage(@Param("fosterCode") String fosterCode, @Param("pu") PageUtil pu);
 
     @Select("select max(foster_id) from foster")
     Long getMaxId();

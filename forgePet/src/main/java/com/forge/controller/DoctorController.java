@@ -1,7 +1,7 @@
 package com.forge.controller;
 
 import com.forge.common.Result;
-import com.forge.common.StrUtil;
+import com.forge.util.StrUtil;
 import com.forge.dto.DoctorDto;
 import com.forge.entity.Doctor;
 import com.forge.service.IDoctorService;

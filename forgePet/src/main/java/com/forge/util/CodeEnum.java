@@ -1,4 +1,4 @@
-package com.forge.common;
+package com.forge.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.forge.common;
+package com.forge.util;
 
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.lang.Nullable;
