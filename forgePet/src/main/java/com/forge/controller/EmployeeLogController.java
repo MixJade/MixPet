@@ -1,12 +1,11 @@
 package com.forge.controller;
 
 import com.forge.common.Result;
-import com.forge.common.StrUtil;
+import com.forge.util.StrUtil;
 import com.forge.entity.Employee;
 import com.forge.service.IEmployeeService;
 import com.forge.vo.EmployeePutVo;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

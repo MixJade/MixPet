@@ -1,8 +1,8 @@
 package com.forge.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.forge.common.CodeEnum;
-import com.forge.common.PageUntil;
+import com.forge.util.CodeEnum;
+import com.forge.util.PageUtil;
 import com.forge.dto.FosterDto;
 import com.forge.dto.FosterPetDto;
 import com.forge.vo.Page;
@@ -48,7 +48,7 @@ public class FosterServiceImpl extends ServiceImpl<FosterMapper, Foster> impleme
     @Override
     public Page<FosterDto> selectByPage(String fosterCode, int numPage, int pageSize) {
         int maxCount = fosterMapper.selectFosterCount(fosterCode);
-        PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
+        PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
         var fosterList = fosterMapper.selectFosterPage(fosterCode, pu);
         return new Page<>(fosterList, maxCount);
     }

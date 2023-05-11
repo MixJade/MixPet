@@ -1,7 +1,7 @@
 package com.forge.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.forge.common.PageUntil;
+import com.forge.util.PageUtil;
 import com.forge.dto.NoticeDto;
 import com.forge.entity.Notice;
 import org.apache.ibatis.annotations.Mapper;
@@ -45,7 +45,7 @@ public interface NoticeMapper extends BaseMapper<Notice> {
 
     int selectNoticeCount(@Param("noticeName") String noticeName);
 
-    List<NoticeDto> selectNoticePage(@Param("noticeName") String noticeName, @Param("pu") PageUntil pu);
+    List<NoticeDto> selectNoticePage(@Param("noticeName") String noticeName, @Param("pu") PageUtil pu);
 
     List<NoticeDto> selectFour();
 

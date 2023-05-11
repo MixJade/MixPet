@@ -1,7 +1,7 @@
 package com.forge.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.forge.common.PageUntil;
+import com.forge.util.PageUtil;
 import com.forge.vo.Page;
 import com.forge.entity.Employee;
 import com.forge.mapper.EmployeeMapper;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 /**
  * <p>
@@ -40,7 +39,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Override
     public Page<Employee> selectByPage(String employeeName, int numPage, int pageSize) {
         int maxCount = employeeMapper.selectEmployeeCount(employeeName);
-        PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
+        PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
         var employeeList = employeeMapper.selectEmployeePage(employeeName, pu);
         return new Page<>(employeeList, maxCount);
     }

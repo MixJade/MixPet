@@ -1,7 +1,7 @@
 package com.forge.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.forge.common.PageUntil;
+import com.forge.util.PageUtil;
 import com.forge.vo.NameVo;
 import com.forge.entity.Department;
 import org.apache.ibatis.annotations.Mapper;
@@ -24,7 +24,7 @@ public interface DepartmentMapper extends BaseMapper<Department> {
 
     int selectDepartmentCount(@Param("departmentName") String departmentName);
 
-    List<Department> selectDepartmentPage(@Param("departmentName") String departmentName, @Param("pu") PageUntil pu);
+    List<Department> selectDepartmentPage(@Param("departmentName") String departmentName, @Param("pu") PageUtil pu);
 
     @Select("SELECT department_id as roleId, department_name as roleName FROM department WHERE is_del = '0'")
     List<NameVo> selectName();

@@ -1,7 +1,7 @@
 package com.forge.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.forge.common.PageUntil;
+import com.forge.util.PageUtil;
 import com.forge.vo.NameVo;
 import com.forge.entity.Client;
 import org.apache.ibatis.annotations.Mapper;
@@ -26,7 +26,7 @@ public interface ClientMapper extends BaseMapper<Client> {
 
     int selectClientCount(@Param("clientName") String clientName);
 
-    List<Client> selectClientPage(@Param("clientName") String clientName, @Param("pu") PageUntil pu);
+    List<Client> selectClientPage(@Param("clientName") String clientName, @Param("pu") PageUtil pu);
 
     @Select("SELECT client_id as roleId, client_name as roleName FROM client WHERE is_del = '0'")
     List<NameVo> selectName();

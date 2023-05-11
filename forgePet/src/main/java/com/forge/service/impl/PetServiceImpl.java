@@ -1,7 +1,7 @@
 package com.forge.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.forge.common.PageUntil;
+import com.forge.util.PageUtil;
 import com.forge.vo.NameVo;
 import com.forge.vo.Page;
 import com.forge.dto.PetDto;
@@ -48,7 +48,7 @@ public class PetServiceImpl extends ServiceImpl<PetMapper, Pet> implements IPetS
     @Override
     public Page<PetDto> selectByPage(String petName, String clientName, int numPage, int pageSize) {
         int maxCount = petMapper.selectPetCount(petName, clientName);
-        PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
+        PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
         var petList = petMapper.selectPetPage(petName, clientName, pu);
         return new Page<>(petList, maxCount);
     }
@@ -56,7 +56,7 @@ public class PetServiceImpl extends ServiceImpl<PetMapper, Pet> implements IPetS
     @Override
     public Page<Pet> selectFour(int numPage, int pageSize) {
         int maxCount = petMapper.selectFourNum();
-        PageUntil pu = PageUntil.pu(numPage, pageSize, maxCount);
+        PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
         return new Page<>(petMapper.selectFour(pu), maxCount);
     }
 
