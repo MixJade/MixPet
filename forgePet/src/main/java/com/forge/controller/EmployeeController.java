@@ -29,11 +29,6 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping
-    public List<Employee> getAll() {
-        return employeeService.list();
-    }
-
     @GetMapping("/page")
     public Page<Employee> getPage(int numPage, int pageSize, String employeeName) {
         return employeeService.selectByPage(employeeName, numPage, pageSize);

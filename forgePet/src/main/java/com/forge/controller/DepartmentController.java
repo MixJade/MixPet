@@ -30,8 +30,13 @@ public class DepartmentController {
         this.departService = departService;
     }
 
+    /**
+     * 查询科室名与对应id
+     *
+     * @return 相应科室名与id
+     */
     @GetMapping
-    public List<NameVo> getAll() {
+    public List<NameVo> getName() {
         return departService.selectName();
     }
 

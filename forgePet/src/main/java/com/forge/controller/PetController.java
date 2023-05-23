@@ -3,11 +3,13 @@ package com.forge.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.forge.common.Result;
 import com.forge.dto.PetDto;
+import com.forge.entity.Client;
 import com.forge.entity.Pet;
 import com.forge.service.IPetService;
 import com.forge.shiro.RoleConst;
 import com.forge.vo.NameVo;
 import com.forge.vo.Page;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,21 +34,34 @@ public class PetController {
         this.petService = petService;
     }
 
+    /**
+     * 调试所用，实际未调用
+     */
     @GetMapping
-    public List<NameVo> getAll() {
+    public List<NameVo> getName() {
         return petService.selectName();
     }
 
+    /**
+     * 添加寄养、挂号单时，查询主人对应的宠物
+     */
     @GetMapping("/client")
     public List<NameVo> getByClient(long clientId) {
         return petService.selectByClient(clientId);
     }
 
+    /**
+     * 用户个人中心：查询名下宠物
+     *
+     * @return 宠物列表
+     */
     @GetMapping("/clientOne")
-    public List<Pet> getByClientOne(long clientId) {
-        var queryWrapper = new LambdaQueryWrapper<Pet>();
-        queryWrapper.eq(Pet::getClientId,clientId);
-        return petService.list(queryWrapper);
+    public List<Pet> getByClientOne() {
+        if (SecurityUtils.getSubject().getPrincipal() instanceof Client client) {
+            var queryWrapper = new LambdaQueryWrapper<Pet>();
+            queryWrapper.eq(Pet::getClientId, client.getClientId());
+            return petService.list(queryWrapper);
+        } else return null;
     }
 
     @GetMapping("/noClient")

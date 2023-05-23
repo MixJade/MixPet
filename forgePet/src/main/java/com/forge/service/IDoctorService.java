@@ -60,7 +60,7 @@ public interface IDoctorService extends IService<Doctor> {
     List<NameVo> selectName();
 
     /**
-     * 通过科室查询医生
+     * 管理员：在添加挂号单时，通过科室查询医生
      *
      * @param departmentId 科室id
      * @return 医生姓名与id
