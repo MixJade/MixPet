@@ -1,6 +1,7 @@
 package com.forge.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.forge.common.PhotoConst;
 import com.forge.common.Result;
 import com.forge.dto.PetDto;
 import com.forge.entity.Client;
@@ -82,7 +83,7 @@ public class PetController {
     public Result save(@RequestBody Pet pet) {
         if (StrUtil.isWhite(pet.getPetName())) return Result.error("姓名不能为空");
         if (StrUtil.isWhite(pet.getPetVariety())) return Result.error("品种不能为空");
-        if (StrUtil.isWhite(pet.getPetPhoto())) pet.setPetPhoto("defaultPet.jpg");
+        if (StrUtil.isWhite(pet.getPetPhoto())) pet.setPetPhoto(PhotoConst.PET);
         return Result.choice("添加", petService.save(pet));
     }
 
