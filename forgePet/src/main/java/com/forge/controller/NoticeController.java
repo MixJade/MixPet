@@ -31,7 +31,9 @@ public class NoticeController {
     public NoticeController(INoticeService noticeService) {
         this.noticeService = noticeService;
     }
-
+    /**
+     * 调试所用，实际未调用
+     */
     @GetMapping
     public List<Notice> getAll() {
         return noticeService.list();

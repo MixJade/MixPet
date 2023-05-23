@@ -226,15 +226,13 @@
         }
     }// 获取当前用户信息
     function getUser() {
-        axios("login/user").then(resp => {
-            setForm(resp.data)
-            const clientId = resp.data["clientId"]
-            Promise.all([axios("pet/clientOne?clientId=" + clientId),
-                axios("appointment/client?clientId=" + clientId)])
-                .then(results => {
-                    writePet(results[0]["data"])
-                    writeAppoint(results[1]["data"])
-                })
+        Promise.all([axios("login/user"),
+            axios("pet/clientOne"),
+            axios("appointment/client")
+        ]).then(results => {
+            setForm(results[0]["data"])
+            writePet(results[1]["data"])
+            writeAppoint(results[2]["data"])
         })
     }//单个用户：json转表单
     function setForm(h) {

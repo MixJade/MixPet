@@ -32,11 +32,20 @@ public class DoctorController {
         this.doctorService = doctorService;
     }
 
+    /**
+     * 调试所用，实际未调用
+     */
     @GetMapping
-    public List<NameVo> getAll() {
+    public List<NameVo> getName() {
         return doctorService.selectName();
     }
 
+    /**
+     * 管理员：在添加挂号单时，通过科室查询医生
+     *
+     * @param departmentId 科室id
+     * @return 医生姓名与id
+     */
     @GetMapping("/department")
     public List<NameVo> getByDepartment(long departmentId) {
         return doctorService.selectByDepartment(departmentId);

@@ -2,10 +2,12 @@ package com.forge.controller;
 
 import com.forge.common.Result;
 import com.forge.dto.AppointmentDto;
+import com.forge.entity.Client;
 import com.forge.shiro.RoleConst;
 import com.forge.vo.Page;
 import com.forge.entity.Appointment;
 import com.forge.service.IAppointmentService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,9 @@ public class AppointmentController {
     public AppointmentController(IAppointmentService appointmentService) {
         this.appointmentService = appointmentService;
     }
-
+    /**
+     * 调试所用，实际未调用
+     */
     @GetMapping
     public List<Appointment> getAll() {
         return appointmentService.list();
@@ -50,11 +54,13 @@ public class AppointmentController {
     }
 
     /**
-     * 根据用户查询挂号信息
+     * 用户个人中心:根据用户查询挂号信息
      */
     @GetMapping("/client")
-    public List<AppointmentDto> getClient(Long clientId) {
-        return appointmentService.getClient(clientId);
+    public List<AppointmentDto> getClient() {
+        if (SecurityUtils.getSubject().getPrincipal() instanceof Client client) {
+            return appointmentService.getClient(client.getClientId());
+        } else return null;
     }
 
     @PostMapping
@@ -76,7 +82,7 @@ public class AppointmentController {
     }
 
     @PutMapping
-    @RequiresRoles(value={RoleConst.MANAGER, RoleConst.DOCTOR},logical= Logical.OR)
+    @RequiresRoles(value = {RoleConst.MANAGER, RoleConst.DOCTOR}, logical = Logical.OR)
     public Result update(@RequestBody Appointment appointment) {
         return Result.choice("修改", appointmentService.updateById(appointment));
     }

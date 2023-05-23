@@ -21,7 +21,8 @@ public class CodeGenerator {
                             .disableOpenDir()
                             .outputDir("./src/main/java"); // 指定输出目录
                 }).packageConfig(builder -> builder.parent("com.forge")
-                        .pathInfo(Collections.singletonMap(OutputFile.xml, "./src/main/resources/com/forge/mapper"))).templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
+                        // 使用Freemarker引擎模板，默认的是Velocity引擎模板
+                        .pathInfo(Collections.singletonMap(OutputFile.xml, "./src/main/resources/com/forge/mapper"))).templateEngine(new FreemarkerTemplateEngine())
                 .strategyConfig(builder -> builder.entityBuilder().enableFileOverride()
                         .addTableFills(
                                 new Column("create_time", FieldFill.INSERT),

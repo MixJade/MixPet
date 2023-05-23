@@ -35,7 +35,7 @@ public class ClientController {
      * 查询用户的名字与id
      */
     @GetMapping
-    public List<NameVo> getAll() {
+    public List<NameVo> getName() {
         return clientService.selectName();
     }
 

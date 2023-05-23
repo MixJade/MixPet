@@ -30,7 +30,9 @@ public class FosterController {
     public FosterController(IFosterService fosterService) {
         this.fosterService = fosterService;
     }
-
+    /**
+     * 调试所用，实际未调用
+     */
     @GetMapping
     public List<Foster> getAll() {
         return fosterService.list();
