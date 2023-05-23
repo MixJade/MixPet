@@ -30,6 +30,7 @@
     </navigator>
   </van-cell-group>
 </view>
+<!-- 公告模态框 -->
 <van-popup show="{{ isShowNotice }}" bind:close="onClose" custom-style="width:600rpx;height:320px;border-radius: 5%;padding-top: 5px;">
   <view class="textTit">
     <text>{{showNoticeTitle}}\n</text>
