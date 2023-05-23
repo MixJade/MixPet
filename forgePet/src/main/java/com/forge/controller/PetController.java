@@ -35,14 +35,6 @@ public class PetController {
     }
 
     /**
-     * 调试所用，实际未调用
-     */
-    @GetMapping
-    public List<NameVo> getName() {
-        return petService.selectName();
-    }
-
-    /**
      * 添加寄养、挂号单时，查询主人对应的宠物
      */
     @GetMapping("/client")

@@ -32,13 +32,6 @@ public class AppointmentController {
     public AppointmentController(IAppointmentService appointmentService) {
         this.appointmentService = appointmentService;
     }
-    /**
-     * 调试所用，实际未调用
-     */
-    @GetMapping
-    public List<Appointment> getAll() {
-        return appointmentService.list();
-    }
 
     @GetMapping("/page")
     public Page<AppointmentDto> getPage(int numPage, int pageSize, String seaName, int seaType) {
