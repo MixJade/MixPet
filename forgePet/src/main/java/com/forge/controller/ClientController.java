@@ -2,6 +2,7 @@ package com.forge.controller;
 
 import com.forge.common.Result;
 import com.forge.shiro.RoleConst;
+import com.forge.util.StrUtil;
 import com.forge.vo.NameVo;
 import com.forge.vo.Page;
 import com.forge.entity.Client;
@@ -55,8 +56,9 @@ public class ClientController {
     @PostMapping
     @RequiresRoles(RoleConst.MANAGER)
     public Result save(@RequestBody Client client) {
-        if (client.getClientName().isBlank()) return Result.error("用户名为空");
-        if (client.getClientUsername().isBlank()) return Result.error("用户账号为空");
+        if (StrUtil.isWhite(client.getClientName())) return Result.error("用户名为空");
+        if (StrUtil.isWhite(client.getClientUsername())) return Result.error("用户账号为空");
+        if (StrUtil.isWhite(client.getClientPhoto())) client.setClientPhoto("zs.jpg");
         return Result.choice("添加", clientService.save(client));
     }
 
@@ -73,8 +75,10 @@ public class ClientController {
     }
 
     @PutMapping
-    @RequiresRoles(value={RoleConst.MANAGER, RoleConst.CLIENT},logical= Logical.OR)
+    @RequiresRoles(value = {RoleConst.MANAGER, RoleConst.CLIENT}, logical = Logical.OR)
     public Result update(@RequestBody Client client) {
+        if (StrUtil.isWhite(client.getClientName())) return Result.error("用户名为空");
+        if (StrUtil.isWhite(client.getClientUsername())) return Result.error("用户账号为空");
         return Result.choice("修改", clientService.updateById(client));
     }
 

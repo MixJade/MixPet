@@ -7,6 +7,7 @@ import com.forge.entity.Client;
 import com.forge.entity.Pet;
 import com.forge.service.IPetService;
 import com.forge.shiro.RoleConst;
+import com.forge.util.StrUtil;
 import com.forge.vo.NameVo;
 import com.forge.vo.Page;
 import org.apache.shiro.SecurityUtils;
@@ -79,6 +80,9 @@ public class PetController {
     @PostMapping
     @RequiresRoles(RoleConst.NURSE)
     public Result save(@RequestBody Pet pet) {
+        if (StrUtil.isWhite(pet.getPetName())) return Result.error("姓名不能为空");
+        if (StrUtil.isWhite(pet.getPetVariety())) return Result.error("品种不能为空");
+        if (StrUtil.isWhite(pet.getPetPhoto())) pet.setPetPhoto("defaultPet.jpg");
         return Result.choice("添加", petService.save(pet));
     }
 
@@ -97,6 +101,8 @@ public class PetController {
     @PutMapping
     @RequiresRoles(RoleConst.MANAGER)
     public Result update(@RequestBody Pet pet) {
+        if (StrUtil.isWhite(pet.getPetName())) return Result.error("姓名不能为空");
+        if (StrUtil.isWhite(pet.getPetVariety())) return Result.error("品种不能为空");
         return Result.choice("修改", petService.updatePet(pet));
     }
 }

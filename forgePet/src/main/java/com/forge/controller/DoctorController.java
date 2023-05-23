@@ -62,7 +62,9 @@ public class DoctorController {
     @PostMapping
     @RequiresRoles(RoleConst.MANAGER)
     public Result save(@RequestBody Doctor doctor) {
+        if (StrUtil.isWhite(doctor.getDoctorName())) return Result.error("姓名不能为空");
         if (StrUtil.isWhite(doctor.getDoctorJob())) doctor.setDoctorJob("医生");
+        if (StrUtil.isWhite(doctor.getDoctorPhoto())) doctor.setDoctorPhoto("defaultDoctor.jpg");
         return Result.choice("添加", doctorService.save(doctor));
     }
 
@@ -81,6 +83,8 @@ public class DoctorController {
     @PutMapping
     @RequiresRoles(RoleConst.MANAGER)
     public Result update(@RequestBody Doctor doctor) {
+        if (StrUtil.isWhite(doctor.getDoctorName())) return Result.error("姓名不能为空");
+        if (StrUtil.isWhite(doctor.getDoctorJob())) doctor.setDoctorJob("医生");
         return Result.choice("修改", doctorService.updateById(doctor));
     }
 }
