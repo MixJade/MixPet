@@ -107,7 +107,7 @@ public class AdoptController {
         Boolean isAdopt = adoptVo.isAdopt();
         Long adoptId = adoptVo.adoptId();
         if (isAdopt == null) return Result.error("操作有误");
-        if (isAdopt) return Result.choice("领养宠物", adoptService.adoptAdopt(adoptId, "它被有缘人领养"));
+        if (isAdopt) return Result.choice("领养宠物", adoptService.adoptAdopt(adoptId, "它有了温暖的家，感恩"));
         UpdateWrapper<Adopt> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("adopt_id", adoptId);
         updateWrapper.set("in_adopt", 0);

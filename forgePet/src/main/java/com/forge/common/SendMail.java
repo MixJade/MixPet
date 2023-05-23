@@ -46,19 +46,21 @@ public class SendMail {
             String content = String.format("""
                     <!DOCTYPE html>
                     <html lang="zh-CN">
+                    <head>
+                        <meta charset="UTF-8">
+                        <title>验证码邮件</title>
+                    </head>
                     <body>
-                    <h2>尊敬的用户，你好：</h2>
-                    &nbsp;&nbsp;兔年到，祝福到；
+                    <h2>尊敬的用户，您好！</h2>
                     <br>
-                    短信问好，友人可安；祝愿朋友，财源滚滚；
+                    <p>感谢您选择我们宠物医院作为您爱宠健康的守护者。</p>
+                    <p>为确保您的账户信息安全，我们向您发送验证码：%s。</p>
+                    <p>请在网页中输入此验证码以完成密码重置或其他操作。</p>
+                    <p>如果您没有任何操作，请忽略此邮件。如有任何问题，请随时与我们联系。</p>
+                    <p>祝您和您的爱宠健康快乐！</p>
                     <br>
-                    吉祥高照，鸿运当头；幸福围绕，健康相伴；
-                    <br>
-                    一生平安，万事顺心；笑口常开，兔年快乐！
-                    <br><br>
-                    祝朋友2023兔年快乐!
-                    <br>
-                    验证码：%s
+                    此致，<br>
+                    宠物医院团队
                     </body>
                     </html>""", code);
             messageHelper.setText(content, true);
