@@ -18,14 +18,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    if (options !== undefined) {
-      const id = options.id
-      mix.plain("appointment/client?clientId=" + id).then(res => {
-        this.setData({
-          appoint: res
-        })
+    mix.plain("appointment/client").then(res => {
+      this.setData({
+        appoint: res
       })
-    }
+    })
   },
 
   /**

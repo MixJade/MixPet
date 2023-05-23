@@ -15,7 +15,7 @@ Page({
       petSex: 1,
       petAge: "2000-12-12",
       petInfo: "它很高兴",
-      petStatus:"状态"
+      petStatus: "状态"
     }]
   },
 
@@ -23,15 +23,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    if (options !== undefined) {
-      const id = options.id
-      mix.plain("pet/clientOne?clientId=" + id).then(res => {
-        this.setData({
-          base: mix.base + "common/download?name=",
-          petList: res
-        })
+    mix.plain("pet/clientOne").then(res => {
+      this.setData({
+        base: mix.base + "common/download?name=",
+        petList: res
       })
-    }
+    })
   },
 
   /**

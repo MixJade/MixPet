@@ -3,18 +3,16 @@ package com.forge.controller;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.forge.common.Result;
 import com.forge.dto.AdoptDto;
-import com.forge.shiro.RoleConst;
-import com.forge.vo.Page;
 import com.forge.entity.Adopt;
 import com.forge.entity.Client;
 import com.forge.service.IAdoptService;
+import com.forge.shiro.RoleConst;
 import com.forge.vo.AdoptVo;
+import com.forge.vo.Page;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * <p>
@@ -32,14 +30,6 @@ public class AdoptController {
     @Autowired
     public AdoptController(IAdoptService adoptService) {
         this.adoptService = adoptService;
-    }
-
-    /**
-     * 调试所用，实际未调用
-     */
-    @GetMapping
-    public List<Adopt> getAll() {
-        return adoptService.list();
     }
 
     @GetMapping("/page")

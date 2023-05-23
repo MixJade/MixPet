@@ -33,14 +33,6 @@ public class DoctorController {
     }
 
     /**
-     * 调试所用，实际未调用
-     */
-    @GetMapping
-    public List<NameVo> getName() {
-        return doctorService.selectName();
-    }
-
-    /**
      * 管理员：在添加挂号单时，通过科室查询医生
      *
      * @param departmentId 科室id
