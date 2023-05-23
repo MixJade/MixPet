@@ -45,7 +45,16 @@ public interface IFosterService extends IService<Foster> {
 
     /**
      * 查询被寄养宠物信息
+     *
      * @return 被寄养宠物信息
      */
     List<FosterPetDto> fosterPet();
+
+    /**
+     * 在新增寄养信息时，查询是否已有在寄养中的订单
+     *
+     * @param petId 待寄养宠物的ID
+     * @return 订单数量
+     */
+    Long haveFoster(Long petId);
 }

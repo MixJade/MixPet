@@ -1,5 +1,6 @@
 package com.forge.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.forge.util.CodeEnum;
 import com.forge.util.PageUtil;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -56,6 +58,16 @@ public class FosterServiceImpl extends ServiceImpl<FosterMapper, Foster> impleme
     @Override
     public List<FosterPetDto> fosterPet() {
         return fosterMapper.fosterPet();
+    }
+
+    @Override
+    public Long haveFoster(Long petId) {
+        var queryWrapper=new LambdaQueryWrapper<Foster>();
+        queryWrapper.eq(Foster::getPetId,petId);
+        // ge:大于开始时间;le:小于等于结束时间
+        queryWrapper.ge(Foster::getFosterTerm, LocalDate.now());
+        // SELECT COUNT(*) FROM foster WHERE is_del='0' AND pet_id=? AND foster_term>=?
+        return fosterMapper.selectCount(queryWrapper);
     }
 
     @Override
