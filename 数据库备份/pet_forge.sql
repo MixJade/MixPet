@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2023-05-21 14:39:41
+Date: 2023-05-23 11:58:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -161,7 +161,7 @@ CREATE TABLE `doctor` (
   `doctor_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '医生姓名',
   `doctor_gender` tinyint(1) NOT NULL DEFAULT '0' COMMENT '医生性别，1男0女',
   `doctor_age` date NOT NULL DEFAULT '2001-01-03' COMMENT '医生生日',
-  `doctor_photo` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'zs.jpg' COMMENT '医生照片名称',
+  `doctor_photo` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'defaultDoctor.jpg' COMMENT '医生照片名称',
   `doctor_tel` varchar(32) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '医生联系方式',
   `doctor_job` varchar(16) DEFAULT '医生' COMMENT '医生职位',
   `doctor_info` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '医生简介',
@@ -343,7 +343,7 @@ CREATE TABLE `pet` (
   `pet_status` varchar(16) DEFAULT '健康' COMMENT '宠物状态',
   `pet_info` varchar(64) DEFAULT '无' COMMENT '宠物动态',
   `client_id` bigint(20) DEFAULT NULL COMMENT '宠物主人id',
-  `pet_photo` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '宠物照片名称',
+  `pet_photo` varchar(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT 'defaultPet.jpg' COMMENT '宠物照片名称',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   `is_del` varchar(32) NOT NULL DEFAULT '0' COMMENT '逻辑删除，默认0，填充删除日期',
