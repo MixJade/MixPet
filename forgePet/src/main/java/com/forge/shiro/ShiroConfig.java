@@ -84,6 +84,7 @@ public class ShiroConfig {
         definition.addPathDefinition("/login.html", "anon");
         // 不认证可以访问的路径
         definition.addPathDefinition("/login/**", "anon");
+        definition.addPathDefinition("/", "anon");
         definition.addPathDefinition("/doctor/page", "anon");
         definition.addPathDefinition("/pet/four", "anon");
         definition.addPathDefinition("/notice/four", "anon");
