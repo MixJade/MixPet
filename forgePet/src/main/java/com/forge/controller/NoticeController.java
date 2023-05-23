@@ -31,6 +31,7 @@ public class NoticeController {
     public NoticeController(INoticeService noticeService) {
         this.noticeService = noticeService;
     }
+
     /**
      * 调试所用，实际未调用
      */
@@ -44,6 +45,11 @@ public class NoticeController {
         return noticeService.selectByPage(noticeName, numPage, pageSize);
     }
 
+    /**
+     * 用户在主页查看公告
+     *
+     * @return 公告信息与公告文本
+     */
     @GetMapping("/four")
     public List<NoticeDto> getFour() {
         return noticeService.selectFour();

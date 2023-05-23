@@ -58,6 +58,11 @@ public class PetController {
         } else return null;
     }
 
+    /**
+     * 管理员：添加领养订单时，查询无主宠物
+     *
+     * @return 无主宠物的姓名与ID
+     */
     @GetMapping("/noClient")
     public List<NameVo> getNoClient() {
         return petService.selectNoClient();
@@ -68,11 +73,22 @@ public class PetController {
         return petService.selectByPage(petName, clientName, numPage, pageSize);
     }
 
+    /**
+     * 用户前台查询待领养宠物
+     *
+     * @return 待领养宠物列表
+     */
     @GetMapping("/four")
     public Page<Pet> getFour(int numPage, int pageSize) {
         return petService.selectFour(numPage, pageSize);
     }
 
+    /**
+     * 用户查看待领养宠物的详情
+     *
+     * @param petId 待领养宠物的ID
+     * @return 宠物信息
+     */
     @GetMapping("/one")
     public Pet getOne(Long petId) {
         return petService.getById(petId);
