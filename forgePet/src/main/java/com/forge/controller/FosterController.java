@@ -50,6 +50,7 @@ public class FosterController {
     @RequiresRoles(RoleConst.NURSE)
     public Result save(@RequestBody Foster foster) {
         if (foster.getFosterMoney()<=0) return Result.error("金额必须大于零");
+        if (fosterService.haveFoster(foster.getPetId())>0) return Result.error("当前宠物已在寄养中");
         return Result.choice("添加", fosterService.save(foster));
     }
 
