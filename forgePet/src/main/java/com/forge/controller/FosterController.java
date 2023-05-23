@@ -41,6 +41,11 @@ public class FosterController {
         return fosterService.selectByPage(fosterName, numPage, pageSize);
     }
 
+    /**
+     * 用户前台：查看被寄养的宠物
+     *
+     * @return 被寄养宠物的卡片信息
+     */
     @GetMapping("/pet")
     public List<FosterPetDto> fosterPet() {
         return fosterService.fosterPet();
@@ -49,8 +54,8 @@ public class FosterController {
     @PostMapping
     @RequiresRoles(RoleConst.NURSE)
     public Result save(@RequestBody Foster foster) {
-        if (foster.getFosterMoney()<=0) return Result.error("金额必须大于零");
-        if (fosterService.haveFoster(foster.getPetId())>0) return Result.error("当前宠物已在寄养中");
+        if (foster.getFosterMoney() <= 0) return Result.error("金额必须大于零");
+        if (fosterService.haveFoster(foster.getPetId()) > 0) return Result.error("当前宠物已在寄养中");
         return Result.choice("添加", fosterService.save(foster));
     }
 
@@ -69,7 +74,7 @@ public class FosterController {
     @PutMapping
     @RequiresRoles(RoleConst.MANAGER)
     public Result update(@RequestBody Foster foster) {
-        if (foster.getFosterMoney()<=0) return Result.error("金额必须大于零");
+        if (foster.getFosterMoney() <= 0) return Result.error("金额必须大于零");
         return Result.choice("修改", fosterService.updateById(foster));
     }
 }
