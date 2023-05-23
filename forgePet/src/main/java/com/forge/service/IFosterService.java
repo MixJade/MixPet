@@ -44,9 +44,9 @@ public interface IFosterService extends IService<Foster> {
     Page<FosterDto> selectByPage(String fosterCode, int numPage, int pageSize);
 
     /**
-     * 查询被寄养宠物信息
+     * 用户前台：查询被寄养宠物信息
      *
-     * @return 被寄养宠物信息
+     * @return 被寄养宠物的卡片信息
      */
     List<FosterPetDto> fosterPet();
 
