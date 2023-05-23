@@ -1,6 +1,7 @@
 package com.forge.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.forge.common.PhotoConst;
 import com.forge.util.PageUtil;
 import com.forge.dto.NoticeDto;
 import com.forge.vo.Page;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -47,11 +49,13 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
 
     @Override
     public boolean delImg() {
-        // 数据库中存储的照片名字
+        // 数据库中存储的头像照片名字
         List<String> clientImg = noticeMapper.selectImgClient();
         clientImg.addAll(noticeMapper.selectImgDoctor());
         clientImg.addAll(noticeMapper.selectImgPet());
         clientImg.addAll(noticeMapper.selectImgEmployee());
+        // 默认的照片名
+        clientImg.addAll(myConst());
         // 去重
         Set<String> set = new HashSet<>(clientImg);
         // 文件夹下的文件名
@@ -62,16 +66,16 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
         var moreImg = new ArrayList<>(Arrays.asList(Objects.requireNonNull(list01)));
         moreImg.removeAll(set);
         // 公告文件夹下的冗余文件
-        var noticeFile = noticeMapper.selectNoticeFile();
+        List<String> noticeFile = noticeMapper.selectNoticeFile();
         var moreNotice = new ArrayList<>(Arrays.asList(Objects.requireNonNull(list02)));
         moreNotice.removeAll(noticeFile);
         // 聊天文件夹下的冗余图片
-        var imgChat = noticeMapper.selectImgChat();
+        List<String> imgChat = noticeMapper.selectImgChat();
         var moreImgChat = new ArrayList<>(Arrays.asList(Objects.requireNonNull(list03)));
         moreImgChat.removeAll(imgChat);
-        // 删除的前置
+        // 删除的前置，校验是否已无冗余，并设置删除参数
         if (moreImg.isEmpty() && moreNotice.isEmpty() && moreImgChat.isEmpty()) return false;
-        final int[] delNum = {0, 0};
+        final int[] delNum = {0, 0}; // 第一个参数为被删除的图片数，二是被删除的公告数
         // 开删:头像图片
         moreImg.forEach(fileName -> {
             if (new File(basePath + fileName).delete()) delNum[0]++;
@@ -169,5 +173,25 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
         } catch (IOException e) {
             log.warn("公告文本写入失败" + e);
         }
+    }
+
+    /**
+     * 通过反射获取接口常量值
+     *
+     * @return 设置的默认照片名称
+     */
+    private List<String> myConst() {
+        List<String> defList = new ArrayList<>();
+        Field[] fields = (PhotoConst.class).getDeclaredFields();
+        try {
+            for (Field field : fields) {
+                field.setAccessible(true); // 忽略权限修饰符的安全检查
+                defList.add((String) field.get(String.class));
+            }
+        } catch (IllegalAccessException e) {
+            log.warn("不安全的反射");
+            throw new RuntimeException(e);
+        }
+        return defList;
     }
 }

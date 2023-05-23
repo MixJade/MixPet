@@ -1,5 +1,6 @@
 package com.forge.controller;
 
+import com.forge.common.PhotoConst;
 import com.forge.common.Result;
 import com.forge.shiro.RoleConst;
 import com.forge.util.StrUtil;
@@ -58,7 +59,7 @@ public class ClientController {
     public Result save(@RequestBody Client client) {
         if (StrUtil.isWhite(client.getClientName())) return Result.error("用户名为空");
         if (StrUtil.isWhite(client.getClientUsername())) return Result.error("用户账号为空");
-        if (StrUtil.isWhite(client.getClientPhoto())) client.setClientPhoto("zs.jpg");
+        if (StrUtil.isWhite(client.getClientPhoto())) client.setClientPhoto(PhotoConst.CLIENT);
         return Result.choice("添加", clientService.save(client));
     }
 

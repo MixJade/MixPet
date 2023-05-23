@@ -1,9 +1,11 @@
 package com.forge.controller;
 
+import com.forge.common.PhotoConst;
 import com.forge.common.Result;
 import com.forge.entity.Employee;
 import com.forge.service.IEmployeeService;
 import com.forge.shiro.RoleConst;
+import com.forge.util.StrUtil;
 import com.forge.vo.Page;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,7 @@ public class EmployeeController {
     @PostMapping
     @RequiresRoles(RoleConst.ADMIN)
     public Result save(@RequestBody Employee employee) {
+        if (StrUtil.isWhite(employee.getEmployeePhoto())) employee.setEmployeePhoto(PhotoConst.CLIENT);
         return Result.choice("添加", employeeService.save(employee));
     }
 
