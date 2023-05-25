@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailAuthenticationException;
 import org.springframework.mail.MailSendException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -71,6 +72,9 @@ public class SendMail {
             log.warn("邮件发送失败");
         } catch (MailSendException e){
             log.warn("发送邮件过于频繁");
+        } catch (MailAuthenticationException e){
+            log.warn("发送者邮箱的授权服务已关闭");
+            System.err.println("我于2023年5月25日上传了代码，上传之后我关闭了我邮箱的POP3/SMTP服务");
         }
         return null;
     }
