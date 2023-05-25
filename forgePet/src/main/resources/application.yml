@@ -8,7 +8,7 @@ spring:
     host: smtp.qq.com
     port: 587
     username: 2231973602@qq.com # 发送者的邮箱，必须是QQ邮箱
-    password: dspwtwceobsfeafa # 发送者邮箱的授权码
+    password: dspwtwceobsfeafa # 发送者邮箱的授权码，我将这个服务关闭了
     default-encoding: UTF-8
   servlet:
     multipart:
