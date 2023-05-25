@@ -21,8 +21,6 @@
 
 ---
 
-
-
 ## 部署教程
 
 > 如果想在其他的电脑运行，有三点要注意，分别是：数据库、资源文件夹、邮箱
@@ -52,9 +50,9 @@ spring:
 
 ```yml
 pet-forge:
-   images-path: C:\MixJade\MixPet\images\ # 照片存储路径
-   notice-path: C:\MixJade\MixPet\notice\ # 公告存储路径
-   chatImg-path: C:\MixJade\MixPet\chatImg\ # 聊天图片存储路径
+  images-path: C:\MixJade\MixPet\images\ # 照片存储路径
+  notice-path: C:\MixJade\MixPet\notice\ # 公告存储路径
+  chatImg-path: C:\MixJade\MixPet\chatImg\ # 聊天图片存储路径
 ```
 
 *以下为修改教程：*
@@ -80,9 +78,8 @@ pet-forge:
 
 ---
 
-
-
 ### 运行微信小程序
+
 > * 在启动微信小程序之前，记得先启动本项目的java后端
 > * AppID自行去微信公众平台注册获取
 
@@ -114,7 +111,8 @@ pet-forge:
 
 1. 在用户登录界面，输入账号`ying`，密码为`123456`，即可体验用户端功能
 2. 也可以不输入账号密码，点击左下角的游客登录，直接进入主页浏览，但许多敏感信息无权观看。
-3. 用户登录之后会进入主页，将鼠标悬停在网页上方的正中间，可以看到**退出登录**按钮。（如果此时是**游客登录**或已点击**退出登录**按钮，该按钮会换成**点击登录**)。
+3. 用户登录之后会进入主页，将鼠标悬停在网页上方的正中间，可以看到**退出登录**按钮。（如果此时是**游客登录**或已点击**
+   退出登录**按钮，该按钮会换成**点击登录**)。
 
 #### 管理员登录
 
@@ -126,8 +124,81 @@ pet-forge:
 
 #### 医生登录
 
-1. 在管理员登录界面，点击左下角的**“医生登录”**，即可翻转到医生登录界面。
+1. 在管理员登录界面，点击左下角的**医生登录**，即可翻转到医生登录界面。
 2. 输入工号`32312221`，密码`123456`，即可访问到**童德统**医生的账号。
 3. 输入工号`32301063`，密码`123456`，即可访问到**汤姆**医生的账号。
 4. 目前所有医生的密码都是`123456`，欲访问不同医生的账号请自行登录。
 
+## 文件夹结构
+
+> 更新与2023年5月25日18:27:14
+>
+> 这里只展示文件夹
+
+```text
+├─chatImg 【聊天图片】
+├─forgePet【 Java后端】
+│  └─src
+│      ├─main
+│      │  ├─java
+│      │  │  └─com
+│      │  │      └─forge
+│      │  │          ├─common 【部分通用逻辑的封装类】
+│      │  │          ├─controller 【前端控制器】
+│      │  │          ├─dto 【数据库多表查询的结果封装】
+│      │  │          ├─entity 【与数据库表字段对应】
+│      │  │          ├─mapper 【mapper映射文件接口】
+│      │  │          ├─service 【service层接口及其实现类】
+│      │  │          │  └─impl
+│      │  │          ├─shiro 【Shiro权限校验模块】
+│      │  │          │  ├─authentic 【重写的权限校验，可以实现不同表的登录】
+│      │  │          │  └─realm 【Shiro的realm，包括授权与登录】
+│      │  │          ├─util 【部分工具类】
+│      │  │          ├─vo 【前端通过POST请求传递的参数，使用了record特性】
+│      │  │          └─ws 【WebSocket的聊天模块】
+│      │  └─resources
+│      │      ├─com
+│      │      │  └─forge
+│      │      │      └─mapper 【mapper映射文件的XML，主要用于多表操作】
+│      │      ├─static
+│      │          ├─assets 【放置了BootStrap、axios】
+│      │          ├─backstage 【后台管理页面】
+│      │          ├─doctorPage 【医生的页面】
+│      │          ├─js 【前端的通用JS文件】
+│      │          ├─picture 【轮播图、默认图片】
+│      │          └─reception 【用户的前端】
+│      └─test
+│          └─java
+│              └─com
+│                  └─forge 【测试类，有一个用于裁剪图片的工具】
+├─forgePetWX 【微信小程序】
+│  ├─images 【静态图片】
+│  │  ├─swiper 【轮播图】
+│  │  └─tab 【下方用于切换的图标】
+│  ├─miniprogram_npm
+│  │  └─vant-weapp 【第三方库】
+│  ├─node_modules
+│  │  └─vant-weapp【第三方库】
+│  ├─pages 【小程序的各种页面】
+│  │  ├─appointment 【用户挂号页面】
+│  │  ├─chatClient 【用户聊天页面】
+│  │  ├─clientCenter 【用户个人中心，卡片展示信息，其它页面的入口】
+│  │  ├─clientDetail 【用户详情】
+│  │  ├─clientPet 【用户的宠物】
+│  │  ├─clientUpdate 【用户修改资料】
+│  │  ├─doctorAppoint 【一个医生的信息展示】
+│  │  ├─doctorSee 【全部医生的信息列表】
+│  │  ├─findPwd 【密码找回页面】
+│  │  ├─index 【小程序主页】
+│  │  ├─login 【登录页面】
+│  │  ├─petFoster 【寄养的宠物信息查看】
+│  │  ├─petOne 【单个待领养的宠物】
+│  │  ├─petSee 【所有待领养的宠物】
+│  │  └─register 【账号注册页面】
+│  └─utils 【工具类，封装了请求与日期格式化】
+├─images 【头像图片】
+├─notice 【网站公告文本】
+├─我的笔记
+├─数据库备份
+└─系统说明图 【做论文与PPT时所做的图】
+```
