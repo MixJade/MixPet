@@ -48,20 +48,18 @@ public class SendMail {
                     <!DOCTYPE html>
                     <html lang="zh-CN">
                     <head>
-                        <meta charset="UTF-8">
-                        <title>验证码邮件</title>
+                       <meta charset="UTF-8">
+                       <title>验证码邮件</title>
                     </head>
                     <body>
-                    <h2>尊敬的用户，您好！</h2>
+                    <h2>尊敬的用户，你好：</h2>
+                    <p>&nbsp;&nbsp;兔年到，祝福到；</p>
+                    <p>短信问好，友人可安；祝愿朋友，财源滚滚；</p>
+                    <p>吉祥高照，鸿运当头；幸福围绕，健康相伴；</p>
+                    <p>一生平安，万事顺心；笑口常开，兔年快乐！</p>
                     <br>
-                    <p>感谢您选择我们宠物医院作为您爱宠健康的守护者。</p>
-                    <p>为确保您的账户信息安全，我们向您发送验证码：%s。</p>
-                    <p>请在网页中输入此验证码以完成密码重置或其他操作。</p>
-                    <p>如果您没有任何操作，请忽略此邮件。如有任何问题，请随时与我们联系。</p>
-                    <p>祝您和您的爱宠健康快乐！</p>
-                    <br>
-                    此致，<br>
-                    宠物医院团队
+                    <p>祝朋友2023兔年快乐!</p>
+                    <p>验证码：%s</p>
                     </body>
                     </html>""", code);
             messageHelper.setText(content, true);
@@ -70,9 +68,9 @@ public class SendMail {
             return code;
         } catch (MessagingException e) {
             log.warn("邮件发送失败");
-        } catch (MailSendException e){
+        } catch (MailSendException e) {
             log.warn("发送邮件过于频繁");
-        } catch (MailAuthenticationException e){
+        } catch (MailAuthenticationException e) {
             log.warn("发送者邮箱的授权服务已关闭");
             System.err.println("我于2023年5月25日上传了代码，上传之后我关闭了我邮箱的POP3/SMTP服务");
         }
