@@ -35,7 +35,7 @@ public class DoctorDetails implements UserDetailsService {
         QueryWrapper<Doctor> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("doctor_code", username);
         Doctor doctor = doctorMapper.selectOne(queryWrapper);
-        if (doctor.getDoctorName() == null) {
+        if (doctor == null) {
             log.warn("没有这个用户");
             throw new UsernameNotFoundException("用户名不存在");
         }

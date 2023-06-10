@@ -332,7 +332,7 @@
             }
         })
     }//根据json键值进行赋值
-    function jVal(json, remember = "remember01", role = "EMPLOYEE") {
+    function jVal(json, remember = "remember01", role = "CLIENT") {
         for (const key in json) {
             json[key] = document.getElementById(json[key]).value;
         }
