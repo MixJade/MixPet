@@ -25,7 +25,7 @@ public class SecurityConfig {
                                                    RememberMeService rememberMeService) throws Exception {
         // 放行的静态资源
         String[] quiet = {"/", "/index.html", "/favicon.ico", "/reception/**", "/picture/**",
-                "/js/**", "/doctorPage/**", "/backstage/**", "/assets/**", "/login01.html"};
+                "/js/**", "/doctorPage/**", "/backstage/**", "/assets/**", "/login.html"};
         // 放行的后端接口
         String[] rearEnd = {"/login/**", "/doctor/page", "/pet/four",
                 "/notice/four", "/common/download", "/common/downChat"};
