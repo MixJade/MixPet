@@ -39,7 +39,7 @@ public class EmployeeDetails implements UserDetailsService {
         QueryWrapper<Employee> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("employee_username", username);
         Employee employee = employeeMapper.selectOne(queryWrapper);
-        if (employee.getEmployeeName() == null) {
+        if (employee == null) {
             log.warn("没有这个管理员");
             throw new UsernameNotFoundException("管理员账号不存在");
         }

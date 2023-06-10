@@ -35,7 +35,7 @@ public class ClientDetails implements UserDetailsService {
         QueryWrapper<Client> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("client_username", username);
         Client client = clientMapper.selectOne(queryWrapper);
-        if (client.getClientUsername() == null) {
+        if (client == null) {
             log.warn("没有这个用户");
             throw new UsernameNotFoundException("用户名不存在");
         }

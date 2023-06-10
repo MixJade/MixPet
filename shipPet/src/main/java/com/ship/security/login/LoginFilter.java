@@ -28,7 +28,7 @@ import java.io.InputStream;
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private static final Logger log = LoggerFactory.getLogger(LoginFilter.class);
 
-    public LoginFilter(LoginProvider loginProvider,RememberMeService rememberMeService) {
+    public LoginFilter(LoginProvider loginProvider, RememberMeService rememberMeService) {
         // 将登录的校验器放在这里
         super(new ProviderManager(loginProvider));
         // 访问到拦截器的路径
@@ -47,7 +47,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
      */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse resp) throws AuthenticationException {
-        if (req.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)) {
+        boolean isAxios = req.getContentType().equals("application/json;charset=UTF-8");
+        if (isAxios || req.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)) {
             log.info("【自定义的登录过滤器启动】");
             ObjectMapper mapper = new ObjectMapper();
             UsernamePasswordAuthenticationToken authRequest;
