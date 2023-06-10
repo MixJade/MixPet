@@ -141,6 +141,7 @@ pet-forge:
 ├─forgePetWX 【微信小程序】
 ├─images 【头像图片】
 ├─notice 【网站公告文本】
+├─shipPet 【forgePet的重置版】
 ├─我的笔记
 ├─数据库备份
 └─系统说明图 【做论文与PPT时所做的图】

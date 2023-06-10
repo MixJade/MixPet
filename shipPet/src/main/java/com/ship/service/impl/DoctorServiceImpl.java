@@ -1,0 +1,76 @@
+package com.ship.service.impl;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ship.util.CodeEnum;
+import com.ship.util.PageUtil;
+import com.ship.dto.DoctorDto;
+import com.ship.vo.Page;
+import com.ship.entity.Doctor;
+import com.ship.mapper.DoctorMapper;
+import com.ship.service.IDoctorService;
+import com.ship.vo.NameVo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * <p>
+ * 医生表，外键部门 服务实现类
+ * </p>
+ *
+ * @author MixJade
+ * @since 2023-01-02
+ */
+@Service
+public class DoctorServiceImpl extends ServiceImpl<DoctorMapper, Doctor> implements IDoctorService {
+    private final DoctorMapper doctorMapper;
+
+    @Autowired
+    public DoctorServiceImpl(DoctorMapper doctorMapper) {
+        this.doctorMapper = doctorMapper;
+    }
+
+    @Override
+    public boolean deleteById(long doctorId) {
+        String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        return doctorMapper.deleteId(delDate, doctorId);
+    }
+
+    @Override
+    public boolean deleteByIds(long[] idGroup) {
+        String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        return doctorMapper.deleteIdGroup(delDate, idGroup);
+    }
+
+    @Override
+    public Page<DoctorDto> selectByPage(String doctorName, String departmentName, int numPage, int pageSize) {
+        int maxCount = doctorMapper.selectDoctorCount(doctorName, departmentName);
+        PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
+        var doctorList = doctorMapper.selectDoctorPage(doctorName, departmentName, pu);
+        return new Page<>(doctorList, maxCount);
+    }
+
+    @Override
+    public DoctorDto selectById(long doctorId) {
+        return doctorMapper.selectOneId(doctorId);
+    }
+
+    @Override
+    public List<NameVo> selectName() {
+        return doctorMapper.selectName();
+    }
+
+    @Override
+    public List<NameVo> selectByDepartment(long departmentId) {
+        return doctorMapper.selectByDepartment(departmentId);
+    }
+
+    @Override
+    public boolean save(Doctor doctor) {
+        doctor.setDoctorCode(CodeEnum.DOCTOR.newCode(doctorMapper.getMaxId()));
+        return super.save(doctor);
+    }
+}

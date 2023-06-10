@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ship.mapper.AdoptMapper">
+    <!--逻辑删除单个-->
+    <update id="deleteId">
+        UPDATE adopt
+        SET is_del=#{delDate}
+        WHERE adopt_id = #{adoptId};
+    </update>
+    <!-- 逻辑删除多个-->
+    <update id="deleteIdGroup">
+        UPDATE adopt
+        SET is_del=#{delDate}
+        WHERE adopt_id IN
+        <foreach collection="idGroup" item="adoptId" separator="," open="(" close=")">
+            #{adoptId}
+        </foreach>
+    </update>
+    <!--审核通过-->
+    <update id="adoptAdopt">
+        UPDATE pet AS a,adopt AS b
+        SET a.client_id=b.client_id,
+            a.pet_info=#{petInfo},
+            b.in_adopt=1
+        WHERE a.pet_id = b.pet_id
+          AND b.adopt_id = #{adoptId}
+    </update>
+    <!--查询分页的条目数-->
+    <select id="selectAdoptCount" resultType="int">
+        select
+        count(*)
+        FROM adopt
+        WHERE is_del = '0'
+        <if test="adoptCode!=null and adoptCode!=''">
+            and adopt_code like "%"#{adoptCode}"%"
+        </if>
+    </select>
+    <!--分页查询-->
+    <select id="selectAdoptPage" resultType="com.ship.dto.AdoptDto">
+        select
+        adopt_id, adopt_code,a.pet_id, a.client_id, adopt_money,
+        adopt_info,in_adopt,a.create_time,b.pet_name,c.client_name
+        FROM adopt as a,pet as b,client as c
+        WHERE a.is_del = '0'
+        AND a.pet_id = b.pet_id
+        AND a.client_id = c.client_id
+        <if test="adoptCode!=null and adoptCode!=''">
+            <bind name="code" value="'%'+adoptCode+'%'"/>
+            and adopt_code like #{code}
+        </if>
+        order by create_time desc
+        limit #{pu.begin},#{pu.size};
+    </select>
+    <!--查询是否已有待审核订单-->
+    <select id="sureInAdopt" resultType="int">
+        select count(*)
+        from adopt
+        where is_del = '0'
+          and in_adopt = 2
+          and pet_id = #{petId}
+          and client_id = #{clientId}
+    </select>
+</mapper>

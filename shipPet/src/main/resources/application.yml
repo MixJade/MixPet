@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/pet_ship?useSSL=true
+    username: root # mysql用户名
+    password: root # mysql密码
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: 2231973602@qq.com # 发送者的邮箱，必须是QQ邮箱
+    password: dspwtwceobsfeafa # 发送者邮箱的授权码，我将这个服务关闭了
+    default-encoding: UTF-8
+  servlet:
+    multipart:
+      max-file-size: 3MB # 让上传的文件可以为3MB
+---
+# 改变服务端口
+server:
+  port: 8085
+---
+# 设置日志输出
+logging:
+  pattern:
+    dateformat: MM-dd HH:mm
+---
+mybatis-plus:
+  global-config:
+    banner: false
+    db-config:
+      logic-delete-field: isDel
+      logic-not-delete-value: 0
+  mapper-locations: classpath:com/ship/mapper/*.xml
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 打印sql语句
+---
+pet-ship:
+  images-path: C:\MixJade\MixPet\images\ # 照片存储路径
+  notice-path: C:\MixJade\MixPet\notice\ # 公告存储路径
+  chatImg-path: C:\MixJade\MixPet\chatImg\ # 聊天图片存储路径

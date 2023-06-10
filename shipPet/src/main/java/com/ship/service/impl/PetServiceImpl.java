@@ -1,0 +1,82 @@
+package com.ship.service.impl;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ship.util.PageUtil;
+import com.ship.vo.NameVo;
+import com.ship.vo.Page;
+import com.ship.dto.PetDto;
+import com.ship.entity.Pet;
+import com.ship.mapper.PetMapper;
+import com.ship.service.IPetService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * <p>
+ * 宠物信息表，外键用户表 服务实现类
+ * </p>
+ *
+ * @author MixJade
+ * @since 2022-12-22
+ */
+@Service
+public class PetServiceImpl extends ServiceImpl<PetMapper, Pet> implements IPetService {
+
+    private final PetMapper petMapper;
+
+    @Autowired
+    public PetServiceImpl(PetMapper petMapper) {
+        this.petMapper = petMapper;
+    }
+
+    @Override
+    public boolean deleteById(long petId) {
+        String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        return petMapper.deleteId(delDate, petId);
+    }
+
+    @Override
+    public boolean deleteByIds(long[] idGroup) {
+        String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        return petMapper.deleteIdGroup(delDate, idGroup);
+    }
+
+    @Override
+    public Page<PetDto> selectByPage(String petName, String clientName, int numPage, int pageSize) {
+        int maxCount = petMapper.selectPetCount(petName, clientName);
+        PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
+        var petList = petMapper.selectPetPage(petName, clientName, pu);
+        return new Page<>(petList, maxCount);
+    }
+
+    @Override
+    public Page<Pet> selectFour(int numPage, int pageSize) {
+        int maxCount = petMapper.selectFourNum();
+        PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
+        return new Page<>(petMapper.selectFour(pu), maxCount);
+    }
+
+    @Override
+    public boolean updatePet(Pet pet) {
+        return petMapper.updatePet(pet);
+    }
+
+    @Override
+    public List<NameVo> selectName() {
+        return petMapper.selectName();
+    }
+
+    @Override
+    public List<NameVo> selectByClient(long clientId) {
+        return petMapper.selectByClient(clientId);
+    }
+
+    @Override
+    public List<NameVo> selectNoClient() {
+        return petMapper.selectNoClient();
+    }
+}

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ship.mapper.DoctorMapper">
+    <!--逻辑删除单个-->
+    <update id="deleteId">
+        UPDATE doctor
+        SET is_del=#{delDate}
+        WHERE doctor_id = #{doctorId};
+    </update>
+    <!-- 逻辑删除多个-->
+    <update id="deleteIdGroup">
+        UPDATE doctor
+        SET is_del=#{delDate}
+        WHERE doctor_id IN
+        <foreach collection="idGroup" item="doctorId" separator="," open="(" close=")">
+            #{doctorId}
+        </foreach>
+    </update>
+    <!--查询分页的条目数-->
+    <select id="selectDoctorCount" resultType="int">
+        select
+        count(*)
+        from doctor AS a
+        LEFT JOIN department AS b
+        ON a.department_id=b.department_id
+        WHERE a.is_del='0'
+        <if test="doctorName!=null and doctorName!=''">
+            and doctor_name like "%"#{doctorName}"%"
+        </if>
+        <if test="departmentName!=null and departmentName!=''">
+            and b.department_name like "%"#{departmentName}"%"
+        </if>
+    </select>
+    <!--分页查询-->
+    <select id="selectDoctorPage" resultType="com.ship.dto.DoctorDto">
+        SELECT
+        doctor_id,a.department_id,doctor_code,doctor_name,doctor_gender,doctor_age,doctor_photo,doctor_tel,doctor_job,doctor_info,b.department_name
+        FROM doctor AS a
+        LEFT JOIN department AS b
+        ON a.department_id=b.department_id
+        WHERE a.is_del='0'
+        <if test="doctorName!=null and doctorName!=''">
+            and doctor_name like "%"#{doctorName}"%"
+        </if>
+        <if test="departmentName!=null and departmentName!=''">
+            and b.department_name like "%"#{departmentName}"%"
+        </if>
+        limit #{pu.begin},#{pu.size};
+    </select>
+    <!--根据id查询单个-->
+    <select id="selectOneId" resultType="com.ship.dto.DoctorDto">
+        SELECT doctor_id,
+               doctor_code,
+               doctor_name,
+               doctor_gender,
+               doctor_age,
+               doctor_photo,
+               doctor_tel,
+               doctor_job,
+               doctor_info,
+               b.department_name
+        FROM doctor AS a
+                 LEFT JOIN department AS b
+                           ON a.department_id = b.department_id
+        WHERE a.is_del = '0'
+          AND doctor_id = #{doctorId}
+    </select>
+</mapper>

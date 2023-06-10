@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ship.mapper.ClientMapper">
+    <!--逻辑删除单个-->
+    <update id="deleteId">
+        UPDATE client
+        SET is_del=#{delDate}
+        WHERE client_id = #{clientId};
+    </update>
+    <!-- 逻辑删除多个-->
+    <update id="deleteIdGroup">
+        UPDATE client
+        SET is_del=#{delDate}
+        WHERE client_id IN
+        <foreach collection="idGroup" item="clientId" separator="," open="(" close=")">
+            #{clientId}
+        </foreach>
+    </update>
+    <!--查询分页的条目数-->
+    <select id="selectClientCount" resultType="int">
+        select
+        count(*)
+        from client
+        WHERE is_del='0'
+        <if test="clientName!=null and clientName!=''">
+            and client_name like "%"#{clientName}"%"
+        </if>
+    </select>
+    <!--分页查询-->
+    <select id="selectClientPage" resultType="com.ship.entity.Client">
+        SELECT
+        client_id, client_username, client_name, client_gender, client_tel, client_age, client_info, client_photo
+        FROM client
+        WHERE is_del='0'
+        <if test="clientName!=null and clientName!=''">
+            and client_name like "%"#{clientName}"%"
+        </if>
+        limit #{pu.begin},#{pu.size};
+    </select>
+</mapper>
