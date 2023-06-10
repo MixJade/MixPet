@@ -29,9 +29,10 @@ public class LoginHandler implements AuthenticationSuccessHandler, Authenticatio
     @Override
     public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse resp, Authentication authentication) {
         log.info("登录成功处理器调用1");
+        log.info("登录的用户信息是：\n" + authentication.getPrincipal());
         req.getSession().setAttribute(
-                        HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-                        SecurityContextHolder.getContext());
+                HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
+                SecurityContextHolder.getContext());
         // 直接返回Json
         writeJSON(Result.success("登录成功"), resp);
     }
@@ -41,7 +42,7 @@ public class LoginHandler implements AuthenticationSuccessHandler, Authenticatio
      */
     @Override
     public void onAuthenticationFailure(HttpServletRequest req, HttpServletResponse resp, AuthenticationException ae) {
-        log.info("这是报错的信息，但一般不用：\n"+ae.getMessage());
+        log.info("这是报错的信息，但一般不用：\n" + ae.getMessage());
         if (ae instanceof UsernameNotFoundException) {
             writeJSON(Result.error("用户名未找到"), resp);
         } else if (ae instanceof BadCredentialsException) {

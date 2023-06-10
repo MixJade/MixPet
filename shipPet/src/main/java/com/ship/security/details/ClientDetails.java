@@ -43,6 +43,6 @@ public class ClientDetails implements UserDetailsService {
         String password = client.getClientPassword();
         // 授予角色
         var authorities = AuthorityUtils.createAuthorityList(RoleConst.CLIENT);
-        return new MyUser(username, password, authorities, RoleEnum.CLIENT);
+        return new MyUser(username, password, authorities, RoleEnum.CLIENT, client);
     }
 }

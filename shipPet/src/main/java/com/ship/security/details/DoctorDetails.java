@@ -43,6 +43,6 @@ public class DoctorDetails implements UserDetailsService {
         String password = doctor.getDoctorPassword();
         // 授予角色
         var authorities = AuthorityUtils.createAuthorityList(RoleConst.DOCTOR);
-        return new MyUser(username, password, authorities, RoleEnum.DOCTOR);
+        return new MyUser(username, password, authorities, RoleEnum.DOCTOR, doctor);
     }
 }

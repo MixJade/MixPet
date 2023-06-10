@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 通信类
  */
-@ServerEndpoint(value = "/chat", configurator = ShiroEndpoint.class)
+@ServerEndpoint(value = "/chat", configurator = SecurityEndpoint.class)
 @Component
 public class ChatEndpoint {
     private static final Logger log = LoggerFactory.getLogger(ChatEndpoint.class);
