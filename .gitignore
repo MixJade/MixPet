@@ -1,4 +1,5 @@
 ### IntelliJ IDEA ###
 .idea
 ## 忽略新的前端 ##
-/shipPet/src/main/resources/static/
+/shipPet/src/main/resources/static/*
+!/shipPet/src/main/resources/static/login.html
