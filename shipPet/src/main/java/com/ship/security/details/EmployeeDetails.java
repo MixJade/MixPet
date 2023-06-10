@@ -47,7 +47,7 @@ public class EmployeeDetails implements UserDetailsService {
         String password = employee.getEmployeePassword();
         // 授予角色
         int level = employee.getEmployeeLevel();
-        List<String> roleList=new ArrayList<>();
+        List<String> roleList = new ArrayList<>();
         switch (level) {
             case 6:
                 roleList.add(RoleConst.ADMIN);
@@ -59,6 +59,6 @@ public class EmployeeDetails implements UserDetailsService {
                 roleList.add(RoleConst.LOSER);
         }
         var authorities = AuthorityUtils.createAuthorityList(roleList);
-        return new MyUser(username, password, authorities, RoleEnum.EMPLOYEE);
+        return new MyUser(username, password, authorities, RoleEnum.EMPLOYEE, employee);
     }
 }

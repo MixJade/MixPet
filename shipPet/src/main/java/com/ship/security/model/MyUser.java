@@ -10,7 +10,9 @@ import java.util.List;
 public record MyUser(String username,
                      String password,
                      List<GrantedAuthority> auth,
-                     RoleEnum roleEnum) implements UserDetails {
+                     RoleEnum roleEnum,
+                     // TODO 这里也许可以优化，只存用户ID
+                     Object role) implements UserDetails {
     // 授权信息集合
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
