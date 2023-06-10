@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ship.mapper.DepartmentMapper">
+    <!--逻辑删除单个-->
+    <update id="deleteId">
+        UPDATE department
+        SET is_del=#{delDate}
+        WHERE department_id = #{departmentId};
+    </update>
+    <!--查询分页的条目数-->
+    <select id="selectDepartmentCount" resultType="int">
+        select
+        count(*)
+        from department
+        WHERE is_del='0'
+        <if test="departmentName!=null and departmentName!=''">
+            and department_name like "%"#{departmentName}"%"
+        </if>
+    </select>
+    <!--分页查询-->
+    <select id="selectDepartmentPage" resultType="com.ship.entity.Department">
+        SELECT
+        department_id, department_name, department_info, department_address
+        FROM department
+        WHERE is_del='0'
+        <if test="departmentName!=null and departmentName!=''">
+            and department_name like "%"#{departmentName}"%"
+        </if>
+        limit #{pu.begin},#{pu.size};
+    </select>
+</mapper>

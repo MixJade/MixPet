@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ship.mapper.PetMapper">
+    <!--逻辑删除单个-->
+    <update id="deleteId">
+        UPDATE pet
+        SET is_del=#{delDate}
+        WHERE pet_id = #{petId};
+    </update>
+    <!-- 逻辑删除多个-->
+    <update id="deleteIdGroup">
+        UPDATE pet
+        SET is_del=#{delDate}
+        WHERE pet_id IN
+        <foreach collection="idGroup" item="petId" separator="," open="(" close=")">
+            #{petId}
+        </foreach>
+    </update>
+    <!--查询分页的条目数-->
+    <select id="selectPetCount" resultType="int">
+        select
+        count(*)
+        from pet AS a
+        LEFT JOIN client AS b
+        ON a.client_id=b.client_id
+        WHERE a.is_del='0'
+        <if test="petName!=null and petName!=''">
+            and pet_name like "%"#{petName}"%"
+        </if>
+        <if test="clientName!=null and clientName!=''">
+            and b.client_name like "%"#{clientName}"%"
+        </if>
+    </select>
+    <!--分页查询-->
+    <select id="selectPetPage" resultType="com.ship.dto.PetDto">
+        SELECT
+        pet_id,pet_name,pet_variety,pet_sex,pet_age,pet_status,pet_info,a.client_id,pet_photo,b.client_name
+        FROM pet AS a
+        LEFT JOIN client AS b
+        ON a.client_id=b.client_id
+        WHERE a.is_del='0'
+        <if test="petName!=null and petName!=''">
+            and pet_name like "%"#{petName}"%"
+        </if>
+        <if test="clientName!=null and clientName!=''">
+            and b.client_name like "%"#{clientName}"%"
+        </if>
+        limit #{pu.begin},#{pu.size};
+    </select>
+    <!--查询:主页待领养-->
+    <select id="selectFour" resultType="com.ship.entity.Pet">
+        SELECT pet_id,
+               pet_name,
+               pet_variety,
+               pet_sex,
+               pet_age,
+               pet_info,
+               pet_photo
+        FROM pet
+        WHERE is_del = '0'
+          and ISNULL(client_id)
+        limit #{pu.begin},#{pu.size};
+    </select>
+    <!--更新操作，让主人可以为Null-->
+    <update id="updatePet">
+        UPDATE pet
+        SET pet_name=#{petName},
+        pet_variety=#{petVariety},
+        pet_sex=#{petSex},
+        pet_age=#{petAge},
+        pet_status=#{petStatus},
+        pet_info=#{petInfo},
+        <choose>
+            <when test="clientId!=''">
+                client_id=#{clientId},
+            </when>
+            <otherwise>
+                client_id=null,
+            </otherwise>
+        </choose>
+        <if test="petPhoto!=null and petPhoto!=''">
+            pet_photo=#{petPhoto},
+        </if>
+        update_time=#{updateTime}
+        WHERE pet_id=#{petId} AND is_del='0'
+    </update>
+</mapper>
