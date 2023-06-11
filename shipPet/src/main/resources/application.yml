@@ -17,6 +17,8 @@ spring:
 # 改变服务端口
 server:
   port: 8085
+  error:
+    path: /power/error
 ---
 # 设置日志输出
 logging:
