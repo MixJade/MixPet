@@ -226,7 +226,6 @@
 <script src="assets/axios.js"></script>
 <script src="assets/bootstrap.bundle.min.js"></script>
 <script src="js/z-alert.js"></script>
-<script src="js/request.js"></script>
 <script>
     (function () {
         const pairJade = document.getElementById("pairJade"),
@@ -271,8 +270,8 @@
             pairJade02.style.transform = "rotate3d(1, -1, 0, 0deg)";
         }
     }());
-
-
+    // 重写一些axios的配置
+    axios.defaults.baseURL = "/";
     //处理get请求
     window.onload = function () {
         const href = window.location.href
