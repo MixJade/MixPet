@@ -32,7 +32,6 @@ public class LoginProvider extends AbstractUserDetailsAuthenticationProvider {
     public LoginProvider(ClientDetails clientDetails,
                          DoctorDetails doctorDetails,
                          EmployeeDetails employeeDetails) {
-        log.info("手动启动");
         this.clientDetails = clientDetails;
         this.doctorDetails = doctorDetails;
         this.employeeDetails = employeeDetails;

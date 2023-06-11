@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,7 +27,7 @@ import java.io.InputStream;
 public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private static final Logger log = LoggerFactory.getLogger(LoginFilter.class);
 
-    public LoginFilter(LoginProvider loginProvider, RememberMeService rememberMeService) {
+    public LoginFilter(LoginProvider loginProvider, RememberService rememberService) {
         // 将登录的校验器放在这里
         super(new ProviderManager(loginProvider));
         // 访问到拦截器的路径
@@ -39,7 +38,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         // 登录失败处理器
         setAuthenticationFailureHandler(loginHandler);
         // 设置记住我
-        setRememberMeServices(rememberMeService);
+        setRememberMeServices(rememberService);
     }
 
     /***
@@ -47,8 +46,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
      */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse resp) throws AuthenticationException {
-        boolean isAxios = req.getContentType().equals("application/json;charset=UTF-8");
-        if (isAxios || req.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)) {
+        if (JsonUtil.isJson(req)) {
             log.info("【自定义的登录过滤器启动】");
             ObjectMapper mapper = new ObjectMapper();
             UsernamePasswordAuthenticationToken authRequest;

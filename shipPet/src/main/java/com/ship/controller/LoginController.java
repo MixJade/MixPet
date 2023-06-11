@@ -3,7 +3,6 @@ package com.ship.controller;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.ship.common.Result;
-import com.ship.common.ResultConst;
 import com.ship.common.SendMail;
 import com.ship.dto.RegisterDto;
 import com.ship.entity.Client;
@@ -32,34 +31,6 @@ public class LoginController {
     public LoginController(ClientMapper clientMapper, SendMail sendMail) {
         this.clientMapper = clientMapper;
         this.sendMail = sendMail;
-    }
-
-    /**
-     * 退出登录，清空数据
-     */
-    @GetMapping("/bye")
-    public Result logout() {
-        return ResultConst.LOGOUT;
-    }
-
-    /**
-     * 没有角色权限
-     * 这个接口理论上不会执行，因为自定义异常捕获
-     */
-    @GetMapping("/noPower")
-    public Result noPower() {
-        return ResultConst.NO_POWER;
-    }
-
-    /**
-     * 未登录的重定向
-     *
-     * @return 未登录
-     */
-    @GetMapping("/noLogin")
-    public Result noLogin() {
-        System.out.println("谢特");
-        return ResultConst.NO_LOGIN;
     }
 
     /**
@@ -181,10 +152,10 @@ public class LoginController {
             session.invalidate();//销毁验证码
             // 重新设置密码
             var updateWrapper = new LambdaUpdateWrapper<Client>();
-            String username=registerDto.getClientUsername();
-            updateWrapper.eq(StringUtils.isNotBlank(username),Client::getClientUsername,username);
+            String username = registerDto.getClientUsername();
+            updateWrapper.eq(StringUtils.isNotBlank(username), Client::getClientUsername, username);
             String password = StrUtil.tranPwd(registerDto.getClientPassword());
-            updateWrapper.set(Client::getClientPassword,password);
+            updateWrapper.set(Client::getClientPassword, password);
             return Result.choice("密码重置", clientMapper.update(null, updateWrapper) > 0);
         } else return Result.error("验证码不正确");
     }

@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,17 +27,16 @@ import java.util.Arrays;
  * 记住我
  */
 @Component
-public class RememberMeService extends AbstractRememberMeServices {
+public class RememberService extends AbstractRememberMeServices {
     private final Log log = LogFactory.getLog(this.getClass());
     private final ClientDetails clientDetails;
     private final DoctorDetails doctorDetails;
     private final EmployeeDetails employeeDetails;
 
-    public RememberMeService(ClientDetails clientDetails,
-                             DoctorDetails doctorDetails,
-                             EmployeeDetails employeeDetails) {
+    public RememberService(ClientDetails clientDetails,
+                           DoctorDetails doctorDetails,
+                           EmployeeDetails employeeDetails) {
         super("MixJade", clientDetails);
-        log.info("手动启动");
         this.clientDetails = clientDetails;
         this.doctorDetails = doctorDetails;
         this.employeeDetails = employeeDetails;
@@ -67,7 +65,7 @@ public class RememberMeService extends AbstractRememberMeServices {
     @Override
     protected boolean rememberMeRequested(HttpServletRequest req, String parameter) {
         log.info("自定义RememberMe处理;");
-        if (req.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)) {
+        if (JsonUtil.isJson(req)) {
             log.info("芝士JSON");
             boolean rememberMe = (boolean) req.getAttribute("rememberMe");
             log.info("记住我处理器收到的参数是:" + rememberMe);
@@ -83,7 +81,7 @@ public class RememberMeService extends AbstractRememberMeServices {
         log.info("收到的cookie" + Arrays.toString(cookieTokens));
         String name = cookieTokens[0];
         // TODO 事实上还要判断当前cookie是否过期
-        if (cookieTokens[2].equals(RoleEnum.EMPLOYEE.name())){
+        if (cookieTokens[2].equals(RoleEnum.EMPLOYEE.name())) {
             return employeeDetails.loadUserByUsername(name);
         } else if (cookieTokens[2].equals(RoleEnum.DOCTOR.name())) {
             return doctorDetails.loadUserByUsername(name);
