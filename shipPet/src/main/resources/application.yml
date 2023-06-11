@@ -17,6 +17,7 @@ spring:
 # 改变服务端口
 server:
   port: 8085
+  # 设置报错时的路径
   error:
     path: /power/error
 ---

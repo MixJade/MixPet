@@ -33,7 +33,6 @@ public class PowerController implements ErrorController {
 
     /**
      * 没有角色权限
-     * 这个接口理论上不会执行，因为自定义异常捕获
      */
     @GetMapping("/noPower")
     public Result noPower() {
