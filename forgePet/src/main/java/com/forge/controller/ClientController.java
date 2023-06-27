@@ -79,7 +79,6 @@ public class ClientController {
     @RequiresRoles(value = {RoleConst.MANAGER, RoleConst.CLIENT}, logical = Logical.OR)
     public Result update(@RequestBody Client client) {
         if (StrUtil.isWhite(client.getClientName())) return Result.error("用户名为空");
-        if (StrUtil.isWhite(client.getClientUsername())) return Result.error("用户账号为空");
         return Result.choice("修改", clientService.updateById(client));
     }
 
