@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ship.mapper.DoctorMapper">
-    <!--逻辑删除单个-->
-    <update id="deleteId">
-        UPDATE doctor
-        SET is_del=#{delDate}
-        WHERE doctor_id = #{doctorId};
-    </update>
-    <!-- 逻辑删除多个-->
-    <update id="deleteIdGroup">
-        UPDATE doctor
-        SET is_del=#{delDate}
-        WHERE doctor_id IN
-        <foreach collection="idGroup" item="doctorId" separator="," open="(" close=")">
-            #{doctorId}
-        </foreach>
-    </update>
     <!--查询分页的条目数-->
     <select id="selectDoctorCount" resultType="int">
         select

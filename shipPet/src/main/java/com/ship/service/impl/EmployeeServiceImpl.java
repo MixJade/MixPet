@@ -1,12 +1,11 @@
 package com.ship.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ship.util.PageUtil;
-import com.ship.vo.Page;
 import com.ship.entity.Employee;
 import com.ship.mapper.EmployeeMapper;
 import com.ship.service.IEmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ship.util.PageUtil;
+import com.ship.vo.Page;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -22,25 +21,20 @@ import java.util.Date;
  */
 @Service
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> implements IEmployeeService {
-
-    private final EmployeeMapper employeeMapper;
-
-    @Autowired
-    public EmployeeServiceImpl(EmployeeMapper employeeMapper) {
-        this.employeeMapper = employeeMapper;
-    }
-
     @Override
     public boolean deleteById(long employeeId) {
         String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        return employeeMapper.deleteId(delDate, employeeId);
+        return this.lambdaUpdate()
+                .eq(Employee::getEmployeeId, employeeId)
+                .set(Employee::getIsDel, delDate)
+                .update();
     }
 
     @Override
     public Page<Employee> selectByPage(String employeeName, int numPage, int pageSize) {
-        int maxCount = employeeMapper.selectEmployeeCount(employeeName);
+        int maxCount = baseMapper.selectEmployeeCount(employeeName);
         PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
-        var employeeList = employeeMapper.selectEmployeePage(employeeName, pu);
+        var employeeList = baseMapper.selectEmployeePage(employeeName, pu);
         return new Page<>(employeeList, maxCount);
     }
 }

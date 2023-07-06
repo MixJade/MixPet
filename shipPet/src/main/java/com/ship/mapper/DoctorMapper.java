@@ -21,10 +21,6 @@ import java.util.List;
  */
 @Mapper
 public interface DoctorMapper extends BaseMapper<Doctor> {
-    boolean deleteId(@Param("delDate") String delDate, @Param("doctorId") long doctorId);
-
-    boolean deleteIdGroup(@Param("delDate") String delDate, @Param("idGroup") long[] idGroup);
-
     int selectDoctorCount(@Param("doctorName") String doctorName, @Param("departmentName") String departmentName);
 
     List<DoctorDto> selectDoctorPage(@Param("doctorName") String doctorName, @Param("departmentName") String departmentName,@Param("pu") PageUtil pu);

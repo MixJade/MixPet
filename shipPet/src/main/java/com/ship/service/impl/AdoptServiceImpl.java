@@ -1,18 +1,18 @@
 package com.ship.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ship.util.CodeEnum;
-import com.ship.util.PageUtil;
 import com.ship.dto.AdoptDto;
-import com.ship.vo.Page;
 import com.ship.entity.Adopt;
 import com.ship.mapper.AdoptMapper;
 import com.ship.service.IAdoptService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ship.util.CodeEnum;
+import com.ship.util.PageUtil;
+import com.ship.vo.Page;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -24,51 +24,51 @@ import java.util.Date;
  */
 @Service
 public class AdoptServiceImpl extends ServiceImpl<AdoptMapper, Adopt> implements IAdoptService {
-    private final AdoptMapper adoptMapper;
-
-    @Autowired
-    public AdoptServiceImpl(AdoptMapper adoptMapper) {
-        this.adoptMapper = adoptMapper;
-    }
 
     @Override
     public boolean deleteById(long adoptId) {
         String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        return adoptMapper.deleteId(delDate, adoptId);
+        return this.lambdaUpdate()
+                .eq(Adopt::getAdoptId, adoptId)
+                .set(Adopt::getIsDel, delDate)
+                .update();
     }
 
     @Override
-    public boolean deleteByIds(long[] idGroup) {
+    public boolean deleteByIds(List<Long> idGroup) {
         String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        return adoptMapper.deleteIdGroup(delDate, idGroup);
+        return this.lambdaUpdate()
+                .in(Adopt::getAdoptId, idGroup)
+                .set(Adopt::getIsDel, delDate)
+                .update();
     }
 
     @Override
     public Page<AdoptDto> selectByPage(String adoptCode, int numPage, int pageSize) {
-        int maxCount = adoptMapper.selectAdoptCount(adoptCode);
+        int maxCount = baseMapper.selectAdoptCount(adoptCode);
         PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
-        var adoptList = adoptMapper.selectAdoptPage(adoptCode, pu);
+        var adoptList = baseMapper.selectAdoptPage(adoptCode, pu);
         return new Page<>(adoptList, maxCount);
     }
 
     @Override
     public boolean adoptAdopt(Long adoptId, String petInfo) {
-        return adoptMapper.adoptAdopt(adoptId, petInfo);
+        return baseMapper.adoptAdopt(adoptId, petInfo);
     }
 
     @Override
     public int sureInAdopt(Long petId, Long clientId) {
-        return adoptMapper.sureInAdopt(petId, clientId);
+        return baseMapper.sureInAdopt(petId, clientId);
     }
 
     @Override
     public boolean petMaster(Long adoptId) {
-        return adoptMapper.petMaster(adoptId) == null;
+        return baseMapper.petMaster(adoptId) == null;
     }
 
     @Override
     public boolean save(Adopt entity) {
-        entity.setAdoptCode(CodeEnum.ADOPT.newCode(adoptMapper.getMaxId()));
+        entity.setAdoptCode(CodeEnum.ADOPT.newCode(baseMapper.getMaxId()));
         return super.save(entity);
     }
 }

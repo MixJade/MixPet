@@ -21,10 +21,6 @@ import java.util.List;
  */
 @Mapper
 public interface FosterMapper extends BaseMapper<Foster> {
-    boolean deleteId(@Param("delDate") String delDate, @Param("fosterId") long fosterId);
-
-    boolean deleteIdGroup(@Param("delDate") String delDate, @Param("idGroup") long[] idGroup);
-
     int selectFosterCount(@Param("fosterCode") String fosterCode);
 
     List<FosterDto> selectFosterPage(@Param("fosterCode") String fosterCode, @Param("pu") PageUtil pu);

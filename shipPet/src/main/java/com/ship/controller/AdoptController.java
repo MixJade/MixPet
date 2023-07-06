@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * <p>
  * 领养宠物订单 前端控制器
@@ -79,7 +81,7 @@ public class AdoptController {
 
     @DeleteMapping("/batch/{ids}")
     @Secured(RoleConst.MANAGER)
-    public Result deleteGroup(@PathVariable long[] ids) {
+    public Result deleteGroup(@PathVariable List<Long> ids) {
         return Result.choice("删除多个", adoptService.deleteByIds(ids));
     }
 

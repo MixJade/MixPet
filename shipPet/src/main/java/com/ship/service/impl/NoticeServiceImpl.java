@@ -2,19 +2,21 @@ package com.ship.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ship.common.PhotoConst;
-import com.ship.util.PageUtil;
 import com.ship.dto.NoticeDto;
-import com.ship.vo.Page;
 import com.ship.entity.Notice;
 import com.ship.mapper.NoticeMapper;
 import com.ship.service.INoticeService;
+import com.ship.util.PageUtil;
+import com.ship.vo.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -33,14 +35,11 @@ import java.util.*;
 @Service
 public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> implements INoticeService {
     private static final Logger log = LoggerFactory.getLogger(NoticeServiceImpl.class);
-    private final NoticeMapper noticeMapper;
     private final String basePath, noticePath, chatImg;
 
-    public NoticeServiceImpl(@Autowired NoticeMapper noticeMapper,
-                             @Value("${pet-ship.images-path}") String basePath,
+    public NoticeServiceImpl(@Value("${pet-ship.images-path}") String basePath,
                              @Value("${pet-ship.notice-path}") String noticePath,
                              @Value("${pet-ship.chatImg-path}") String chatImg) {
-        this.noticeMapper = noticeMapper;
         this.basePath = basePath;
         this.noticePath = noticePath;
         this.chatImg = chatImg;
@@ -50,10 +49,10 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
     @Override
     public boolean delImg() {
         // 数据库中存储的头像照片名字
-        List<String> clientImg = noticeMapper.selectImgClient();
-        clientImg.addAll(noticeMapper.selectImgDoctor());
-        clientImg.addAll(noticeMapper.selectImgPet());
-        clientImg.addAll(noticeMapper.selectImgEmployee());
+        List<String> clientImg = baseMapper.selectImgClient();
+        clientImg.addAll(baseMapper.selectImgDoctor());
+        clientImg.addAll(baseMapper.selectImgPet());
+        clientImg.addAll(baseMapper.selectImgEmployee());
         // 默认的照片名
         clientImg.addAll(myConst());
         // 去重
@@ -66,11 +65,11 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
         var moreImg = new ArrayList<>(Arrays.asList(Objects.requireNonNull(list01)));
         moreImg.removeAll(set);
         // 公告文件夹下的冗余文件
-        List<String> noticeFile = noticeMapper.selectNoticeFile();
+        List<String> noticeFile = baseMapper.selectNoticeFile();
         var moreNotice = new ArrayList<>(Arrays.asList(Objects.requireNonNull(list02)));
         moreNotice.removeAll(noticeFile);
         // 聊天文件夹下的冗余图片
-        List<String> imgChat = noticeMapper.selectImgChat();
+        List<String> imgChat = baseMapper.selectImgChat();
         var moreImgChat = new ArrayList<>(Arrays.asList(Objects.requireNonNull(list03)));
         moreImgChat.removeAll(imgChat);
         // 删除的前置，校验是否已无冗余，并设置删除参数
@@ -95,27 +94,33 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
     @Override
     public boolean deleteById(long noticeId) {
         String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        return noticeMapper.deleteId(delDate, noticeId);
+        return this.lambdaUpdate()
+                .eq(Notice::getNoticeId, noticeId)
+                .set(Notice::getIsDel, delDate)
+                .update();
     }
 
     @Override
-    public boolean deleteByIds(long[] idGroup) {
+    public boolean deleteByIds(List<Long> idGroup) {
         String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        return noticeMapper.deleteIdGroup(delDate, idGroup);
+        return this.lambdaUpdate()
+                .in(Notice::getNoticeId, idGroup)
+                .set(Notice::getIsDel, delDate)
+                .update();
     }
 
     @Override
     public Page<NoticeDto> selectByPage(String noticeName, int numPage, int pageSize) {
-        int maxCount = noticeMapper.selectNoticeCount(noticeName);
+        int maxCount = baseMapper.selectNoticeCount(noticeName);
         PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
-        List<NoticeDto> noticeList = noticeMapper.selectNoticePage(noticeName, pu);
+        List<NoticeDto> noticeList = baseMapper.selectNoticePage(noticeName, pu);
         noticeList.forEach(noticeDto -> noticeDto.setTextNotice(getText(noticeDto.getNoticeFile())));
         return new Page<>(noticeList, maxCount);
     }
 
     @Override
     public List<NoticeDto> selectFour() {
-        List<NoticeDto> noticeList = noticeMapper.selectFour();
+        List<NoticeDto> noticeList = baseMapper.selectFour();
         noticeList.forEach(noticeDto -> noticeDto.setTextNotice(getText(noticeDto.getNoticeFile())));
         return noticeList;
     }
@@ -127,7 +132,7 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
         writeText(text, path);
         Long creatId = noticeDto.getCreatId();
         String noticeTitle = noticeDto.getNoticeTitle();
-        return noticeMapper.addNotice(creatId, noticeTitle, path);
+        return baseMapper.addNotice(creatId, noticeTitle, path);
     }
 
     @Override
@@ -138,12 +143,12 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
         String noticeTitle = noticeDto.getNoticeTitle();
         Long updateId = noticeDto.getUpdateId();
         long noticeId = noticeDto.getNoticeId();
-        return noticeMapper.updateNotice(updateId, noticeTitle, noticeId);
+        return baseMapper.updateNotice(updateId, noticeTitle, noticeId);
     }
 
     @Override
     public boolean disableNotice(long noticeId, boolean isDis) {
-        return noticeMapper.disableNotice(noticeId, !isDis);
+        return baseMapper.disableNotice(noticeId, !isDis);
     }
 
     /**
@@ -157,8 +162,8 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
             return Files.readString(Path.of(noticePath + noticeFile));
         } catch (IOException e) {
             log.warn("公告文本获取失败" + e);
+            return null;
         }
-        return null;
     }
 
     /**

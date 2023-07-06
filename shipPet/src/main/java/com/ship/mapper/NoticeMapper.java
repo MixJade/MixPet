@@ -39,10 +39,6 @@ public interface NoticeMapper extends BaseMapper<Notice> {
     @Select("select msg_content from msg where is_img='1' and is_del='0'")
     List<String> selectImgChat();
 
-    boolean deleteId(@Param("delDate") String delDate, @Param("noticeId") long noticeId);
-
-    boolean deleteIdGroup(@Param("delDate") String delDate, @Param("idGroup") long[] idGroup);
-
     int selectNoticeCount(@Param("noticeName") String noticeName);
 
     List<NoticeDto> selectNoticePage(@Param("noticeName") String noticeName, @Param("pu") PageUtil pu);

@@ -69,7 +69,7 @@ public class AppointmentController {
 
     @DeleteMapping("/batch/{ids}")
     @Secured(RoleConst.MANAGER)
-    public Result deleteGroup(@PathVariable long[] ids) {
+    public Result deleteGroup(@PathVariable List<Long> ids) {
         return Result.choice("删除多个", appointmentService.deleteByIds(ids));
     }
 

@@ -24,30 +24,25 @@ import java.util.List;
  */
 @Service
 public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Department> implements IDepartmentService {
-
-    private final DepartmentMapper departmentMapper;
-
-    @Autowired
-    public DepartmentServiceImpl(DepartmentMapper departmentMapper) {
-        this.departmentMapper = departmentMapper;
-    }
-
     @Override
     public boolean deleteById(long departmentId) {
         String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        return departmentMapper.deleteId(delDate, departmentId);
+        return this.lambdaUpdate()
+                .eq(Department::getDepartmentId, departmentId)
+                .set(Department::getIsDel, delDate)
+                .update();
     }
 
     @Override
     public Page<Department> selectByPage(String departmentName, int numPage, int pageSize) {
-        int maxCount = departmentMapper.selectDepartmentCount(departmentName);
+        int maxCount = baseMapper.selectDepartmentCount(departmentName);
         PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
-        var departmentList = departmentMapper.selectDepartmentPage(departmentName, pu);
+        var departmentList = baseMapper.selectDepartmentPage(departmentName, pu);
         return new Page<>(departmentList, maxCount);
     }
 
     @Override
     public List<NameVo> selectName() {
-        return departmentMapper.selectName();
+        return baseMapper.selectName();
     }
 }

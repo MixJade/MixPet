@@ -20,10 +20,6 @@ import java.util.List;
  */
 @Mapper
 public interface ClientMapper extends BaseMapper<Client> {
-    boolean deleteId(@Param("delDate") String delDate, @Param("clientId") long clientId);
-
-    boolean deleteIdGroup(@Param("delDate") String delDate, @Param("idGroup") long[] idGroup);
-
     int selectClientCount(@Param("clientName") String clientName);
 
     List<Client> selectClientPage(@Param("clientName") String clientName, @Param("pu") PageUtil pu);
