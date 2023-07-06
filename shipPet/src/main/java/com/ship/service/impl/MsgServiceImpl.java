@@ -1,13 +1,12 @@
 package com.ship.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ship.dto.MsgDto;
 import com.ship.entity.Msg;
 import com.ship.mapper.MsgMapper;
 import com.ship.service.IMsgService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ship.vo.MsgClientNameVo;
 import com.ship.vo.MsgDoctorNameVo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,40 +21,34 @@ import java.util.List;
  */
 @Service
 public class MsgServiceImpl extends ServiceImpl<MsgMapper, Msg> implements IMsgService {
-    private final MsgMapper msgMapper;
-
-    @Autowired
-    public MsgServiceImpl(MsgMapper msgMapper) {
-        this.msgMapper = msgMapper;
-    }
 
     @Override
     public Long getByClient(Long clientId) {
-        return msgMapper.getByClient(clientId);
+        return baseMapper.getByClient(clientId);
     }
 
     @Override
     public List<MsgDto> getADoctor(Long clientId, Long doctorId) {
-        return msgMapper.getADoctor(clientId, doctorId);
+        return baseMapper.getADoctor(clientId, doctorId);
     }
 
     @Override
     public List<MsgDoctorNameVo> getDoctorGroup(Long clientId, Long doctorId) {
-        return msgMapper.getDoctorGroup(clientId, doctorId);
+        return baseMapper.getDoctorGroup(clientId, doctorId);
     }
 
     @Override
     public Long getByDoctor(Long doctorId) {
-        return msgMapper.getByDoctor(doctorId);
+        return baseMapper.getByDoctor(doctorId);
     }
 
     @Override
     public List<MsgDto> getAClient(Long doctorId, Long clientId) {
-        return msgMapper.getAClient(doctorId,clientId);
+        return baseMapper.getAClient(doctorId,clientId);
     }
 
     @Override
     public List<MsgClientNameVo> getClientGroup(Long doctorId, Long clientId) {
-        return msgMapper.getClientGroup(doctorId,clientId);
+        return baseMapper.getClientGroup(doctorId,clientId);
     }
 }

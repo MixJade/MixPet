@@ -18,9 +18,6 @@ import java.util.List;
  */
 @Mapper
 public interface EmployeeMapper extends BaseMapper<Employee> {
-
-    boolean deleteId(@Param("delDate") String delDate, @Param("employeeId") long employeeId);
-
     int selectEmployeeCount(@Param("employeeName") String employeeName);
 
     List<Employee> selectEmployeePage(@Param("employeeName") String employeeName, @Param("pu") PageUtil pu);

@@ -21,10 +21,6 @@ import java.util.List;
  */
 @Mapper
 public interface PetMapper extends BaseMapper<Pet> {
-    boolean deleteId(@Param("delDate") String delDate, @Param("petId") long petId);
-
-    boolean deleteIdGroup(@Param("delDate") String delDate, @Param("idGroup") long[] idGroup);
-
     int selectPetCount(@Param("petName") String petName, @Param("clientName") String clientName);
 
     List<PetDto> selectPetPage(@Param("petName") String petName, @Param("clientName") String clientName, @Param("pu") PageUtil pu);

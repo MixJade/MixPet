@@ -20,10 +20,6 @@ import java.util.List;
  */
 @Mapper
 public interface AppointmentMapper extends BaseMapper<Appointment> {
-    boolean deleteId(@Param("delDate") String delDate, @Param("appointmentId") long appointmentId);
-
-    boolean deleteIdGroup(@Param("delDate") String delDate, @Param("idGroup") long[] idGroup);
-
     int selectAppointmentCount(@Param("seaName") String seaName, @Param("seaType") int seaType);
 
     List<AppointmentDto> selectAppointmentPage(@Param("seaName") String seaName, @Param("seaType") int seaType, @Param("pu") PageUtil pu);

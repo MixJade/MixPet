@@ -20,10 +20,6 @@ import java.util.List;
  */
 @Mapper
 public interface AdoptMapper extends BaseMapper<Adopt> {
-    boolean deleteId(@Param("delDate") String delDate, @Param("adoptId") long adoptId);
-
-    boolean deleteIdGroup(@Param("delDate") String delDate, @Param("idGroup") long[] idGroup);
-
     int selectAdoptCount(@Param("adoptCode") String adoptCode);
 
     List<AdoptDto> selectAdoptPage(@Param("adoptCode") String adoptCode, @Param("pu") PageUtil pu);

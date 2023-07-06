@@ -20,8 +20,6 @@ import java.util.List;
  */
 @Mapper
 public interface DepartmentMapper extends BaseMapper<Department> {
-    boolean deleteId(@Param("delDate") String delDate, @Param("departmentId") long departmentId);
-
     int selectDepartmentCount(@Param("departmentName") String departmentName);
 
     List<Department> selectDepartmentPage(@Param("departmentName") String departmentName, @Param("pu") PageUtil pu);

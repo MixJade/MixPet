@@ -37,7 +37,7 @@ public interface INoticeService extends IService<Notice> {
      * @param idGroup 一组id
      * @return 是否批量删除成功
      */
-    boolean deleteByIds(long[] idGroup);
+    boolean deleteByIds(List<Long> idGroup);
 
     /**
      * 分页查询
