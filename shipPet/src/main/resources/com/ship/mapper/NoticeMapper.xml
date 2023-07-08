@@ -1,26 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ship.mapper.NoticeMapper">
+    <!--查询头像的图片列表-->
+    <!-- @formatter:off-->
+    <select id="selectImgAvatar" resultType="String">
+        SELECT client_photo FROM client WHERE client_photo IS NOT NULL AND client_photo != ''
+        UNION
+        SELECT doctor_photo FROM doctor WHERE doctor_photo IS NOT NULL AND doctor_photo != ''
+        UNION
+        SELECT pet_photo FROM pet WHERE pet_photo IS NOT NULL AND pet_photo != ''
+        UNION
+        SELECT employee_photo FROM employee WHERE employee_photo IS NOT NULL AND employee_photo != ''
+    </select>
+    <!-- @formatter:on-->
     <!--查询分页的条目数-->
     <select id="selectNoticeCount" resultType="int">
-        select
-        count(*)
-        from notice
-        WHERE is_del='0'
+        SELECT
+        count( * )
+        FROM
+        notice
+        WHERE
+        is_del = '0'
         <if test="noticeName!=null and noticeName!=''">
             and notice_title like "%"#{noticeName}"%"
         </if>
     </select>
     <!--分页查询-->
     <select id="selectNoticePage" resultType="com.ship.dto.NoticeDto">
-        select notice_id, notice_title, notice_file, creat_id, a.create_time, update_id, a.update_time, is_disable,
-        a.is_del ,b.employee_name as create_name,c.employee_name as update_name
-        FROM notice AS a
-        LEFT JOIN employee AS b
-        ON a.creat_id=b.employee_id
-        LEFT JOIN employee AS c
-        ON a.update_id=c.employee_id
-        WHERE a.is_del='0'
+        SELECT
+        notice_id,
+        notice_title,
+        notice_file,
+        creat_id,
+        a.create_time,
+        update_id,
+        a.update_time,
+        is_disable,
+        a.is_del,
+        b.employee_name AS create_name,
+        c.employee_name AS update_name
+        FROM
+        notice AS a
+        LEFT JOIN employee AS b ON a.creat_id = b.employee_id
+        LEFT JOIN employee AS c ON a.update_id = c.employee_id
+        WHERE
+        a.is_del = '0'
         <if test="noticeName!=null and noticeName!=''">
             and notice_title like "%"#{noticeName}"%"
         </if>
@@ -28,7 +52,7 @@
     </select>
     <!--主页：查询-->
     <select id="selectFour" resultType="com.ship.dto.NoticeDto">
-        select notice_id, notice_title, notice_file
+        SELECT notice_id, notice_title, notice_file
         FROM notice
         WHERE is_del = '0'
           AND is_disable = '0'
@@ -44,13 +68,11 @@
     </update>
     <!--添加公告-->
     <insert id="addNotice">
-        insert into notice
-        (notice_title, notice_file, creat_id, create_time, update_id, update_time)
-            value (#{noticeTitle},
-                   #{noticeFile},
-                   #{creatId},
-                   now(),
-                   creat_id,
-                   create_time)
+        INSERT INTO notice (notice_title, notice_file, creat_id, create_time, update_id, update_time)
+            VALUE
+            (#{noticeTitle},
+             #{noticeFile},
+             #{creatId},
+             now(), creat_id, create_time)
     </insert>
 </mapper>
