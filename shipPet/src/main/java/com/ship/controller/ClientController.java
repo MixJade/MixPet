@@ -1,6 +1,6 @@
 package com.ship.controller;
 
-import com.ship.common.PhotoConst;
+import com.ship.common.PhotoEnum;
 import com.ship.common.Result;
 import com.ship.entity.Client;
 import com.ship.security.RoleConst;
@@ -58,7 +58,7 @@ public class ClientController {
     public Result save(@RequestBody Client client) {
         if (StrUtil.isWhite(client.getClientName())) return Result.error("用户名为空");
         if (StrUtil.isWhite(client.getClientUsername())) return Result.error("用户账号为空");
-        if (StrUtil.isWhite(client.getClientPhoto())) client.setClientPhoto(PhotoConst.CLIENT);
+        if (StrUtil.isWhite(client.getClientPhoto())) client.setClientPhoto(PhotoEnum.CLIENT.getPhotoName());
         return Result.choice("添加", clientService.save(client));
     }
 

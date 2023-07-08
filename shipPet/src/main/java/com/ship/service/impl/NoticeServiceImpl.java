@@ -1,7 +1,7 @@
 package com.ship.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ship.common.PhotoConst;
+import com.ship.common.PhotoEnum;
 import com.ship.dto.NoticeDto;
 import com.ship.entity.Notice;
 import com.ship.mapper.NoticeMapper;
@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -181,21 +180,15 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
     }
 
     /**
-     * 通过反射获取接口常量值
+     * 通过枚举批量获取默认照片名称
      *
      * @return 设置的默认照片名称
      */
     private List<String> myConst() {
         List<String> defList = new ArrayList<>();
-        Field[] fields = (PhotoConst.class).getDeclaredFields();
-        try {
-            for (Field field : fields) {
-                field.setAccessible(true); // 忽略权限修饰符的安全检查
-                defList.add((String) field.get(String.class));
-            }
-        } catch (IllegalAccessException e) {
-            log.warn("不安全的反射");
-            throw new RuntimeException(e);
+        PhotoEnum[] photoEnums=PhotoEnum.values();
+        for (PhotoEnum photoEnum:photoEnums){
+            defList.add(photoEnum.getPhotoName());
         }
         return defList;
     }

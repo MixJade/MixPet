@@ -1,7 +1,7 @@
 package com.ship.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.ship.common.PhotoConst;
+import com.ship.common.PhotoEnum;
 import com.ship.common.Result;
 import com.ship.dto.PetDto;
 import com.ship.entity.Client;
@@ -99,7 +99,7 @@ public class PetController {
     public Result save(@RequestBody Pet pet) {
         if (StrUtil.isWhite(pet.getPetName())) return Result.error("姓名不能为空");
         if (StrUtil.isWhite(pet.getPetVariety())) return Result.error("品种不能为空");
-        if (StrUtil.isWhite(pet.getPetPhoto())) pet.setPetPhoto(PhotoConst.PET);
+        if (StrUtil.isWhite(pet.getPetPhoto())) pet.setPetPhoto(PhotoEnum.PET.getPhotoName());
         return Result.choice("添加", petService.save(pet));
     }
 
