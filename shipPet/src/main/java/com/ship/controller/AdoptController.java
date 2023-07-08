@@ -56,7 +56,8 @@ public class AdoptController {
     @PostMapping
     @Secured(RoleConst.MANAGER)
     public Result save(@RequestBody Adopt adopt) {
-        if (adopt.getAdoptMoney() <= 0) return Result.error("金额必须大于零");
+        if (adopt.getAdoptMoney() == null || adopt.getAdoptMoney() <= 0)
+            return Result.error("金额必须大于零");
         return Result.choice("添加", adoptService.save(adopt));
     }
 

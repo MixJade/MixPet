@@ -37,6 +37,15 @@ public interface AdoptMapper extends BaseMapper<Adopt> {
     /**
      * 查询宠物是否有主人
      */
-    @Select("select a.client_id from pet as a ,adopt as b where a.pet_id=b.pet_id and b.adopt_id=#{adoptId}")
+    @Select("""
+            SELECT
+            	a.client_id
+            FROM
+            	pet AS a,
+            	adopt AS b
+            WHERE
+            	a.pet_id = b.pet_id
+            	AND b.adopt_id = #{adoptId}
+            """)
     Long petMaster(Long adoptId);
 }
