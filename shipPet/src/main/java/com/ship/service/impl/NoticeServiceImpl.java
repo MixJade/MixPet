@@ -47,15 +47,11 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
 
     @Override
     public boolean delImg() {
-        // 数据库中存储的头像照片名字
-        List<String> clientImg = baseMapper.selectImgClient();
-        clientImg.addAll(baseMapper.selectImgDoctor());
-        clientImg.addAll(baseMapper.selectImgPet());
-        clientImg.addAll(baseMapper.selectImgEmployee());
-        // 默认的照片名
-        clientImg.addAll(myConst());
+        // 数据库中存储的头像照片名字+默认的照片名
+        List<String> avatarList = baseMapper.selectImgAvatar();
+        avatarList.addAll(myConst());
         // 去重
-        Set<String> set = new HashSet<>(clientImg);
+        Set<String> set = new HashSet<>(avatarList);
         // 文件夹下的文件名
         String[] list01 = new File(basePath).list();
         String[] list02 = new File(noticePath).list();
@@ -186,8 +182,8 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
      */
     private List<String> myConst() {
         List<String> defList = new ArrayList<>();
-        PhotoEnum[] photoEnums=PhotoEnum.values();
-        for (PhotoEnum photoEnum:photoEnums){
+        PhotoEnum[] photoEnums = PhotoEnum.values();
+        for (PhotoEnum photoEnum : photoEnums) {
             defList.add(photoEnum.getPhotoName());
         }
         return defList;
