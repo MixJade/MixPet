@@ -1,6 +1,6 @@
 package com.ship.controller;
 
-import com.ship.common.PhotoConst;
+import com.ship.common.PhotoEnum;
 import com.ship.common.Result;
 import com.ship.entity.Employee;
 import com.ship.security.RoleConst;
@@ -37,7 +37,7 @@ public class EmployeeController {
     @PostMapping
     @Secured(RoleConst.ADMIN)
     public Result save(@RequestBody Employee employee) {
-        if (StrUtil.isWhite(employee.getEmployeePhoto())) employee.setEmployeePhoto(PhotoConst.CLIENT);
+        if (StrUtil.isWhite(employee.getEmployeePhoto())) employee.setEmployeePhoto(PhotoEnum.CLIENT.getPhotoName());
         return Result.choice("添加", employeeService.save(employee));
     }
 
