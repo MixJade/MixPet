@@ -1,9 +1,9 @@
 package com.ship.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ship.util.PageUtil;
-import com.ship.vo.NameVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.entity.Department;
+import com.ship.vo.NameVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -20,9 +20,8 @@ import java.util.List;
  */
 @Mapper
 public interface DepartmentMapper extends BaseMapper<Department> {
-    int selectDepartmentCount(@Param("departmentName") String departmentName);
 
-    List<Department> selectDepartmentPage(@Param("departmentName") String departmentName, @Param("pu") PageUtil pu);
+    IPage<Department> selectDepartmentPage(IPage<Department> page, @Param("departmentName") String departmentName);
 
     @Select("SELECT department_id as roleId, department_name as roleName FROM department WHERE is_del = '0'")
     List<NameVo> selectName();

@@ -1,9 +1,9 @@
 package com.ship.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ship.dto.DoctorDto;
 import com.ship.vo.NameVo;
-import com.ship.vo.Page;
 import com.ship.entity.Doctor;
 
 import java.util.List;
@@ -42,7 +42,7 @@ public interface IDoctorService extends IService<Doctor> {
      * @param pageSize       当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    Page<DoctorDto> selectByPage(String doctorName, String departmentName, int numPage, int pageSize);
+    IPage<DoctorDto> selectByPage(String doctorName, String departmentName, int numPage, int pageSize);
 
     /**
      * 根据id查询医生

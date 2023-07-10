@@ -1,14 +1,14 @@
 package com.ship.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ship.dto.DoctorDto;
 import com.ship.entity.Doctor;
 import com.ship.mapper.DoctorMapper;
 import com.ship.service.IDoctorService;
 import com.ship.util.CodeEnum;
-import com.ship.util.PageUtil;
 import com.ship.vo.NameVo;
-import com.ship.vo.Page;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -44,11 +44,8 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorMapper, Doctor> impleme
     }
 
     @Override
-    public Page<DoctorDto> selectByPage(String doctorName, String departmentName, int numPage, int pageSize) {
-        int maxCount = baseMapper.selectDoctorCount(doctorName, departmentName);
-        PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
-        var doctorList = baseMapper.selectDoctorPage(doctorName, departmentName, pu);
-        return new Page<>(doctorList, maxCount);
+    public IPage<DoctorDto> selectByPage(String doctorName, String departmentName, int numPage, int pageSize) {
+        return baseMapper.selectDoctorPage(new Page<>(numPage, pageSize), doctorName, departmentName);
     }
 
     @Override

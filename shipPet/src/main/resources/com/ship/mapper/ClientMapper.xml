@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ship.mapper.ClientMapper">
-    <!--查询分页的条目数-->
-    <select id="selectClientCount" resultType="int">
-        select
-        count(*)
-        from client
-        WHERE is_del='0'
-        <if test="clientName!=null and clientName!=''">
-            and client_name like "%"#{clientName}"%"
-        </if>
-    </select>
     <!--分页查询-->
     <select id="selectClientPage" resultType="com.ship.entity.Client">
         SELECT
@@ -20,6 +10,5 @@
         <if test="clientName!=null and clientName!=''">
             and client_name like "%"#{clientName}"%"
         </if>
-        limit #{pu.begin},#{pu.size};
     </select>
 </mapper>

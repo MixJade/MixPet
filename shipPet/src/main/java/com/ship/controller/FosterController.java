@@ -1,12 +1,12 @@
 package com.ship.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.Result;
 import com.ship.dto.FosterDto;
 import com.ship.dto.FosterPetDto;
 import com.ship.entity.Foster;
 import com.ship.security.RoleConst;
 import com.ship.service.IFosterService;
-import com.ship.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +32,7 @@ public class FosterController {
     }
 
     @GetMapping("/page")
-    public Page<FosterDto> getPage(int numPage, int pageSize, String fosterName) {
+    public IPage<FosterDto> getPage(int numPage, int pageSize, String fosterName) {
         return fosterService.selectByPage(fosterName, numPage, pageSize);
     }
 

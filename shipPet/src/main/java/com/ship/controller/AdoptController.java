@@ -1,6 +1,7 @@
 package com.ship.controller;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.Result;
 import com.ship.dto.AdoptDto;
 import com.ship.entity.Adopt;
@@ -9,7 +10,6 @@ import com.ship.security.RoleConst;
 import com.ship.service.IAdoptService;
 import com.ship.util.UserUtil;
 import com.ship.vo.AdoptVo;
-import com.ship.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +35,7 @@ public class AdoptController {
     }
 
     @GetMapping("/page")
-    public Page<AdoptDto> getPage(int numPage, int pageSize, String adoptName) {
+    public IPage<AdoptDto> getPage(int numPage, int pageSize, String adoptName) {
         return adoptService.selectByPage(adoptName, numPage, pageSize);
     }
 

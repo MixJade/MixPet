@@ -1,37 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ship.mapper.AppointmentMapper">
-    <!--查询分页的条目数-->
-    <select id="selectAppointmentCount" resultType="int">
-        select
-        count(*)
-        FROM appointment a,
-        client b,
-        pet c,
-        department d,
-        doctor e
-        WHERE a.is_del = '0'
-        AND a.client_id = b.client_id
-        AND a.pet_id = c.pet_id
-        AND a.department_id = d.department_id
-        AND a.doctor_id = e.doctor_id
-        <if test="seaName!=null and seaName!=''">
-            <choose>
-                <when test="seaType==0">
-                    and b.client_name like #{seaName}
-                </when>
-                <when test="seaType==1">
-                    and c.pet_Name like #{seaName}
-                </when>
-                <when test="seaType==2">
-                    and e.doctor_name like #{seaName}
-                </when>
-                <otherwise>
-                    and d.department_name like #{seaName}
-                </otherwise>
-            </choose>
-        </if>
-    </select>
     <!--分页查询-->
     <select id="selectAppointmentPage" resultType="com.ship.dto.AppointmentDto">
         SELECT appointment_id,
@@ -74,7 +43,6 @@
             </choose>
         </if>
         order by appointment_date desc
-        limit #{pu.begin},#{pu.size};
     </select>
     <!--根据医生查询订单-->
     <select id="getDoctor" resultType="com.ship.dto.AppointmentDto">

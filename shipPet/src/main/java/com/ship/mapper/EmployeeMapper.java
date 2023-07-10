@@ -1,12 +1,10 @@
 package com.ship.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ship.util.PageUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.entity.Employee;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * <p>
@@ -18,8 +16,6 @@ import java.util.List;
  */
 @Mapper
 public interface EmployeeMapper extends BaseMapper<Employee> {
-    int selectEmployeeCount(@Param("employeeName") String employeeName);
-
-    List<Employee> selectEmployeePage(@Param("employeeName") String employeeName, @Param("pu") PageUtil pu);
+    IPage<Employee> selectEmployeePage(IPage<Employee> page, @Param("employeeName") String employeeName);
 
 }

@@ -1,6 +1,7 @@
 package com.ship.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.PhotoEnum;
 import com.ship.common.Result;
 import com.ship.dto.PetDto;
@@ -11,7 +12,6 @@ import com.ship.service.IPetService;
 import com.ship.util.StrUtil;
 import com.ship.util.UserUtil;
 import com.ship.vo.NameVo;
-import com.ship.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -69,7 +69,7 @@ public class PetController {
     }
 
     @GetMapping("/page")
-    public Page<PetDto> getPage(int numPage, int pageSize, String petName, String clientName) {
+    public IPage<PetDto> getPage(int numPage, int pageSize, String petName, String clientName) {
         return petService.selectByPage(petName, clientName, numPage, pageSize);
     }
 
@@ -79,7 +79,7 @@ public class PetController {
      * @return 待领养宠物列表
      */
     @GetMapping("/four")
-    public Page<Pet> getFour(int numPage, int pageSize) {
+    public IPage<Pet> getFour(int numPage, int pageSize) {
         return petService.selectFour(numPage, pageSize);
     }
 

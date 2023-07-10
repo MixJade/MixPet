@@ -1,8 +1,8 @@
 package com.ship.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ship.vo.NameVo;
-import com.ship.vo.Page;
 import com.ship.dto.PetDto;
 import com.ship.entity.Pet;
 
@@ -42,12 +42,12 @@ public interface IPetService extends IService<Pet> {
      * @param pageSize   当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    Page<PetDto> selectByPage(String petName, String clientName, int numPage, int pageSize);
+    IPage<PetDto> selectByPage(String petName, String clientName, int numPage, int pageSize);
 
     /**
      * 主页的待领养宠物查询
      */
-    Page<Pet> selectFour(int numPage, int pageSize);
+    IPage<Pet> selectFour(int numPage, int pageSize);
 
     /**
      * 更新宠物信息，让主人id可以为null

@@ -1,13 +1,12 @@
 package com.ship.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ship.util.PageUtil;
 import com.ship.vo.NameVo;
-import com.ship.vo.Page;
 import com.ship.entity.Department;
 import com.ship.mapper.DepartmentMapper;
 import com.ship.service.IDepartmentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -34,11 +33,8 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
     }
 
     @Override
-    public Page<Department> selectByPage(String departmentName, int numPage, int pageSize) {
-        int maxCount = baseMapper.selectDepartmentCount(departmentName);
-        PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
-        var departmentList = baseMapper.selectDepartmentPage(departmentName, pu);
-        return new Page<>(departmentList, maxCount);
+    public IPage<Department> selectByPage(String departmentName, int numPage, int pageSize) {
+        return baseMapper.selectDepartmentPage(new Page<>(numPage, pageSize), departmentName);
     }
 
     @Override

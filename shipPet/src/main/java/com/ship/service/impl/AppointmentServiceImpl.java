@@ -1,13 +1,13 @@
 package com.ship.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ship.dto.AppointmentDto;
 import com.ship.dto.AppointmentDto2;
 import com.ship.entity.Appointment;
 import com.ship.mapper.AppointmentMapper;
 import com.ship.service.IAppointmentService;
-import com.ship.util.PageUtil;
-import com.ship.vo.Page;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -43,12 +43,8 @@ public class AppointmentServiceImpl extends ServiceImpl<AppointmentMapper, Appoi
     }
 
     @Override
-    public Page<AppointmentDto> selectByPage(String seaName, int seaType, int numPage, int pageSize) {
-        if (seaName != null && !seaName.equals("")) seaName = "%" + seaName + "%";
-        int maxCount = baseMapper.selectAppointmentCount(seaName, seaType);
-        PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
-        var appointmentList = baseMapper.selectAppointmentPage(seaName, seaType, pu);
-        return new Page<>(appointmentList, maxCount);
+    public IPage<AppointmentDto> selectByPage(String seaName, int seaType, int numPage, int pageSize) {
+        return baseMapper.selectAppointmentPage(new Page<>(numPage, pageSize), seaName, seaType);
     }
 
     @Override

@@ -1,13 +1,13 @@
 package com.ship.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ship.common.PhotoEnum;
 import com.ship.dto.NoticeDto;
 import com.ship.entity.Notice;
 import com.ship.mapper.NoticeMapper;
 import com.ship.service.INoticeService;
-import com.ship.util.PageUtil;
-import com.ship.vo.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -105,12 +105,10 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
     }
 
     @Override
-    public Page<NoticeDto> selectByPage(String noticeName, int numPage, int pageSize) {
-        int maxCount = baseMapper.selectNoticeCount(noticeName);
-        PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
-        List<NoticeDto> noticeList = baseMapper.selectNoticePage(noticeName, pu);
-        noticeList.forEach(noticeDto -> noticeDto.setTextNotice(getText(noticeDto.getNoticeFile())));
-        return new Page<>(noticeList, maxCount);
+    public IPage<NoticeDto> selectByPage(String noticeName, int numPage, int pageSize) {
+        IPage<NoticeDto> noticePage = baseMapper.selectNoticePage(new Page<>(numPage, pageSize), noticeName);
+        noticePage.getRecords().forEach(noticeDto -> noticeDto.setTextNotice(getText(noticeDto.getNoticeFile())));
+        return noticePage;
     }
 
     @Override

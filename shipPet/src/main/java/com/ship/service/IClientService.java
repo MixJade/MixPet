@@ -1,8 +1,8 @@
 package com.ship.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ship.vo.NameVo;
-import com.ship.vo.Page;
 import com.ship.entity.Client;
 
 import java.util.List;
@@ -40,7 +40,7 @@ public interface IClientService extends IService<Client> {
      * @param pageSize   当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    Page<Client> selectByPage(String clientName, int numPage, int pageSize);
+    IPage<Client> selectByPage(String clientName, int numPage, int pageSize);
 
     /**
      * 查询所有用户的姓名及对应id

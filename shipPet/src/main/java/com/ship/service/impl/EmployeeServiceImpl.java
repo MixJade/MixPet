@@ -1,11 +1,11 @@
 package com.ship.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ship.entity.Employee;
 import com.ship.mapper.EmployeeMapper;
 import com.ship.service.IEmployeeService;
-import com.ship.util.PageUtil;
-import com.ship.vo.Page;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -31,10 +31,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     }
 
     @Override
-    public Page<Employee> selectByPage(String employeeName, int numPage, int pageSize) {
-        int maxCount = baseMapper.selectEmployeeCount(employeeName);
-        PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
-        var employeeList = baseMapper.selectEmployeePage(employeeName, pu);
-        return new Page<>(employeeList, maxCount);
+    public IPage<Employee> selectByPage(String employeeName, int numPage, int pageSize) {
+        return baseMapper.selectEmployeePage(new Page<>(numPage, pageSize), employeeName);
     }
 }

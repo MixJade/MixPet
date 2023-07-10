@@ -1,5 +1,6 @@
 package com.ship.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.Result;
 import com.ship.dto.AppointmentDto;
 import com.ship.entity.Appointment;
@@ -7,7 +8,6 @@ import com.ship.entity.Client;
 import com.ship.security.RoleConst;
 import com.ship.service.IAppointmentService;
 import com.ship.util.UserUtil;
-import com.ship.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +33,7 @@ public class AppointmentController {
     }
 
     @GetMapping("/page")
-    public Page<AppointmentDto> getPage(int numPage, int pageSize, String seaName, int seaType) {
+    public IPage<AppointmentDto> getPage(int numPage, int pageSize, String seaName, int seaType) {
         return appointmentService.selectByPage(seaName, seaType, numPage, pageSize);
     }
 

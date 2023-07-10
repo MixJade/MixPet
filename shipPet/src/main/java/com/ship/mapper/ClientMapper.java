@@ -1,9 +1,9 @@
 package com.ship.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ship.util.PageUtil;
-import com.ship.vo.NameVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.entity.Client;
+import com.ship.vo.NameVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -20,9 +20,7 @@ import java.util.List;
  */
 @Mapper
 public interface ClientMapper extends BaseMapper<Client> {
-    int selectClientCount(@Param("clientName") String clientName);
-
-    List<Client> selectClientPage(@Param("clientName") String clientName, @Param("pu") PageUtil pu);
+    IPage<Client> selectClientPage(IPage<Client> page, @Param("clientName") String clientName);
 
     @Select("SELECT client_id as roleId, client_name as roleName FROM client WHERE is_del = '0'")
     List<NameVo> selectName();

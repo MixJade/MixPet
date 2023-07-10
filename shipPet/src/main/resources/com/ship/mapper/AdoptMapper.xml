@@ -10,16 +10,6 @@
         WHERE a.pet_id = b.pet_id
           AND b.adopt_id = #{adoptId}
     </update>
-    <!--查询分页的条目数-->
-    <select id="selectAdoptCount" resultType="int">
-        select
-        count(*)
-        FROM adopt
-        WHERE is_del = '0'
-        <if test="adoptCode!=null and adoptCode!=''">
-            and adopt_code like "%"#{adoptCode}"%"
-        </if>
-    </select>
     <!--分页查询-->
     <select id="selectAdoptPage" resultType="com.ship.dto.AdoptDto">
         select
@@ -34,7 +24,6 @@
             and adopt_code like #{code}
         </if>
         order by create_time desc
-        limit #{pu.begin},#{pu.size};
     </select>
     <!--查询是否已有待审核订单-->
     <select id="sureInAdopt" resultType="int">

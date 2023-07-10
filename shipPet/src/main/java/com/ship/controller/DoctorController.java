@@ -1,5 +1,6 @@
 package com.ship.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.PhotoEnum;
 import com.ship.common.Result;
 import com.ship.dto.DoctorDto;
@@ -8,7 +9,6 @@ import com.ship.security.RoleConst;
 import com.ship.service.IDoctorService;
 import com.ship.util.StrUtil;
 import com.ship.vo.NameVo;
-import com.ship.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -45,7 +45,7 @@ public class DoctorController {
     }
 
     @GetMapping("/page")
-    public Page<DoctorDto> getPage(int numPage, int pageSize, String doctorName, String departmentName) {
+    public IPage<DoctorDto> getPage(int numPage, int pageSize, String doctorName, String departmentName) {
         return doctorService.selectByPage(doctorName, departmentName, numPage, pageSize);
     }
 
