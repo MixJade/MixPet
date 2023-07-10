@@ -43,12 +43,6 @@
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!--图片尺寸修改-->
-        <dependency>
-            <groupId>net.coobird</groupId>
-            <artifactId>thumbnailator</artifactId>
-            <version>0.4.19</version>
-        </dependency>
         <!-- SpringSecurity的依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

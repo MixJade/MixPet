@@ -1,7 +1,7 @@
 package com.ship.controller;
 
 
-import net.coobird.thumbnailator.Thumbnails;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.servlet.http.HttpServletResponse;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -40,7 +42,8 @@ public class ImgController {
         String filePath = basePath + fileName;
         try {
             myFile.transferTo(new File(filePath));//转存临时文件
-            Thumbnails.of(filePath).forceSize(128, 128).toFile(filePath);//修改图片尺寸
+            boolean resizeSuc = resize(filePath);
+            log.info("转化头像尺寸{}", resizeSuc ? "成功" : "失败");
         } catch (IOException e) {
             log.warn("转存图片失败");
         }
@@ -91,6 +94,36 @@ public class ImgController {
         assert originalFilename != null;
         String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
         return UUID.randomUUID() + suffix;
+    }
+
+    /**
+     * 重写头像图片的尺寸
+     *
+     * @param path 图片路径
+     * @return 是否转化成功
+     */
+    private boolean resize(String path) {
+        String formatName = path.substring(path.lastIndexOf(".") + 1);
+        File input = new File(path);
+        try {
+            BufferedImage img = ImageIO.read(input);
+            // 裁剪图片
+            int size = Math.min(img.getWidth(), img.getHeight());
+            BufferedImage subImage = img.getSubimage(0, 0, size, size);
+            // 开始转化图片
+            Image tmp = subImage.getScaledInstance(128, 128, Image.SCALE_SMOOTH);
+            BufferedImage resized = new BufferedImage(128, 128, subImage.getType());
+            Graphics2D g2d = resized.createGraphics();
+            boolean drawImage = g2d.drawImage(tmp, 0, 0, null);
+            log.info("转化{}图片{}",formatName, drawImage ? "成功" : "失败");
+            g2d.dispose();
+            // 转化完成，将图片转存回去
+            ImageIO.write(resized, formatName, input);
+            return true;
+        } catch (IOException e) {
+            log.warn("图片读取失败");
+            return false;
+        }
     }
 
     /**

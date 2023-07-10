@@ -11,5 +11,4 @@
 | SpringBoot     | 3.1.0   | 集成了web、邮件、websocket |
 | mybatis-plus   | 3.5.3.1 | 操作数据库、生成模板代码        |
 | SpringSecurity | 6.1.0   | 安全校验、权限控制           |
-| thumbnailator  | 0.4.18  | 压缩图片                |
 
