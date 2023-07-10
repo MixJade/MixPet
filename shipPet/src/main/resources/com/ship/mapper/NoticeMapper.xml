@@ -13,18 +13,6 @@
         SELECT employee_photo FROM employee WHERE employee_photo IS NOT NULL AND employee_photo != ''
     </select>
     <!-- @formatter:on-->
-    <!--查询分页的条目数-->
-    <select id="selectNoticeCount" resultType="int">
-        SELECT
-        count( * )
-        FROM
-        notice
-        WHERE
-        is_del = '0'
-        <if test="noticeName!=null and noticeName!=''">
-            and notice_title like "%"#{noticeName}"%"
-        </if>
-    </select>
     <!--分页查询-->
     <select id="selectNoticePage" resultType="com.ship.dto.NoticeDto">
         SELECT
@@ -48,7 +36,6 @@
         <if test="noticeName!=null and noticeName!=''">
             and notice_title like "%"#{noticeName}"%"
         </if>
-        limit #{pu.begin},#{pu.size};
     </select>
     <!--主页：查询-->
     <select id="selectFour" resultType="com.ship.dto.NoticeDto">

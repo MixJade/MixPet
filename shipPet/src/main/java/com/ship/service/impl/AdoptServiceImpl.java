@@ -1,13 +1,13 @@
 package com.ship.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ship.dto.AdoptDto;
 import com.ship.entity.Adopt;
 import com.ship.mapper.AdoptMapper;
 import com.ship.service.IAdoptService;
 import com.ship.util.CodeEnum;
-import com.ship.util.PageUtil;
-import com.ship.vo.Page;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -44,11 +44,8 @@ public class AdoptServiceImpl extends ServiceImpl<AdoptMapper, Adopt> implements
     }
 
     @Override
-    public Page<AdoptDto> selectByPage(String adoptCode, int numPage, int pageSize) {
-        int maxCount = baseMapper.selectAdoptCount(adoptCode);
-        PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
-        var adoptList = baseMapper.selectAdoptPage(adoptCode, pu);
-        return new Page<>(adoptList, maxCount);
+    public IPage<AdoptDto> selectByPage(String adoptCode, int numPage, int pageSize) {
+        return baseMapper.selectAdoptPage(new Page<>(numPage, pageSize), adoptCode);
     }
 
     @Override

@@ -1,12 +1,12 @@
 package com.ship.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.PhotoEnum;
 import com.ship.common.Result;
 import com.ship.entity.Employee;
 import com.ship.security.RoleConst;
 import com.ship.service.IEmployeeService;
 import com.ship.util.StrUtil;
-import com.ship.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +30,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/page")
-    public Page<Employee> getPage(int numPage, int pageSize, String employeeName) {
+    public IPage<Employee> getPage(int numPage, int pageSize, String employeeName) {
         return employeeService.selectByPage(employeeName, numPage, pageSize);
     }
 

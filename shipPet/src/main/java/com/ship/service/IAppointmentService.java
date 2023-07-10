@@ -1,10 +1,10 @@
 package com.ship.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ship.dto.AppointmentDto;
 import com.ship.dto.AppointmentDto2;
 import com.ship.entity.Appointment;
-import com.ship.vo.Page;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public interface IAppointmentService extends IService<Appointment> {
      * @param pageSize 当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    Page<AppointmentDto> selectByPage(String seaName, int seaType, int numPage, int pageSize);
+    IPage<AppointmentDto> selectByPage(String seaName, int seaType, int numPage, int pageSize);
 
     /**
      * 根据医生查询挂号信息

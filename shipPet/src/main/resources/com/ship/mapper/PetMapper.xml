@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ship.mapper.PetMapper">
-    <!--查询分页的条目数-->
-    <select id="selectPetCount" resultType="int">
-        select
-        count(*)
-        from pet AS a
-        LEFT JOIN client AS b
-        ON a.client_id=b.client_id
-        WHERE a.is_del='0'
-        <if test="petName!=null and petName!=''">
-            and pet_name like "%"#{petName}"%"
-        </if>
-        <if test="clientName!=null and clientName!=''">
-            and b.client_name like "%"#{clientName}"%"
-        </if>
-    </select>
     <!--分页查询-->
     <select id="selectPetPage" resultType="com.ship.dto.PetDto">
         SELECT
@@ -30,7 +15,6 @@
         <if test="clientName!=null and clientName!=''">
             and b.client_name like "%"#{clientName}"%"
         </if>
-        limit #{pu.begin},#{pu.size};
     </select>
     <!--查询:主页待领养-->
     <select id="selectFour" resultType="com.ship.entity.Pet">
@@ -44,7 +28,6 @@
         FROM pet
         WHERE is_del = '0'
           and ISNULL(client_id)
-        limit #{pu.begin},#{pu.size};
     </select>
     <!--更新操作，让主人可以为Null-->
     <update id="updatePet">

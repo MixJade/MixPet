@@ -1,7 +1,7 @@
 package com.ship.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ship.util.PageUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.dto.AppointmentDto;
 import com.ship.dto.AppointmentDto2;
 import com.ship.entity.Appointment;
@@ -22,7 +22,7 @@ import java.util.List;
 public interface AppointmentMapper extends BaseMapper<Appointment> {
     int selectAppointmentCount(@Param("seaName") String seaName, @Param("seaType") int seaType);
 
-    List<AppointmentDto> selectAppointmentPage(@Param("seaName") String seaName, @Param("seaType") int seaType, @Param("pu") PageUtil pu);
+    IPage<AppointmentDto> selectAppointmentPage(IPage<AppointmentDto> page, @Param("seaName") String seaName, @Param("seaType") int seaType);
 
     /**
      * 用户：根据医生查询订单

@@ -1,14 +1,12 @@
 package com.ship.mapper;
 
-import com.ship.util.PageUtil;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.dto.AdoptDto;
 import com.ship.entity.Adopt;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-
-import java.util.List;
 
 /**
  * <p>
@@ -20,9 +18,7 @@ import java.util.List;
  */
 @Mapper
 public interface AdoptMapper extends BaseMapper<Adopt> {
-    int selectAdoptCount(@Param("adoptCode") String adoptCode);
-
-    List<AdoptDto> selectAdoptPage(@Param("adoptCode") String adoptCode, @Param("pu") PageUtil pu);
+    IPage<AdoptDto> selectAdoptPage(IPage<AdoptDto> page, @Param("adoptCode") String adoptCode);
 
     @Select("select max(adopt_id) from adopt")
     Long getMaxId();

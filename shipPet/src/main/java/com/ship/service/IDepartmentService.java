@@ -1,8 +1,8 @@
 package com.ship.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ship.vo.NameVo;
-import com.ship.vo.Page;
 import com.ship.entity.Department;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public interface IDepartmentService extends IService<Department> {
      * @param pageSize       当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    Page<Department> selectByPage(String departmentName, int numPage, int pageSize);
+    IPage<Department> selectByPage(String departmentName, int numPage, int pageSize);
 
     /**
      * 查询名字与对应id

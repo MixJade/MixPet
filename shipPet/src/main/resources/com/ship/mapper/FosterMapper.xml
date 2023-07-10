@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ship.mapper.FosterMapper">
-    <!--查询分页的条目数-->
-    <select id="selectFosterCount" resultType="int">
-        select
-        count(*)
-        FROM foster
-        WHERE is_del = '0'
-        <if test="fosterCode!=null and fosterCode!=''">
-            and foster_code like "%"#{fosterCode}"%"
-        </if>
-    </select>
     <!--分页查询-->
     <select id="selectFosterPage" resultType="com.ship.dto.FosterDto">
         select
@@ -22,7 +12,6 @@
         <if test="fosterCode!=null and fosterCode!=''">
             and foster_code like "%"#{fosterCode}"%"
         </if>
-        limit #{pu.begin},#{pu.size};
     </select>
     <!--查询被寄养宠物信息-->
     <select id="fosterPet" resultType="com.ship.dto.FosterPetDto">

@@ -1,7 +1,7 @@
 package com.ship.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ship.util.PageUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.dto.NoticeDto;
 import com.ship.entity.Notice;
 import org.apache.ibatis.annotations.Mapper;
@@ -29,9 +29,7 @@ public interface NoticeMapper extends BaseMapper<Notice> {
     @Select("select msg_content from msg where is_img='1' and is_del='0'")
     List<String> selectImgChat();
 
-    int selectNoticeCount(@Param("noticeName") String noticeName);
-
-    List<NoticeDto> selectNoticePage(@Param("noticeName") String noticeName, @Param("pu") PageUtil pu);
+    IPage<NoticeDto> selectNoticePage(IPage<NoticeDto> page, @Param("noticeName") String noticeName);
 
     List<NoticeDto> selectFour();
 

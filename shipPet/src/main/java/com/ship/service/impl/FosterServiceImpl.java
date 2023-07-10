@@ -1,5 +1,7 @@
 package com.ship.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ship.dto.FosterDto;
 import com.ship.dto.FosterPetDto;
@@ -7,8 +9,6 @@ import com.ship.entity.Foster;
 import com.ship.mapper.FosterMapper;
 import com.ship.service.IFosterService;
 import com.ship.util.CodeEnum;
-import com.ship.util.PageUtil;
-import com.ship.vo.Page;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -46,11 +46,8 @@ public class FosterServiceImpl extends ServiceImpl<FosterMapper, Foster> impleme
     }
 
     @Override
-    public Page<FosterDto> selectByPage(String fosterCode, int numPage, int pageSize) {
-        int maxCount = baseMapper.selectFosterCount(fosterCode);
-        PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
-        var fosterList = baseMapper.selectFosterPage(fosterCode, pu);
-        return new Page<>(fosterList, maxCount);
+    public IPage<FosterDto> selectByPage(String fosterCode, int numPage, int pageSize) {
+        return baseMapper.selectFosterPage(new Page<>(numPage, pageSize), fosterCode);
     }
 
     @Override

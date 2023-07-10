@@ -1,8 +1,8 @@
 package com.ship.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.dto.FosterDto;
 import com.ship.dto.FosterPetDto;
-import com.ship.vo.Page;
 import com.ship.entity.Foster;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -41,7 +41,7 @@ public interface IFosterService extends IService<Foster> {
      * @param pageSize   当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    Page<FosterDto> selectByPage(String fosterCode, int numPage, int pageSize);
+    IPage<FosterDto> selectByPage(String fosterCode, int numPage, int pageSize);
 
     /**
      * 用户前台：查询被寄养宠物信息

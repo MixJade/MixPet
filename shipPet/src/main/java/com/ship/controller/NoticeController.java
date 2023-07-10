@@ -1,5 +1,6 @@
 package com.ship.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.Result;
 import com.ship.dto.NoticeDto;
 import com.ship.entity.Employee;
@@ -7,7 +8,6 @@ import com.ship.entity.Notice;
 import com.ship.security.RoleConst;
 import com.ship.service.INoticeService;
 import com.ship.util.UserUtil;
-import com.ship.vo.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +41,7 @@ public class NoticeController {
     }
 
     @GetMapping("/page")
-    public Page<NoticeDto> getPage(int numPage, int pageSize, String noticeName) {
+    public IPage<NoticeDto> getPage(int numPage, int pageSize, String noticeName) {
         return noticeService.selectByPage(noticeName, numPage, pageSize);
     }
 

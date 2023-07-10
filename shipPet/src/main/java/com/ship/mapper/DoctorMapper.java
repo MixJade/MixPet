@@ -1,10 +1,10 @@
 package com.ship.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ship.util.PageUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.dto.DoctorDto;
-import com.ship.vo.NameVo;
 import com.ship.entity.Doctor;
+import com.ship.vo.NameVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -21,9 +21,7 @@ import java.util.List;
  */
 @Mapper
 public interface DoctorMapper extends BaseMapper<Doctor> {
-    int selectDoctorCount(@Param("doctorName") String doctorName, @Param("departmentName") String departmentName);
-
-    List<DoctorDto> selectDoctorPage(@Param("doctorName") String doctorName, @Param("departmentName") String departmentName,@Param("pu") PageUtil pu);
+    IPage<DoctorDto> selectDoctorPage(IPage<DoctorDto> page, @Param("doctorName") String doctorName, @Param("departmentName") String departmentName);
 
     DoctorDto selectOneId(@Param("doctorId") long doctorId);
 

@@ -1,13 +1,13 @@
 package com.ship.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ship.dto.PetDto;
 import com.ship.entity.Pet;
 import com.ship.mapper.PetMapper;
 import com.ship.service.IPetService;
-import com.ship.util.PageUtil;
 import com.ship.vo.NameVo;
-import com.ship.vo.Page;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -44,18 +44,15 @@ public class PetServiceImpl extends ServiceImpl<PetMapper, Pet> implements IPetS
     }
 
     @Override
-    public Page<PetDto> selectByPage(String petName, String clientName, int numPage, int pageSize) {
-        int maxCount = baseMapper.selectPetCount(petName, clientName);
-        PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
-        var petList = baseMapper.selectPetPage(petName, clientName, pu);
-        return new Page<>(petList, maxCount);
+    public IPage<PetDto> selectByPage(String petName, String clientName, int numPage, int pageSize) {
+        IPage<PetDto> petDtoIPage = baseMapper.selectPetPage(new Page<>(numPage, pageSize), petName, clientName);
+        System.out.println(petDtoIPage);
+        return petDtoIPage;
     }
 
     @Override
-    public Page<Pet> selectFour(int numPage, int pageSize) {
-        int maxCount = baseMapper.selectFourNum();
-        PageUtil pu = PageUtil.pu(numPage, pageSize, maxCount);
-        return new Page<>(baseMapper.selectFour(pu), maxCount);
+    public IPage<Pet> selectFour(int numPage, int pageSize) {
+        return baseMapper.selectFour(new Page<>(numPage,pageSize));
     }
 
     @Override
