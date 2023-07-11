@@ -42,8 +42,8 @@ public class FosterController {
      * @return 被寄养宠物的卡片信息
      */
     @GetMapping("/pet")
-    public List<FosterPetDto> fosterPet() {
-        return fosterService.fosterPet();
+    public IPage<FosterPetDto> fosterPet(int pageSize) {
+        return fosterService.fosterPet(pageSize);
     }
 
     @PostMapping
