@@ -26,5 +26,5 @@ public interface FosterMapper extends BaseMapper<Foster> {
     @Select("select max(foster_id) from foster")
     Long getMaxId();
 
-    List<FosterPetDto> fosterPet();
+    IPage<FosterPetDto> fosterPet(IPage<FosterDto> page);
 }

@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -44,6 +45,12 @@ public class SecurityConfig {
                 // 没有权限时的重定向路径
                 .exceptionHandling(e -> e.accessDeniedPage("/power/noPower"))
                 .csrf(CsrfConfigurer::disable) // 关闭跨站攻击防护
+                // TODO 下面取消拦截iframe中的请求，后面记得删掉
+                .headers(h ->
+                        h.frameOptions(f ->
+                                f.sameOrigin()
+                                        .httpStrictTransportSecurity(HeadersConfigurer.HstsConfig::disable)
+                                        .disable()))
                 .logout((logout) -> logout.logoutUrl("/cao/logout") // 退出登录的路径，不需要自己的接口
                         .logoutSuccessUrl("/power/bye") // 退出登录成功的重定向路径
                         .permitAll() // 放行路径，理由同上

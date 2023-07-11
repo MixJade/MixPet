@@ -48,7 +48,7 @@ public interface IFosterService extends IService<Foster> {
      *
      * @return 被寄养宠物的卡片信息
      */
-    List<FosterPetDto> fosterPet();
+    IPage<FosterPetDto> fosterPet(int pageSize);
 
     /**
      * 在新增寄养信息时，查询是否已有在寄养中的订单

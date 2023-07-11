@@ -51,8 +51,8 @@ public class FosterServiceImpl extends ServiceImpl<FosterMapper, Foster> impleme
     }
 
     @Override
-    public List<FosterPetDto> fosterPet() {
-        return baseMapper.fosterPet();
+    public IPage<FosterPetDto> fosterPet(int pageSize) {
+        return baseMapper.fosterPet(new Page<>(1, pageSize));
     }
 
     @Override
