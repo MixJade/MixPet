@@ -37,6 +37,6 @@ mybatis-plus:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 打印sql语句
 ---
 pet-ship:
-  images-path: C:\MixJade\MixPet\images\ # 照片存储路径
-  notice-path: C:\MixJade\MixPet\notice\ # 公告存储路径
-  chatImg-path: C:\MixJade\MixPet\chatImg\ # 聊天图片存储路径
+  images-path: /home/mixjade/mySoft/MixPet/images/ # 照片存储路径
+  notice-path: /home/mixjade/mySoft/MixPet/notice/ # 公告存储路径
+  chatImg-path: /home/mixjade/mySoft/MixPet/chatImg/ # 聊天图片存储路径
