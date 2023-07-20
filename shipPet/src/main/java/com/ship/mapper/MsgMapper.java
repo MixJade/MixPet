@@ -1,10 +1,10 @@
 package com.ship.mapper;
 
-import com.ship.dto.MsgDto;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ship.entity.Msg;
 import com.ship.vo.MsgClientNameVo;
 import com.ship.vo.MsgDoctorNameVo;
-import com.ship.entity.Msg;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ship.vo.MsgVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,7 +28,7 @@ public interface MsgMapper extends BaseMapper<Msg> {
     /**
      * 查询特定用户与医生对话
      */
-    List<MsgDto> getADoctor(@Param("clientId") Long clientId, @Param("doctorId") Long doctorId);
+    List<MsgVo> getADoctor(@Param("clientId") Long clientId, @Param("doctorId") Long doctorId);
 
     /**
      * 查询与用户有过联系的医生
@@ -43,7 +43,7 @@ public interface MsgMapper extends BaseMapper<Msg> {
     /**
      * 查询特定医生与用户对话
      */
-    List<MsgDto> getAClient(@Param("doctorId") Long doctorId, @Param("clientId") Long clientId);
+    List<MsgVo> getAClient(@Param("doctorId") Long doctorId, @Param("clientId") Long clientId);
 
     /**
      * 医生谈过话的用户

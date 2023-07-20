@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import jakarta.websocket.*;
 import jakarta.websocket.server.ServerEndpoint;
+
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -53,7 +54,7 @@ public class ChatEndpoint {
         } else if (object instanceof Doctor doctor) {
             log.info("医生【{}】加入聊天", doctor.getDoctorName());
             onlineDoctors.put(doctor.getDoctorId(), this);
-        }
+        } else log.info("当前用户无法识别:{}", object);
     }
 
     /**

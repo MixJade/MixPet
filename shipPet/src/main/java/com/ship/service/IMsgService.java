@@ -1,10 +1,10 @@
 package com.ship.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ship.dto.MsgDto;
 import com.ship.entity.Msg;
 import com.ship.vo.MsgClientNameVo;
 import com.ship.vo.MsgDoctorNameVo;
+import com.ship.vo.MsgVo;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public interface IMsgService extends IService<Msg> {
     /**
      * 查询特定用户与医生对话
      */
-    List<MsgDto> getADoctor(Long clientId, Long doctorId);
+    List<MsgVo> getADoctor(Long clientId, Long doctorId);
 
     /**
      * 用户谈过话的医生
@@ -41,7 +41,7 @@ public interface IMsgService extends IService<Msg> {
     /**
      * 查询特定医生与用户对话
      */
-    List<MsgDto> getAClient(Long doctorId, Long clientId);
+    List<MsgVo> getAClient(Long doctorId, Long clientId);
 
     /**
      * 医生谈过话的用户
