@@ -1,12 +1,11 @@
 package com.ship.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ship.dto.MsgDto;
 import com.ship.entity.Msg;
 import com.ship.mapper.MsgMapper;
 import com.ship.service.IMsgService;
-import com.ship.vo.MsgClientNameVo;
-import com.ship.vo.MsgDoctorNameVo;
+import com.ship.vo.MsgNameVo;
+import com.ship.vo.MsgVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,12 +27,12 @@ public class MsgServiceImpl extends ServiceImpl<MsgMapper, Msg> implements IMsgS
     }
 
     @Override
-    public List<MsgDto> getADoctor(Long clientId, Long doctorId) {
+    public List<MsgVo> getADoctor(Long clientId, Long doctorId) {
         return baseMapper.getADoctor(clientId, doctorId);
     }
 
     @Override
-    public List<MsgDoctorNameVo> getDoctorGroup(Long clientId, Long doctorId) {
+    public List<MsgNameVo> getDoctorGroup(Long clientId, Long doctorId) {
         return baseMapper.getDoctorGroup(clientId, doctorId);
     }
 
@@ -43,12 +42,12 @@ public class MsgServiceImpl extends ServiceImpl<MsgMapper, Msg> implements IMsgS
     }
 
     @Override
-    public List<MsgDto> getAClient(Long doctorId, Long clientId) {
+    public List<MsgVo> getAClient(Long doctorId, Long clientId) {
         return baseMapper.getAClient(doctorId,clientId);
     }
 
     @Override
-    public List<MsgClientNameVo> getClientGroup(Long doctorId, Long clientId) {
+    public List<MsgNameVo> getClientGroup(Long doctorId, Long clientId) {
         return baseMapper.getClientGroup(doctorId,clientId);
     }
 }
