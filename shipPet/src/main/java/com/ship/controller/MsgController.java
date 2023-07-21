@@ -6,8 +6,7 @@ import com.ship.entity.Doctor;
 import com.ship.entity.Msg;
 import com.ship.service.IMsgService;
 import com.ship.util.UserUtil;
-import com.ship.vo.MsgClientNameVo;
-import com.ship.vo.MsgDoctorNameVo;
+import com.ship.vo.MsgNameVo;
 import com.ship.vo.MsgVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +55,7 @@ public class MsgController {
      * 用户：查询用户谈过话的医生
      */
     @GetMapping("/group")
-    public List<MsgDoctorNameVo> getDoctorGroup(Long doctorId) {
+    public List<MsgNameVo> getDoctorGroup(Long doctorId) {
         if (UserUtil.getUser() instanceof Client client)
             return msgService.getDoctorGroup(client.getClientId(), doctorId);
         return null;
@@ -99,7 +98,7 @@ public class MsgController {
      * 医生：医生谈过话的用户
      */
     @GetMapping("/d/group")
-    public List<MsgClientNameVo> getClientGroup(Long clientId) {
+    public List<MsgNameVo> getClientGroup(Long clientId) {
         if (UserUtil.getUser() instanceof Doctor doctor)
             return msgService.getClientGroup(doctor.getDoctorId(), clientId);
         return null;

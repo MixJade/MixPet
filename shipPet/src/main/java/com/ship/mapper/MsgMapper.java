@@ -2,8 +2,7 @@ package com.ship.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ship.entity.Msg;
-import com.ship.vo.MsgClientNameVo;
-import com.ship.vo.MsgDoctorNameVo;
+import com.ship.vo.MsgNameVo;
 import com.ship.vo.MsgVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -33,7 +32,7 @@ public interface MsgMapper extends BaseMapper<Msg> {
     /**
      * 查询与用户有过联系的医生
      */
-    List<MsgDoctorNameVo> getDoctorGroup(@Param("clientId") Long clientId, @Param("doctorId") Long doctorId);
+    List<MsgNameVo> getDoctorGroup(@Param("clientId") Long clientId, @Param("doctorId") Long doctorId);
 
     /**
      * 查询医生最近谈话的用户
@@ -48,5 +47,5 @@ public interface MsgMapper extends BaseMapper<Msg> {
     /**
      * 医生谈过话的用户
      */
-    List<MsgClientNameVo> getClientGroup(@Param("doctorId") Long doctorId, @Param("clientId") Long clientId);
+    List<MsgNameVo> getClientGroup(@Param("doctorId") Long doctorId, @Param("clientId") Long clientId);
 }
