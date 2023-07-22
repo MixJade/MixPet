@@ -15,11 +15,24 @@
     </select>
     <!--查询被寄养宠物信息-->
     <select id="fosterPet" resultType="com.ship.dto.FosterPetDto">
-        select
-            foster_id, foster_code,a.pet_id, a.client_id, foster_term, foster_money, foster_info,
-            b.pet_name,b.pet_variety, b.pet_sex, b.pet_age, b.pet_status, b.pet_info, b.pet_photo,
-            c.client_name
-        FROM foster as a,pet as b,client as c
+        SELECT foster_id,
+               foster_code,
+               a.pet_id,
+               a.client_id,
+               foster_term,
+               foster_money,
+               foster_info,
+               b.pet_name,
+               b.pet_variety,
+               b.pet_sex,
+               b.pet_age,
+               b.pet_status,
+               b.pet_info,
+               b.pet_photo,
+               c.client_name
+        FROM foster AS a,
+             pet AS b,
+             client AS c
         WHERE a.is_del = '0'
           AND a.pet_id = b.pet_id
           AND a.client_id = c.client_id

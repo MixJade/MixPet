@@ -1,0 +1,19 @@
+/*卡片横向溢出时，有滚动条*/
+.el-card {
+    overflow-x: auto;
+}
+
+/* 对除了第一个class以外的所有class执行的样式 */
+.el-card:not(:first-child) {
+    margin-top: 9px;
+}
+
+/* 个人中心的展示页面 */
+.one-basePage {
+    position: absolute;
+    width: 50vw;
+    left: 25vw;
+    top: 15vh;
+    background-color: whitesmoke;
+    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5);
+}
