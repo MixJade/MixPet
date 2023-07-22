@@ -1,0 +1,26 @@
+{
+  "name": "ship-ui",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --open --mode dev",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
+    "axios": "^1.4.0",
+    "element-plus": "^2.3.6",
+    "vue": "^3.2.47"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "@vitejs/plugin-vue": "^4.1.0",
+    "sass": "^1.63.3",
+    "typescript": "^5.0.2",
+    "vite": "^4.3.9",
+    "vue-router": "^4.2.2",
+    "vue-tsc": "^1.4.2"
+  }
+}

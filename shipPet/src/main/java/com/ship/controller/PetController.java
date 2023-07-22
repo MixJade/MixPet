@@ -1,6 +1,5 @@
 package com.ship.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.PhotoEnum;
 import com.ship.common.Result;
@@ -52,9 +51,9 @@ public class PetController {
     @GetMapping("/clientOne")
     public List<Pet> getByClientOne() {
         if (UserUtil.getUser() instanceof Client client) {
-            var queryWrapper = new LambdaQueryWrapper<Pet>();
-            queryWrapper.eq(Pet::getClientId, client.getClientId());
-            return petService.list(queryWrapper);
+            return petService.lambdaQuery()
+                    .eq(Pet::getClientId, client.getClientId())
+                    .list();
         } else return null;
     }
 
