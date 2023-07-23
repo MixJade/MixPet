@@ -35,12 +35,13 @@ public interface IAdoptService extends IService<Adopt> {
     /**
      * 分页查询
      *
-     * @param adoptCode 订单编码
-     * @param numPage   当前页码
-     * @param pageSize  当前一页的最大条数
+     * @param clientName 用户名
+     * @param petName    宠物名
+     * @param numPage    当前页码
+     * @param pageSize   当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    IPage<AdoptDto> selectByPage(String adoptCode, int numPage, int pageSize);
+    IPage<AdoptDto> selectByPage(String clientName, String petName, int numPage, int pageSize);
 
     /**
      * 审核通过之后更新相应宠物表

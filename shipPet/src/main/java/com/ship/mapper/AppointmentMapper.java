@@ -20,8 +20,6 @@ import java.util.List;
  */
 @Mapper
 public interface AppointmentMapper extends BaseMapper<Appointment> {
-    int selectAppointmentCount(@Param("seaName") String seaName, @Param("seaType") int seaType);
-
     IPage<AppointmentDto> selectAppointmentPage(IPage<AppointmentDto> page, @Param("seaName") String seaName, @Param("seaType") int seaType);
 
     /**

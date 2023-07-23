@@ -10,10 +10,12 @@
         ON a.client_id=b.client_id
         WHERE a.is_del='0'
         <if test="petName!=null and petName!=''">
-            and pet_name like "%"#{petName}"%"
+            <bind name="petName" value="'%'+petName+'%'"/>
+            and pet_name like #{petName}
         </if>
         <if test="clientName!=null and clientName!=''">
-            and b.client_name like "%"#{clientName}"%"
+            <bind name="clientName" value="'%'+clientName+'%'"/>
+            and b.client_name like #{clientName}
         </if>
     </select>
     <!--查询:主页待领养-->

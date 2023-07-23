@@ -8,8 +8,9 @@
         FROM employee
         WHERE is_del='0'
         <if test="employeeName!=null and employeeName!=''">
-            and employee_name like "%"#{employeeName}"%"
+            <bind name="employeeName" value="'%'+employeeName+'%'"/>
+            and employee_name like #{employeeName}
         </if>
-        order by employee_level desc
+        ORDER BY employee_level DESC
     </select>
 </mapper>

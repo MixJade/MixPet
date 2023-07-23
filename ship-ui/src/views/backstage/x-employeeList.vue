@@ -1,9 +1,9 @@
 <template>
   <!--操作框-->
-  <BackOpCol role="管理员" @query="queryB" @addRole="addRoleB" @delBatch="delBatchB">
+  <BackOpCol role="管理员" @query="sendQuery" @addRole="addRoleB" @delBatch="delBatchB">
     <el-input v-model="qp.employeeName" placeholder="管理员姓名" size="large"/>
   </BackOpCol>
-  <p></p>
+
   <!--列表展示-->
   <el-table :data="employeeList.records"
             stripe
@@ -13,7 +13,9 @@
             @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="30"/>
     <el-table-column label="图像">
-      <el-avatar src="/picture/lei-jun.jpg"/>
+      <template #default="scope">
+        <el-avatar :src="'/api/common/download?name='+scope.row.employeePhoto"/>
+      </template>
     </el-table-column>
     <el-table-column prop="employeeUsername" label="账号"/>
     <el-table-column prop="employeeName" label="姓名"/>
@@ -33,19 +35,8 @@
       </el-button-group>
     </el-table-column>
   </el-table>
-  <p></p>
   <!--分页条-->
-  <el-pagination
-      background
-      layout="total, sizes,prev, pager, next"
-      hide-on-single-page
-      :page-sizes="[7, 10, 13, 16]"
-      :page-size="qp.pageSize"
-      :current-page="qp.numPage"
-      :total="employeeList.total"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-  />
+  <BackPage :total="employeeList.total" @changePu="changePuB"/>
   <!--修改、新增时的模态框-->
   <el-dialog v-model="modalView" :title="modalTit" width="30%" draggable>
     <span>It's a draggable Dialog</span>
@@ -61,25 +52,26 @@
 </template>
 
 <script setup lang="ts">
-import {reactive, ref} from 'vue'
+import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";
-import {XEmployeeList} from "@/modal/VO/BackQuery";
+import BackPage from "@/components/BackPage.vue";
+import {PageQuery, XEmployeeList} from "@/modal/VO/BackQuery";
 import {getDaysFromToday} from "@/utils/TimeUtil";
 import {getJob} from "@/utils/JobUtil";
 import {Employee} from "@/modal/entiy/Employee";
-import {exampleEmployeeBack} from "@/modal/entiy/Employee";
+import {reqEmployeeList} from "@/request/EmployeeApi";
+import {Page} from "@/modal/DO/Page";
 
+onMounted(() => {
+  sendQuery()
+})
 // 查询的参数
 const qp: XEmployeeList = reactive({
   employeeName: '',
   numPage: 1,
   pageSize: 7
 })
-const queryB = (): void => {
-  console.log("查询,参数1", qp.employeeName)
-  sendQuery()
-}
 const addRoleB = (): void => {
   console.log("添加管理员")
   modalTit.value = "新增管理员"
@@ -89,7 +81,7 @@ const delBatchB = (): void => {
   console.log("批量删除")
 }
 // 列表展示
-const employeeList = reactive(exampleEmployeeBack())
+const employeeList = ref<Page<Employee>>({records: [], total: 0})
 // 多选与反选
 const roleIdList = ref<number[]>([])
 const handleSelectionChange = (val: Employee[]): void => {
@@ -97,18 +89,16 @@ const handleSelectionChange = (val: Employee[]): void => {
   console.log(roleIdList.value)
 }
 // 分页条
-const handleSizeChange = (val: number) => {
-  console.log(`${val} items per page`)
-  sendQuery()
-}
-const handleCurrentChange = (val: number) => {
-  console.log(`current page: ${val}`)
+const changePuB = (val: PageQuery) => {
+  qp.numPage = val.numPage
+  qp.pageSize = val.pageSize
   sendQuery()
 }
 // 数据总览
 const sendQuery = (): void => {
-  console.log(`当前的页面参数，
-  页码：${qp.numPage},大小：${qp.pageSize}`)
+  reqEmployeeList(qp).then(res => {
+    employeeList.value = res
+  })
 }
 // 模态框
 const modalView = ref(false)

@@ -45,9 +45,7 @@ public class PetServiceImpl extends ServiceImpl<PetMapper, Pet> implements IPetS
 
     @Override
     public IPage<PetDto> selectByPage(String petName, String clientName, int numPage, int pageSize) {
-        IPage<PetDto> petDtoIPage = baseMapper.selectPetPage(new Page<>(numPage, pageSize), petName, clientName);
-        System.out.println(petDtoIPage);
-        return petDtoIPage;
+        return baseMapper.selectPetPage(new Page<>(numPage, pageSize), petName, clientName);
     }
 
     @Override

@@ -32,7 +32,7 @@
 import {AppointDto} from "@/modal/DO/AppointDto";
 import {moveT} from "@/utils/TimeUtil";
 import {onMounted, ref} from "vue";
-import {reqClientAppoint} from "@/request/Appoint";
+import {reqClientAppoint} from "@/request/AppointApi";
 
 const appointList = ref<AppointDto[]>([])
 onMounted(() => {

@@ -8,7 +8,8 @@
         FROM department
         WHERE is_del='0'
         <if test="departmentName!=null and departmentName!=''">
-            and department_name like "%"#{departmentName}"%"
+            <bind name="departmentName" value="'%'+departmentName+'%'"/>
+            and department_name like #{departmentName}
         </if>
     </select>
 </mapper>

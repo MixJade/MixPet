@@ -10,10 +10,12 @@
         ON a.department_id=b.department_id
         WHERE a.is_del='0'
         <if test="doctorName!=null and doctorName!=''">
-            and doctor_name like "%"#{doctorName}"%"
+            <bind name="doctorName" value="'%'+doctorName+'%'"/>
+            and doctor_name like #{doctorName}
         </if>
         <if test="departmentName!=null and departmentName!=''">
-            and b.department_name like "%"#{departmentName}"%"
+            <bind name="departmentName" value="'%'+departmentName+'%'"/>
+            and b.department_name like #{departmentName}
         </if>
     </select>
     <!--根据id查询单个-->

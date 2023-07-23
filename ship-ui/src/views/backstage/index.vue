@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-aside width="200px">
-      <el-avatar src="/picture/lei-jun.jpg"/>
+      <el-avatar :src="'/api/common/download?name='+employeeNow.photo"/>
       <el-menu
           active-text-color="#ffd04b"
           background-color="#545c64"
@@ -16,7 +16,7 @@
             </el-icon>
             <span>个人中心</span>
           </template>
-          <el-menu-item-group :title="this.$route.path">
+          <el-menu-item-group :title="employeeNow.name">
             <el-menu-item index="/backstage">个人资料</el-menu-item>
             <el-menu-item index="/backstage/x-departmentList">部门列表</el-menu-item>
             <el-menu-item index="/backstage/x-employeeList">员工列表</el-menu-item>
@@ -77,7 +77,17 @@ import {
   User, Football, Tickets, DataBoard, OfficeBuilding, School, Apple,
   Menu as IconMenu,
 } from '@element-plus/icons-vue'
+import {reqGetLoginE} from "@/request/EmployeeApi";
+import {reactive} from "vue";
 
+const employeeNow = reactive({
+  name: "",
+  photo: "zs.jpg"
+})
+reqGetLoginE().then(res => {
+  employeeNow.photo = res.employeePhoto
+  employeeNow.name = res.employeeName
+})
 </script>
 
 <style scoped lang="scss">

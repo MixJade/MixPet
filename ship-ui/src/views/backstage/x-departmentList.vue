@@ -1,9 +1,9 @@
 <template>
   <!--操作框-->
-  <BackOpCol role="部门" @query="queryB" @addRole="addRoleB" @delBatch="delBatchB">
+  <BackOpCol role="部门" @query="sendQuery" @addRole="addRoleB" @delBatch="delBatchB">
     <el-input v-model="qp.departmentName" placeholder="部门名" size="large"/>
   </BackOpCol>
-  <p></p>
+
   <!--列表展示-->
   <el-table :data="departmentList.records"
             stripe
@@ -22,19 +22,8 @@
       </el-button-group>
     </el-table-column>
   </el-table>
-  <p></p>
   <!--分页条-->
-  <el-pagination
-      background
-      layout="total, sizes,prev, pager, next"
-      hide-on-single-page
-      :page-sizes="[7, 10, 13, 16]"
-      :page-size="qp.pageSize"
-      :current-page="qp.numPage"
-      :total="departmentList.total"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-  />
+  <BackPage :total="departmentList.total" @changePu="changePuB"/>
   <!--修改、新增时的模态框-->
   <el-dialog v-model="modalView" :title="modalTit" width="30%" draggable>
     <span>It's a draggable Dialog</span>
@@ -50,23 +39,24 @@
 </template>
 
 <script setup lang="ts">
-import {reactive, ref} from 'vue'
+import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";
-import {XDepartmentList} from "@/modal/VO/BackQuery";
+import BackPage from "@/components/BackPage.vue";
+import {PageQuery, XDepartmentList} from "@/modal/VO/BackQuery";
 import {Department} from "@/modal/entiy/Department";
-import {exampleDepartBack} from "@/modal/entiy/Department";
+import {reqDepartList} from "@/request/DepartApi";
+import {Page} from "@/modal/DO/Page";
 
+onMounted(() => {
+  sendQuery()
+})
 // 查询的参数
 const qp: XDepartmentList = reactive({
   departmentName: '',
   numPage: 1,
   pageSize: 7
 })
-const queryB = (): void => {
-  console.log("查询,参数1", qp.departmentName)
-  sendQuery()
-}
 const addRoleB = (): void => {
   console.log("添加部门")
   modalTit.value = "新增部门"
@@ -76,7 +66,7 @@ const delBatchB = (): void => {
   console.log("批量删除")
 }
 // 列表展示
-const departmentList = reactive(exampleDepartBack())
+const departmentList = ref<Page<Department>>({records: [], total: 0})
 // 多选与反选
 const roleIdList = ref<number[]>([])
 const handleSelectionChange = (val: Department[]): void => {
@@ -84,18 +74,16 @@ const handleSelectionChange = (val: Department[]): void => {
   console.log(roleIdList.value)
 }
 // 分页条
-const handleSizeChange = (val: number) => {
-  console.log(`${val} items per page`)
-  sendQuery()
-}
-const handleCurrentChange = (val: number) => {
-  console.log(`current page: ${val}`)
+const changePuB = (val: PageQuery) => {
+  qp.numPage = val.numPage
+  qp.pageSize = val.pageSize
   sendQuery()
 }
 // 数据总览
 const sendQuery = (): void => {
-  console.log(`当前的页面参数，
-  页码：${qp.numPage},大小：${qp.pageSize}`)
+  reqDepartList(qp).then(res => {
+    departmentList.value = res
+  })
 }
 // 模态框
 const modalView = ref(false)

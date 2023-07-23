@@ -1,10 +1,9 @@
 <template>
   <!--操作框-->
-  <BackOpCol role="寄养" @query="queryB" @addRole="addRoleB" @delBatch="delBatchB">
-    <el-input v-model="qp.petName" placeholder="申请人" size="large"/>
-    <el-input v-model="qp.clientName" placeholder="宠物名" size="large"/>
+  <BackOpCol role="寄养" @query="sendQuery" @addRole="addRoleB" @delBatch="delBatchB">
+    <el-input v-model="qp.petName" placeholder="宠物名" size="large"/>
+    <el-input v-model="qp.clientName" placeholder="寄养人" size="large"/>
   </BackOpCol>
-  <p></p>
   <!--列表展示-->
   <el-table :data="fosterList.records"
             stripe
@@ -32,19 +31,8 @@
       </el-button-group>
     </el-table-column>
   </el-table>
-  <p></p>
   <!--分页条-->
-  <el-pagination
-      background
-      layout="total, sizes,prev, pager, next"
-      hide-on-single-page
-      :page-sizes="[7, 10, 13, 16]"
-      :page-size="qp.pageSize"
-      :current-page="qp.numPage"
-      :total="fosterList.total"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-  />
+  <BackPage :total="fosterList.total" @changePu="changePuB"/>
   <!--修改、新增时的模态框-->
   <el-dialog v-model="modalView" :title="modalTit" width="30%" draggable>
     <span>It's a draggable Dialog</span>
@@ -60,13 +48,19 @@
 </template>
 
 <script setup lang="ts">
-import {reactive, ref} from 'vue'
+import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";
-import {YFosterList} from "@/modal/VO/BackQuery";
+import BackPage from "@/components/BackPage.vue";
+import {PageQuery, YFosterList} from "@/modal/VO/BackQuery";
 import {Foster} from "@/modal/entiy/Foster";
-import {exampleFosterBack} from "@/modal/DO/FosterDto";
+import {FosterDto} from "@/modal/DO/FosterDto";
+import {Page} from "@/modal/DO/Page";
+import {reqFosterList} from "@/request/FosterApi";
 
+onMounted(() => {
+  sendQuery()
+})
 // 查询的参数
 const qp: YFosterList = reactive({
   petName: '',
@@ -74,9 +68,6 @@ const qp: YFosterList = reactive({
   numPage: 1,
   pageSize: 7
 })
-const queryB = (): void => {
-  sendQuery()
-}
 const addRoleB = (): void => {
   console.log("添加寄养")
   modalTit.value = "新增寄养"
@@ -86,7 +77,7 @@ const delBatchB = (): void => {
   console.log("批量删除")
 }
 // 列表展示
-const fosterList = reactive(exampleFosterBack())
+const fosterList = ref<Page<FosterDto>>({records: [], total: 0})
 // 多选与反选
 const roleIdList = ref<number[]>([])
 const handleSelectionChange = (val: Foster[]): void => {
@@ -94,18 +85,16 @@ const handleSelectionChange = (val: Foster[]): void => {
   console.log(roleIdList.value)
 }
 // 分页条
-const handleSizeChange = (val: number) => {
-  console.log(`${val} items per page`)
-  sendQuery()
-}
-const handleCurrentChange = (val: number) => {
-  console.log(`current page: ${val}`)
+const changePuB = (val: PageQuery) => {
+  qp.numPage = val.numPage
+  qp.pageSize = val.pageSize
   sendQuery()
 }
 // 数据总览
 const sendQuery = (): void => {
-  console.log(`当前的页面参数，
-  页码：${qp.numPage},大小：${qp.pageSize}`)
+  reqFosterList(qp).then(res => {
+    fosterList.value = res
+  })
 }
 // 模态框
 const modalView = ref(false)

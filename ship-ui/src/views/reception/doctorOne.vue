@@ -61,7 +61,7 @@ import {DoctorDto} from "@/modal/DO/DoctorDto";
 import {AppointDto} from "@/modal/DO/AppointDto";
 import {onMounted, ref} from "vue";
 import {reqDoctorOne} from "@/request/DoctorApi";
-import {reqDoctorOneA} from "@/request/Appoint";
+import {reqDoctorOneA} from "@/request/AppointApi";
 
 // 如此获取传参
 const props = defineProps<{

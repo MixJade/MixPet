@@ -46,8 +46,8 @@ public class FosterServiceImpl extends ServiceImpl<FosterMapper, Foster> impleme
     }
 
     @Override
-    public IPage<FosterDto> selectByPage(String fosterCode, int numPage, int pageSize) {
-        return baseMapper.selectFosterPage(new Page<>(numPage, pageSize), fosterCode);
+    public IPage<FosterDto> selectByPage(String clientName, String petName, int numPage, int pageSize) {
+        return baseMapper.selectFosterPage(new Page<>(numPage, pageSize), clientName, petName);
     }
 
     @Override

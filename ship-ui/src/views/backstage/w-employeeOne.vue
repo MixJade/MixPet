@@ -1,7 +1,7 @@
 <template>
   <div class="one-basePage">
     <DetailTable
-        role-photo="/picture/lei-jun.jpg"
+        :role-photo="employee['employeePhoto']"
         :tab-con="em"
         @upPwd="updatePwd"
         @upRole="updateRole"
@@ -11,12 +11,27 @@
 
 <script setup lang="ts">
 import DetailTable, {DetailTabType} from "@/components/DetailTable.vue";
-import {Employee, exampleEmployee} from "@/modal/entiy/Employee";
+import {Employee} from "@/modal/entiy/Employee";
 import {getJob} from "@/utils/JobUtil";
 import {getDaysFromToday} from "@/utils/TimeUtil";
 import {computed, reactive} from "vue";
+import {reqGetLoginE} from "@/request/EmployeeApi";
 // 设置展示信息
-const employee: Employee = reactive(exampleEmployee())
+const employee: Employee = reactive({
+  "employeeId": 0,
+  "employeeUsername": "",
+  "employeeName": "",
+  "employeeLevel": 0,
+  "employeeTel": "",
+  "employeePhoto": "zs.jpg",
+  "createTime": ""
+})
+// 发起请求
+reqGetLoginE().then(res => {
+  Object.keys(res).forEach(key => {
+    employee[key] = res[key]
+  })
+})
 const em = computed((): DetailTabType[] => [
   {tit: "账号", con: employee.employeeUsername},
   {tit: "姓名", con: employee.employeeName},

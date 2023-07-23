@@ -1,10 +1,10 @@
 <template>
   <!--操作框-->
-  <BackOpCol role="宠物" @query="queryB" @addRole="addRoleB" @delBatch="delBatchB">
+  <BackOpCol role="宠物" @query="sendQuery" @addRole="addRoleB" @delBatch="delBatchB">
     <el-input v-model="qp.petName" placeholder="宠物姓名" size="large"/>
     <el-input v-model="qp.clientName" placeholder="用户姓名" size="large"/>
   </BackOpCol>
-  <p></p>
+
   <!--列表展示-->
   <el-table :data="petList.records"
             stripe
@@ -14,7 +14,9 @@
             @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="30"/>
     <el-table-column label="图像">
-      <el-avatar src="/picture/pet-ex.jpg"/>
+      <template #default="scope">
+        <el-avatar :src="'/api/common/download?name='+scope.row.petPhoto"/>
+      </template>
     </el-table-column>
     <el-table-column prop="petName" label="宠物名"/>
     <el-table-column label="品种">
@@ -44,19 +46,8 @@
       </el-button-group>
     </el-table-column>
   </el-table>
-  <p></p>
   <!--分页条-->
-  <el-pagination
-      background
-      layout="total, sizes,prev, pager, next"
-      hide-on-single-page
-      :page-sizes="[7, 10, 13, 16]"
-      :page-size="qp.pageSize"
-      :current-page="qp.numPage"
-      :total="petList.total"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-  />
+  <BackPage :total="petList.total" @changePu="changePuB"/>
   <!--修改、新增时的模态框-->
   <el-dialog v-model="modalView" :title="modalTit" width="30%" draggable>
     <span>It's a draggable Dialog</span>
@@ -72,26 +63,28 @@
 </template>
 
 <script setup lang="ts">
-import {reactive, ref} from 'vue'
+import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";
-import {YPetList} from "@/modal/VO/BackQuery";
-import {examplePetBack} from "@/modal/DO/PetDto";
+import {PageQuery, YPetList} from "@/modal/VO/BackQuery";
+import {PetDto} from "@/modal/DO/PetDto";
 import {getAge} from "@/utils/TimeUtil";
 import {Pet} from "@/modal/entiy/Pet";
 import TagSex from "@/components/TagSex.vue";
+import BackPage from "@/components/BackPage.vue";
+import {reqPetList} from "@/request/PetApi";
+import {Page} from "@/modal/DO/Page";
 
+onMounted(() => {
+  sendQuery()
+})
 // 查询的参数
-const qp: YPetList = reactive({
+const qp = reactive<YPetList>({
   petName: '',
   clientName: '',
   numPage: 1,
-  pageSize: 7
+  pageSize: 6
 })
-const queryB = (): void => {
-  console.log("查询，参数1：", qp.petName, "参数2", qp.clientName)
-  sendQuery()
-}
 const addRoleB = (): void => {
   console.log("添加宠物")
   modalTit.value = "新增宠物"
@@ -101,7 +94,7 @@ const delBatchB = (): void => {
   console.log("批量删除")
 }
 // 列表展示
-const petList = reactive(examplePetBack())
+const petList = ref<Page<PetDto>>({records: [], total: 0})
 // 多选与反选
 const roleIdList = ref<number[]>([])
 const handleSelectionChange = (val: Pet[]): void => {
@@ -109,19 +102,16 @@ const handleSelectionChange = (val: Pet[]): void => {
   console.log(roleIdList.value)
 }
 // 分页条
-const handleSizeChange = (val: number) => {
-  console.log(`${val} items per page`)
-  sendQuery()
-}
-const handleCurrentChange = (val: number) => {
-  console.log(`current page: ${val}`)
+const changePuB = (val: PageQuery) => {
+  qp.numPage = val.numPage
+  qp.pageSize = val.pageSize
   sendQuery()
 }
 // 数据总览
 const sendQuery = (): void => {
-  console.log(`当前的页面参数，
-  用户名：${qp.clientName},宠物：${qp.petName},
-  页码：${qp.numPage},大小：${qp.pageSize}`)
+  reqPetList(qp).then(res => {
+    petList.value = res
+  })
 }
 // 模态框
 const modalView = ref(false)

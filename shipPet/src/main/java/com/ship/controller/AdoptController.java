@@ -35,8 +35,8 @@ public class AdoptController {
     }
 
     @GetMapping("/page")
-    public IPage<AdoptDto> getPage(int numPage, int pageSize, String adoptName) {
-        return adoptService.selectByPage(adoptName, numPage, pageSize);
+    public IPage<AdoptDto> getPage(int numPage, int pageSize, String clientName, String petName) {
+        return adoptService.selectByPage(clientName, petName, numPage, pageSize);
     }
 
     /**
