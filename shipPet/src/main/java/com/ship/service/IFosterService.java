@@ -36,12 +36,13 @@ public interface IFosterService extends IService<Foster> {
     /**
      * 分页查询
      *
-     * @param fosterCode 订单编码
+     * @param clientName 用户名
+     * @param petName    宠物名
      * @param numPage    当前页码
      * @param pageSize   当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    IPage<FosterDto> selectByPage(String fosterCode, int numPage, int pageSize);
+    IPage<FosterDto> selectByPage(String clientName, String petName, int numPage, int pageSize);
 
     /**
      * 用户前台：查询被寄养宠物信息

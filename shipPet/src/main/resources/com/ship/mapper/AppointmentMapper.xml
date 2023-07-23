@@ -27,6 +27,7 @@
         AND a.department_id = d.department_id
         AND a.doctor_id = e.doctor_id
         <if test="seaName!=null and seaName!=''">
+            <bind name="seaName" value="'%'+seaName+'%'"/>
             <choose>
                 <when test="seaType==0">
                     and b.client_name like #{seaName}
@@ -106,6 +107,6 @@
           AND a.pet_id = c.pet_id
           AND a.department_id = d.department_id
           AND a.doctor_id = #{doctorId}
-        order by a.is_suc,appointment_date desc
+        order by a.is_suc, appointment_date desc
     </select>
 </mapper>

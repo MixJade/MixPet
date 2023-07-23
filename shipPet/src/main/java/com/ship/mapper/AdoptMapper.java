@@ -18,7 +18,7 @@ import org.apache.ibatis.annotations.Select;
  */
 @Mapper
 public interface AdoptMapper extends BaseMapper<Adopt> {
-    IPage<AdoptDto> selectAdoptPage(IPage<AdoptDto> page, @Param("adoptCode") String adoptCode);
+    IPage<AdoptDto> selectAdoptPage(IPage<AdoptDto> page, @Param("clientName") String clientName, @Param("petName") String petName);
 
     @Select("select max(adopt_id) from adopt")
     Long getMaxId();

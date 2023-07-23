@@ -1,10 +1,10 @@
 <template>
   <!--操作框-->
-  <BackOpCol role="领养" @query="queryB" @addRole="addRoleB" @delBatch="delBatchB">
-    <el-input v-model="qp.petName" placeholder="申请人" size="large"/>
-    <el-input v-model="qp.clientName" placeholder="宠物名" size="large"/>
+  <BackOpCol role="领养" @query="sendQuery" @addRole="addRoleB" @delBatch="delBatchB">
+    <el-input v-model="qp.clientName" placeholder="申请人" size="large"/>
+    <el-input v-model="qp.petName" placeholder="宠物名" size="large"/>
   </BackOpCol>
-  <p></p>
+
   <!--列表展示-->
   <el-table :data="adoptList.records"
             stripe
@@ -27,25 +27,18 @@
       </template>
     </el-table-column>
     <el-table-column fixed="right" label="操作">
-      <el-button-group>
-        <el-button type="warning" :icon="Edit" @click="showDialog" circle/>
-        <el-button type="danger" :icon="Delete" circle/>
-      </el-button-group>
+      <template #default="scope">
+        <el-button-group>
+          <el-button v-if="scope.row.inAdopt===2" type="success" :icon="Check" circle/>
+          <el-button v-if="scope.row.inAdopt===2" type="info" :icon="Close" circle/>
+          <el-button v-if="scope.row.inAdopt===1" type="warning" :icon="Edit" @click="showDialog" circle/>
+          <el-button type="danger" :icon="Delete" circle/>
+        </el-button-group>
+      </template>
     </el-table-column>
   </el-table>
-  <p></p>
   <!--分页条-->
-  <el-pagination
-      background
-      layout="total, sizes,prev, pager, next"
-      hide-on-single-page
-      :page-sizes="[7, 10, 13, 16]"
-      :page-size="qp.pageSize"
-      :current-page="qp.numPage"
-      :total="adoptList.total"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-  />
+  <BackPage :total="adoptList.total" @changePu="changePuB"/>
   <!--修改、新增时的模态框-->
   <el-dialog v-model="modalView" :title="modalTit" width="30%" draggable>
     <span>It's a draggable Dialog</span>
@@ -61,24 +54,27 @@
 </template>
 
 <script setup lang="ts">
-import {reactive, ref} from 'vue'
-import {Delete, Edit} from '@element-plus/icons-vue'
+import {onMounted, reactive, ref} from 'vue'
+import {Delete, Close, Check, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";
-import {YAdoptList} from "@/modal/VO/BackQuery";
+import BackPage from "@/components/BackPage.vue";
+import {PageQuery, YAdoptList} from "@/modal/VO/BackQuery";
 import {Adopt} from "@/modal/entiy/Adopt";
-import {exampleAdoptBack} from "@/modal/DO/AdoptDto";
+import {AdoptDto} from "@/modal/DO/AdoptDto";
 import {moveT} from "@/utils/TimeUtil";
+import {reqAdoptList} from "@/request/AdoptApi";
+import {Page} from "@/modal/DO/Page";
 
+onMounted(() => {
+  sendQuery()
+})
 // 查询的参数
 const qp: YAdoptList = reactive({
   petName: '',
   clientName: '',
   numPage: 1,
-  pageSize: 7
+  pageSize: 6
 })
-const queryB = (): void => {
-  sendQuery()
-}
 const addRoleB = (): void => {
   console.log("添加领养")
   modalTit.value = "新增领养"
@@ -88,7 +84,7 @@ const delBatchB = (): void => {
   console.log("批量删除")
 }
 // 列表展示
-const adoptList = reactive(exampleAdoptBack())
+const adoptList = ref<Page<AdoptDto>>({records: [], total: 0})
 const removeT = (row: Adopt) => {
   return moveT(row.createTime)
 }
@@ -99,18 +95,16 @@ const handleSelectionChange = (val: Adopt[]): void => {
   console.log(roleIdList.value)
 }
 // 分页条
-const handleSizeChange = (val: number) => {
-  console.log(`${val} items per page`)
-  sendQuery()
-}
-const handleCurrentChange = (val: number) => {
-  console.log(`current page: ${val}`)
+const changePuB = (val: PageQuery) => {
+  qp.numPage = val.numPage
+  qp.pageSize = val.pageSize
   sendQuery()
 }
 // 数据总览
 const sendQuery = (): void => {
-  console.log(`当前的页面参数，
-  页码：${qp.numPage},大小：${qp.pageSize}`)
+  reqAdoptList(qp).then(res => {
+    adoptList.value = res
+  })
 }
 // 模态框
 const modalView = ref(false)

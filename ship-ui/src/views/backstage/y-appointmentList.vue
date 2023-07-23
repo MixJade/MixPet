@@ -1,15 +1,15 @@
 <template>
   <!--操作框-->
-  <BackOpCol role="挂号" @query="queryB" @addRole="addRoleB" @delBatch="delBatchB">
+  <BackOpCol role="挂号" @query="sendQuery" @addRole="addRoleB" @delBatch="delBatchB">
     <el-select v-model="qp.seaType" placeholder="Select" size="large">
-      <el-option label="医生" :value="0"/>
-      <el-option label="科室" :value="1"/>
-      <el-option label="挂号人" :value="2"/>
-      <el-option label="宠物" :value="3"/>
+      <el-option label="挂号人" :value="0"/>
+      <el-option label="宠物" :value="1"/>
+      <el-option label="医生" :value="2"/>
+      <el-option label="科室" :value="3"/>
     </el-select>
     <el-input v-model="qp.seaName" placeholder="名称" size="large"/>
   </BackOpCol>
-  <p></p>
+
   <!--列表展示-->
   <el-table :data="appointList.records"
             stripe
@@ -36,19 +36,8 @@
       </el-button-group>
     </el-table-column>
   </el-table>
-  <p></p>
   <!--分页条-->
-  <el-pagination
-      background
-      layout="total, sizes,prev, pager, next"
-      hide-on-single-page
-      :page-sizes="[7, 10, 13, 16]"
-      :page-size="qp.pageSize"
-      :current-page="qp.numPage"
-      :total="appointList.total"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-  />
+  <BackPage :total="appointList.total" @changePu="changePuB"/>
   <!--修改、新增时的模态框-->
   <el-dialog v-model="modalView" :title="modalTit" width="30%" draggable>
     <span>It's a draggable Dialog</span>
@@ -64,13 +53,19 @@
 </template>
 
 <script setup lang="ts">
-import {reactive, ref} from 'vue'
+import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";
-import {YAppointList} from "@/modal/VO/BackQuery";
+import BackPage from "@/components/BackPage.vue";
+import {PageQuery, YAppointList} from "@/modal/VO/BackQuery";
 import {Appoint} from "@/modal/entiy/Appoint";
-import {exampleAppointBack} from "@/modal/DO/AppointDto";
+import {AppointDto} from "@/modal/DO/AppointDto";
+import {reqAppointList} from "@/request/AppointApi";
+import {Page} from "@/modal/DO/Page";
 
+onMounted(() => {
+  sendQuery()
+})
 // 查询的参数
 const qp: YAppointList = reactive({
   seaName: '',
@@ -78,9 +73,6 @@ const qp: YAppointList = reactive({
   numPage: 1,
   pageSize: 7
 })
-const queryB = (): void => {
-  sendQuery()
-}
 const addRoleB = (): void => {
   console.log("添加挂号")
   modalTit.value = "新增挂号"
@@ -90,7 +82,7 @@ const delBatchB = (): void => {
   console.log("批量删除")
 }
 // 列表展示
-const appointList = reactive(exampleAppointBack())
+const appointList = ref<Page<AppointDto>>({records: [], total: 0})
 // 多选与反选
 const roleIdList = ref<number[]>([])
 const handleSelectionChange = (val: Appoint[]): void => {
@@ -98,19 +90,16 @@ const handleSelectionChange = (val: Appoint[]): void => {
   console.log(roleIdList.value)
 }
 // 分页条
-const handleSizeChange = (val: number) => {
-  console.log(`${val} items per page`)
-  sendQuery()
-}
-const handleCurrentChange = (val: number) => {
-  console.log(`current page: ${val}`)
+const changePuB = (val: PageQuery) => {
+  qp.numPage = val.numPage
+  qp.pageSize = val.pageSize
   sendQuery()
 }
 // 数据总览
 const sendQuery = (): void => {
-  console.log(`当前的页面参数，
-  种类：${qp.seaType}},参数：${qp.seaName}
-  页码：${qp.numPage},大小：${qp.pageSize}`)
+  reqAppointList(qp).then(res => {
+    appointList.value = res
+  })
 }
 // 模态框
 const modalView = ref(false)

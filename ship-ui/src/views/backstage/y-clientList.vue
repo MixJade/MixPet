@@ -1,9 +1,9 @@
 <template>
   <!--操作框-->
-  <BackOpCol role="用户" @query="queryB" @addRole="addRoleB" @delBatch="delBatchB">
+  <BackOpCol role="用户" @query="sendQuery" @addRole="addRoleB" @delBatch="delBatchB">
     <el-input v-model="qp.clientName" placeholder="用户姓名" size="large"/>
   </BackOpCol>
-  <p></p>
+
   <!--列表展示-->
   <el-table :data="clientList.records"
             stripe
@@ -13,7 +13,9 @@
             @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="30"/>
     <el-table-column label="图像">
-      <el-avatar src="/picture/lei-jun.jpg"/>
+      <template #default="scope">
+        <el-avatar :src="'/api/common/download?name='+scope.row.clientPhoto"/>
+      </template>
     </el-table-column>
     <el-table-column prop="clientName" label="用户名"/>
     <el-table-column prop="clientUsername" label="账号"/>
@@ -34,19 +36,8 @@
       </el-button-group>
     </el-table-column>
   </el-table>
-  <p></p>
   <!--分页条-->
-  <el-pagination
-      background
-      layout="total, sizes,prev, pager, next"
-      hide-on-single-page
-      :page-sizes="[7, 10, 13, 16]"
-      :page-size="qp.pageSize"
-      :current-page="qp.numPage"
-      :total="clientList.total"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-  />
+  <BackPage :total="clientList.total" @changePu="changePuB"/>
   <!--修改、新增时的模态框-->
   <el-dialog v-model="modalView" :title="modalTit" width="30%" draggable>
     <span>It's a draggable Dialog</span>
@@ -62,25 +53,26 @@
 </template>
 
 <script setup lang="ts">
-import {reactive, ref} from 'vue'
+import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";
-import {YClientList} from "@/modal/VO/BackQuery";
+import BackPage from "@/components/BackPage.vue";
+import {PageQuery, YClientList} from "@/modal/VO/BackQuery";
 import {getAge} from "@/utils/TimeUtil";
 import {Client} from "@/modal/entiy/Client";
-import {exampleClientBack} from "@/modal/entiy/Client";
 import TagSex from "@/components/TagSex.vue";
+import {reqClientList} from "@/request/ClientApi";
+import {Page} from "@/modal/DO/Page";
 
+onMounted(() => {
+  sendQuery()
+})
 // 查询的参数
 const qp: YClientList = reactive({
   clientName: '',
   numPage: 1,
-  pageSize: 7
+  pageSize: 6
 })
-const queryB = (): void => {
-  console.log("查询,参数1", qp.clientName)
-  sendQuery()
-}
 const addRoleB = (): void => {
   console.log("添加用户")
   modalTit.value = "新增用户"
@@ -90,7 +82,7 @@ const delBatchB = (): void => {
   console.log("批量删除")
 }
 // 列表展示
-const clientList = reactive(exampleClientBack())
+const clientList = ref<Page<Client>>({records: [], total: 0})
 // 多选与反选
 const roleIdList = ref<number[]>([])
 const handleSelectionChange = (val: Client[]): void => {
@@ -98,19 +90,16 @@ const handleSelectionChange = (val: Client[]): void => {
   console.log(roleIdList.value)
 }
 // 分页条
-const handleSizeChange = (val: number) => {
-  console.log(`${val} items per page`)
-  sendQuery()
-}
-const handleCurrentChange = (val: number) => {
-  console.log(`current page: ${val}`)
+const changePuB = (val: PageQuery) => {
+  qp.numPage = val.numPage
+  qp.pageSize = val.pageSize
   sendQuery()
 }
 // 数据总览
 const sendQuery = (): void => {
-  console.log(`当前的页面参数，
-  用户名：${qp.clientName},
-  页码：${qp.numPage},大小：${qp.pageSize}`)
+  reqClientList(qp).then(res => {
+    clientList.value = res
+  })
 }
 // 模态框
 const modalView = ref(false)

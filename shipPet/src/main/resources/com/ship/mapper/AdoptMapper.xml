@@ -19,9 +19,13 @@
         WHERE a.is_del = '0'
         AND a.pet_id = b.pet_id
         AND a.client_id = c.client_id
-        <if test="adoptCode!=null and adoptCode!=''">
-            <bind name="code" value="'%'+adoptCode+'%'"/>
-            and adopt_code like #{code}
+        <if test="clientName!=null and clientName!=''">
+            <bind name="clientName" value="'%'+clientName+'%'"/>
+            and c.client_name like #{clientName}
+        </if>
+        <if test="petName!=null and petName!=''">
+            <bind name="petName" value="'%'+petName+'%'"/>
+            and b.pet_name like #{petName}
         </if>
         order by create_time desc
     </select>

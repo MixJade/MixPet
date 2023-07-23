@@ -9,8 +9,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-import java.util.List;
-
 /**
  * <p>
  * 寄养表 Mapper 接口
@@ -21,7 +19,7 @@ import java.util.List;
  */
 @Mapper
 public interface FosterMapper extends BaseMapper<Foster> {
-    IPage<FosterDto> selectFosterPage(IPage<FosterDto> page, @Param("fosterCode") String fosterCode);
+    IPage<FosterDto> selectFosterPage(IPage<FosterDto> page, @Param("clientName") String clientName, @Param("petName") String petName);
 
     @Select("select max(foster_id) from foster")
     Long getMaxId();

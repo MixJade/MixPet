@@ -44,8 +44,8 @@ public class AdoptServiceImpl extends ServiceImpl<AdoptMapper, Adopt> implements
     }
 
     @Override
-    public IPage<AdoptDto> selectByPage(String adoptCode, int numPage, int pageSize) {
-        return baseMapper.selectAdoptPage(new Page<>(numPage, pageSize), adoptCode);
+    public IPage<AdoptDto> selectByPage(String clientName, String petName, int numPage, int pageSize) {
+        return baseMapper.selectAdoptPage(new Page<>(numPage, pageSize), clientName, petName);
     }
 
     @Override
