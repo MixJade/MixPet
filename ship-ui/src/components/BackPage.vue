@@ -1,19 +1,19 @@
 <template>
   <p></p>
   <el-pagination
-      background
-      layout="total, sizes,prev, pager, next"
-      hide-on-single-page
-      :page-sizes="[6, 9, 12, 15]"
-      :page-size="pu.pageSize"
       :current-page="pu.numPage"
+      :page-size="pu.pageSize"
+      :page-sizes="[6, 9, 12, 15]"
       :total="total"
+      background
+      hide-on-single-page
+      layout="total, sizes,prev, pager, next"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
   />
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {reactive} from "vue";
 import {PageQuery} from "@/modal/VO/BackQuery";
 

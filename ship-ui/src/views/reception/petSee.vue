@@ -3,17 +3,17 @@
     <PageHead>查看全部宠物</PageHead>
     <el-space direction="vertical">
       <PetCard :card-list="petCardTxt.records"/>
-      <el-pagination background hide-on-single-page layout="total, prev, pager, next"
-                     :current-page="page.numPage"
-                     :page-size="page.pageSize"
-                     :total="petCardTxt.total"
+      <el-pagination :current-page="page.numPage" :page-size="page.pageSize" :total="petCardTxt.total"
+                     background
+                     hide-on-single-page
+                     layout="total, prev, pager, next"
                      @current-change="changePage"
       />
     </el-space>
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 // 宠物的卡片信息
 import {Page} from "@/modal/DO/Page";
 import {Pet} from "@/modal/entiy/Pet";

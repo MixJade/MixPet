@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -182,18 +183,18 @@ public class Client implements Serializable {
     @Override
     public String toString() {
         return "Client{" +
-            "clientId = " + clientId +
-            ", clientUsername = " + clientUsername +
-            ", clientPassword = " + clientPassword +
-            ", clientName = " + clientName +
-            ", clientGender = " + clientGender +
-            ", clientTel = " + clientTel +
-            ", clientAge = " + clientAge +
-            ", clientInfo = " + clientInfo +
-            ", clientPhoto = " + clientPhoto +
-            ", createTime = " + createTime +
-            ", updateTime = " + updateTime +
-            ", isDel = " + isDel +
-        "}";
+                "clientId = " + clientId +
+                ", clientUsername = " + clientUsername +
+                ", clientPassword = " + clientPassword +
+                ", clientName = " + clientName +
+                ", clientGender = " + clientGender +
+                ", clientTel = " + clientTel +
+                ", clientAge = " + clientAge +
+                ", clientInfo = " + clientInfo +
+                ", clientPhoto = " + clientPhoto +
+                ", createTime = " + createTime +
+                ", updateTime = " + updateTime +
+                ", isDel = " + isDel +
+                "}";
     }
 }

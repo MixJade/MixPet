@@ -7,7 +7,7 @@
     <el-main>
       <el-row>
         <!-- 左边div：医生卡片-->
-        <el-col :xs="24" :sm="10" :md="8">
+        <el-col :md="8" :sm="10" :xs="24">
           <div class="left-div">
             <el-avatar :src="'/api/common/download?name='+doctorDetail.doctorPhoto"/>
             <table class="my-show-tab">
@@ -41,12 +41,12 @@
           </div>
         </el-col>
         <!-- 右边div，挂号信息-->
-        <el-col :xs="24" :sm="14" :md="16" style="text-align: center">
+        <el-col :md="16" :sm="14" :xs="24" style="text-align: center">
           <el-table :data="appointDetail" height="300px" stripe style="width: 100%">
-            <el-table-column prop="clientName" label="挂号人"/>
-            <el-table-column prop="petName" label="宠物"/>
-            <el-table-column prop="appointmentInfo" label="描述"/>
-            <el-table-column prop="appointmentDate" label="时间" width="180px"/>
+            <el-table-column label="挂号人" prop="clientName"/>
+            <el-table-column label="宠物" prop="petName"/>
+            <el-table-column label="描述" prop="appointmentInfo"/>
+            <el-table-column label="时间" prop="appointmentDate" width="180px"/>
           </el-table>
         </el-col>
       </el-row>
@@ -54,7 +54,7 @@
   </el-container>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import PageHead from "@/components/PageHead.vue";
 import {getAge, moveT} from "@/utils/TimeUtil";
 import {DoctorDto} from "@/modal/DO/DoctorDto";
@@ -93,7 +93,7 @@ onMounted(() => {
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 /*响应式*/
 @media (min-width: 768px) {
   .base-page {

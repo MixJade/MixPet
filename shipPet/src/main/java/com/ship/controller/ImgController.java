@@ -115,7 +115,7 @@ public class ImgController {
             BufferedImage resized = new BufferedImage(128, 128, subImage.getType());
             Graphics2D g2d = resized.createGraphics();
             boolean drawImage = g2d.drawImage(tmp, 0, 0, null);
-            log.info("转化{}图片{}",formatName, drawImage ? "成功" : "失败");
+            log.info("转化{}图片{}", formatName, drawImage ? "成功" : "失败");
             g2d.dispose();
             // 转化完成，将图片转存回去
             ImageIO.write(resized, formatName, input);

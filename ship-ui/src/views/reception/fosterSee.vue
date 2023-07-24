@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 // 宠物的卡片信息
 import {Page} from "@/modal/DO/Page";
 import {FosterCardDto} from "@/modal/DO/FosterCardDto";

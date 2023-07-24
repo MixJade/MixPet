@@ -10,9 +10,9 @@
   </el-page-header>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 </script>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .el-page-header {
   margin-bottom: 12px;
 }

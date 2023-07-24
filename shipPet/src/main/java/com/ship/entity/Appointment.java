@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -168,17 +169,17 @@ public class Appointment implements Serializable {
     @Override
     public String toString() {
         return "Appointment{" +
-            "appointmentId = " + appointmentId +
-            ", clientId = " + clientId +
-            ", petId = " + petId +
-            ", appointmentDate = " + appointmentDate +
-            ", departmentId = " + departmentId +
-            ", doctorId = " + doctorId +
-            ", appointmentInfo = " + appointmentInfo +
-            ", isSuc = " + isSuc +
-            ", createTime = " + createTime +
-            ", updateTime = " + updateTime +
-            ", isDel = " + isDel +
-        "}";
+                "appointmentId = " + appointmentId +
+                ", clientId = " + clientId +
+                ", petId = " + petId +
+                ", appointmentDate = " + appointmentDate +
+                ", departmentId = " + departmentId +
+                ", doctorId = " + doctorId +
+                ", appointmentInfo = " + appointmentInfo +
+                ", isSuc = " + isSuc +
+                ", createTime = " + createTime +
+                ", updateTime = " + updateTime +
+                ", isDel = " + isDel +
+                "}";
     }
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -156,16 +157,16 @@ public class Foster implements Serializable {
     @Override
     public String toString() {
         return "Foster{" +
-            "fosterId = " + fosterId +
-            ", fosterCode = " + fosterCode +
-            ", petId = " + petId +
-            ", clientId = " + clientId +
-            ", fosterTerm = " + fosterTerm +
-            ", fosterMoney = " + fosterMoney +
-            ", fosterInfo = " + fosterInfo +
-            ", createTime = " + createTime +
-            ", updateTime = " + updateTime +
-            ", isDel = " + isDel +
-        "}";
+                "fosterId = " + fosterId +
+                ", fosterCode = " + fosterCode +
+                ", petId = " + petId +
+                ", clientId = " + clientId +
+                ", fosterTerm = " + fosterTerm +
+                ", fosterMoney = " + fosterMoney +
+                ", fosterInfo = " + fosterInfo +
+                ", createTime = " + createTime +
+                ", updateTime = " + updateTime +
+                ", isDel = " + isDel +
+                "}";
     }
 }

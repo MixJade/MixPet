@@ -3,8 +3,8 @@ package com.ship.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ship.dto.DoctorDto;
-import com.ship.vo.NameVo;
 import com.ship.entity.Doctor;
+import com.ship.vo.NameVo;
 
 import java.util.List;
 

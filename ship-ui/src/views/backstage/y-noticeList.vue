@@ -1,8 +1,8 @@
 <template>
-<h3>公告</h3>
+  <h3>公告</h3>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 </script>
 
 <style scoped>

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -155,16 +156,16 @@ public class Employee implements Serializable {
     @Override
     public String toString() {
         return "Employee{" +
-            "employeeId = " + employeeId +
-            ", employeeUsername = " + employeeUsername +
-            ", employeePassword = " + employeePassword +
-            ", employeeName = " + employeeName +
-            ", employeeLevel = " + employeeLevel +
-            ", employeeTel = " + employeeTel +
-            ", employeePhoto = " + employeePhoto +
-            ", createTime = " + createTime +
-            ", updateTime = " + updateTime +
-            ", isDel = " + isDel +
-        "}";
+                "employeeId = " + employeeId +
+                ", employeeUsername = " + employeeUsername +
+                ", employeePassword = " + employeePassword +
+                ", employeeName = " + employeeName +
+                ", employeeLevel = " + employeeLevel +
+                ", employeeTel = " + employeeTel +
+                ", employeePhoto = " + employeePhoto +
+                ", createTime = " + createTime +
+                ", updateTime = " + updateTime +
+                ", isDel = " + isDel +
+                "}";
     }
 }

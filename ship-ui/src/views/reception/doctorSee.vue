@@ -4,17 +4,17 @@
     <el-space direction="vertical">
       <DoctorCard :card-list="doctorCardTxt.records"/>
       <el-pagination
-          hide-on-single-page
-          layout="total, prev, pager, next"
           :current-page="page.numPage"
           :page-size="page.pageSize"
           :total="doctorCardTxt.total"
+          hide-on-single-page
+          layout="total, prev, pager, next"
           @current-change="changePage"/>
     </el-space>
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {Page} from "@/modal/DO/Page";
 import DoctorCard from "@/components/DoctorCard.vue";
 import {onMounted, reactive, watch} from "vue";

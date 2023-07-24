@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import DetailTable, {DetailTabType} from "@/components/DetailTable.vue";
 import {Employee} from "@/modal/entiy/Employee";
 import {getJob} from "@/utils/JobUtil";

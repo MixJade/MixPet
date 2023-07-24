@@ -2,14 +2,14 @@
   <div class="op-col">
     <div class="op-input">
       <slot></slot>
-      <el-button type="primary" plain size="large" @click="queryB">搜索</el-button>
+      <el-button plain size="large" type="primary" @click="queryB">搜索</el-button>
     </div>
-    <el-button type="success" plain size="large" @click="addRoleB">新增{{ role }}</el-button>
-    <el-button type="danger" plain size="large" @click="delBatchB">批量删除</el-button>
+    <el-button plain size="large" type="success" @click="addRoleB">新增{{ role }}</el-button>
+    <el-button plain size="large" type="danger" @click="delBatchB">批量删除</el-button>
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 defineProps<{
   role: string
 }>()
@@ -29,7 +29,7 @@ const delBatchB = (): void => {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .op-col {
   display: flex;
   justify-content: flex-end;

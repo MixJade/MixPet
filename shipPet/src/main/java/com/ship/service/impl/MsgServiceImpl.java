@@ -43,11 +43,11 @@ public class MsgServiceImpl extends ServiceImpl<MsgMapper, Msg> implements IMsgS
 
     @Override
     public List<MsgVo> getAClient(Long doctorId, Long clientId) {
-        return baseMapper.getAClient(doctorId,clientId);
+        return baseMapper.getAClient(doctorId, clientId);
     }
 
     @Override
     public List<MsgNameVo> getClientGroup(Long doctorId, Long clientId) {
-        return baseMapper.getClientGroup(doctorId,clientId);
+        return baseMapper.getClientGroup(doctorId, clientId);
     }
 }

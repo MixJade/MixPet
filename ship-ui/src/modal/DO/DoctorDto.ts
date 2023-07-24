@@ -6,6 +6,7 @@ import {Doctor} from "@/modal/entiy/Doctor";
 export interface DoctorDto extends Doctor {
     departmentName: string;
 }
+
 /**
  * 医生个人中心
  */

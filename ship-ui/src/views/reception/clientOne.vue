@@ -7,7 +7,7 @@
   />
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {Client} from "@/modal/entiy/Client";
 import DetailTable, {DetailTabType} from "@/components/DetailTable.vue";
 import {computed, onMounted, reactive} from "vue";
@@ -48,5 +48,5 @@ onMounted(() => {
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 </style>

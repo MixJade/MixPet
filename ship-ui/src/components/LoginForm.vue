@@ -1,16 +1,16 @@
 <template>
   <el-form
       :label-position="'right'"
-      label-width="80px"
       :model="formLogin"
       class="login-card"
+      label-width="80px"
   >
     <h3>{{ getRoleName }}登录</h3>
     <el-form-item label="用户名">
-      <el-input type="text" v-model="formLogin.username" :prefix-icon="User"/>
+      <el-input v-model="formLogin.username" :prefix-icon="User" type="text"/>
     </el-form-item>
     <el-form-item label="密码">
-      <el-input type="password" show-password v-model="formLogin.password" :prefix-icon="Lock"/>
+      <el-input v-model="formLogin.password" :prefix-icon="Lock" show-password type="password"/>
     </el-form-item>
     <el-form-item label="记住我">
       <el-switch v-model="formLogin.remember"/>
@@ -19,7 +19,7 @@
   </el-form>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {computed, reactive, Ref, ref} from "vue";
 import {Lock, User} from "@element-plus/icons-vue"
 import {buttonTypes} from "element-plus"
@@ -68,13 +68,14 @@ const toLogin = () => {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 /*登录的小卡片*/
 .login-card {
   background-color: #cccccc;
   max-width: 460px;
   text-align: center;
-  .el-input{
+
+  .el-input {
     width: 80%;
   }
 }

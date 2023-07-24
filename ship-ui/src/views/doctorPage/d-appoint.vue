@@ -2,7 +2,7 @@
   <h3>医生挂号</h3>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 </script>
 
 <style scoped>

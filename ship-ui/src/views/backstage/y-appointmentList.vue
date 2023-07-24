@@ -1,29 +1,29 @@
 <template>
   <!--操作框-->
-  <BackOpCol role="挂号" @query="sendQuery" @addRole="addRoleB" @delBatch="delBatchB">
+  <BackOpCol role="挂号" @addRole="addRoleB" @delBatch="delBatchB" @query="sendQuery">
     <el-select v-model="qp.seaType" placeholder="Select" size="large">
-      <el-option label="挂号人" :value="0"/>
-      <el-option label="宠物" :value="1"/>
-      <el-option label="医生" :value="2"/>
-      <el-option label="科室" :value="3"/>
+      <el-option :value="0" label="挂号人"/>
+      <el-option :value="1" label="宠物"/>
+      <el-option :value="2" label="医生"/>
+      <el-option :value="3" label="科室"/>
     </el-select>
     <el-input v-model="qp.seaName" placeholder="名称" size="large"/>
   </BackOpCol>
 
   <!--列表展示-->
   <el-table :data="appointList.records"
-            stripe
-            row-key="appointId"
-            style="width: 100%"
             max-height="430"
+            row-key="appointId"
+            stripe
+            style="width: 100%"
             @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="30"/>
-    <el-table-column prop="appointmentDate" label="就诊时间" sortable/>
-    <el-table-column prop="appointmentInfo" label="简介"/>
-    <el-table-column prop="createTime" label="创建时间" sortable/>
-    <el-table-column prop="petName" label="宠物名"/>
-    <el-table-column prop="clientName" label="挂号人"/>
-    <el-table-column prop="doctorName" label="医生"/>
+    <el-table-column label="就诊时间" prop="appointmentDate" sortable/>
+    <el-table-column label="简介" prop="appointmentInfo"/>
+    <el-table-column label="创建时间" prop="createTime" sortable/>
+    <el-table-column label="宠物名" prop="petName"/>
+    <el-table-column label="挂号人" prop="clientName"/>
+    <el-table-column label="医生" prop="doctorName"/>
     <el-table-column label="科室">
       <template #default="scope">
         <el-tag>{{ scope.row.departmentName }}</el-tag>
@@ -31,15 +31,15 @@
     </el-table-column>
     <el-table-column fixed="right" label="操作">
       <el-button-group>
-        <el-button type="warning" :icon="Edit" @click="showDialog" circle/>
-        <el-button type="danger" :icon="Delete" circle/>
+        <el-button :icon="Edit" circle type="warning" @click="showDialog"/>
+        <el-button :icon="Delete" circle type="danger"/>
       </el-button-group>
     </el-table-column>
   </el-table>
   <!--分页条-->
   <BackPage :total="appointList.total" @changePu="changePuB"/>
   <!--修改、新增时的模态框-->
-  <el-dialog v-model="modalView" :title="modalTit" width="30%" draggable>
+  <el-dialog v-model="modalView" :title="modalTit" draggable width="30%">
     <span>It's a draggable Dialog</span>
     <template #footer>
       <span class="dialog-footer">
@@ -52,7 +52,7 @@
   </el-dialog>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";

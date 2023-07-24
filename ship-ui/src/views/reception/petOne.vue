@@ -8,7 +8,7 @@
       <el-main>
         <el-row>
           <!-- 左边div：宠物头像-->
-          <el-col :xs="24" :sm="10" :md="8">
+          <el-col :md="8" :sm="10" :xs="24">
             <div class="left-div">
               <el-avatar :src="'/api/common/download?name='+pet.petPhoto"/>
               <h3>{{ pet.petName }}</h3>
@@ -16,7 +16,7 @@
             </div>
           </el-col>
           <!-- 右边div，宠物信息-->
-          <el-col :xs="24" :sm="14" :md="16" style="text-align: center">
+          <el-col :md="16" :sm="14" :xs="24" style="text-align: center">
             <table class="myTable">
               <tr>
                 <td class="bold">姓名</td>
@@ -43,10 +43,10 @@
                 <td>{{ pet.petStatus }}</td>
               </tr>
             </table>
-            <el-button v-if="inAdopt===0" type="primary" style="width: 50%" @click="dialogVisible = true">
+            <el-button v-if="inAdopt===0" style="width: 50%" type="primary" @click="dialogVisible = true">
               申请领养
             </el-button>
-            <el-button v-else type="info" disabled style="width: 50%">
+            <el-button v-else disabled style="width: 50%" type="info">
               审核中
             </el-button>
           </el-col>
@@ -62,8 +62,8 @@
         <el-form-item label="预付押金" label-width="140px">
           <el-input-number
               v-model="dialogAsk.adoptMoney"
-              :min="100"
               :max="5000"
+              :min="100"
               :step="100"
               controls-position="right"
           />
@@ -81,7 +81,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import PageHead from "@/components/PageHead.vue";
 import {Pet} from "@/modal/entiy/Pet";
 import {getAge} from "@/utils/TimeUtil";
@@ -135,7 +135,7 @@ onMounted(() => {
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 /*设置大致布局*/
 .base-page {
   position: absolute;

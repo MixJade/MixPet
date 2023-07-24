@@ -1,16 +1,16 @@
 <template>
   <div class="one-basePage">
-    <el-button type="primary" style="position: absolute" @click="this.$router.back()">返回</el-button>
+    <el-button style="position: absolute" type="primary" @click="this.$router.back()">返回</el-button>
     <DetailTable
-        role-photo="/picture/doctor-ex.jpg"
         :tab-con="dc"
+        role-photo="/picture/doctor-ex.jpg"
         @upPwd="updatePwd"
         @upRole="updateRole"
     />
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import DetailTable, {DetailTabType} from "@/components/DetailTable.vue";
 import {getAge} from "@/utils/TimeUtil";
 import {computed, reactive} from "vue";

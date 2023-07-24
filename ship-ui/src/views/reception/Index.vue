@@ -3,13 +3,14 @@
     <el-header>
       <!-- 导航栏-->
       <el-menu
-          mode="horizontal"
           :ellipsis="false"
           background-color="#545c64"
+          mode="horizontal"
           text-color="#fff"
       >
-        <el-menu-item index="1" @click="this.$router.push('reception/clientCenter')"><img src="/mia.svg" alt="商标" width="30"
-                                                                                height="30">
+        <el-menu-item index="1" @click="this.$router.push('reception/clientCenter')"><img alt="商标" height="30"
+                                                                                          src="/mia.svg"
+                                                                                          width="30">
           宠物医院
         </el-menu-item>
         <div class="flex-grow"/>
@@ -61,7 +62,7 @@
     </el-header>
     <el-main>
       <!--轮播图-->
-      <el-carousel :interval="4000" type="card" height="200px">
+      <el-carousel :interval="4000" height="200px" type="card">
         <el-carousel-item v-for="item in lun" :key="item">
           <el-image :src="item.image" fit="scale-down"/>
           <div class="carousel-caption">
@@ -74,7 +75,7 @@
       <h2>网站公告</h2>
       <p>网站的最新公告</p>
       <el-row :gutter="12">
-        <el-col :xs="24" :sm="12" :md="8" v-for="notice in notices" :key="notice.noticeId">
+        <el-col v-for="notice in notices" :key="notice.noticeId" :md="8" :sm="12" :xs="24">
           <el-card shadow="hover" @click="openDialog(notice)">{{ notice.noticeTitle }}</el-card>
         </el-col>
       </el-row>
@@ -99,7 +100,7 @@
         <el-link type="warning" @click="this.$router.push('reception/clientCenter')">点击跳转</el-link>
       </p>
       <el-row :gutter="12">
-        <el-col :xs="24" :sm="12" :md="8" v-for="card in userCard">
+        <el-col v-for="card in userCard" :md="8" :sm="12" :xs="24">
           <el-card class="box-card">
             <template #header>
               <div class="card-header">
@@ -137,7 +138,7 @@
       <!-- 折叠筐-->
       <h2>小小知识</h2>
       <el-collapse accordion>
-        <el-collapse-item :title="know.tit" v-for="know in knowledgeList">
+        <el-collapse-item v-for="know in knowledgeList" :title="know.tit">
           <div>{{ know.txt }}</div>
         </el-collapse-item>
       </el-collapse>
@@ -146,7 +147,7 @@
 </template>
 
 <script lang="ts" setup>
-import {User, Phone, DataBoard, EditPen, SwitchButton, Tickets, Football} from "@element-plus/icons-vue"
+import {DataBoard, EditPen, Football, Phone, SwitchButton, Tickets, User} from "@element-plus/icons-vue"
 import {onBeforeMount, reactive, ref} from "vue";
 import {Pet} from "@/modal/entiy/Pet";
 import {Page} from "@/modal/DO/Page";

@@ -10,6 +10,7 @@ export interface MsgVo {
     roleName: string;
     rolePhoto: string;
 }
+
 /**
  * 医生的聊天记录
  * @param youID 当前聊天的用户ID

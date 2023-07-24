@@ -2,11 +2,11 @@
   <el-container>
     <el-header>
       <el-menu
-          mode="horizontal"
-          background-color="#545c64"
-          text-color="#fff"
           active-text-color="#ffd04b"
+          background-color="#545c64"
+          mode="horizontal"
           router
+          text-color="#fff"
       >
         <el-menu-item index="/doctorPage/d-appoint">挂号处理</el-menu-item>
         <el-menu-item index="/doctorPage/d-chat">在线咨询</el-menu-item>
@@ -17,21 +17,21 @@
       <div class="circle">
         <div class="part one">
           <div class="con">
-            <el-button type="primary" plain round size="large" @click="this.$router.push('/doctorPage/d-chat')">
+            <el-button plain round size="large" type="primary" @click="this.$router.push('/doctorPage/d-chat')">
               在线咨询
             </el-button>
           </div>
         </div>
         <div class="part two">
           <div class="con">
-            <el-button type="warning" plain round size="large" @click="this.$router.push('/doctorPage/d-appoint')">
+            <el-button plain round size="large" type="warning" @click="this.$router.push('/doctorPage/d-appoint')">
               挂号处理
             </el-button>
           </div>
         </div>
         <div class="part three">
           <div class="con">
-            <el-button type="danger" plain round size="large" @click="this.$router.push('/')">
+            <el-button plain round size="large" type="danger" @click="this.$router.push('/')">
               退出登录
             </el-button>
           </div>
@@ -45,13 +45,14 @@
 
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 </script>
 
-<style scoped lang="scss">
-.el-menu{
+<style lang="scss" scoped>
+.el-menu {
   justify-content: center;
 }
+
 .circle {
   position: absolute;
   top: 50%;

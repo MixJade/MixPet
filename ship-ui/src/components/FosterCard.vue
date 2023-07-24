@@ -3,7 +3,7 @@
     <el-col
         v-for="pet in cardList"
         :key="pet.fosterId"
-        :xs="24" :sm="12" :md="8"
+        :md="8" :sm="12" :xs="24"
     >
       <el-card>
         <div class="my-pet-card">
@@ -25,7 +25,7 @@
   </el-row>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {getAge} from "@/utils/TimeUtil";
 import {FosterCardDto} from "@/modal/DO/FosterCardDto";
 // 接收参数：宠物卡片
@@ -34,5 +34,5 @@ defineProps<{
 }>()
 </script>
 
-<style scoped lang="scss" src="public/pet-info.scss">
+<style lang="scss" scoped src="public/pet-info.scss">
 </style>

@@ -6,6 +6,7 @@ export interface ChatGroup {
     roleId: number;
     roleName: string;
 }
+
 /**
  * 医生信息分组
  */

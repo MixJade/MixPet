@@ -1,13 +1,13 @@
 <template>
   <div ref="innerRef" style="overflow: auto;height: 100%" @click="rollBottom">
     <!--信息主体-->
-    <div class="msg-card" :class="{'right-align':m.isMine}" v-for="m in msgList" :key="m.msgId">
+    <div v-for="m in msgList" :key="m.msgId" :class="{'right-align':m.isMine}" class="msg-card">
       <el-avatar :src="'/api/common/download?name='+m.rolePhoto"/>
       <div class="msg">
         <span>{{ m.roleName }}&nbsp;{{ getDisplayTime(m.createTime) }}</span>
-        <div class="msgText" :class="m.isMine?'bg-success':'bg-light'">
+        <div :class="m.isMine?'bg-success':'bg-light'" class="msgText">
           <el-image v-if="m.isImg" :src="'/api/common/downChat?name='+m.msgContent" fit="cover"/>
-          <div style="font-family: serif;" v-else>
+          <div v-else style="font-family: serif;">
             {{ m.msgContent }}
           </div>
         </div>
@@ -16,7 +16,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {MsgVo} from "@/modal/VO/MsgVo";
 import {onBeforeUpdate, onMounted, ref} from "vue";
 import {getDisplayTime} from "@/utils/TimeUtil";
@@ -40,7 +40,7 @@ onMounted(() => {
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 /*信息外壳*/
 .msg-card {
   display: flex;

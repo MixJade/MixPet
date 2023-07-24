@@ -4,12 +4,13 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author MixJade
@@ -142,15 +143,15 @@ public class Msg implements Serializable {
     @Override
     public String toString() {
         return "Msg{" +
-            "msgId = " + msgId +
-            ", clientId = " + clientId +
-            ", doctorId = " + doctorId +
-            ", isClient = " + isClient +
-            ", msgContent = " + msgContent +
-            ", isImg = " + isImg +
-            ", updateTime = " + updateTime +
-            ", createTime = " + createTime +
-            ", isDel = " + isDel +
-        "}";
+                "msgId = " + msgId +
+                ", clientId = " + clientId +
+                ", doctorId = " + doctorId +
+                ", isClient = " + isClient +
+                ", msgContent = " + msgContent +
+                ", isImg = " + isImg +
+                ", updateTime = " + updateTime +
+                ", createTime = " + createTime +
+                ", isDel = " + isDel +
+                "}";
     }
 }
