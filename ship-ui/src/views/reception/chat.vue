@@ -1,11 +1,11 @@
 <template>
-  <ChatPanel opType="医生" :role-name="doctor.doctorName" :groupList="groupList" :msg-list="msgList"
-             @sendMsg="sendMsg"
+  <ChatPanel :groupList="groupList" :msg-list="msgList" :role-name="doctor.doctorName" opType="医生"
              @cutOther="cutDoctor"
+             @sendMsg="sendMsg"
   />
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {ChatGroup} from "@/modal/VO/ChatGroup";
 import {MsgVo} from "@/modal/VO/MsgVo";
 import ChatPanel from "@/components/ChatPanel.vue";

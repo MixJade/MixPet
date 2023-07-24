@@ -1,31 +1,31 @@
 <template>
   <!--操作框-->
-  <BackOpCol role="部门" @query="sendQuery" @addRole="addRoleB" @delBatch="delBatchB">
+  <BackOpCol role="部门" @addRole="addRoleB" @delBatch="delBatchB" @query="sendQuery">
     <el-input v-model="qp.departmentName" placeholder="部门名" size="large"/>
   </BackOpCol>
 
   <!--列表展示-->
   <el-table :data="departmentList.records"
-            stripe
-            row-key="departmentId"
-            style="width: 100%"
             max-height="430"
+            row-key="departmentId"
+            stripe
+            style="width: 100%"
             @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="30"/>
-    <el-table-column prop="departmentName" label="部门名"/>
-    <el-table-column prop="departmentInfo" label="简介"/>
-    <el-table-column prop="departmentAddress" label="地址"/>
+    <el-table-column label="部门名" prop="departmentName"/>
+    <el-table-column label="简介" prop="departmentInfo"/>
+    <el-table-column label="地址" prop="departmentAddress"/>
     <el-table-column fixed="right" label="操作">
       <el-button-group>
-        <el-button type="warning" :icon="Edit" @click="showDialog" circle/>
-        <el-button type="danger" :icon="Delete" circle/>
+        <el-button :icon="Edit" circle type="warning" @click="showDialog"/>
+        <el-button :icon="Delete" circle type="danger"/>
       </el-button-group>
     </el-table-column>
   </el-table>
   <!--分页条-->
   <BackPage :total="departmentList.total" @changePu="changePuB"/>
   <!--修改、新增时的模态框-->
-  <el-dialog v-model="modalView" :title="modalTit" width="30%" draggable>
+  <el-dialog v-model="modalView" :title="modalTit" draggable width="30%">
     <span>It's a draggable Dialog</span>
     <template #footer>
       <span class="dialog-footer">
@@ -38,7 +38,7 @@
   </el-dialog>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";

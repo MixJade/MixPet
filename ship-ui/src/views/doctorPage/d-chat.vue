@@ -1,9 +1,9 @@
 <template>
-  <ChatPanel :role-name="client.clientName" opType="用户" :groupList="groupList" :msg-list="msgList"
-             @sendMsg="sendMsg" @cutOther="cutClient "/>
+  <ChatPanel :groupList="groupList" :msg-list="msgList" :role-name="client.clientName" opType="用户"
+             @cutOther="cutClient " @sendMsg="sendMsg"/>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {exampleDChatGroup} from "@/modal/VO/ChatGroup";
 import {exampleDMsg} from "@/modal/VO/MsgVo";
 import ChatPanel from "@/components/ChatPanel.vue";

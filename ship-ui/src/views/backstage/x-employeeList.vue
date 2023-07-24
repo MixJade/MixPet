@@ -1,15 +1,15 @@
 <template>
   <!--操作框-->
-  <BackOpCol role="管理员" @query="sendQuery" @addRole="addRoleB" @delBatch="delBatchB">
+  <BackOpCol role="管理员" @addRole="addRoleB" @delBatch="delBatchB" @query="sendQuery">
     <el-input v-model="qp.employeeName" placeholder="管理员姓名" size="large"/>
   </BackOpCol>
 
   <!--列表展示-->
   <el-table :data="employeeList.records"
-            stripe
-            row-key="employeeId"
-            style="width: 100%"
             max-height="430"
+            row-key="employeeId"
+            stripe
+            style="width: 100%"
             @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="30"/>
     <el-table-column label="图像">
@@ -17,12 +17,12 @@
         <el-avatar :src="'/api/common/download?name='+scope.row.employeePhoto"/>
       </template>
     </el-table-column>
-    <el-table-column prop="employeeUsername" label="账号"/>
-    <el-table-column prop="employeeName" label="姓名"/>
-    <el-table-column prop="createTime" label="工龄" sortable>
+    <el-table-column label="账号" prop="employeeUsername"/>
+    <el-table-column label="姓名" prop="employeeName"/>
+    <el-table-column label="工龄" prop="createTime" sortable>
       <template #default="scope">{{ getDaysFromToday(scope.row.createTime) }}</template>
     </el-table-column>
-    <el-table-column prop="employeeTel" label="联系方式"/>
+    <el-table-column label="联系方式" prop="employeeTel"/>
     <el-table-column label="职位">
       <template #default="scope">
         <el-tag>{{ getJob(scope.row.employeeLevel) }}</el-tag>
@@ -30,15 +30,15 @@
     </el-table-column>
     <el-table-column fixed="right" label="操作">
       <el-button-group>
-        <el-button type="warning" :icon="Edit" @click="showDialog" circle/>
-        <el-button type="danger" :icon="Delete" circle/>
+        <el-button :icon="Edit" circle type="warning" @click="showDialog"/>
+        <el-button :icon="Delete" circle type="danger"/>
       </el-button-group>
     </el-table-column>
   </el-table>
   <!--分页条-->
   <BackPage :total="employeeList.total" @changePu="changePuB"/>
   <!--修改、新增时的模态框-->
-  <el-dialog v-model="modalView" :title="modalTit" width="30%" draggable>
+  <el-dialog v-model="modalView" :title="modalTit" draggable width="30%">
     <span>It's a draggable Dialog</span>
     <template #footer>
       <span class="dialog-footer">
@@ -51,7 +51,7 @@
   </el-dialog>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";

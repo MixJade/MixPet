@@ -5,10 +5,10 @@
     </transition>
   </router-view>
 </template>
-<script setup lang="ts">
+<script lang="ts" setup>
 console.log(import.meta.env.VITE_BACK_URL)
 </script>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .flip-enter-active {
   animation: flip-in 0.5s;
 }

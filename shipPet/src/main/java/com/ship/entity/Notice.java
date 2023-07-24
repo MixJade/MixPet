@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -142,15 +143,15 @@ public class Notice implements Serializable {
     @Override
     public String toString() {
         return "Notice{" +
-            "noticeId = " + noticeId +
-            ", noticeTitle = " + noticeTitle +
-            ", noticeFile = " + noticeFile +
-            ", creatId = " + creatId +
-            ", createTime = " + createTime +
-            ", updateId = " + updateId +
-            ", updateTime = " + updateTime +
-            ", isDisable = " + isDisable +
-            ", isDel = " + isDel +
-        "}";
+                "noticeId = " + noticeId +
+                ", noticeTitle = " + noticeTitle +
+                ", noticeFile = " + noticeFile +
+                ", creatId = " + creatId +
+                ", createTime = " + createTime +
+                ", updateId = " + updateId +
+                ", updateTime = " + updateTime +
+                ", isDisable = " + isDisable +
+                ", isDel = " + isDel +
+                "}";
     }
 }

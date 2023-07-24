@@ -4,15 +4,15 @@
       <Male/>
     </el-icon>
   </el-tag>
-  <el-tag v-else type="danger" effect="dark" round>
+  <el-tag v-else effect="dark" round type="danger">
     <el-icon>
       <Female/>
     </el-icon>
   </el-tag>
 </template>
 
-<script setup lang="ts">
-import {Male, Female} from "@element-plus/icons-vue"
+<script lang="ts" setup>
+import {Female, Male} from "@element-plus/icons-vue"
 
 defineProps<{
   sex: boolean

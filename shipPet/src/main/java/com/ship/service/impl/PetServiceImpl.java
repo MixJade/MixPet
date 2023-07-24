@@ -50,7 +50,7 @@ public class PetServiceImpl extends ServiceImpl<PetMapper, Pet> implements IPetS
 
     @Override
     public IPage<Pet> selectFour(int numPage, int pageSize) {
-        return baseMapper.selectFour(new Page<>(numPage,pageSize));
+        return baseMapper.selectFour(new Page<>(numPage, pageSize));
     }
 
     @Override

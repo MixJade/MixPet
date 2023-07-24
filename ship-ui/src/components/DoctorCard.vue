@@ -3,7 +3,7 @@
     <el-col
         v-for="doctor in cardList"
         :key="doctor.doctorId"
-        :xs="24" :sm="12" :md="6"
+        :md="6" :sm="12" :xs="24"
         style="margin-bottom: 10px"
     >
       <el-card>
@@ -26,7 +26,7 @@
 
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {getAge} from "@/utils/TimeUtil";
 import {DoctorDto} from "@/modal/DO/DoctorDto";
 // 接收参数：医生卡片
@@ -35,5 +35,5 @@ defineProps<{
 }>()
 </script>
 
-<style scoped lang="scss" src="public/pet-info.scss">
+<style lang="scss" scoped src="public/pet-info.scss">
 </style>

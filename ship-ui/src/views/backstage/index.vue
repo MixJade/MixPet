@@ -3,11 +3,11 @@
     <el-aside width="200px">
       <el-avatar :src="'/api/common/download?name='+employeeNow.photo"/>
       <el-menu
+          :default-active="this.$route.path"
           active-text-color="#ffd04b"
           background-color="#545c64"
-          :default-active="this.$route.path"
-          text-color="#fff"
           router
+          text-color="#fff"
       >
         <el-sub-menu index="">
           <template #title>
@@ -72,10 +72,16 @@
   </el-container>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {
-  User, Football, Tickets, DataBoard, OfficeBuilding, School, Apple,
+  Apple,
+  DataBoard,
+  Football,
   Menu as IconMenu,
+  OfficeBuilding,
+  School,
+  Tickets,
+  User,
 } from '@element-plus/icons-vue'
 import {reqGetLoginE} from "@/request/EmployeeApi";
 import {reactive} from "vue";
@@ -90,7 +96,7 @@ reqGetLoginE().then(res => {
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .el-container {
   height: 96vh;
   /*侧边栏*/

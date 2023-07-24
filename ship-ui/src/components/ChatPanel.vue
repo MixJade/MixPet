@@ -27,17 +27,17 @@
           <el-input
               v-model="textarea1"
               autosize
-              type="textarea"
               placeholder="请输入消息"
+              type="textarea"
           />
-          <el-button type="success" :icon="Position" @click="sendMsgB">发送</el-button>
+          <el-button :icon="Position" type="success" @click="sendMsgB">发送</el-button>
         </el-footer>
       </el-container>
     </el-container>
   </el-container>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {PictureRounded, Position} from "@element-plus/icons-vue"
 import PageHead from "@/components/PageHead.vue";
 import {ref} from "vue";
@@ -66,7 +66,7 @@ const cutOtherB = (roleId: number) => {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 /*聊天主体页面*/
 .el-container {
   width: 98vw;

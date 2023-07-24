@@ -1,24 +1,24 @@
 <template>
   <!--操作框-->
-  <BackOpCol role="寄养" @query="sendQuery" @addRole="addRoleB" @delBatch="delBatchB">
+  <BackOpCol role="寄养" @addRole="addRoleB" @delBatch="delBatchB" @query="sendQuery">
     <el-input v-model="qp.petName" placeholder="宠物名" size="large"/>
     <el-input v-model="qp.clientName" placeholder="寄养人" size="large"/>
   </BackOpCol>
   <!--列表展示-->
   <el-table :data="fosterList.records"
-            stripe
-            row-key="fosterId"
-            style="width: 100%"
             max-height="430"
+            row-key="fosterId"
+            stripe
+            style="width: 100%"
             @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="30"/>
-    <el-table-column prop="fosterCode" label="订单号"/>
-    <el-table-column prop="fosterTerm" label="到期时间" sortable/>
-    <el-table-column prop="fosterMoney" label="定金" sortable/>
-    <el-table-column prop="fosterInfo" label="订单备注"/>
-    <el-table-column prop="petName" label="宠物名"/>
-    <el-table-column prop="clientName" label="寄养人"/>
-    <el-table-column prop="fosterTerm" label="是否过期" sortable>
+    <el-table-column label="订单号" prop="fosterCode"/>
+    <el-table-column label="到期时间" prop="fosterTerm" sortable/>
+    <el-table-column label="定金" prop="fosterMoney" sortable/>
+    <el-table-column label="订单备注" prop="fosterInfo"/>
+    <el-table-column label="宠物名" prop="petName"/>
+    <el-table-column label="寄养人" prop="clientName"/>
+    <el-table-column label="是否过期" prop="fosterTerm" sortable>
       <template #default="scope">
         <el-tag v-if="calculateDays(scope.row.fosterTerm)==='已过期'" type="danger">已过期</el-tag>
         <span v-else>{{ calculateDays(scope.row.fosterTerm) }}</span>
@@ -26,15 +26,15 @@
     </el-table-column>
     <el-table-column fixed="right" label="操作">
       <el-button-group>
-        <el-button type="warning" :icon="Edit" @click="showDialog" circle/>
-        <el-button type="danger" :icon="Delete" circle/>
+        <el-button :icon="Edit" circle type="warning" @click="showDialog"/>
+        <el-button :icon="Delete" circle type="danger"/>
       </el-button-group>
     </el-table-column>
   </el-table>
   <!--分页条-->
   <BackPage :total="fosterList.total" @changePu="changePuB"/>
   <!--修改、新增时的模态框-->
-  <el-dialog v-model="modalView" :title="modalTit" width="30%" draggable>
+  <el-dialog v-model="modalView" :title="modalTit" draggable width="30%">
     <span>It's a draggable Dialog</span>
     <template #footer>
       <span class="dialog-footer">
@@ -47,7 +47,7 @@
   </el-dialog>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";

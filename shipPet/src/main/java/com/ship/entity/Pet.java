@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -182,18 +183,18 @@ public class Pet implements Serializable {
     @Override
     public String toString() {
         return "Pet{" +
-            "petId = " + petId +
-            ", petName = " + petName +
-            ", petVariety = " + petVariety +
-            ", petSex = " + petSex +
-            ", petAge = " + petAge +
-            ", petStatus = " + petStatus +
-            ", petInfo = " + petInfo +
-            ", clientId = " + clientId +
-            ", petPhoto = " + petPhoto +
-            ", createTime = " + createTime +
-            ", updateTime = " + updateTime +
-            ", isDel = " + isDel +
-        "}";
+                "petId = " + petId +
+                ", petName = " + petName +
+                ", petVariety = " + petVariety +
+                ", petSex = " + petSex +
+                ", petAge = " + petAge +
+                ", petStatus = " + petStatus +
+                ", petInfo = " + petInfo +
+                ", clientId = " + clientId +
+                ", petPhoto = " + petPhoto +
+                ", createTime = " + createTime +
+                ", updateTime = " + updateTime +
+                ", isDel = " + isDel +
+                "}";
     }
 }

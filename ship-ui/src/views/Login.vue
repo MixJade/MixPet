@@ -4,9 +4,9 @@
       <el-tab-pane label="用户">
         <LoginForm :role="RoleEnum.CLIENT" @loginSuc="getLoginRole"/>
         <el-col>
-          <el-button type="success" round @click="this.$router.push('/reception')">游客登录</el-button>
-          <el-button type="warning" round>账号注册</el-button>
-          <el-button type="danger" round>找回密码</el-button>
+          <el-button round type="success" @click="this.$router.push('/reception')">游客登录</el-button>
+          <el-button round type="warning">账号注册</el-button>
+          <el-button round type="danger">找回密码</el-button>
         </el-col>
       </el-tab-pane>
       <el-tab-pane label="管理员">
@@ -19,7 +19,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import LoginForm from "@/components/LoginForm.vue";
 import {onMounted} from "vue";
 import {reqGetLogin} from "@/request/PowerApi";
@@ -42,7 +42,7 @@ const getLoginRole = () => {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 /*整个登录组件*/
 .login-page {
   background: {

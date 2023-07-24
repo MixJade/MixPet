@@ -31,7 +31,7 @@ public class PowerHandler implements LogoutSuccessHandler, AccessDeniedHandler, 
      * 尚未登陆
      */
     @Override
-    public void commence(HttpServletRequest req, HttpServletResponse resp, AuthenticationException ae){
+    public void commence(HttpServletRequest req, HttpServletResponse resp, AuthenticationException ae) {
         JsonUtil.write(ResultConst.NO_LOGIN, resp);
     }
 }

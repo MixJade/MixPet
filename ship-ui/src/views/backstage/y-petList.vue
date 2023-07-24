@@ -1,16 +1,16 @@
 <template>
   <!--操作框-->
-  <BackOpCol role="宠物" @query="sendQuery" @addRole="addRoleB" @delBatch="delBatchB">
+  <BackOpCol role="宠物" @addRole="addRoleB" @delBatch="delBatchB" @query="sendQuery">
     <el-input v-model="qp.petName" placeholder="宠物姓名" size="large"/>
     <el-input v-model="qp.clientName" placeholder="用户姓名" size="large"/>
   </BackOpCol>
 
   <!--列表展示-->
   <el-table :data="petList.records"
-            stripe
-            row-key="petId"
-            style="width: 100%"
             max-height="430"
+            row-key="petId"
+            stripe
+            style="width: 100%"
             @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="30"/>
     <el-table-column label="图像">
@@ -18,7 +18,7 @@
         <el-avatar :src="'/api/common/download?name='+scope.row.petPhoto"/>
       </template>
     </el-table-column>
-    <el-table-column prop="petName" label="宠物名"/>
+    <el-table-column label="宠物名" prop="petName"/>
     <el-table-column label="品种">
       <template #default="scope">
         <el-tag>{{ scope.row.petVariety }}</el-tag>
@@ -29,7 +29,7 @@
         <TagSex :sex="scope.row.petSex"/>
       </template>
     </el-table-column>
-    <el-table-column prop="petAge" label="年龄" sortable>
+    <el-table-column label="年龄" prop="petAge" sortable>
       <template #default="scope">{{ getAge(scope.row.petAge) }}岁</template>
     </el-table-column>
     <el-table-column label="健康状态">
@@ -37,19 +37,19 @@
         <el-tag>{{ scope.row.petStatus }}</el-tag>
       </template>
     </el-table-column>
-    <el-table-column prop="petInfo" label="近况"/>
-    <el-table-column prop="clientName" label="主人"/>
+    <el-table-column label="近况" prop="petInfo"/>
+    <el-table-column label="主人" prop="clientName"/>
     <el-table-column fixed="right" label="操作">
       <el-button-group>
-        <el-button type="warning" :icon="Edit" @click="showDialog" circle/>
-        <el-button type="danger" :icon="Delete" circle/>
+        <el-button :icon="Edit" circle type="warning" @click="showDialog"/>
+        <el-button :icon="Delete" circle type="danger"/>
       </el-button-group>
     </el-table-column>
   </el-table>
   <!--分页条-->
   <BackPage :total="petList.total" @changePu="changePuB"/>
   <!--修改、新增时的模态框-->
-  <el-dialog v-model="modalView" :title="modalTit" width="30%" draggable>
+  <el-dialog v-model="modalView" :title="modalTit" draggable width="30%">
     <span>It's a draggable Dialog</span>
     <template #footer>
       <span class="dialog-footer">
@@ -62,7 +62,7 @@
   </el-dialog>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";

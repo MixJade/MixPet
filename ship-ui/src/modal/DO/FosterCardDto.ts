@@ -1,6 +1,6 @@
 import {FosterDto} from "@/modal/DO/FosterDto";
 
-export interface FosterCardDto extends FosterDto{
+export interface FosterCardDto extends FosterDto {
     petVariety: string;
     petSex: boolean;
     petAge: string;

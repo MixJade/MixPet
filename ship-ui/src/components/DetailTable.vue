@@ -23,7 +23,7 @@
   </table>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {reqLogout} from "@/request/PowerApi";
 
 defineProps<{
@@ -48,7 +48,7 @@ const updatePwd = () => {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .el-avatar {
   width: 128px;
   height: 128px;
