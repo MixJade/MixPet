@@ -47,43 +47,43 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
 
     @Override
     public boolean delImg() {
-        // 数据库中存储的头像照片名字+默认的照片名
-        List<String> avatarList = baseMapper.selectImgAvatar();
-        avatarList.addAll(myConst());
-        // 去重
-        Set<String> set = new HashSet<>(avatarList);
-        // 文件夹下的文件名
-        String[] list01 = new File(basePath).list();
-        String[] list02 = new File(noticePath).list();
-        String[] list03 = new File(chatImg).list();
-        // 图片文件夹去掉数据库中的，就是冗余的图片
-        var moreImg = new ArrayList<>(Arrays.asList(Objects.requireNonNull(list01)));
-        moreImg.removeAll(set);
-        // 公告文件夹下的冗余文件
-        List<String> noticeFile = baseMapper.selectNoticeFile();
-        var moreNotice = new ArrayList<>(Arrays.asList(Objects.requireNonNull(list02)));
-        moreNotice.removeAll(noticeFile);
-        // 聊天文件夹下的冗余图片
-        List<String> imgChat = baseMapper.selectImgChat();
-        var moreImgChat = new ArrayList<>(Arrays.asList(Objects.requireNonNull(list03)));
-        moreImgChat.removeAll(imgChat);
-        // 删除的前置，校验是否已无冗余，并设置删除参数
-        if (moreImg.isEmpty() && moreNotice.isEmpty() && moreImgChat.isEmpty()) return false;
-        final int[] delNum = {0, 0}; // 第一个参数为被删除的图片数，二是被删除的公告数
-        // 开删:头像图片
-        moreImg.forEach(fileName -> {
-            if (new File(basePath + fileName).delete()) delNum[0]++;
-        });
-        // 开删:冗余公告
-        moreNotice.forEach(fileName -> {
-            if (new File(noticePath + fileName).delete()) delNum[1]++;
-        });
-        // 开删:聊天图片
-        moreImgChat.forEach(fileName -> {
-            if (new File(chatImg + fileName).delete()) delNum[0]++;
-        });
+        // 第一个参数为被删除的图片数，二是被删除的公告数
+        final int[] delNum = {0, 0};
+        // 一：删除冗余头像
+        List<String> avatarList = baseMapper.selectImgAvatar(); // 数据库中头像图片
+        avatarList.addAll(myConst()); // 加上默认的照片名
+        Set<String> avatarSet = new HashSet<>(avatarList); // 去重
+        String[] list01 = new File(basePath).list(); // 文件夹下的头像文件
+        if (list01 != null) {
+            Arrays.stream(list01)
+                    .filter(i -> !avatarSet.contains(i))
+                    .forEach(fileName -> {
+                        System.out.println("一"+fileName);
+                        if (new File(basePath + fileName).delete()) delNum[0]++;
+                    });
+        }
+        // 二：公告文件夹下的冗余文件
+        String[] list02 = new File(noticePath).list(); // 文件夹下文件名
+        List<String> dbNotice = baseMapper.selectNoticeFile(); // 数据库文件名
+        if (list02 != null) {
+            Arrays.stream(list02)
+                    .filter(i -> !dbNotice.contains(i))
+                    .forEach(fileName -> {
+                        if (new File(noticePath + fileName).delete()) delNum[1]++;
+                    });
+        }
+        // 三：删除冗余聊天图片
+        String[] list03 = new File(chatImg).list(); // 文件夹下文件名
+        List<String> dbChat = baseMapper.selectImgChat(); // 数据库文件名
+        if (list03 != null) {
+            Arrays.stream(list03)
+                    .filter(i -> !dbChat.contains(i))
+                    .forEach(fileName -> {
+                        if (new File(chatImg + fileName).delete()) delNum[0]++;
+                    });
+        }
         log.info("删除冗余图片{}张，冗余公告{}条", delNum[0], delNum[1]);
-        return true;
+        return delNum[0] != 0 || delNum[1] != 0;
     }
 
     @Override
@@ -120,23 +120,15 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
 
     @Override
     public boolean addNotice(NoticeDto noticeDto) {
-        String text = noticeDto.getTextNotice();
         String path = UUID.randomUUID() + ".txt";
-        writeText(text, path);
-        Long creatId = noticeDto.getCreatId();
-        String noticeTitle = noticeDto.getNoticeTitle();
-        return baseMapper.addNotice(creatId, noticeTitle, path);
+        writeText(noticeDto.getTextNotice(), path);
+        return baseMapper.addNotice(noticeDto.getCreatId(), noticeDto.getNoticeTitle(), path);
     }
 
     @Override
     public boolean updateNotice(NoticeDto noticeDto) {
-        String text = noticeDto.getTextNotice();
-        String path = noticeDto.getNoticeFile();
-        writeText(text, path);
-        String noticeTitle = noticeDto.getNoticeTitle();
-        Long updateId = noticeDto.getUpdateId();
-        long noticeId = noticeDto.getNoticeId();
-        return baseMapper.updateNotice(updateId, noticeTitle, noticeId);
+        writeText(noticeDto.getTextNotice(), noticeDto.getNoticeFile());
+        return baseMapper.updateNotice(noticeDto);
     }
 
     @Override
@@ -179,11 +171,8 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
      * @return 设置的默认照片名称
      */
     private List<String> myConst() {
-        List<String> defList = new ArrayList<>();
-        PhotoEnum[] photoEnums = PhotoEnum.values();
-        for (PhotoEnum photoEnum : photoEnums) {
-            defList.add(photoEnum.getPhotoName());
-        }
-        return defList;
+        return Arrays.stream(PhotoEnum.values())
+                .map(PhotoEnum::getPhotoName)
+                .toList();
     }
 }
