@@ -33,7 +33,15 @@ public interface NoticeMapper extends BaseMapper<Notice> {
 
     List<NoticeDto> selectFour();
 
-    boolean updateNotice(@Param("updateId") Long updateId, @Param("noticeTitle") String noticeTitle, @Param("noticeId") long noticeId);
+    /**
+     * 当mapper中的占位元素名称与对象中一致，且所有参数都来自该对象时
+     * <p>可以直接用对象，且不需要声明占位符</p>
+     * <p>缺点是可读性不太好</p>
+     *
+     * @param noticeDto 更新的标题、更新人、时间
+     * @return 更新公告成功
+     */
+    boolean updateNotice(NoticeDto noticeDto);
 
     boolean addNotice(@Param("creatId") Long creatId, @Param("noticeTitle") String noticeTitle, @Param("noticeFile") String noticeFile);
 
