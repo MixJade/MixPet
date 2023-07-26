@@ -10,8 +10,6 @@ import com.ship.mapper.AppointmentMapper;
 import com.ship.service.IAppointmentService;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,19 +24,17 @@ import java.util.List;
 public class AppointmentServiceImpl extends ServiceImpl<AppointmentMapper, Appointment> implements IAppointmentService {
     @Override
     public boolean deleteById(long appointmentId) {
-        String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         return this.lambdaUpdate()
                 .eq(Appointment::getAppointmentId, appointmentId)
-                .set(Appointment::getIsDel, delDate)
+                .set(Appointment::getIsDel, String.valueOf(System.currentTimeMillis()))
                 .update();
     }
 
     @Override
     public boolean deleteByIds(List<Long> idGroup) {
-        String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         return this.lambdaUpdate()
                 .in(Appointment::getAppointmentId, idGroup)
-                .set(Appointment::getIsDel, delDate)
+                .set(Appointment::getIsDel, String.valueOf(System.currentTimeMillis()))
                 .update();
     }
 

@@ -20,7 +20,6 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -58,7 +57,7 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
             Arrays.stream(list01)
                     .filter(i -> !avatarSet.contains(i))
                     .forEach(fileName -> {
-                        System.out.println("一"+fileName);
+                        System.out.println("一" + fileName);
                         if (new File(basePath + fileName).delete()) delNum[0]++;
                     });
         }
@@ -88,19 +87,18 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
 
     @Override
     public boolean deleteById(long noticeId) {
-        String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+
         return this.lambdaUpdate()
                 .eq(Notice::getNoticeId, noticeId)
-                .set(Notice::getIsDel, delDate)
+                .set(Notice::getIsDel, String.valueOf(System.currentTimeMillis()))
                 .update();
     }
 
     @Override
     public boolean deleteByIds(List<Long> idGroup) {
-        String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         return this.lambdaUpdate()
                 .in(Notice::getNoticeId, idGroup)
-                .set(Notice::getIsDel, delDate)
+                .set(Notice::getIsDel, String.valueOf(System.currentTimeMillis()))
                 .update();
     }
 

@@ -10,8 +10,6 @@ import com.ship.service.IPetService;
 import com.ship.vo.NameVo;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,19 +25,17 @@ public class PetServiceImpl extends ServiceImpl<PetMapper, Pet> implements IPetS
 
     @Override
     public boolean deleteById(long petId) {
-        String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         return this.lambdaUpdate()
                 .eq(Pet::getPetId, petId)
-                .set(Pet::getIsDel, delDate)
+                .set(Pet::getIsDel, String.valueOf(System.currentTimeMillis()))
                 .update();
     }
 
     @Override
     public boolean deleteByIds(List<Long> idGroup) {
-        String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         return this.lambdaUpdate()
                 .in(Pet::getPetId, idGroup)
-                .set(Pet::getIsDel, delDate)
+                .set(Pet::getIsDel, String.valueOf(System.currentTimeMillis()))
                 .update();
     }
 

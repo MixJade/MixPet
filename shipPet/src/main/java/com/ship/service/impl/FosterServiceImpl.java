@@ -11,9 +11,7 @@ import com.ship.service.IFosterService;
 import com.ship.util.CodeEnum;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,19 +27,17 @@ public class FosterServiceImpl extends ServiceImpl<FosterMapper, Foster> impleme
 
     @Override
     public boolean deleteById(long fosterId) {
-        String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         return this.lambdaUpdate()
                 .eq(Foster::getFosterId, fosterId)
-                .set(Foster::getIsDel, delDate)
+                .set(Foster::getIsDel, String.valueOf(System.currentTimeMillis()))
                 .update();
     }
 
     @Override
     public boolean deleteByIds(List<Long> idGroup) {
-        String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         return this.lambdaUpdate()
                 .in(Foster::getFosterId, idGroup)
-                .set(Foster::getIsDel, delDate)
+                .set(Foster::getIsDel, String.valueOf(System.currentTimeMillis()))
                 .update();
     }
 

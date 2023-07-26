@@ -8,9 +8,6 @@ import com.ship.mapper.EmployeeMapper;
 import com.ship.service.IEmployeeService;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * <p>
  * 员工表 服务实现类
@@ -23,10 +20,9 @@ import java.util.Date;
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> implements IEmployeeService {
     @Override
     public boolean deleteById(long employeeId) {
-        String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         return this.lambdaUpdate()
                 .eq(Employee::getEmployeeId, employeeId)
-                .set(Employee::getIsDel, delDate)
+                .set(Employee::getIsDel, String.valueOf(System.currentTimeMillis()))
                 .update();
     }
 

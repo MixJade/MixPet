@@ -9,8 +9,6 @@ import com.ship.service.IDepartmentService;
 import com.ship.vo.NameVo;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,10 +23,9 @@ import java.util.List;
 public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Department> implements IDepartmentService {
     @Override
     public boolean deleteById(long departmentId) {
-        String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         return this.lambdaUpdate()
                 .eq(Department::getDepartmentId, departmentId)
-                .set(Department::getIsDel, delDate)
+                .set(Department::getIsDel, String.valueOf(System.currentTimeMillis()))
                 .update();
     }
 

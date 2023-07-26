@@ -11,8 +11,6 @@ import com.ship.util.CodeEnum;
 import com.ship.vo.NameVo;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,19 +25,17 @@ import java.util.List;
 public class DoctorServiceImpl extends ServiceImpl<DoctorMapper, Doctor> implements IDoctorService {
     @Override
     public boolean deleteById(long doctorId) {
-        String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         return this.lambdaUpdate()
                 .eq(Doctor::getDoctorId, doctorId)
-                .set(Doctor::getIsDel, delDate)
+                .set(Doctor::getIsDel, String.valueOf(System.currentTimeMillis()))
                 .update();
     }
 
     @Override
     public boolean deleteByIds(List<Long> idGroup) {
-        String delDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
         return this.lambdaUpdate()
                 .in(Doctor::getDoctorId, idGroup)
-                .set(Doctor::getIsDel, delDate)
+                .set(Doctor::getIsDel, String.valueOf(System.currentTimeMillis()))
                 .update();
     }
 
