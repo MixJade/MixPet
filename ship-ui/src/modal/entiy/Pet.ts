@@ -13,5 +13,4 @@ export interface Pet {
     petPhoto: string;
     createTime: string | null;
     updateTime: string | null;
-    isDel: string | null;
 }

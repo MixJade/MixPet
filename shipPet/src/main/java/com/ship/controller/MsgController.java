@@ -35,7 +35,7 @@ public class MsgController {
      * 用户：查询用户最近谈话的医生
      */
     @GetMapping
-    public Long getByClient() {
+    public Integer getByClient() {
         if (UserUtil.getUser() instanceof Client client)
             return msgService.getByClient(client.getClientId());
         return null;
@@ -45,7 +45,7 @@ public class MsgController {
      * 用户：查询特定用户与医生对话
      */
     @GetMapping("/aDoctor")
-    public List<MsgVo> getADoctor(Long doctorId) {
+    public List<MsgVo> getADoctor(Integer doctorId) {
         if (UserUtil.getUser() instanceof Client client)
             return msgService.getADoctor(client.getClientId(), doctorId);
         return null;
@@ -55,7 +55,7 @@ public class MsgController {
      * 用户：查询用户谈过话的医生
      */
     @GetMapping("/group")
-    public List<MsgNameVo> getDoctorGroup(Long doctorId) {
+    public List<MsgNameVo> getDoctorGroup(Integer doctorId) {
         if (UserUtil.getUser() instanceof Client client)
             return msgService.getDoctorGroup(client.getClientId(), doctorId);
         return null;
@@ -78,7 +78,7 @@ public class MsgController {
      * 医生：查询医生最近谈话的用户
      */
     @GetMapping("/d")
-    public Long getByDoctor() {
+    public Integer getByDoctor() {
         if (UserUtil.getUser() instanceof Doctor doctor)
             return msgService.getByDoctor(doctor.getDoctorId());
         return null;
@@ -88,7 +88,7 @@ public class MsgController {
      * 医生：查询特定医生与用户对话
      */
     @GetMapping("/aClient")
-    public List<MsgVo> getAClient(Long clientId) {
+    public List<MsgVo> getAClient(Integer clientId) {
         if (UserUtil.getUser() instanceof Doctor doctor)
             return msgService.getAClient(doctor.getDoctorId(), clientId);
         return null;
@@ -98,7 +98,7 @@ public class MsgController {
      * 医生：医生谈过话的用户
      */
     @GetMapping("/d/group")
-    public List<MsgNameVo> getClientGroup(Long clientId) {
+    public List<MsgNameVo> getClientGroup(Integer clientId) {
         if (UserUtil.getUser() instanceof Doctor doctor)
             return msgService.getClientGroup(doctor.getDoctorId(), clientId);
         return null;

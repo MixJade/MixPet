@@ -29,7 +29,7 @@ public interface INoticeService extends IService<Notice> {
      * @param petId 宠物id
      * @return 是否删除成功
      */
-    boolean deleteById(long petId);
+    boolean deleteById(Integer petId);
 
     /**
      * 批量逻辑删除
@@ -37,7 +37,7 @@ public interface INoticeService extends IService<Notice> {
      * @param idGroup 一组id
      * @return 是否批量删除成功
      */
-    boolean deleteByIds(List<Long> idGroup);
+    boolean deleteByIds(List<Integer> idGroup);
 
     /**
      * 分页查询
@@ -76,6 +76,6 @@ public interface INoticeService extends IService<Notice> {
      * @param noticeId 公告id
      * @return 禁用成功
      */
-    boolean disableNotice(long noticeId, boolean isDis);
+    boolean disableNotice(Integer noticeId, boolean isDis);
 
 }

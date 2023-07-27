@@ -24,18 +24,18 @@ import java.util.List;
 @Service
 public class DoctorServiceImpl extends ServiceImpl<DoctorMapper, Doctor> implements IDoctorService {
     @Override
-    public boolean deleteById(long doctorId) {
+    public boolean deleteById(Integer doctorId) {
         return this.lambdaUpdate()
                 .eq(Doctor::getDoctorId, doctorId)
-                .set(Doctor::getIsDel, String.valueOf(System.currentTimeMillis()))
+                .set(Doctor::getIsDel, System.currentTimeMillis())
                 .update();
     }
 
     @Override
-    public boolean deleteByIds(List<Long> idGroup) {
+    public boolean deleteByIds(List<Integer> idGroup) {
         return this.lambdaUpdate()
                 .in(Doctor::getDoctorId, idGroup)
-                .set(Doctor::getIsDel, String.valueOf(System.currentTimeMillis()))
+                .set(Doctor::getIsDel, System.currentTimeMillis())
                 .update();
     }
 
@@ -45,7 +45,7 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorMapper, Doctor> impleme
     }
 
     @Override
-    public DoctorDto selectById(long doctorId) {
+    public DoctorDto selectById(Integer doctorId) {
         return baseMapper.selectOneId(doctorId);
     }
 
@@ -55,7 +55,7 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorMapper, Doctor> impleme
     }
 
     @Override
-    public List<NameVo> selectByDepartment(long departmentId) {
+    public List<NameVo> selectByDepartment(Integer departmentId) {
         return baseMapper.selectByDepartment(departmentId);
     }
 

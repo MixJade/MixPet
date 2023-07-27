@@ -22,7 +22,7 @@ public interface FosterMapper extends BaseMapper<Foster> {
     IPage<FosterDto> selectFosterPage(IPage<FosterDto> page, @Param("clientName") String clientName, @Param("petName") String petName);
 
     @Select("select max(foster_id) from foster")
-    Long getMaxId();
+    Integer getMaxId();
 
     IPage<FosterPetDto> fosterPet(IPage<FosterDto> page);
 }

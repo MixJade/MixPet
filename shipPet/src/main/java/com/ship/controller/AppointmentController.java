@@ -41,7 +41,7 @@ public class AppointmentController {
      * 根据医生查询挂号信息
      */
     @GetMapping("/doctor")
-    public List<AppointmentDto> getDoctor(Long doctorId) {
+    public List<AppointmentDto> getDoctor(Integer doctorId) {
         return appointmentService.getDoctor(doctorId);
     }
 
@@ -63,13 +63,13 @@ public class AppointmentController {
 
     @DeleteMapping("/{id}")
     @Secured(RoleConst.MANAGER)
-    public Result delete(@PathVariable Long id) {
+    public Result delete(@PathVariable Integer id) {
         return Result.choice("删除单个", appointmentService.deleteById(id));
     }
 
     @DeleteMapping("/batch/{ids}")
     @Secured(RoleConst.MANAGER)
-    public Result deleteGroup(@PathVariable List<Long> ids) {
+    public Result deleteGroup(@PathVariable List<Integer> ids) {
         return Result.choice("删除多个", appointmentService.deleteByIds(ids));
     }
 

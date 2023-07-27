@@ -6,7 +6,7 @@
         SELECT
         department_id, department_name, department_info, department_address
         FROM department
-        WHERE is_del='0'
+        WHERE is_del = 0
         <if test="departmentName!=null and departmentName!=''">
             <bind name="departmentName" value="'%'+departmentName+'%'"/>
             and department_name like #{departmentName}

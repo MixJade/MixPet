@@ -21,7 +21,7 @@
         pet c,
         department d,
         doctor e
-        WHERE a.is_del = '0'
+        WHERE a.is_del = 0
         AND a.client_id = b.client_id
         AND a.pet_id = c.pet_id
         AND a.department_id = d.department_id
@@ -51,7 +51,7 @@
         FROM appointment a,
              client b,
              pet c
-        WHERE a.is_del = '0'
+        WHERE a.is_del = 0
           AND a.client_id = b.client_id
           AND a.pet_id = c.pet_id
           AND doctor_id = #{doctorId}
@@ -73,7 +73,7 @@
              doctor b,
              pet c,
              department d
-        WHERE a.is_del = '0'
+        WHERE a.is_del = 0
           AND a.doctor_id = b.doctor_id
           AND a.pet_id = c.pet_id
           AND a.department_id = d.department_id
@@ -102,7 +102,7 @@
              client b,
              pet c,
              department d
-        WHERE a.is_del = '0'
+        WHERE a.is_del = 0
           AND a.client_id = b.client_id
           AND a.pet_id = c.pet_id
           AND a.department_id = d.department_id

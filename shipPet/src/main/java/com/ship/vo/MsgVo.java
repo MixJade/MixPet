@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
  * 消息类
  */
 public record MsgVo(
-        long msgId,
+        Integer msgId,
         String roleName,
         String rolePhoto,
         boolean isMine,

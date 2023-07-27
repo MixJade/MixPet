@@ -23,7 +23,7 @@ public interface IFosterService extends IService<Foster> {
      * @param fosterId 寄养单id
      * @return 是否删除成功
      */
-    boolean deleteById(long fosterId);
+    boolean deleteById(Integer fosterId);
 
     /**
      * 批量逻辑删除
@@ -31,7 +31,7 @@ public interface IFosterService extends IService<Foster> {
      * @param idGroup 一组id
      * @return 是否批量删除成功
      */
-    boolean deleteByIds(List<Long> idGroup);
+    boolean deleteByIds(List<Integer> idGroup);
 
     /**
      * 分页查询
@@ -57,5 +57,5 @@ public interface IFosterService extends IService<Foster> {
      * @param petId 待寄养宠物的ID
      * @return 订单数量
      */
-    Long haveFoster(Long petId);
+    Integer haveFoster(Integer petId);
 }

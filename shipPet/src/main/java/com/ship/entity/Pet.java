@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author MixJade
- * @since 2023-01-18
+ * @since 2023-07-27
  */
 public class Pet implements Serializable {
 
@@ -25,7 +24,7 @@ public class Pet implements Serializable {
      * 宠物的id
      */
     @TableId(value = "pet_id", type = IdType.AUTO)
-    private Long petId;
+    private Integer petId;
 
     /**
      * 宠物姓名
@@ -60,7 +59,7 @@ public class Pet implements Serializable {
     /**
      * 宠物主人id
      */
-    private Long clientId;
+    private Integer clientId;
 
     /**
      * 宠物照片名称
@@ -82,13 +81,13 @@ public class Pet implements Serializable {
     /**
      * 逻辑删除，默认0，填充删除日期
      */
-    private String isDel;
+    private Long isDel;
 
-    public Long getPetId() {
+    public Integer getPetId() {
         return petId;
     }
 
-    public void setPetId(Long petId) {
+    public void setPetId(Integer petId) {
         this.petId = petId;
     }
 
@@ -140,11 +139,11 @@ public class Pet implements Serializable {
         this.petInfo = petInfo;
     }
 
-    public Long getClientId() {
+    public Integer getClientId() {
         return clientId;
     }
 
-    public void setClientId(Long clientId) {
+    public void setClientId(Integer clientId) {
         this.clientId = clientId;
     }
 
@@ -172,29 +171,29 @@ public class Pet implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public String getIsDel() {
+    public Long getIsDel() {
         return isDel;
     }
 
-    public void setIsDel(String isDel) {
+    public void setIsDel(Long isDel) {
         this.isDel = isDel;
     }
 
     @Override
     public String toString() {
         return "Pet{" +
-                "petId = " + petId +
-                ", petName = " + petName +
-                ", petVariety = " + petVariety +
-                ", petSex = " + petSex +
-                ", petAge = " + petAge +
-                ", petStatus = " + petStatus +
-                ", petInfo = " + petInfo +
-                ", clientId = " + clientId +
-                ", petPhoto = " + petPhoto +
-                ", createTime = " + createTime +
-                ", updateTime = " + updateTime +
-                ", isDel = " + isDel +
-                "}";
+            "petId = " + petId +
+            ", petName = " + petName +
+            ", petVariety = " + petVariety +
+            ", petSex = " + petSex +
+            ", petAge = " + petAge +
+            ", petStatus = " + petStatus +
+            ", petInfo = " + petInfo +
+            ", clientId = " + clientId +
+            ", petPhoto = " + petPhoto +
+            ", createTime = " + createTime +
+            ", updateTime = " + updateTime +
+            ", isDel = " + isDel +
+        "}";
     }
 }

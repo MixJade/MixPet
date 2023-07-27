@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ship.mapper.MsgMapper">
     <!--查询用户最近谈话的医生-->
-    <select id="getByClient" resultType="Long">
+    <select id="getByClient" resultType="Integer">
         SELECT doctor_id
         FROM msg
-        WHERE is_del = '0'
+        WHERE is_del = 0
           AND client_id = #{clientId}
         ORDER BY create_time DESC LIMIT 0,1
     </select>
@@ -21,7 +21,7 @@
         FROM msg m,
              client c,
              doctor d
-        WHERE m.is_del = '0'
+        WHERE m.is_del = 0
           AND m.client_id = #{clientId}
           AND m.doctor_id = #{doctorId}
           AND m.client_id = c.client_id
@@ -40,10 +40,10 @@
         ORDER BY flag
     </select>
     <!--查询医生最近谈话的用户-->
-    <select id="getByDoctor" resultType="Long">
+    <select id="getByDoctor" resultType="Integer">
         SELECT client_id
         FROM msg
-        WHERE is_del = '0'
+        WHERE is_del = 0
           AND doctor_id = #{doctorId}
         ORDER BY create_time DESC LIMIT 0,1
     </select>
@@ -59,7 +59,7 @@
         FROM msg m,
              client c,
              doctor d
-        WHERE m.is_del = '0'
+        WHERE m.is_del = 0
           AND m.client_id = #{clientId}
           AND m.doctor_id = #{doctorId}
           AND m.client_id = c.client_id

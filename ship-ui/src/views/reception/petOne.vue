@@ -107,7 +107,6 @@ const pet = ref<Pet>({
   "petPhoto": "defaultPet.jpg",
   "createTime": "",
   "updateTime": "",
-  "isDel": "0"
 })
 // 是否领养
 const inAdopt = ref<number>(0)

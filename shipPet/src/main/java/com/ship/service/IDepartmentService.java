@@ -22,7 +22,7 @@ public interface IDepartmentService extends IService<Department> {
      * @param departmentId 客户id
      * @return 是否删除成功
      */
-    boolean deleteById(long departmentId);
+    boolean deleteById(Integer departmentId);
 
     /**
      * 分页查询

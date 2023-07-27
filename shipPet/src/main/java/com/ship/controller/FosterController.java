@@ -56,13 +56,13 @@ public class FosterController {
 
     @DeleteMapping("/{id}")
     @Secured(RoleConst.MANAGER)
-    public Result delete(@PathVariable Long id) {
+    public Result delete(@PathVariable Integer id) {
         return Result.choice("删除单个", fosterService.deleteById(id));
     }
 
     @DeleteMapping("/batch/{ids}")
     @Secured(RoleConst.MANAGER)
-    public Result deleteGroup(@PathVariable List<Long> ids) {
+    public Result deleteGroup(@PathVariable List<Integer> ids) {
         return Result.choice("删除多个", fosterService.deleteByIds(ids));
     }
 

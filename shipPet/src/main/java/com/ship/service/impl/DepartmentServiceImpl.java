@@ -22,10 +22,10 @@ import java.util.List;
 @Service
 public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Department> implements IDepartmentService {
     @Override
-    public boolean deleteById(long departmentId) {
+    public boolean deleteById(Integer departmentId) {
         return this.lambdaUpdate()
                 .eq(Department::getDepartmentId, departmentId)
-                .set(Department::getIsDel, String.valueOf(System.currentTimeMillis()))
+                .set(Department::getIsDel, System.currentTimeMillis())
                 .update();
     }
 

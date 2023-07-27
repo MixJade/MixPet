@@ -26,8 +26,8 @@ public class ChatEndpoint {
     /**
      * 用来存储每个用户客户端对象的ChatEndpoint对象
      */
-    private static final Map<Long, ChatEndpoint> onlineClients = new ConcurrentHashMap<>();
-    private static final Map<Long, ChatEndpoint> onlineDoctors = new ConcurrentHashMap<>();
+    private static final Map<Integer, ChatEndpoint> onlineClients = new ConcurrentHashMap<>();
+    private static final Map<Integer, ChatEndpoint> onlineDoctors = new ConcurrentHashMap<>();
 
     /**
      * 通过session对象,发消息给指定的用户
@@ -69,14 +69,14 @@ public class ChatEndpoint {
             Msg msg = mapper.readValue(message, Msg.class);
             if (object instanceof Client client) {
                 // 信息为客户发给医生
-                Long doctorId = msg.getDoctorId();
+                Integer doctorId = msg.getDoctorId();
                 if (!onlineDoctors.containsKey(doctorId)) return;
                 msg.setClientId(client.getClientId());
                 String msgJson = msgToString(msg);
                 onlineDoctors.get(doctorId).session.getBasicRemote().sendText(msgJson);
             } else if (object instanceof Doctor doctor) {
                 // 信息为医生发给客户
-                Long clientId = msg.getClientId();
+                Integer clientId = msg.getClientId();
                 if (!onlineClients.containsKey(clientId)) return;
                 msg.setDoctorId(doctor.getDoctorId());
                 String msgJson = msgToString(msg);

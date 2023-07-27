@@ -23,7 +23,7 @@ public interface IDoctorService extends IService<Doctor> {
      * @param doctorId 医生id
      * @return 是否删除成功
      */
-    boolean deleteById(long doctorId);
+    boolean deleteById(Integer doctorId);
 
     /**
      * 批量逻辑删除
@@ -31,7 +31,7 @@ public interface IDoctorService extends IService<Doctor> {
      * @param idGroup 一组id
      * @return 是否批量删除成功
      */
-    boolean deleteByIds(List<Long> idGroup);
+    boolean deleteByIds(List<Integer> idGroup);
 
     /**
      * 分页查询
@@ -50,7 +50,7 @@ public interface IDoctorService extends IService<Doctor> {
      * @param doctorId 医生id
      * @return 医生信息以及科室名
      */
-    DoctorDto selectById(long doctorId);
+    DoctorDto selectById(Integer doctorId);
 
     /**
      * 查询名字与对应id
@@ -65,5 +65,5 @@ public interface IDoctorService extends IService<Doctor> {
      * @param departmentId 科室id
      * @return 医生姓名与id
      */
-    List<NameVo> selectByDepartment(long departmentId);
+    List<NameVo> selectByDepartment(Integer departmentId);
 }

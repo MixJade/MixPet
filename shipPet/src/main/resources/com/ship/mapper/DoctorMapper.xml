@@ -8,7 +8,7 @@
         FROM doctor AS a
         LEFT JOIN department AS b
         ON a.department_id=b.department_id
-        WHERE a.is_del='0'
+        WHERE a.is_del = 0
         <if test="doctorName!=null and doctorName!=''">
             <bind name="doctorName" value="'%'+doctorName+'%'"/>
             and doctor_name like #{doctorName}
@@ -33,7 +33,7 @@
         FROM doctor AS a
                  LEFT JOIN department AS b
                            ON a.department_id = b.department_id
-        WHERE a.is_del = '0'
+        WHERE a.is_del = 0
           AND doctor_id = #{doctorId}
     </select>
 </mapper>

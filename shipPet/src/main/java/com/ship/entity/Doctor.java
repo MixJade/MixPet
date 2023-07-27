@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author MixJade
- * @since 2023-02-25
+ * @since 2023-07-27
  */
 public class Doctor implements Serializable {
 
@@ -25,12 +24,12 @@ public class Doctor implements Serializable {
      * 医生id
      */
     @TableId(value = "doctor_id", type = IdType.AUTO)
-    private Long doctorId;
+    private Integer doctorId;
 
     /**
      * 部门id
      */
-    private Long departmentId;
+    private Integer departmentId;
 
     /**
      * 医生工号
@@ -92,21 +91,21 @@ public class Doctor implements Serializable {
     /**
      * 逻辑删除，默认0，填充删除日期
      */
-    private String isDel;
+    private Long isDel;
 
-    public Long getDoctorId() {
+    public Integer getDoctorId() {
         return doctorId;
     }
 
-    public void setDoctorId(Long doctorId) {
+    public void setDoctorId(Integer doctorId) {
         this.doctorId = doctorId;
     }
 
-    public Long getDepartmentId() {
+    public Integer getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(Long departmentId) {
+    public void setDepartmentId(Integer departmentId) {
         this.departmentId = departmentId;
     }
 
@@ -198,31 +197,31 @@ public class Doctor implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public String getIsDel() {
+    public Long getIsDel() {
         return isDel;
     }
 
-    public void setIsDel(String isDel) {
+    public void setIsDel(Long isDel) {
         this.isDel = isDel;
     }
 
     @Override
     public String toString() {
         return "Doctor{" +
-                "doctorId = " + doctorId +
-                ", departmentId = " + departmentId +
-                ", doctorCode = " + doctorCode +
-                ", doctorName = " + doctorName +
-                ", doctorGender = " + doctorGender +
-                ", doctorAge = " + doctorAge +
-                ", doctorPhoto = " + doctorPhoto +
-                ", doctorTel = " + doctorTel +
-                ", doctorJob = " + doctorJob +
-                ", doctorInfo = " + doctorInfo +
-                ", doctorPassword = " + doctorPassword +
-                ", createTime = " + createTime +
-                ", updateTime = " + updateTime +
-                ", isDel = " + isDel +
-                "}";
+            "doctorId = " + doctorId +
+            ", departmentId = " + departmentId +
+            ", doctorCode = " + doctorCode +
+            ", doctorName = " + doctorName +
+            ", doctorGender = " + doctorGender +
+            ", doctorAge = " + doctorAge +
+            ", doctorPhoto = " + doctorPhoto +
+            ", doctorTel = " + doctorTel +
+            ", doctorJob = " + doctorJob +
+            ", doctorInfo = " + doctorInfo +
+            ", doctorPassword = " + doctorPassword +
+            ", createTime = " + createTime +
+            ", updateTime = " + updateTime +
+            ", isDel = " + isDel +
+        "}";
     }
 }

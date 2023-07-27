@@ -23,14 +23,14 @@ import java.util.List;
 public interface DoctorMapper extends BaseMapper<Doctor> {
     IPage<DoctorDto> selectDoctorPage(IPage<DoctorDto> page, @Param("doctorName") String doctorName, @Param("departmentName") String departmentName);
 
-    DoctorDto selectOneId(@Param("doctorId") long doctorId);
+    DoctorDto selectOneId(@Param("doctorId") Integer doctorId);
 
     @Select("SELECT doctor_id as roleId,doctor_name as roleName FROM doctor WHERE is_del = '0'")
     List<NameVo> selectName();
 
     @Select("SELECT doctor_id as roleId, doctor_name as roleName FROM doctor WHERE is_del = '0' AND department_id=#{departmentId}")
-    List<NameVo> selectByDepartment(long departmentId);
+    List<NameVo> selectByDepartment(Integer departmentId);
 
     @Select("select max(doctor_id) from doctor")
-    Long getMaxId();
+    Integer getMaxId();
 }

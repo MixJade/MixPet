@@ -44,7 +44,7 @@ public class ClientController {
      * 根据id查询单个用户
      */
     @GetMapping("/one")
-    public Client getOne(Long id) {
+    public Client getOne(Integer id) {
         return clientService.getById(id);
     }
 
@@ -64,13 +64,13 @@ public class ClientController {
 
     @DeleteMapping("/{id}")
     @Secured(RoleConst.MANAGER)
-    public Result delete(@PathVariable Long id) {
+    public Result delete(@PathVariable Integer id) {
         return Result.choice("删除单个", clientService.deleteById(id));
     }
 
     @DeleteMapping("/batch/{ids}")
     @Secured(RoleConst.MANAGER)
-    public Result deleteGroup(@PathVariable List<Long> ids) {
+    public Result deleteGroup(@PathVariable List<Integer> ids) {
         return Result.choice("删除多个", clientService.deleteByIds(ids));
     }
 

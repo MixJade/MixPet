@@ -23,18 +23,18 @@ import java.util.List;
 public class ClientServiceImpl extends ServiceImpl<ClientMapper, Client> implements IClientService {
 
     @Override
-    public boolean deleteById(long clientId) {
+    public boolean deleteById(Integer clientId) {
         return this.lambdaUpdate()
                 .eq(Client::getClientId, clientId)
-                .set(Client::getIsDel, String.valueOf(System.currentTimeMillis()))
+                .set(Client::getIsDel, System.currentTimeMillis())
                 .update();
     }
 
     @Override
-    public boolean deleteByIds(List<Long> idGroup) {
+    public boolean deleteByIds(List<Integer> idGroup) {
         return this.lambdaUpdate()
                 .in(Client::getClientId, idGroup)
-                .set(Client::getIsDel, String.valueOf(System.currentTimeMillis()))
+                .set(Client::getIsDel, System.currentTimeMillis())
                 .update();
     }
 

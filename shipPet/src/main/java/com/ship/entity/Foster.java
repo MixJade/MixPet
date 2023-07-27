@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author MixJade
- * @since 2023-01-18
+ * @since 2023-07-27
  */
 public class Foster implements Serializable {
 
@@ -25,7 +24,7 @@ public class Foster implements Serializable {
      * 寄养表的id
      */
     @TableId(value = "foster_id", type = IdType.AUTO)
-    private Long fosterId;
+    private Integer fosterId;
 
     /**
      * 订单编号
@@ -35,12 +34,12 @@ public class Foster implements Serializable {
     /**
      * 寄养宠物的id
      */
-    private Long petId;
+    private Integer petId;
 
     /**
      * 寄养人id
      */
-    private Long clientId;
+    private Integer clientId;
 
     /**
      * 寄养到期时间
@@ -72,13 +71,13 @@ public class Foster implements Serializable {
     /**
      * 逻辑删除，默认0，填充删除日期
      */
-    private String isDel;
+    private Long isDel;
 
-    public Long getFosterId() {
+    public Integer getFosterId() {
         return fosterId;
     }
 
-    public void setFosterId(Long fosterId) {
+    public void setFosterId(Integer fosterId) {
         this.fosterId = fosterId;
     }
 
@@ -90,19 +89,19 @@ public class Foster implements Serializable {
         this.fosterCode = fosterCode;
     }
 
-    public Long getPetId() {
+    public Integer getPetId() {
         return petId;
     }
 
-    public void setPetId(Long petId) {
+    public void setPetId(Integer petId) {
         this.petId = petId;
     }
 
-    public Long getClientId() {
+    public Integer getClientId() {
         return clientId;
     }
 
-    public void setClientId(Long clientId) {
+    public void setClientId(Integer clientId) {
         this.clientId = clientId;
     }
 
@@ -146,27 +145,27 @@ public class Foster implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public String getIsDel() {
+    public Long getIsDel() {
         return isDel;
     }
 
-    public void setIsDel(String isDel) {
+    public void setIsDel(Long isDel) {
         this.isDel = isDel;
     }
 
     @Override
     public String toString() {
         return "Foster{" +
-                "fosterId = " + fosterId +
-                ", fosterCode = " + fosterCode +
-                ", petId = " + petId +
-                ", clientId = " + clientId +
-                ", fosterTerm = " + fosterTerm +
-                ", fosterMoney = " + fosterMoney +
-                ", fosterInfo = " + fosterInfo +
-                ", createTime = " + createTime +
-                ", updateTime = " + updateTime +
-                ", isDel = " + isDel +
-                "}";
+            "fosterId = " + fosterId +
+            ", fosterCode = " + fosterCode +
+            ", petId = " + petId +
+            ", clientId = " + clientId +
+            ", fosterTerm = " + fosterTerm +
+            ", fosterMoney = " + fosterMoney +
+            ", fosterInfo = " + fosterInfo +
+            ", createTime = " + createTime +
+            ", updateTime = " + updateTime +
+            ", isDel = " + isDel +
+        "}";
     }
 }

@@ -16,7 +16,7 @@
         adopt_id, adopt_code,a.pet_id, a.client_id, adopt_money,
         adopt_info,in_adopt,a.create_time,b.pet_name,c.client_name
         FROM adopt as a,pet as b,client as c
-        WHERE a.is_del = '0'
+        WHERE a.is_del = 0
         AND a.pet_id = b.pet_id
         AND a.client_id = c.client_id
         <if test="clientName!=null and clientName!=''">
@@ -33,7 +33,7 @@
     <select id="sureInAdopt" resultType="int">
         select count(*)
         from adopt
-        where is_del = '0'
+        where is_del = 0
           and in_adopt = 2
           and pet_id = #{petId}
           and client_id = #{clientId}

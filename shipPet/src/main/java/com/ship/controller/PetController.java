@@ -39,7 +39,7 @@ public class PetController {
      * 添加寄养、挂号单时，查询主人对应的宠物
      */
     @GetMapping("/client")
-    public List<NameVo> getByClient(long clientId) {
+    public List<NameVo> getByClient(Integer clientId) {
         return petService.selectByClient(clientId);
     }
 
@@ -89,7 +89,7 @@ public class PetController {
      * @return 宠物信息
      */
     @GetMapping("/one")
-    public Pet getOne(Long petId) {
+    public Pet getOne(Integer petId) {
         return petService.getById(petId);
     }
 
@@ -104,13 +104,13 @@ public class PetController {
 
     @DeleteMapping("/{id}")
     @Secured(RoleConst.MANAGER)
-    public Result delete(@PathVariable Long id) {
+    public Result delete(@PathVariable Integer id) {
         return Result.choice("删除单个", petService.deleteById(id));
     }
 
     @DeleteMapping("/batch/{ids}")
     @Secured(RoleConst.MANAGER)
-    public Result deleteGroup(@PathVariable List<Long> ids) {
+    public Result deleteGroup(@PathVariable List<Integer> ids) {
         return Result.choice("删除多个", petService.deleteByIds(ids));
     }
 

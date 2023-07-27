@@ -11,5 +11,4 @@ export interface Employee {
     employeePhoto: string;
     createTime: string;
     updateTime?: string | null;
-    isDel?: string | null;
 }

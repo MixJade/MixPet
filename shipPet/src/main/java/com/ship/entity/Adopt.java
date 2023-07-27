@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author MixJade
- * @since 2023-02-13
+ * @since 2023-07-27
  */
 public class Adopt implements Serializable {
 
@@ -24,7 +23,7 @@ public class Adopt implements Serializable {
      * 领养表的id
      */
     @TableId(value = "adopt_id", type = IdType.AUTO)
-    private Long adoptId;
+    private Integer adoptId;
 
     /**
      * 订单编号
@@ -34,12 +33,12 @@ public class Adopt implements Serializable {
     /**
      * 领养宠物的id
      */
-    private Long petId;
+    private Integer petId;
 
     /**
      * 领养人id
      */
-    private Long clientId;
+    private Integer clientId;
 
     /**
      * 领养押金
@@ -71,13 +70,13 @@ public class Adopt implements Serializable {
     /**
      * 逻辑删除，默认0，填充删除日期
      */
-    private String isDel;
+    private Long isDel;
 
-    public Long getAdoptId() {
+    public Integer getAdoptId() {
         return adoptId;
     }
 
-    public void setAdoptId(Long adoptId) {
+    public void setAdoptId(Integer adoptId) {
         this.adoptId = adoptId;
     }
 
@@ -89,19 +88,19 @@ public class Adopt implements Serializable {
         this.adoptCode = adoptCode;
     }
 
-    public Long getPetId() {
+    public Integer getPetId() {
         return petId;
     }
 
-    public void setPetId(Long petId) {
+    public void setPetId(Integer petId) {
         this.petId = petId;
     }
 
-    public Long getClientId() {
+    public Integer getClientId() {
         return clientId;
     }
 
-    public void setClientId(Long clientId) {
+    public void setClientId(Integer clientId) {
         this.clientId = clientId;
     }
 
@@ -145,27 +144,27 @@ public class Adopt implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public String getIsDel() {
+    public Long getIsDel() {
         return isDel;
     }
 
-    public void setIsDel(String isDel) {
+    public void setIsDel(Long isDel) {
         this.isDel = isDel;
     }
 
     @Override
     public String toString() {
         return "Adopt{" +
-                "adoptId = " + adoptId +
-                ", adoptCode = " + adoptCode +
-                ", petId = " + petId +
-                ", clientId = " + clientId +
-                ", adoptMoney = " + adoptMoney +
-                ", adoptInfo = " + adoptInfo +
-                ", inAdopt = " + inAdopt +
-                ", createTime = " + createTime +
-                ", updateTime = " + updateTime +
-                ", isDel = " + isDel +
-                "}";
+            "adoptId = " + adoptId +
+            ", adoptCode = " + adoptCode +
+            ", petId = " + petId +
+            ", clientId = " + clientId +
+            ", adoptMoney = " + adoptMoney +
+            ", adoptInfo = " + adoptInfo +
+            ", inAdopt = " + inAdopt +
+            ", createTime = " + createTime +
+            ", updateTime = " + updateTime +
+            ", isDel = " + isDel +
+        "}";
     }
 }

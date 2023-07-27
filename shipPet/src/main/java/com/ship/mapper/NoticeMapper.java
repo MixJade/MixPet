@@ -43,8 +43,8 @@ public interface NoticeMapper extends BaseMapper<Notice> {
      */
     boolean updateNotice(NoticeDto noticeDto);
 
-    boolean addNotice(@Param("creatId") Long creatId, @Param("noticeTitle") String noticeTitle, @Param("noticeFile") String noticeFile);
+    boolean addNotice(@Param("creatId") Integer creatId, @Param("noticeTitle") String noticeTitle, @Param("noticeFile") String noticeFile);
 
     @Update("update notice set is_disable = #{isDis} where notice_id=#{id}")
-    boolean disableNotice(@Param("id") long noticeId, @Param("isDis") boolean isDis);
+    boolean disableNotice(@Param("id") Integer noticeId, @Param("isDis") boolean isDis);
 }

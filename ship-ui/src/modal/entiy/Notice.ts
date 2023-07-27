@@ -7,5 +7,4 @@ export interface Notice {
     updateId?: null | number;
     updateTime?: null | string;
     isDisable?: null | boolean;
-    isDel?: null | string;
 }

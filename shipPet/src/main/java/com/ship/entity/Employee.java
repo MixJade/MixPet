@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author MixJade
- * @since 2023-02-19
+ * @since 2023-07-27
  */
 public class Employee implements Serializable {
 
@@ -24,7 +23,7 @@ public class Employee implements Serializable {
      * 管理员id
      */
     @TableId(value = "employee_id", type = IdType.AUTO)
-    private Long employeeId;
+    private Integer employeeId;
 
     /**
      * 管理员账号
@@ -44,7 +43,7 @@ public class Employee implements Serializable {
     /**
      * 管理员等级
      */
-    private Byte employeeLevel;
+    private Integer employeeLevel;
 
     /**
      * 管理员联系方式
@@ -71,13 +70,13 @@ public class Employee implements Serializable {
     /**
      * 逻辑删除，默认0，填充删除日期
      */
-    private String isDel;
+    private Long isDel;
 
-    public Long getEmployeeId() {
+    public Integer getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(Long employeeId) {
+    public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
 
@@ -105,11 +104,11 @@ public class Employee implements Serializable {
         this.employeeName = employeeName;
     }
 
-    public Byte getEmployeeLevel() {
+    public Integer getEmployeeLevel() {
         return employeeLevel;
     }
 
-    public void setEmployeeLevel(Byte employeeLevel) {
+    public void setEmployeeLevel(Integer employeeLevel) {
         this.employeeLevel = employeeLevel;
     }
 
@@ -145,27 +144,27 @@ public class Employee implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public String getIsDel() {
+    public Long getIsDel() {
         return isDel;
     }
 
-    public void setIsDel(String isDel) {
+    public void setIsDel(Long isDel) {
         this.isDel = isDel;
     }
 
     @Override
     public String toString() {
         return "Employee{" +
-                "employeeId = " + employeeId +
-                ", employeeUsername = " + employeeUsername +
-                ", employeePassword = " + employeePassword +
-                ", employeeName = " + employeeName +
-                ", employeeLevel = " + employeeLevel +
-                ", employeeTel = " + employeeTel +
-                ", employeePhoto = " + employeePhoto +
-                ", createTime = " + createTime +
-                ", updateTime = " + updateTime +
-                ", isDel = " + isDel +
-                "}";
+            "employeeId = " + employeeId +
+            ", employeeUsername = " + employeeUsername +
+            ", employeePassword = " + employeePassword +
+            ", employeeName = " + employeeName +
+            ", employeeLevel = " + employeeLevel +
+            ", employeeTel = " + employeeTel +
+            ", employeePhoto = " + employeePhoto +
+            ", createTime = " + createTime +
+            ", updateTime = " + updateTime +
+            ", isDel = " + isDel +
+        "}";
     }
 }

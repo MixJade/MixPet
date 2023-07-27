@@ -23,18 +23,18 @@ import java.util.List;
 @Service
 public class AppointmentServiceImpl extends ServiceImpl<AppointmentMapper, Appointment> implements IAppointmentService {
     @Override
-    public boolean deleteById(long appointmentId) {
+    public boolean deleteById(Integer appointmentId) {
         return this.lambdaUpdate()
                 .eq(Appointment::getAppointmentId, appointmentId)
-                .set(Appointment::getIsDel, String.valueOf(System.currentTimeMillis()))
+                .set(Appointment::getIsDel, System.currentTimeMillis())
                 .update();
     }
 
     @Override
-    public boolean deleteByIds(List<Long> idGroup) {
+    public boolean deleteByIds(List<Integer> idGroup) {
         return this.lambdaUpdate()
                 .in(Appointment::getAppointmentId, idGroup)
-                .set(Appointment::getIsDel, String.valueOf(System.currentTimeMillis()))
+                .set(Appointment::getIsDel, System.currentTimeMillis())
                 .update();
     }
 
@@ -44,17 +44,17 @@ public class AppointmentServiceImpl extends ServiceImpl<AppointmentMapper, Appoi
     }
 
     @Override
-    public List<AppointmentDto> getDoctor(long doctorId) {
+    public List<AppointmentDto> getDoctor(Integer doctorId) {
         return baseMapper.getDoctor(doctorId);
     }
 
     @Override
-    public List<AppointmentDto> getClient(long clientId) {
+    public List<AppointmentDto> getClient(Integer clientId) {
         return baseMapper.getClient(clientId);
     }
 
     @Override
-    public List<AppointmentDto2> getDoctorLog(Long doctorId) {
+    public List<AppointmentDto2> getDoctorLog(Integer doctorId) {
         return baseMapper.getDoctorLog(doctorId);
     }
 }

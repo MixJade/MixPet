@@ -8,5 +8,4 @@ export interface Foster {
     fosterInfo: string;
     createTime?: string | null;
     updateTime?: string | null;
-    isDel?: string | null;
 }

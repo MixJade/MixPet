@@ -23,7 +23,7 @@ public interface IPetService extends IService<Pet> {
      * @param petId 宠物id
      * @return 是否删除成功
      */
-    boolean deleteById(long petId);
+    boolean deleteById(Integer petId);
 
     /**
      * 批量逻辑删除
@@ -31,7 +31,7 @@ public interface IPetService extends IService<Pet> {
      * @param idGroup 一组id
      * @return 是否批量删除成功
      */
-    boolean deleteByIds(List<Long> idGroup);
+    boolean deleteByIds(List<Integer> idGroup);
 
     /**
      * 分页查询
@@ -67,7 +67,7 @@ public interface IPetService extends IService<Pet> {
     /**
      * 查询主人对应的宠物
      */
-    List<NameVo> selectByClient(long clientId);
+    List<NameVo> selectByClient(Integer clientId);
 
     /**
      * 查询没有主人的宠物

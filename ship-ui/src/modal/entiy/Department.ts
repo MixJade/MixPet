@@ -5,5 +5,4 @@ export interface Department {
     departmentAddress: string;
     createTime?: null | string;
     updateTime?: null | string;
-    isDel?: null | string;
 }

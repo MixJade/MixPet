@@ -21,14 +21,14 @@ public interface AdoptMapper extends BaseMapper<Adopt> {
     IPage<AdoptDto> selectAdoptPage(IPage<AdoptDto> page, @Param("clientName") String clientName, @Param("petName") String petName);
 
     @Select("select max(adopt_id) from adopt")
-    Long getMaxId();
+    Integer getMaxId();
 
-    boolean adoptAdopt(@Param("adoptId") Long adoptId, @Param("petInfo") String petInfo);
+    boolean adoptAdopt(@Param("adoptId") Integer adoptId, @Param("petInfo") String petInfo);
 
     /**
      * 查询是否已有待审核订单
      */
-    int sureInAdopt(@Param("petId") Long petId, @Param("clientId") Long clientId);
+    int sureInAdopt(@Param("petId") Integer petId, @Param("clientId") Integer clientId);
 
     /**
      * 查询宠物是否有主人
@@ -43,5 +43,5 @@ public interface AdoptMapper extends BaseMapper<Adopt> {
             	a.pet_id = b.pet_id
             	AND b.adopt_id = #{adoptId}
             """)
-    Long petMaster(Long adoptId);
+    Integer petMaster(Integer adoptId);
 }

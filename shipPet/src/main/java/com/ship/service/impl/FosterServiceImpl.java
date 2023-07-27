@@ -26,18 +26,18 @@ import java.util.List;
 public class FosterServiceImpl extends ServiceImpl<FosterMapper, Foster> implements IFosterService {
 
     @Override
-    public boolean deleteById(long fosterId) {
+    public boolean deleteById(Integer fosterId) {
         return this.lambdaUpdate()
                 .eq(Foster::getFosterId, fosterId)
-                .set(Foster::getIsDel, String.valueOf(System.currentTimeMillis()))
+                .set(Foster::getIsDel, System.currentTimeMillis())
                 .update();
     }
 
     @Override
-    public boolean deleteByIds(List<Long> idGroup) {
+    public boolean deleteByIds(List<Integer> idGroup) {
         return this.lambdaUpdate()
                 .in(Foster::getFosterId, idGroup)
-                .set(Foster::getIsDel, String.valueOf(System.currentTimeMillis()))
+                .set(Foster::getIsDel, System.currentTimeMillis())
                 .update();
     }
 
@@ -52,13 +52,13 @@ public class FosterServiceImpl extends ServiceImpl<FosterMapper, Foster> impleme
     }
 
     @Override
-    public Long haveFoster(Long petId) {
+    public Integer haveFoster(Integer petId) {
         // SELECT COUNT(*) FROM foster WHERE is_del='0' AND pet_id=? AND foster_term>=?
-        return this.lambdaQuery()
+        return Math.toIntExact(this.lambdaQuery()
                 .eq(Foster::getPetId, petId)
                 // ge:大于开始时间;le:小于等于结束时间
                 .ge(Foster::getFosterTerm, LocalDate.now())
-                .count();
+                .count());
     }
 
     @Override

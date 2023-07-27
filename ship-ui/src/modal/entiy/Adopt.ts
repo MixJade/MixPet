@@ -8,5 +8,4 @@ export interface Adopt {
     inAdopt: number;
     createTime: string;
     updateTime?: string | null;
-    isDel?: string | null;
 }

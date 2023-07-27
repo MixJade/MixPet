@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author MixJade
- * @since 2023-01-18
+ * @since 2023-07-27
  */
 public class Notice implements Serializable {
 
@@ -24,7 +23,7 @@ public class Notice implements Serializable {
      * 公告id
      */
     @TableId(value = "notice_id", type = IdType.AUTO)
-    private Long noticeId;
+    private Integer noticeId;
 
     /**
      * 公告标题
@@ -39,7 +38,7 @@ public class Notice implements Serializable {
     /**
      * 创建人id
      */
-    private Long creatId;
+    private Integer creatId;
 
     /**
      * 创建时间
@@ -50,7 +49,7 @@ public class Notice implements Serializable {
     /**
      * 修改人id
      */
-    private Long updateId;
+    private Integer updateId;
 
     /**
      * 修改时间
@@ -66,13 +65,13 @@ public class Notice implements Serializable {
     /**
      * 逻辑删除，默认0，填充删除日期
      */
-    private String isDel;
+    private Long isDel;
 
-    public Long getNoticeId() {
+    public Integer getNoticeId() {
         return noticeId;
     }
 
-    public void setNoticeId(Long noticeId) {
+    public void setNoticeId(Integer noticeId) {
         this.noticeId = noticeId;
     }
 
@@ -92,11 +91,11 @@ public class Notice implements Serializable {
         this.noticeFile = noticeFile;
     }
 
-    public Long getCreatId() {
+    public Integer getCreatId() {
         return creatId;
     }
 
-    public void setCreatId(Long creatId) {
+    public void setCreatId(Integer creatId) {
         this.creatId = creatId;
     }
 
@@ -108,11 +107,11 @@ public class Notice implements Serializable {
         this.createTime = createTime;
     }
 
-    public Long getUpdateId() {
+    public Integer getUpdateId() {
         return updateId;
     }
 
-    public void setUpdateId(Long updateId) {
+    public void setUpdateId(Integer updateId) {
         this.updateId = updateId;
     }
 
@@ -132,26 +131,26 @@ public class Notice implements Serializable {
         this.isDisable = isDisable;
     }
 
-    public String getIsDel() {
+    public Long getIsDel() {
         return isDel;
     }
 
-    public void setIsDel(String isDel) {
+    public void setIsDel(Long isDel) {
         this.isDel = isDel;
     }
 
     @Override
     public String toString() {
         return "Notice{" +
-                "noticeId = " + noticeId +
-                ", noticeTitle = " + noticeTitle +
-                ", noticeFile = " + noticeFile +
-                ", creatId = " + creatId +
-                ", createTime = " + createTime +
-                ", updateId = " + updateId +
-                ", updateTime = " + updateTime +
-                ", isDisable = " + isDisable +
-                ", isDel = " + isDel +
-                "}";
+            "noticeId = " + noticeId +
+            ", noticeTitle = " + noticeTitle +
+            ", noticeFile = " + noticeFile +
+            ", creatId = " + creatId +
+            ", createTime = " + createTime +
+            ", updateId = " + updateId +
+            ", updateTime = " + updateTime +
+            ", isDisable = " + isDisable +
+            ", isDel = " + isDel +
+        "}";
     }
 }
