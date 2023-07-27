@@ -86,19 +86,19 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
     }
 
     @Override
-    public boolean deleteById(long noticeId) {
+    public boolean deleteById(Integer noticeId) {
 
         return this.lambdaUpdate()
                 .eq(Notice::getNoticeId, noticeId)
-                .set(Notice::getIsDel, String.valueOf(System.currentTimeMillis()))
+                .set(Notice::getIsDel, System.currentTimeMillis())
                 .update();
     }
 
     @Override
-    public boolean deleteByIds(List<Long> idGroup) {
+    public boolean deleteByIds(List<Integer> idGroup) {
         return this.lambdaUpdate()
                 .in(Notice::getNoticeId, idGroup)
-                .set(Notice::getIsDel, String.valueOf(System.currentTimeMillis()))
+                .set(Notice::getIsDel, System.currentTimeMillis())
                 .update();
     }
 
@@ -130,7 +130,7 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
     }
 
     @Override
-    public boolean disableNotice(long noticeId, boolean isDis) {
+    public boolean disableNotice(Integer noticeId, boolean isDis) {
         return baseMapper.disableNotice(noticeId, !isDis);
     }
 

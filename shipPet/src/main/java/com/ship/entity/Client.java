@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,20 +14,20 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author MixJade
- * @since 2023-01-18
+ * @since 2023-07-27
  */
 public class Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 客户id
+     * 用户id
      */
     @TableId(value = "client_id", type = IdType.AUTO)
-    private Long clientId;
+    private Integer clientId;
 
     /**
-     * 客户账号
+     * 用户账号
      */
     private String clientUsername;
 
@@ -82,13 +81,13 @@ public class Client implements Serializable {
     /**
      * 逻辑删除，默认0，填充删除日期
      */
-    private String isDel;
+    private Long isDel;
 
-    public Long getClientId() {
+    public Integer getClientId() {
         return clientId;
     }
 
-    public void setClientId(Long clientId) {
+    public void setClientId(Integer clientId) {
         this.clientId = clientId;
     }
 
@@ -172,29 +171,29 @@ public class Client implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public String getIsDel() {
+    public Long getIsDel() {
         return isDel;
     }
 
-    public void setIsDel(String isDel) {
+    public void setIsDel(Long isDel) {
         this.isDel = isDel;
     }
 
     @Override
     public String toString() {
         return "Client{" +
-                "clientId = " + clientId +
-                ", clientUsername = " + clientUsername +
-                ", clientPassword = " + clientPassword +
-                ", clientName = " + clientName +
-                ", clientGender = " + clientGender +
-                ", clientTel = " + clientTel +
-                ", clientAge = " + clientAge +
-                ", clientInfo = " + clientInfo +
-                ", clientPhoto = " + clientPhoto +
-                ", createTime = " + createTime +
-                ", updateTime = " + updateTime +
-                ", isDel = " + isDel +
-                "}";
+            "clientId = " + clientId +
+            ", clientUsername = " + clientUsername +
+            ", clientPassword = " + clientPassword +
+            ", clientName = " + clientName +
+            ", clientGender = " + clientGender +
+            ", clientTel = " + clientTel +
+            ", clientAge = " + clientAge +
+            ", clientInfo = " + clientInfo +
+            ", clientPhoto = " + clientPhoto +
+            ", createTime = " + createTime +
+            ", updateTime = " + updateTime +
+            ", isDel = " + isDel +
+        "}";
     }
 }

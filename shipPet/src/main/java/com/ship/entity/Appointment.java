@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author MixJade
- * @since 2023-03-03
+ * @since 2023-07-27
  */
 public class Appointment implements Serializable {
 
@@ -24,17 +23,17 @@ public class Appointment implements Serializable {
      * 挂号单id
      */
     @TableId(value = "appointment_id", type = IdType.AUTO)
-    private Long appointmentId;
+    private Integer appointmentId;
 
     /**
      * 用户id
      */
-    private Long clientId;
+    private Integer clientId;
 
     /**
      * 宠物id
      */
-    private Long petId;
+    private Integer petId;
 
     /**
      * 就诊时间
@@ -44,12 +43,12 @@ public class Appointment implements Serializable {
     /**
      * 部门id
      */
-    private Long departmentId;
+    private Integer departmentId;
 
     /**
      * 医生id
      */
-    private Long doctorId;
+    private Integer doctorId;
 
     /**
      * 挂号简短信息
@@ -76,29 +75,29 @@ public class Appointment implements Serializable {
     /**
      * 逻辑删除，默认0，填充删除日期
      */
-    private String isDel;
+    private Long isDel;
 
-    public Long getAppointmentId() {
+    public Integer getAppointmentId() {
         return appointmentId;
     }
 
-    public void setAppointmentId(Long appointmentId) {
+    public void setAppointmentId(Integer appointmentId) {
         this.appointmentId = appointmentId;
     }
 
-    public Long getClientId() {
+    public Integer getClientId() {
         return clientId;
     }
 
-    public void setClientId(Long clientId) {
+    public void setClientId(Integer clientId) {
         this.clientId = clientId;
     }
 
-    public Long getPetId() {
+    public Integer getPetId() {
         return petId;
     }
 
-    public void setPetId(Long petId) {
+    public void setPetId(Integer petId) {
         this.petId = petId;
     }
 
@@ -110,19 +109,19 @@ public class Appointment implements Serializable {
         this.appointmentDate = appointmentDate;
     }
 
-    public Long getDepartmentId() {
+    public Integer getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(Long departmentId) {
+    public void setDepartmentId(Integer departmentId) {
         this.departmentId = departmentId;
     }
 
-    public Long getDoctorId() {
+    public Integer getDoctorId() {
         return doctorId;
     }
 
-    public void setDoctorId(Long doctorId) {
+    public void setDoctorId(Integer doctorId) {
         this.doctorId = doctorId;
     }
 
@@ -158,28 +157,28 @@ public class Appointment implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public String getIsDel() {
+    public Long getIsDel() {
         return isDel;
     }
 
-    public void setIsDel(String isDel) {
+    public void setIsDel(Long isDel) {
         this.isDel = isDel;
     }
 
     @Override
     public String toString() {
         return "Appointment{" +
-                "appointmentId = " + appointmentId +
-                ", clientId = " + clientId +
-                ", petId = " + petId +
-                ", appointmentDate = " + appointmentDate +
-                ", departmentId = " + departmentId +
-                ", doctorId = " + doctorId +
-                ", appointmentInfo = " + appointmentInfo +
-                ", isSuc = " + isSuc +
-                ", createTime = " + createTime +
-                ", updateTime = " + updateTime +
-                ", isDel = " + isDel +
-                "}";
+            "appointmentId = " + appointmentId +
+            ", clientId = " + clientId +
+            ", petId = " + petId +
+            ", appointmentDate = " + appointmentDate +
+            ", departmentId = " + departmentId +
+            ", doctorId = " + doctorId +
+            ", appointmentInfo = " + appointmentInfo +
+            ", isSuc = " + isSuc +
+            ", createTime = " + createTime +
+            ", updateTime = " + updateTime +
+            ", isDel = " + isDel +
+        "}";
     }
 }

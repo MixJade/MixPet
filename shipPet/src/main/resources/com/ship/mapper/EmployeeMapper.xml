@@ -6,7 +6,7 @@
         SELECT
         employee_id, employee_username, employee_name, employee_level,employee_tel,employee_photo,create_time
         FROM employee
-        WHERE is_del='0'
+        WHERE is_del = 0
         <if test="employeeName!=null and employeeName!=''">
             <bind name="employeeName" value="'%'+employeeName+'%'"/>
             and employee_name like #{employeeName}

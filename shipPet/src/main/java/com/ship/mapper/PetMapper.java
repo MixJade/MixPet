@@ -29,7 +29,7 @@ public interface PetMapper extends BaseMapper<Pet> {
     List<NameVo> selectName();
 
     @Select("SELECT pet_id as roleId, pet_name as roleName FROM pet WHERE is_del = '0' AND client_id=#{clientId}")
-    List<NameVo> selectByClient(long clientId);
+    List<NameVo> selectByClient(Integer clientId);
 
     @Select("SELECT pet_id as roleId, pet_name as roleName FROM pet WHERE is_del = '0' AND isNull(client_id)")
     List<NameVo> selectNoClient();

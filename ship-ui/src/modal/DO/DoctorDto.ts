@@ -25,7 +25,6 @@ export const exampleDoctorOne = (): DoctorDto => {
         "doctorPassword": null,
         "createTime": null,
         "updateTime": null,
-        "isDel": null,
         "departmentName": "犬猫科"
     }
 }

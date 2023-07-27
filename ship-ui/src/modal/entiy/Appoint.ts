@@ -9,5 +9,4 @@ export interface Appoint {
     isSuc: boolean | null;
     createTime: string | null;
     updateTime: string | null;
-    isDel: string | null;
 }

@@ -24,18 +24,18 @@ import java.util.List;
 public class PetServiceImpl extends ServiceImpl<PetMapper, Pet> implements IPetService {
 
     @Override
-    public boolean deleteById(long petId) {
+    public boolean deleteById(Integer petId) {
         return this.lambdaUpdate()
                 .eq(Pet::getPetId, petId)
-                .set(Pet::getIsDel, String.valueOf(System.currentTimeMillis()))
+                .set(Pet::getIsDel, System.currentTimeMillis())
                 .update();
     }
 
     @Override
-    public boolean deleteByIds(List<Long> idGroup) {
+    public boolean deleteByIds(List<Integer> idGroup) {
         return this.lambdaUpdate()
                 .in(Pet::getPetId, idGroup)
-                .set(Pet::getIsDel, String.valueOf(System.currentTimeMillis()))
+                .set(Pet::getIsDel, System.currentTimeMillis())
                 .update();
     }
 
@@ -60,7 +60,7 @@ public class PetServiceImpl extends ServiceImpl<PetMapper, Pet> implements IPetS
     }
 
     @Override
-    public List<NameVo> selectByClient(long clientId) {
+    public List<NameVo> selectByClient(Integer clientId) {
         return baseMapper.selectByClient(clientId);
     }
 

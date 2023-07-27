@@ -8,7 +8,7 @@
         FROM pet AS a
         LEFT JOIN client AS b
         ON a.client_id=b.client_id
-        WHERE a.is_del='0'
+        WHERE a.is_del = 0
         <if test="petName!=null and petName!=''">
             <bind name="petName" value="'%'+petName+'%'"/>
             and pet_name like #{petName}
@@ -28,7 +28,7 @@
                pet_info,
                pet_photo
         FROM pet
-        WHERE is_del = '0'
+        WHERE is_del = 0
           and ISNULL(client_id)
     </select>
     <!--更新操作，让主人可以为Null-->
@@ -52,6 +52,6 @@
             pet_photo=#{petPhoto},
         </if>
         update_time=#{updateTime}
-        WHERE pet_id=#{petId} AND is_del='0'
+        WHERE pet_id=#{petId} AND is_del = 0
     </update>
 </mapper>

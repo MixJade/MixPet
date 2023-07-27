@@ -22,7 +22,7 @@ public interface IClientService extends IService<Client> {
      * @param clientId 客户id
      * @return 是否删除成功
      */
-    boolean deleteById(long clientId);
+    boolean deleteById(Integer clientId);
 
     /**
      * 批量逻辑删除
@@ -30,7 +30,7 @@ public interface IClientService extends IService<Client> {
      * @param idGroup 一组id
      * @return 是否批量删除成功
      */
-    boolean deleteByIds(List<Long> idGroup);
+    boolean deleteByIds(List<Integer> idGroup);
 
     /**
      * 分页查询

@@ -29,7 +29,7 @@ public class SecurityConfig {
                 "/js/**", "/doctorPage/**", "/backstage/**", "/assets/**", "/login.html"};
         // 放行的后端接口
         String[] rearEnd = {"/login/**", "/power/**", "/doctor/page", "/pet/four",
-                "/notice/four", "/common/download", "/common/downChat"};
+                "/foster/pet", "/notice/four", "/common/download", "/common/downChat"};
         PowerHandler powerHandler = new PowerHandler();
         http.authorizeHttpRequests((requests) -> requests.requestMatchers(quiet).permitAll() // 放行静态资源
                         .requestMatchers(rearEnd).permitAll() // 放行后端接口

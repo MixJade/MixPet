@@ -22,7 +22,7 @@ public interface IAdoptService extends IService<Adopt> {
      * @param adoptId 寄养单id
      * @return 是否删除成功
      */
-    boolean deleteById(long adoptId);
+    boolean deleteById(Integer adoptId);
 
     /**
      * 批量逻辑删除
@@ -30,7 +30,7 @@ public interface IAdoptService extends IService<Adopt> {
      * @param idGroup 一组id
      * @return 是否批量删除成功
      */
-    boolean deleteByIds(List<Long> idGroup);
+    boolean deleteByIds(List<Integer> idGroup);
 
     /**
      * 分页查询
@@ -50,7 +50,7 @@ public interface IAdoptService extends IService<Adopt> {
      * @param petInfo 宠物信息
      * @return 更新成功
      */
-    boolean adoptAdopt(Long adoptId, String petInfo);
+    boolean adoptAdopt(Integer adoptId, String petInfo);
 
     /**
      * 确认当前宠物是否有待审核订单
@@ -59,10 +59,10 @@ public interface IAdoptService extends IService<Adopt> {
      * @param clientId 当前登录用户id
      * @return 订单数量
      */
-    int sureInAdopt(Long petId, Long clientId);
+    int sureInAdopt(Integer petId, Integer clientId);
 
     /**
      * 查询宠物是否有主人
      */
-    boolean petMaster(Long adoptId);
+    boolean petMaster(Integer adoptId);
 }

@@ -43,9 +43,9 @@ public class AdoptController {
      * 用户：确认当前宠物是否有待审核订单
      */
     @GetMapping("/inAdopt")
-    public int sureAdopt(Long petId) {
+    public int sureAdopt(Integer petId) {
         if (UserUtil.getUser() instanceof Client client) {
-            Long clientId = client.getClientId();
+            Integer clientId = client.getClientId();
             return adoptService.sureInAdopt(petId, clientId);
         } else return 1;
     }
@@ -68,7 +68,7 @@ public class AdoptController {
     public Result adoptPet(@RequestBody Adopt adopt) {
         if (adopt.getAdoptMoney() <= 0) return Result.error("金额必须大于零");
         if (UserUtil.getUser() instanceof Client client) {
-            Long id = client.getClientId();
+            Integer id = client.getClientId();
             adopt.setClientId(id);
             return Result.choice("申请", adoptService.save(adopt));
         } else return Result.error("用户暂时未登录");
@@ -76,13 +76,13 @@ public class AdoptController {
 
     @DeleteMapping("/{id}")
     @Secured(RoleConst.MANAGER)
-    public Result delete(@PathVariable Long id) {
+    public Result delete(@PathVariable Integer id) {
         return Result.choice("删除单个", adoptService.deleteById(id));
     }
 
     @DeleteMapping("/batch/{ids}")
     @Secured(RoleConst.MANAGER)
-    public Result deleteGroup(@PathVariable List<Long> ids) {
+    public Result deleteGroup(@PathVariable List<Integer> ids) {
         return Result.choice("删除多个", adoptService.deleteByIds(ids));
     }
 
@@ -101,7 +101,7 @@ public class AdoptController {
     public Result toAdopt(@RequestBody AdoptVo adoptVo) {
         if (!adoptService.petMaster(adoptVo.adoptId())) return Result.error("名花有主");
         Boolean isAdopt = adoptVo.isAdopt();
-        Long adoptId = adoptVo.adoptId();
+        Integer adoptId = adoptVo.adoptId();
         if (isAdopt == null) return Result.error("操作有误");
         if (isAdopt) return Result.choice("领养宠物", adoptService.adoptAdopt(adoptId, "它有了温暖的家，感恩"));
         UpdateWrapper<Adopt> updateWrapper = new UpdateWrapper<>();

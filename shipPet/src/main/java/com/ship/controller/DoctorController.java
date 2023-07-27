@@ -40,7 +40,7 @@ public class DoctorController {
      * @return 医生姓名与id
      */
     @GetMapping("/department")
-    public List<NameVo> getByDepartment(long departmentId) {
+    public List<NameVo> getByDepartment(Integer departmentId) {
         return doctorService.selectByDepartment(departmentId);
     }
 
@@ -56,7 +56,7 @@ public class DoctorController {
      * @return 医生信息
      */
     @GetMapping("/one")
-    public DoctorDto getOne(Long doctorId) {
+    public DoctorDto getOne(Integer doctorId) {
         return doctorService.selectById(doctorId);
     }
 
@@ -71,13 +71,13 @@ public class DoctorController {
 
     @DeleteMapping("/{id}")
     @Secured(RoleConst.MANAGER)
-    public Result delete(@PathVariable Long id) {
+    public Result delete(@PathVariable Integer id) {
         return Result.choice("删除单个", doctorService.deleteById(id));
     }
 
     @DeleteMapping("/batch/{ids}")
     @Secured(RoleConst.MANAGER)
-    public Result deleteGroup(@PathVariable List<Long> ids) {
+    public Result deleteGroup(@PathVariable List<Integer> ids) {
         return Result.choice("删除多个", doctorService.deleteByIds(ids));
     }
 

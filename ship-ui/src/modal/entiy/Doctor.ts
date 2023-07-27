@@ -12,5 +12,4 @@ export interface Doctor {
     doctorPassword?: string | null;
     createTime?: string | null;
     updateTime?: string | null;
-    isDel?: string | null;
 }

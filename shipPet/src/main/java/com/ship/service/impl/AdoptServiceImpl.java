@@ -24,18 +24,18 @@ import java.util.List;
 public class AdoptServiceImpl extends ServiceImpl<AdoptMapper, Adopt> implements IAdoptService {
 
     @Override
-    public boolean deleteById(long adoptId) {
+    public boolean deleteById(Integer adoptId) {
         return this.lambdaUpdate()
                 .eq(Adopt::getAdoptId, adoptId)
-                .set(Adopt::getIsDel, String.valueOf(System.currentTimeMillis()))
+                .set(Adopt::getIsDel, System.currentTimeMillis())
                 .update();
     }
 
     @Override
-    public boolean deleteByIds(List<Long> idGroup) {
+    public boolean deleteByIds(List<Integer> idGroup) {
         return this.lambdaUpdate()
                 .in(Adopt::getAdoptId, idGroup)
-                .set(Adopt::getIsDel, String.valueOf(System.currentTimeMillis()))
+                .set(Adopt::getIsDel, System.currentTimeMillis())
                 .update();
     }
 
@@ -45,17 +45,17 @@ public class AdoptServiceImpl extends ServiceImpl<AdoptMapper, Adopt> implements
     }
 
     @Override
-    public boolean adoptAdopt(Long adoptId, String petInfo) {
+    public boolean adoptAdopt(Integer adoptId, String petInfo) {
         return baseMapper.adoptAdopt(adoptId, petInfo);
     }
 
     @Override
-    public int sureInAdopt(Long petId, Long clientId) {
+    public int sureInAdopt(Integer petId, Integer clientId) {
         return baseMapper.sureInAdopt(petId, clientId);
     }
 
     @Override
-    public boolean petMaster(Long adoptId) {
+    public boolean petMaster(Integer adoptId) {
         return baseMapper.petMaster(adoptId) == null;
     }
 

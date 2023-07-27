@@ -4,17 +4,16 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * <p>
- *
+ * 消息表
  * </p>
  *
  * @author MixJade
- * @since 2023-03-09
+ * @since 2023-07-27
  */
 public class Msg implements Serializable {
 
@@ -24,20 +23,20 @@ public class Msg implements Serializable {
      * 记录ID
      */
     @TableId(value = "msg_id", type = IdType.AUTO)
-    private Long msgId;
+    private Integer msgId;
 
     /**
-     * 客户ID
+     * 用户ID
      */
-    private Long clientId;
+    private Integer clientId;
 
     /**
      * 医生ID
      */
-    private Long doctorId;
+    private Integer doctorId;
 
     /**
-     * 1为客户发送，0为医生
+     * 1为用户发送，0为医生
      */
     private Boolean isClient;
 
@@ -66,29 +65,29 @@ public class Msg implements Serializable {
     /**
      * 逻辑删除，默认0，填充删除日期
      */
-    private String isDel;
+    private Long isDel;
 
-    public Long getMsgId() {
+    public Integer getMsgId() {
         return msgId;
     }
 
-    public void setMsgId(Long msgId) {
+    public void setMsgId(Integer msgId) {
         this.msgId = msgId;
     }
 
-    public Long getClientId() {
+    public Integer getClientId() {
         return clientId;
     }
 
-    public void setClientId(Long clientId) {
+    public void setClientId(Integer clientId) {
         this.clientId = clientId;
     }
 
-    public Long getDoctorId() {
+    public Integer getDoctorId() {
         return doctorId;
     }
 
-    public void setDoctorId(Long doctorId) {
+    public void setDoctorId(Integer doctorId) {
         this.doctorId = doctorId;
     }
 
@@ -132,26 +131,26 @@ public class Msg implements Serializable {
         this.createTime = createTime;
     }
 
-    public String getIsDel() {
+    public Long getIsDel() {
         return isDel;
     }
 
-    public void setIsDel(String isDel) {
+    public void setIsDel(Long isDel) {
         this.isDel = isDel;
     }
 
     @Override
     public String toString() {
         return "Msg{" +
-                "msgId = " + msgId +
-                ", clientId = " + clientId +
-                ", doctorId = " + doctorId +
-                ", isClient = " + isClient +
-                ", msgContent = " + msgContent +
-                ", isImg = " + isImg +
-                ", updateTime = " + updateTime +
-                ", createTime = " + createTime +
-                ", isDel = " + isDel +
-                "}";
+            "msgId = " + msgId +
+            ", clientId = " + clientId +
+            ", doctorId = " + doctorId +
+            ", isClient = " + isClient +
+            ", msgContent = " + msgContent +
+            ", isImg = " + isImg +
+            ", updateTime = " + updateTime +
+            ", createTime = " + createTime +
+            ", isDel = " + isDel +
+        "}";
     }
 }

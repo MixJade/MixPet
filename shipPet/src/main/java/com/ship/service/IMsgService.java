@@ -19,31 +19,31 @@ public interface IMsgService extends IService<Msg> {
     /**
      * 查询用户最近谈话的医生
      */
-    Long getByClient(Long clientId);
+    Integer getByClient(Integer clientId);
 
     /**
      * 查询特定用户与医生对话
      */
-    List<MsgVo> getADoctor(Long clientId, Long doctorId);
+    List<MsgVo> getADoctor(Integer clientId, Integer doctorId);
 
     /**
      * 用户谈过话的医生
      */
-    List<MsgNameVo> getDoctorGroup(Long clientId, Long doctorId);
+    List<MsgNameVo> getDoctorGroup(Integer clientId, Integer doctorId);
 
 
     /**
      * 查询医生最近谈话的用户
      */
-    Long getByDoctor(Long doctorId);
+    Integer getByDoctor(Integer doctorId);
 
     /**
      * 查询特定医生与用户对话
      */
-    List<MsgVo> getAClient(Long doctorId, Long clientId);
+    List<MsgVo> getAClient(Integer doctorId, Integer clientId);
 
     /**
      * 医生谈过话的用户
      */
-    List<MsgNameVo> getClientGroup(Long doctorId, Long clientId);
+    List<MsgNameVo> getClientGroup(Integer doctorId, Integer clientId);
 }

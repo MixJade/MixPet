@@ -25,15 +25,15 @@ public interface AppointmentMapper extends BaseMapper<Appointment> {
     /**
      * 用户：根据医生查询订单
      */
-    List<AppointmentDto> getDoctor(@Param("doctorId") Long doctorId);
+    List<AppointmentDto> getDoctor(@Param("doctorId") Integer doctorId);
 
     /**
      * 用户：查询自己的订单
      */
-    List<AppointmentDto> getClient(@Param("clientId") Long clientId);
+    List<AppointmentDto> getClient(@Param("clientId") Integer clientId);
 
     /**
      * 医生：查询自己的订单
      */
-    List<AppointmentDto2> getDoctorLog(@Param("doctorId") Long doctorId);
+    List<AppointmentDto2> getDoctorLog(@Param("doctorId") Integer doctorId);
 }

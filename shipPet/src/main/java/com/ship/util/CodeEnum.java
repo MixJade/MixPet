@@ -14,7 +14,7 @@ public enum CodeEnum {
         this.typeNum = typeNum;
     }
 
-    public String newCode(Long maxID) {
+    public String newCode(Integer maxID) {
         String nowDate = new SimpleDateFormat("yyMMdd").format(new Date());
         return typeNum + nowDate + (maxID + 1);
     }

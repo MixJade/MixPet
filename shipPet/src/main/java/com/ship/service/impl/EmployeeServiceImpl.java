@@ -19,10 +19,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> implements IEmployeeService {
     @Override
-    public boolean deleteById(long employeeId) {
+    public boolean deleteById(Integer employeeId) {
         return this.lambdaUpdate()
                 .eq(Employee::getEmployeeId, employeeId)
-                .set(Employee::getIsDel, String.valueOf(System.currentTimeMillis()))
+                .set(Employee::getIsDel, System.currentTimeMillis())
                 .update();
     }
 

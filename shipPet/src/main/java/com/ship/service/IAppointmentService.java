@@ -23,7 +23,7 @@ public interface IAppointmentService extends IService<Appointment> {
      * @param appointmentId 挂号单id
      * @return 是否删除成功
      */
-    boolean deleteById(long appointmentId);
+    boolean deleteById(Integer appointmentId);
 
     /**
      * 批量逻辑删除
@@ -31,7 +31,7 @@ public interface IAppointmentService extends IService<Appointment> {
      * @param idGroup 一组id
      * @return 是否批量删除成功
      */
-    boolean deleteByIds(List<Long> idGroup);
+    boolean deleteByIds(List<Integer> idGroup);
 
     /**
      * 分页查询
@@ -50,7 +50,7 @@ public interface IAppointmentService extends IService<Appointment> {
      * @param doctorId 医生id
      * @return 挂号信息
      */
-    List<AppointmentDto> getDoctor(long doctorId);
+    List<AppointmentDto> getDoctor(Integer doctorId);
 
     /**
      * 根据客户查询挂号信息
@@ -58,10 +58,10 @@ public interface IAppointmentService extends IService<Appointment> {
      * @param clientId 客户id
      * @return 挂号信息
      */
-    List<AppointmentDto> getClient(long clientId);
+    List<AppointmentDto> getClient(Integer clientId);
 
     /**
      * 医生：查询自己的订单
      */
-    List<AppointmentDto2> getDoctorLog(Long doctorId);
+    List<AppointmentDto2> getDoctorLog(Integer doctorId);
 }

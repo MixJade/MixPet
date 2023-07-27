@@ -19,7 +19,7 @@ public interface IEmployeeService extends IService<Employee> {
      * @param employeeId 客户id
      * @return 是否删除成功
      */
-    boolean deleteById(long employeeId);
+    boolean deleteById(Integer employeeId);
 
     /**
      * 分页查询

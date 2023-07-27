@@ -7,5 +7,5 @@ package com.ship.vo;
  * @param roleId   医生id
  * @param roleName 医生名字
  */
-public record MsgNameVo(byte flag, Long roleId, String roleName) {
+public record MsgNameVo(byte flag, Integer roleId, String roleName) {
 }

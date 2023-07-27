@@ -10,7 +10,10 @@
         UNION
         SELECT pet_photo FROM pet WHERE pet_photo IS NOT NULL AND pet_photo != ''
         UNION
-        SELECT employee_photo FROM employee WHERE employee_photo IS NOT NULL AND employee_photo != ''
+        SELECT employee_photo
+        FROM employee
+        WHERE employee_photo IS NOT NULL
+          AND employee_photo != ''
     </select>
     <!-- @formatter:on-->
     <!--分页查询-->
@@ -32,7 +35,7 @@
         LEFT JOIN employee AS b ON a.creat_id = b.employee_id
         LEFT JOIN employee AS c ON a.update_id = c.employee_id
         WHERE
-        a.is_del = '0'
+        a.is_del = 0
         <if test="noticeName!=null and noticeName!=''">
             and notice_title like "%"#{noticeName}"%"
         </if>
@@ -41,8 +44,8 @@
     <select id="selectFour" resultType="com.ship.dto.NoticeDto">
         SELECT notice_id, notice_title, notice_file
         FROM notice
-        WHERE is_del = '0'
-          AND is_disable = '0'
+        WHERE is_del = 0
+          AND is_disable = 0
         limit 0,3
     </select>
     <!--修改公告信息-->

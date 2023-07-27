@@ -43,7 +43,7 @@ public class EmployeeController {
 
     @DeleteMapping("/{id}")
     @Secured(RoleConst.ADMIN)
-    public Result delete(@PathVariable Long id) {
+    public Result delete(@PathVariable Integer id) {
         return Result.choice("删除单个", employeeService.deleteById(id));
     }
 

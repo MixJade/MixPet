@@ -68,7 +68,7 @@ public class NoticeController {
      */
     @DeleteMapping("/disable/{id}")
     @Secured(RoleConst.MANAGER)
-    public Result disableSet(@PathVariable Long id, boolean isDis) {
+    public Result disableSet(@PathVariable Integer id, boolean isDis) {
         return Result.choice(isDis ? "启用" : "禁用", noticeService.disableNotice(id, isDis));
     }
 
@@ -83,13 +83,13 @@ public class NoticeController {
 
     @DeleteMapping("/{id}")
     @Secured(RoleConst.MANAGER)
-    public Result delete(@PathVariable Long id) {
+    public Result delete(@PathVariable Integer id) {
         return Result.choice("删除单个", noticeService.deleteById(id));
     }
 
     @DeleteMapping("/batch/{ids}")
     @Secured(RoleConst.MANAGER)
-    public Result deleteGroup(@PathVariable List<Long> ids) {
+    public Result deleteGroup(@PathVariable List<Integer> ids) {
         return Result.choice("删除多个", noticeService.deleteByIds(ids));
     }
 

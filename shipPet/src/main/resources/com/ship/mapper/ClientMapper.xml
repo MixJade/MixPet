@@ -6,7 +6,7 @@
         SELECT
         client_id, client_username, client_name, client_gender, client_tel, client_age, client_info, client_photo
         FROM client
-        WHERE is_del='0'
+        WHERE is_del = 0
         <if test="clientName!=null and clientName!=''">
             <bind name="clientName" value="'%'+clientName+'%'"/>
             and client_name like #{clientName}
