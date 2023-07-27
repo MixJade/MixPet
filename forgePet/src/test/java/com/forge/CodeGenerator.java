@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.baomidou.mybatisplus.generator.fill.Column;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Collections;
 
@@ -28,7 +29,7 @@ public class CodeGenerator {
                                 new Column("create_time", FieldFill.INSERT),
                                 new Column("update_time", FieldFill.INSERT_UPDATE)
                         )
-                        .mapperBuilder().enableMapperAnnotation()
+                        .mapperBuilder().mapperAnnotation(Mapper.class)
                         .serviceBuilder()
                         .controllerBuilder().enableRestStyle())
                 .execute();
