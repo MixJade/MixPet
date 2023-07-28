@@ -26,6 +26,7 @@
       </el-descriptions-item>
     </el-descriptions>
   </el-card>
+  <el-empty v-if="appointList.length===0" description="暂无挂号"/>
 </template>
 
 <script lang="ts" setup>

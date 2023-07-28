@@ -32,6 +32,7 @@
       </el-col>
     </el-row>
   </el-card>
+  <el-empty v-if="petList.length===0" description="暂无宠物"/>
 </template>
 
 <script lang="ts" setup>

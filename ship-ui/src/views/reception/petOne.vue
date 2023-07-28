@@ -43,10 +43,11 @@
                 <td>{{ pet.petStatus }}</td>
               </tr>
             </table>
-            <el-button v-if="inAdopt===0" style="width: 50%" type="primary" @click="dialogVisible = true">
+            <el-button v-if="inAdopt===0 && pet.clientId==null" style="width: 50%" type="primary"
+                       @click="dialogVisible = true">
               申请领养
             </el-button>
-            <el-button v-else disabled style="width: 50%" type="info">
+            <el-button v-else-if="pet.clientId==null" disabled style="width: 50%" type="info">
               审核中
             </el-button>
           </el-col>

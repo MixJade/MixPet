@@ -12,10 +12,10 @@
     </update>
     <!--分页查询-->
     <select id="selectAdoptPage" resultType="com.ship.dto.AdoptDto">
-        select
+        SELECT
         adopt_id, adopt_code,a.pet_id, a.client_id, adopt_money,
         adopt_info,in_adopt,a.create_time,b.pet_name,c.client_name
-        FROM adopt as a,pet as b,client as c
+        FROM adopt AS a,pet AS b,client AS c
         WHERE a.is_del = 0
         AND a.pet_id = b.pet_id
         AND a.client_id = c.client_id
@@ -27,7 +27,7 @@
             <bind name="petName" value="'%'+petName+'%'"/>
             and b.pet_name like #{petName}
         </if>
-        order by create_time desc
+        ORDER BY create_time DESC
     </select>
     <!--查询是否已有待审核订单-->
     <select id="sureInAdopt" resultType="int">
