@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-aside width="200px">
-      <el-avatar :src="'/api/common/download?name='+employeeNow.photo"/>
+      <el-avatar :src="'/api/common/download?name='+employeeNow.photo" @click="this.$router.push('/backstage')"/>
       <el-menu
           :default-active="this.$route.path"
           active-text-color="#ffd04b"

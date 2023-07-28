@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ship.mapper.AppointmentMapper">
+    <!--sql片段，封装结果列，有三个及以上的复用才有意义-->
+    <sql id="appoint">
+        <if test="true"/>
+        ${alias}.appointment_id,
+        ${alias}.client_id,
+        ${alias}.pet_id,
+        ${alias}.appointment_date,
+        ${alias}.department_id,
+        ${alias}.doctor_id,
+        ${alias}.appointment_info,
+        ${alias}.create_time,
+    </sql>
     <!--分页查询-->
     <select id="selectAppointmentPage" resultType="com.ship.dto.AppointmentDto">
-        SELECT appointment_id,
-        a.client_id,
-        a.pet_id,
-        appointment_date,
-        a.department_id,
-        a.doctor_id,
-        appointment_info,
-        a.create_time,
+        SELECT
+        <include refid="appoint">
+            <property name="alias" value="a"/>
+        </include>
         b.client_name,
         c.pet_name,
         d.department_name,
@@ -59,54 +67,47 @@
     </select>
     <!--根据用户查询订单-->
     <select id="getClient" resultType="com.ship.dto.AppointmentDto">
-        SELECT a.appointment_id,
-               a.client_id,
-               a.pet_id,
-               a.appointment_date,
-               a.doctor_id,
-               a.appointment_info,
-               a.create_time,
-               b.doctor_name,
-               c.pet_name,
-               d.department_name
+        SELECT
+        <include refid="appoint">
+            <property name="alias" value="a"/>
+        </include>
+        b.doctor_name,
+        c.pet_name,
+        d.department_name
         FROM appointment a,
-             doctor b,
-             pet c,
-             department d
+        doctor b,
+        pet c,
+        department d
         WHERE a.is_del = 0
-          AND a.doctor_id = b.doctor_id
-          AND a.pet_id = c.pet_id
-          AND a.department_id = d.department_id
-          AND a.client_id = #{clientId}
+        AND a.doctor_id = b.doctor_id
+        AND a.pet_id = c.pet_id
+        AND a.department_id = d.department_id
+        AND a.client_id = #{clientId}
         order by appointment_date desc
     </select>
     <!--医生：已登录查询订单-->
     <select id="getDoctorLog" resultType="com.ship.dto.AppointmentDto2">
-        SELECT appointment_id,
-               a.client_id,
-               a.pet_id,
-               appointment_date,
-               a.department_id,
-               a.doctor_id,
-               appointment_info,
-               a.create_time,
-               b.client_name,
-               c.pet_name,
-               c.pet_photo,
-               c.pet_variety,
-               c.pet_sex,
-               c.pet_age,
-               d.department_name,
-               a.is_suc
+        SELECT
+        <include refid="appoint">
+            <property name="alias" value="a"/>
+        </include>
+        b.client_name,
+        c.pet_name,
+        c.pet_photo,
+        c.pet_variety,
+        c.pet_sex,
+        c.pet_age,
+        d.department_name,
+        a.is_suc
         FROM appointment a,
-             client b,
-             pet c,
-             department d
+        client b,
+        pet c,
+        department d
         WHERE a.is_del = 0
-          AND a.client_id = b.client_id
-          AND a.pet_id = c.pet_id
-          AND a.department_id = d.department_id
-          AND a.doctor_id = #{doctorId}
+        AND a.client_id = b.client_id
+        AND a.pet_id = c.pet_id
+        AND a.department_id = d.department_id
+        AND a.doctor_id = #{doctorId}
         order by a.is_suc, appointment_date desc
     </select>
 </mapper>
