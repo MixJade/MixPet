@@ -84,7 +84,7 @@
 
 <script lang="ts" setup>
 import PageHead from "@/components/PageHead.vue";
-import {Pet} from "@/modal/entiy/Pet";
+import {examplePet, Pet} from "@/modal/entiy/Pet";
 import {getAge} from "@/utils/TimeUtil";
 import {onMounted, reactive, ref} from "vue";
 import {PetAskOne} from "@/modal/VO/PetAskOne";
@@ -96,19 +96,7 @@ const props = defineProps<{
   petId: Number
 }>()
 // 样例数据
-const pet = ref<Pet>({
-  "petId": 0,
-  "petName": "",
-  "petVariety": "",
-  "petSex": false,
-  "petAge": "",
-  "petStatus": "",
-  "petInfo": "",
-  "clientId": null,
-  "petPhoto": "defaultPet.jpg",
-  "createTime": "",
-  "updateTime": "",
-})
+const pet = ref<Pet>(examplePet())
 // 是否领养
 const inAdopt = ref<number>(0)
 

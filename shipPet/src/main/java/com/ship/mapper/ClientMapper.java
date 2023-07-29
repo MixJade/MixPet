@@ -22,7 +22,7 @@ import java.util.List;
 public interface ClientMapper extends BaseMapper<Client> {
     IPage<Client> selectClientPage(IPage<Client> page, @Param("clientName") String clientName);
 
-    @Select("SELECT client_id as roleId, client_name as roleName FROM client WHERE is_del = '0'")
+    @Select("SELECT client_id as roleId, client_name as roleName FROM client WHERE is_del = 0")
     List<NameVo> selectName();
 
     /**
