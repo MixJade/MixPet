@@ -7,7 +7,7 @@
 
   <!--列表展示-->
   <el-table :data="adoptList.records"
-            max-height="430"
+            max-height="80vh"
             row-key="adoptId"
             stripe
             style="width: 100%"

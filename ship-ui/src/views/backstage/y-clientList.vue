@@ -6,7 +6,7 @@
 
   <!--列表展示-->
   <el-table :data="clientList.records"
-            max-height="430"
+            max-height="80vh"
             row-key="clientId"
             stripe
             style="width: 100%"
