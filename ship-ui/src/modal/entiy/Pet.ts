@@ -11,6 +11,21 @@ export interface Pet {
     petInfo: string;
     clientId: number | null;
     petPhoto: string;
-    createTime: string | null;
-    updateTime: string | null;
+}
+
+/**
+ * 空数据
+ */
+export const examplePet = (): Pet => {
+    return {
+        "petId": 0,
+        "petName": "",
+        "petVariety": "",
+        "petSex": false,
+        "petAge": "",
+        "petStatus": "",
+        "petInfo": "",
+        "clientId": null,
+        "petPhoto": "defaultPet.jpg",
+    }
 }

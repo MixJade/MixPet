@@ -124,4 +124,10 @@ reqGetLoginE().then(res => {
     background-color: #F0EAD6;
   }
 }
+
+:deep(.el-form-item) {
+  .el-input {
+    width: 50%;
+  }
+}
 </style>
