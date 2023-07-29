@@ -6,7 +6,7 @@
 
   <!--列表展示-->
   <el-table :data="departmentList.records"
-            max-height="430"
+            max-height="80vh"
             row-key="departmentId"
             stripe
             style="width: 100%"

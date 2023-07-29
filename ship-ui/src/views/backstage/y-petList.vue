@@ -7,7 +7,7 @@
 
   <!--列表展示-->
   <el-table :data="petList.records"
-            max-height="430"
+            max-height="80vh"
             row-key="petId"
             stripe
             style="width: 100%"
