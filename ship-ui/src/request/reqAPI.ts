@@ -20,8 +20,10 @@ reqApi.interceptors.response.use(resp => {
         const code = resp.data["code"]
         if (code === 401) {
             router.replace("/").then((): void => {
-                console.log("当前未登陆")
+                ElMessage.error("当前未登陆")
             })
+        } else if (code === 403) {
+            ElMessage.warning("未持有操作权限")
         } else if (code === 1) {
             ElMessage.success(resp.data["msg"])
         } else if (code === 0) {

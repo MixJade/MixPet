@@ -23,6 +23,7 @@
 </template>
 
 <script lang="ts" setup>
+/*=====前台的宠物卡片批量展示=====*/
 import {getAge} from "@/utils/TimeUtil";
 import {Pet} from "@/modal/entiy/Pet";
 // 接收参数：宠物卡片

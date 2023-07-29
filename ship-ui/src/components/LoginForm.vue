@@ -20,6 +20,7 @@
 </template>
 
 <script lang="ts" setup>
+/*=====登录的页面，不同的角色同一个登录页面，不同的请求路径=====*/
 import {computed, reactive, Ref, ref} from "vue";
 import {Lock, User} from "@element-plus/icons-vue"
 import {buttonTypes} from "element-plus"

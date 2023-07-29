@@ -20,7 +20,7 @@ public class PowerHandler implements LogoutSuccessHandler, AccessDeniedHandler, 
     }
 
     /**
-     * 没有权限
+     * 没有权限，这个是装饰，真正的在异常切片里
      */
     @Override
     public void handle(HttpServletRequest req, HttpServletResponse resp, AccessDeniedException ade) {

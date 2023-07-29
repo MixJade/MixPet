@@ -3,6 +3,7 @@ import reqApi from "@/request/reqAPI";
 import {Pet} from "@/modal/entiy/Pet";
 import {PageQuery, YPetList} from "@/modal/VO/BackQuery";
 import {PetDto} from "@/modal/DO/PetDto";
+import {Res} from "@/request/Res";
 
 // 主页查询宠物
 export const reqFourPet = (): Promise<Page<Pet>> =>
@@ -19,3 +20,15 @@ export const reqClientPet = (): Promise<Pet[]> =>
 // 管理员后台宠物列表
 export const reqPetList = (page: YPetList): Promise<Page<PetDto>> =>
     reqApi<string, object>("pet/page", {params: page})
+// 管理员新增宠物
+export const reqAddPet = (data: Pet): Promise<Res> =>
+    reqApi.post<string, object>("pet", data)
+// 管理员修改宠物
+export const reqUpdatePet = (data: Pet): Promise<Res> =>
+    reqApi.put<string, object>("pet", data)
+// 管理员删除宠物
+export const reqDelPet = (id: number): Promise<Res> =>
+    reqApi.delete<string, object>("pet/" + id)
+// 管理员批量删除宠物
+export const reqDelPetBatch = (ids: number[]): Promise<Res> =>
+    reqApi.delete<string, object>("pet/batch/" + ids)

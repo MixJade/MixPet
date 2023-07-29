@@ -12,6 +12,7 @@
 </template>
 
 <script lang="ts" setup>
+/*=====性别的封装展示标签=====*/
 import {Female, Male} from "@element-plus/icons-vue"
 
 defineProps<{
