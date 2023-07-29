@@ -26,6 +26,6 @@ export const examplePet = (): Pet => {
         "petStatus": "",
         "petInfo": "",
         "clientId": null,
-        "petPhoto": "defaultPet.jpg",
+        "petPhoto": "",
     }
 }

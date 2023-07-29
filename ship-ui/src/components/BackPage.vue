@@ -14,6 +14,7 @@
 </template>
 
 <script lang="ts" setup>
+/*=====后台的分页条，分页参数变化时会返回父组件查询=====*/
 import {reactive} from "vue";
 import {PageQuery} from "@/modal/VO/BackQuery";
 

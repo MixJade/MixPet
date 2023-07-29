@@ -10,6 +10,7 @@
 </template>
 
 <script lang="ts" setup>
+/*=====后台的操作行，包括了查询、添加、批量删除=====*/
 defineProps<{
   role: string
 }>()

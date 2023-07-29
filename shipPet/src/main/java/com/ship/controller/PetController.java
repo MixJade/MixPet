@@ -99,6 +99,8 @@ public class PetController {
         if (StrUtil.isWhite(pet.getPetName())) return Result.error("姓名不能为空");
         if (StrUtil.isWhite(pet.getPetVariety())) return Result.error("品种不能为空");
         if (StrUtil.isWhite(pet.getPetPhoto())) pet.setPetPhoto(PhotoEnum.PET.getPhotoName());
+        if (StrUtil.isWhite(pet.getPetInfo())) pet.setPetInfo("暂无近况");
+        if (StrUtil.isWhite(pet.getPetStatus())) pet.setPetStatus("健康");
         return Result.choice("添加", petService.save(pet));
     }
 

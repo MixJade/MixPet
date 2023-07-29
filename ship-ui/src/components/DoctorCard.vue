@@ -27,6 +27,7 @@
 </template>
 
 <script lang="ts" setup>
+/*=====前台的医生卡片批量展示=====*/
 import {getAge} from "@/utils/TimeUtil";
 import {DoctorDto} from "@/modal/DO/DoctorDto";
 // 接收参数：医生卡片

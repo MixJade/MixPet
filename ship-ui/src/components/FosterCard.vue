@@ -26,6 +26,7 @@
 </template>
 
 <script lang="ts" setup>
+/*=====前台的寄养卡片批量展示=====*/
 import {getAge} from "@/utils/TimeUtil";
 import {FosterCardDto} from "@/modal/DO/FosterCardDto";
 // 接收参数：宠物卡片

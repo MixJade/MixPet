@@ -17,14 +17,16 @@
     <tr>
       <td class="bold">其它操作</td>
       <td>
-        <el-button type="danger" @click="reqLogout">退出登录</el-button>
+        <el-button type="danger" @click="logout">退出登录</el-button>
       </td>
     </tr>
   </table>
 </template>
 
 <script lang="ts" setup>
+/*=====三个角色的个人信息展示页面=====*/
 import {reqLogout} from "@/request/PowerApi";
+import {useRouter} from "vue-router";
 
 defineProps<{
   rolePhoto: string,
@@ -45,6 +47,13 @@ const updateRole = () => {
 }
 const updatePwd = () => {
   emit("upPwd");
+}
+// 退出登录
+const router = useRouter()
+const logout = (): void => {
+  reqLogout().then(resp => {
+    if (resp.code === 204) router.push("/")
+  })
 }
 </script>
 
