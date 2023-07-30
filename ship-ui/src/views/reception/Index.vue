@@ -26,7 +26,7 @@
           </el-icon>
           咨询医生
         </el-menu-item>
-        <el-sub-menu index="4">
+        <el-sub-menu v-if="isLogin" index="4">
           <template #title>
             <el-icon>
               <User/>
@@ -51,13 +51,19 @@
             </el-icon>
             挂号信息
           </el-menu-item>
-          <el-menu-item index="4-4" style="color: #F56C6C" @click="reqLogout">
+          <el-menu-item index="4-4" style="color: #F56C6C" @click="myLogout">
             <el-icon>
               <SwitchButton/>
             </el-icon>
             退出登录
           </el-menu-item>
         </el-sub-menu>
+        <el-menu-item v-else index="5" @click="this.$router.push('/')">
+          <el-icon>
+            <SwitchButton/>
+          </el-icon>
+          前往登录
+        </el-menu-item>
       </el-menu>
     </el-header>
     <el-main>
@@ -157,11 +163,32 @@ import FosterCard from "@/components/FosterCard.vue";
 import {DoctorDto} from "@/modal/DO/DoctorDto";
 import {FosterCardDto} from "@/modal/DO/FosterCardDto";
 import {NoticeDto} from "@/modal/DO/NoticeDto";
-import {reqLogout} from "@/request/PowerApi";
+import {reqLoginUser, reqLogout} from "@/request/PowerApi";
 import {reqFourDoctor} from "@/request/DoctorApi";
 import {reqFourPet} from "@/request/PetApi";
 import {reqFosterPet} from "@/request/FosterApi";
 import {reqFourNotice} from "@/request/NoticeApi";
+import {useRouter} from "vue-router";
+
+// 判断是否登录
+const isLogin = ref<boolean>(false)
+onBeforeMount(() => {
+  reqFourDoctor().then(res => {
+    doctorCardTxt.records = res.records
+  })
+  reqFourPet().then(res => {
+    petCardTxt.records = res.records
+  })
+  reqFosterPet(3).then(res => {
+    fosterCardTxt.records = res.records
+  })
+  reqFourNotice().then(res => {
+    notices.value = res
+  })
+  reqLoginUser().then(res => {
+    isLogin.value = (res.clientId != null)
+  })
+})
 
 // 主页轮播图
 interface Lun {
@@ -245,21 +272,13 @@ const petCardTxt: Page<Pet> = reactive({records: [], total: 4})
 const doctorCardTxt: Page<DoctorDto> = reactive({records: [], total: 4})
 // 寄养宠物的卡片信息
 const fosterCardTxt: Page<FosterCardDto> = reactive({records: [], total: 3})
-
-onBeforeMount(() => {
-  reqFourDoctor().then(res => {
-    doctorCardTxt.records = res.records
+// 退出登录
+const router = useRouter()
+const myLogout = () => {
+  reqLogout().then(res => {
+    if (res.code === 204) router.push("/")
   })
-  reqFourPet().then(res => {
-    petCardTxt.records = res.records
-  })
-  reqFosterPet(3).then(res => {
-    fosterCardTxt.records = res.records
-  })
-  reqFourNotice().then(res => {
-    notices.value = res
-  })
-})
+}
 </script>
 <style lang="scss" scoped>
 .el-container {
