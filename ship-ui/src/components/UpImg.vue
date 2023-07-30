@@ -60,8 +60,10 @@ const beforeAvatarUpload = (rawFile) => {
 
 <style lang="scss" scoped>
 /*整个上传框*/
+$primary: #0d6efd;
+$info: #6c757d;
 .avatar-uploader {
-  border: 2px dashed #6c757d;
+  border: 2px dashed $info;
   width: 128px;
   height: 128px;
   /*响应式定位*/
@@ -73,25 +75,24 @@ const beforeAvatarUpload = (rawFile) => {
   @media (max-width: 768px) {
     position: relative;
     left: 50%;
-    transform: translateX(-50%);
+    margin-left: -64px;
     margin-bottom: 10px;
   }
   /*悬停改变边框及加号颜色*/
   &:hover {
-    border-color: #0d6efd;
+    border-color: $primary;
     /*悬停加号颜色*/
     .el-icon {
-      color: #0d6efd;
+      color: $primary;
     }
   }
 
   /*上传的组件*/
   .el-upload {
-    border-radius: 6px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    transition: var(--el-transition-duration-fast);
+    transition: 0.2s;
   }
 
   /*回显的头像*/
@@ -104,7 +105,7 @@ const beforeAvatarUpload = (rawFile) => {
   /*加号*/
   .el-icon {
     font-size: 28px;
-    color: #6c757d;
+    color: $info;
     width: 128px;
     height: 128px;
     text-align: center;

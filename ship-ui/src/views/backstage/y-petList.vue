@@ -171,9 +171,10 @@ const modalView = ref(false)
 const modalTit = ref<"新增宠物" | "修改宠物">("修改宠物")
 // 修改时展示模态框
 const showDialog = (row: Pet): void => {
-  modalView.value = true
+  myFormRef.value?.clearValidate()
   modalTit.value = "修改宠物"
   form.value = row
+  modalView.value = true
 }
 // 表单的数据
 const clientNameL = ref<Name[]>([]) // 下拉框用户名
