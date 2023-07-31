@@ -58,7 +58,7 @@
             退出登录
           </el-menu-item>
         </el-sub-menu>
-        <el-menu-item v-else index="5" @click="this.$router.push('/')">
+        <el-menu-item v-else index="5" style="color: #ffc107" @click="this.$router.push('/')">
           <el-icon>
             <SwitchButton/>
           </el-icon>
