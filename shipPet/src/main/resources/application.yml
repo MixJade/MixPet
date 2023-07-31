@@ -1,14 +1,14 @@
 spring:
+  profiles:
+    active: dev # 默认使用dev配置文件
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/pet_ship?useSSL=true
     username: root # mysql用户名
     password: root # mysql密码
   mail:
-    host: smtp.qq.com
+    host: smtp.qq.com # 邮箱配置，账号与授权码在dev中
     port: 587
-    username: 2231973602@qq.com # 发送者的邮箱，必须是QQ邮箱
-    password: dspwtwceobsfeafa # 发送者邮箱的授权码，我将这个服务关闭了
     default-encoding: UTF-8
   servlet:
     multipart:
@@ -35,8 +35,3 @@ mybatis-plus:
   mapper-locations: classpath:com/ship/mapper/*.xml
 #  configuration:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 打印sql语句
----
-pet-ship:
-  images-path: /home/mixjade/mySoft/MixPet/images/ # 照片存储路径
-  notice-path: /home/mixjade/mySoft/MixPet/notice/ # 公告存储路径
-  chatImg-path: /home/mixjade/mySoft/MixPet/chatImg/ # 聊天图片存储路径
