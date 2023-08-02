@@ -2,8 +2,8 @@ package com.ship.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ship.dto.NoticeDto;
-import com.ship.entity.Notice;
+import com.ship.model.dto.NoticeDto;
+import com.ship.model.entity.Notice;
 
 import java.util.List;
 

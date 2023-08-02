@@ -2,9 +2,9 @@ package com.ship.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.ship.dto.PetDto;
-import com.ship.entity.Pet;
-import com.ship.vo.NameVo;
+import com.ship.model.dto.PetDto;
+import com.ship.model.entity.Pet;
+import com.ship.model.vo.NameVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

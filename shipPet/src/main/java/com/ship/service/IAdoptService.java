@@ -2,8 +2,8 @@ package com.ship.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ship.dto.AdoptDto;
-import com.ship.entity.Adopt;
+import com.ship.model.dto.AdoptDto;
+import com.ship.model.entity.Adopt;
 
 import java.util.List;
 

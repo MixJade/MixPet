@@ -2,10 +2,10 @@ package com.ship.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.Result;
-import com.ship.entity.Department;
+import com.ship.model.entity.Department;
 import com.ship.security.RoleConst;
 import com.ship.service.IDepartmentService;
-import com.ship.vo.NameVo;
+import com.ship.model.vo.NameVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;

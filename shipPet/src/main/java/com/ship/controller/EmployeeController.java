@@ -3,7 +3,7 @@ package com.ship.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.PhotoEnum;
 import com.ship.common.Result;
-import com.ship.entity.Employee;
+import com.ship.model.entity.Employee;
 import com.ship.security.RoleConst;
 import com.ship.service.IEmployeeService;
 import com.ship.util.StrUtil;

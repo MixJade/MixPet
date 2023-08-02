@@ -1,11 +1,11 @@
 package com.ship.controller;
 
 import com.ship.common.Result;
-import com.ship.entity.Employee;
+import com.ship.model.entity.Employee;
 import com.ship.service.IEmployeeService;
 import com.ship.util.StrUtil;
 import com.ship.util.UserUtil;
-import com.ship.vo.EmployeePutVo;
+import com.ship.model.vo.EmployeePutVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

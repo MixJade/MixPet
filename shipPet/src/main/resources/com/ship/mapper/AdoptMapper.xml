@@ -11,7 +11,7 @@
           AND b.adopt_id = #{adoptId}
     </update>
     <!--分页查询-->
-    <select id="selectAdoptPage" resultType="com.ship.dto.AdoptDto">
+    <select id="selectAdoptPage" resultType="com.ship.model.dto.AdoptDto">
         SELECT
         adopt_id, adopt_code,a.pet_id, a.client_id, adopt_money,
         adopt_info,in_adopt,a.create_time,b.pet_name,c.client_name

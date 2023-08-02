@@ -2,9 +2,9 @@ package com.ship.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.ship.dto.FosterDto;
-import com.ship.dto.FosterPetDto;
-import com.ship.entity.Foster;
+import com.ship.model.dto.FosterDto;
+import com.ship.model.dto.FosterPetDto;
+import com.ship.model.entity.Foster;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

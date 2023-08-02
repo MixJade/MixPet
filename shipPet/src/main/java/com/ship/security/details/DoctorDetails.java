@@ -1,7 +1,7 @@
 package com.ship.security.details;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.ship.entity.Doctor;
+import com.ship.model.entity.Doctor;
 import com.ship.mapper.DoctorMapper;
 import com.ship.security.RoleConst;
 import com.ship.security.model.MyUser;

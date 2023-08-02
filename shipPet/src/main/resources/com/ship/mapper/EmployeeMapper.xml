@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ship.mapper.EmployeeMapper">
     <!--分页查询-->
-    <select id="selectEmployeePage" resultType="com.ship.entity.Employee">
+    <select id="selectEmployeePage" resultType="com.ship.model.entity.Employee">
         SELECT
         employee_id, employee_username, employee_name, employee_level,employee_tel,employee_photo,create_time
         FROM employee

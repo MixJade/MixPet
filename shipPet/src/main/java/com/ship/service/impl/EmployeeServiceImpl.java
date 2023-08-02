@@ -3,7 +3,7 @@ package com.ship.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ship.entity.Employee;
+import com.ship.model.entity.Employee;
 import com.ship.mapper.EmployeeMapper;
 import com.ship.service.IEmployeeService;
 import org.springframework.stereotype.Service;

@@ -2,9 +2,9 @@ package com.ship.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.Result;
-import com.ship.dto.NoticeDto;
-import com.ship.entity.Employee;
-import com.ship.entity.Notice;
+import com.ship.model.dto.NoticeDto;
+import com.ship.model.entity.Employee;
+import com.ship.model.entity.Notice;
 import com.ship.security.RoleConst;
 import com.ship.service.INoticeService;
 import com.ship.util.UserUtil;

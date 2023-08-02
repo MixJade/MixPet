@@ -3,10 +3,10 @@ package com.ship.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ship.entity.Client;
+import com.ship.model.entity.Client;
 import com.ship.mapper.ClientMapper;
 import com.ship.service.IClientService;
-import com.ship.vo.NameVo;
+import com.ship.model.vo.NameVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

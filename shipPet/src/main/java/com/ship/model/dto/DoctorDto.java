@@ -1,6 +1,6 @@
-package com.ship.dto;
+package com.ship.model.dto;
 
-import com.ship.entity.Doctor;
+import com.ship.model.entity.Doctor;
 
 public class DoctorDto extends Doctor {
     private String departmentName;

@@ -1,6 +1,6 @@
-package com.ship.dto;
+package com.ship.model.dto;
 
-import com.ship.entity.Appointment;
+import com.ship.model.entity.Appointment;
 
 public class AppointmentDto extends Appointment {
     private String clientName;

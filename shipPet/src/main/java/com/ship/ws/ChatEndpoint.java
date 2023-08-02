@@ -3,9 +3,9 @@ package com.ship.ws;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ship.entity.Client;
-import com.ship.entity.Doctor;
-import com.ship.entity.Msg;
+import com.ship.model.entity.Client;
+import com.ship.model.entity.Doctor;
+import com.ship.model.entity.Msg;
 import jakarta.websocket.*;
 import jakarta.websocket.server.ServerEndpoint;
 import org.slf4j.Logger;

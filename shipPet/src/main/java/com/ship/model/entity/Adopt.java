@@ -1,63 +1,62 @@
-package com.ship.entity;
+package com.ship.model.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
  * <p>
- * 寄养表
+ * 领养宠物订单
  * </p>
  *
  * @author MixJade
  * @since 2023-07-27
  */
-public class Foster implements Serializable {
+public class Adopt implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 寄养表的id
+     * 领养表的id
      */
-    @TableId(value = "foster_id", type = IdType.AUTO)
-    private Integer fosterId;
+    @TableId(value = "adopt_id", type = IdType.AUTO)
+    private Integer adoptId;
 
     /**
      * 订单编号
      */
-    private String fosterCode;
+    private String adoptCode;
 
     /**
-     * 寄养宠物的id
+     * 领养宠物的id
      */
     private Integer petId;
 
     /**
-     * 寄养人id
+     * 领养人id
      */
     private Integer clientId;
 
     /**
-     * 寄养到期时间
+     * 领养押金
      */
-    private LocalDate fosterTerm;
-
-    /**
-     * 寄养押金
-     */
-    private Integer fosterMoney;
+    private Integer adoptMoney;
 
     /**
      * 订单备注
      */
-    private String fosterInfo;
+    private String adoptInfo;
 
     /**
-     * 创建时间
+     * 是否通过，2为待审核，1为通过，0为未通过
+     */
+    private Byte inAdopt;
+
+    /**
+     * 创建时间，也是领养时间
      */
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
@@ -73,20 +72,20 @@ public class Foster implements Serializable {
      */
     private Long isDel;
 
-    public Integer getFosterId() {
-        return fosterId;
+    public Integer getAdoptId() {
+        return adoptId;
     }
 
-    public void setFosterId(Integer fosterId) {
-        this.fosterId = fosterId;
+    public void setAdoptId(Integer adoptId) {
+        this.adoptId = adoptId;
     }
 
-    public String getFosterCode() {
-        return fosterCode;
+    public String getAdoptCode() {
+        return adoptCode;
     }
 
-    public void setFosterCode(String fosterCode) {
-        this.fosterCode = fosterCode;
+    public void setAdoptCode(String adoptCode) {
+        this.adoptCode = adoptCode;
     }
 
     public Integer getPetId() {
@@ -105,28 +104,28 @@ public class Foster implements Serializable {
         this.clientId = clientId;
     }
 
-    public LocalDate getFosterTerm() {
-        return fosterTerm;
+    public Integer getAdoptMoney() {
+        return adoptMoney;
     }
 
-    public void setFosterTerm(LocalDate fosterTerm) {
-        this.fosterTerm = fosterTerm;
+    public void setAdoptMoney(Integer adoptMoney) {
+        this.adoptMoney = adoptMoney;
     }
 
-    public Integer getFosterMoney() {
-        return fosterMoney;
+    public String getAdoptInfo() {
+        return adoptInfo;
     }
 
-    public void setFosterMoney(Integer fosterMoney) {
-        this.fosterMoney = fosterMoney;
+    public void setAdoptInfo(String adoptInfo) {
+        this.adoptInfo = adoptInfo;
     }
 
-    public String getFosterInfo() {
-        return fosterInfo;
+    public Byte getInAdopt() {
+        return inAdopt;
     }
 
-    public void setFosterInfo(String fosterInfo) {
-        this.fosterInfo = fosterInfo;
+    public void setInAdopt(Byte inAdopt) {
+        this.inAdopt = inAdopt;
     }
 
     public LocalDateTime getCreateTime() {
@@ -155,14 +154,14 @@ public class Foster implements Serializable {
 
     @Override
     public String toString() {
-        return "Foster{" +
-            "fosterId = " + fosterId +
-            ", fosterCode = " + fosterCode +
+        return "Adopt{" +
+            "adoptId = " + adoptId +
+            ", adoptCode = " + adoptCode +
             ", petId = " + petId +
             ", clientId = " + clientId +
-            ", fosterTerm = " + fosterTerm +
-            ", fosterMoney = " + fosterMoney +
-            ", fosterInfo = " + fosterInfo +
+            ", adoptMoney = " + adoptMoney +
+            ", adoptInfo = " + adoptInfo +
+            ", inAdopt = " + inAdopt +
             ", createTime = " + createTime +
             ", updateTime = " + updateTime +
             ", isDel = " + isDel +

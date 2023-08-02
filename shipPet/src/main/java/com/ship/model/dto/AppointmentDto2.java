@@ -1,4 +1,4 @@
-package com.ship.dto;
+package com.ship.model.dto;
 
 import java.time.LocalDate;
 

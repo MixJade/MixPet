@@ -2,9 +2,9 @@ package com.ship.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ship.dto.PetDto;
-import com.ship.entity.Pet;
-import com.ship.vo.NameVo;
+import com.ship.model.dto.PetDto;
+import com.ship.model.entity.Pet;
+import com.ship.model.vo.NameVo;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package com.ship.dto;
+package com.ship.model.dto;
 
-import com.ship.entity.Adopt;
+import com.ship.model.entity.Foster;
 
-public class AdoptDto extends Adopt {
+public class FosterDto extends Foster {
     /**
      * 宠物姓名
      */

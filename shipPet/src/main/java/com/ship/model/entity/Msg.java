@@ -1,4 +1,4 @@
-package com.ship.entity;
+package com.ship.model.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;

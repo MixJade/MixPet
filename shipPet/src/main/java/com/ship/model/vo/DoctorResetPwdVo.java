@@ -1,4 +1,4 @@
-package com.ship.vo;
+package com.ship.model.vo;
 
 /**
  * 医生重置密码

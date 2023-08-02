@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ship.mapper.PetMapper">
     <!--分页查询-->
-    <select id="selectPetPage" resultType="com.ship.dto.PetDto">
+    <select id="selectPetPage" resultType="com.ship.model.dto.PetDto">
         SELECT
         pet_id,pet_name,pet_variety,pet_sex,pet_age,pet_status,pet_info,a.client_id,pet_photo,b.client_name
         FROM pet AS a
@@ -19,7 +19,7 @@
         </if>
     </select>
     <!--查询:主页待领养-->
-    <select id="selectFour" resultType="com.ship.entity.Pet">
+    <select id="selectFour" resultType="com.ship.model.entity.Pet">
         SELECT pet_id,
                pet_name,
                pet_variety,
