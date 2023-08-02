@@ -1,4 +1,4 @@
-package com.ship.vo;
+package com.ship.model.vo;
 
 /**
  * 查询与用户有过联系的医生

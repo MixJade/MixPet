@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ship.mapper.FosterMapper">
     <!--分页查询-->
-    <select id="selectFosterPage" resultType="com.ship.dto.FosterDto">
+    <select id="selectFosterPage" resultType="com.ship.model.dto.FosterDto">
         select
         foster_id, foster_code,a.pet_id, a.client_id, foster_term, foster_money, foster_info, b.pet_name,c.client_name
         FROM foster as a,pet as b,client as c
@@ -19,7 +19,7 @@
         </if>
     </select>
     <!--查询被寄养宠物信息-->
-    <select id="fosterPet" resultType="com.ship.dto.FosterPetDto">
+    <select id="fosterPet" resultType="com.ship.model.dto.FosterPetDto">
         SELECT foster_id,
                foster_code,
                a.pet_id,

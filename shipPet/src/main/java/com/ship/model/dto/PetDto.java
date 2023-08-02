@@ -1,6 +1,6 @@
-package com.ship.dto;
+package com.ship.model.dto;
 
-import com.ship.entity.Pet;
+import com.ship.model.entity.Pet;
 
 public class PetDto extends Pet {
     /**

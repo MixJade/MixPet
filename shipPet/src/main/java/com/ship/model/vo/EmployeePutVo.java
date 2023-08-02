@@ -1,4 +1,4 @@
-package com.ship.vo;
+package com.ship.model.vo;
 
 /**
  * 管理员(已登录)：修改自己的资料

@@ -14,7 +14,7 @@
         ${alias}.create_time,
     </sql>
     <!--分页查询-->
-    <select id="selectAppointmentPage" resultType="com.ship.dto.AppointmentDto">
+    <select id="selectAppointmentPage" resultType="com.ship.model.dto.AppointmentDto">
         SELECT
         <include refid="appoint">
             <property name="alias" value="a"/>
@@ -54,7 +54,7 @@
         order by appointment_date desc
     </select>
     <!--根据医生查询订单-->
-    <select id="getDoctor" resultType="com.ship.dto.AppointmentDto">
+    <select id="getDoctor" resultType="com.ship.model.dto.AppointmentDto">
         SELECT appointment_id, appointment_date, appointment_info, b.client_name, c.pet_name
         FROM appointment a,
              client b,
@@ -66,7 +66,7 @@
         order by appointment_date desc
     </select>
     <!--根据用户查询订单-->
-    <select id="getClient" resultType="com.ship.dto.AppointmentDto">
+    <select id="getClient" resultType="com.ship.model.dto.AppointmentDto">
         SELECT
         <include refid="appoint">
             <property name="alias" value="a"/>
@@ -86,7 +86,7 @@
         order by appointment_date desc
     </select>
     <!--医生：已登录查询订单-->
-    <select id="getDoctorLog" resultType="com.ship.dto.AppointmentDto2">
+    <select id="getDoctorLog" resultType="com.ship.model.dto.AppointmentDto2">
         SELECT
         <include refid="appoint">
             <property name="alias" value="a"/>

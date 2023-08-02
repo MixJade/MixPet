@@ -1,6 +1,6 @@
-package com.ship.dto;
+package com.ship.model.dto;
 
-import com.ship.entity.Client;
+import com.ship.model.entity.Client;
 
 /**
  * 附带验证码、记住我

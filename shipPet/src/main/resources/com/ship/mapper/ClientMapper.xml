@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ship.mapper.ClientMapper">
     <!--分页查询-->
-    <select id="selectClientPage" resultType="com.ship.entity.Client">
+    <select id="selectClientPage" resultType="com.ship.model.entity.Client">
         SELECT
         client_id, client_username, client_name, client_gender, client_tel, client_age, client_info, client_photo
         FROM client

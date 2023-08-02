@@ -2,8 +2,8 @@ package com.ship.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.ship.dto.NoticeDto;
-import com.ship.entity.Notice;
+import com.ship.model.dto.NoticeDto;
+import com.ship.model.entity.Notice;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

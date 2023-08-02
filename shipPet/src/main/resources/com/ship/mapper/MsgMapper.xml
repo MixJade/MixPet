@@ -10,7 +10,7 @@
         ORDER BY create_time DESC LIMIT 0,1
     </select>
     <!-- 查询特定用户与医生对话-->
-    <select id="getADoctor" resultType="com.ship.vo.MsgVo">
+    <select id="getADoctor" resultType="com.ship.model.vo.MsgVo">
         SELECT msg_id,
                (CASE is_client WHEN 0 THEN d.doctor_name ELSE c.client_name END)   AS role_name,
                (CASE is_client WHEN 0 THEN d.doctor_photo ELSE c.client_photo END) AS role_photo,
@@ -28,7 +28,7 @@
           AND m.doctor_id = d.doctor_id
     </select>
     <!-- 查询与用户有过联系的医生-->
-    <select id="getDoctorGroup" resultType="com.ship.vo.MsgNameVo">
+    <select id="getDoctorGroup" resultType="com.ship.model.vo.MsgNameVo">
         SELECT if(m.doctor_id = #{doctorId}, 0, 1) AS flag,
                m.doctor_id                         AS role_id,
                d.doctor_name                       AS role_name
@@ -48,7 +48,7 @@
         ORDER BY create_time DESC LIMIT 0,1
     </select>
     <!-- 查询特定医生与用户对话-->
-    <select id="getAClient" resultType="com.ship.vo.MsgVo">
+    <select id="getAClient" resultType="com.ship.model.vo.MsgVo">
         SELECT msg_id,
                (CASE is_client WHEN 0 THEN d.doctor_name ELSE c.client_name END)   AS role_name,
                (CASE is_client WHEN 0 THEN d.doctor_photo ELSE c.client_photo END) AS role_photo,
@@ -66,7 +66,7 @@
           AND m.doctor_id = d.doctor_id
     </select>
     <!-- 医生谈过话的用户-->
-    <select id="getClientGroup" resultType="com.ship.vo.MsgNameVo">
+    <select id="getClientGroup" resultType="com.ship.model.vo.MsgNameVo">
         SELECT if(m.client_id = #{clientId}, 0, 1) AS flag,
                m.client_id                         AS role_id,
                c.client_name                       AS role_name

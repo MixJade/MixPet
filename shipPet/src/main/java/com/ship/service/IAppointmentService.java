@@ -2,9 +2,9 @@ package com.ship.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ship.dto.AppointmentDto;
-import com.ship.dto.AppointmentDto2;
-import com.ship.entity.Appointment;
+import com.ship.model.dto.AppointmentDto;
+import com.ship.model.dto.AppointmentDto2;
+import com.ship.model.entity.Appointment;
 
 import java.util.List;
 

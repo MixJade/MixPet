@@ -17,7 +17,7 @@
     </select>
     <!-- @formatter:on-->
     <!--分页查询-->
-    <select id="selectNoticePage" resultType="com.ship.dto.NoticeDto">
+    <select id="selectNoticePage" resultType="com.ship.model.dto.NoticeDto">
         SELECT
         notice_id,
         notice_title,
@@ -41,7 +41,7 @@
         </if>
     </select>
     <!--主页：查询-->
-    <select id="selectFour" resultType="com.ship.dto.NoticeDto">
+    <select id="selectFour" resultType="com.ship.model.dto.NoticeDto">
         SELECT notice_id, notice_title, notice_file
         FROM notice
         WHERE is_del = 0

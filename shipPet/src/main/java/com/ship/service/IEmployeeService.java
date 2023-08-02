@@ -2,7 +2,7 @@ package com.ship.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ship.entity.Employee;
+import com.ship.model.entity.Employee;
 
 /**
  * <p>

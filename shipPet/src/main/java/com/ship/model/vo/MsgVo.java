@@ -1,4 +1,4 @@
-package com.ship.vo;
+package com.ship.model.vo;
 
 import java.time.LocalDateTime;
 

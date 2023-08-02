@@ -1,6 +1,6 @@
-package com.ship.dto;
+package com.ship.model.dto;
 
-import com.ship.entity.Notice;
+import com.ship.model.entity.Notice;
 
 public class NoticeDto extends Notice {
     /**

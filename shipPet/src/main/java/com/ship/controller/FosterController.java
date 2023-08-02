@@ -2,9 +2,9 @@ package com.ship.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.Result;
-import com.ship.dto.FosterDto;
-import com.ship.dto.FosterPetDto;
-import com.ship.entity.Foster;
+import com.ship.model.dto.FosterDto;
+import com.ship.model.dto.FosterPetDto;
+import com.ship.model.entity.Foster;
 import com.ship.security.RoleConst;
 import com.ship.service.IFosterService;
 import org.springframework.beans.factory.annotation.Autowired;

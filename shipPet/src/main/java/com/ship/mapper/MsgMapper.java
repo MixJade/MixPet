@@ -1,9 +1,9 @@
 package com.ship.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.ship.entity.Msg;
-import com.ship.vo.MsgNameVo;
-import com.ship.vo.MsgVo;
+import com.ship.model.entity.Msg;
+import com.ship.model.vo.MsgNameVo;
+import com.ship.model.vo.MsgVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

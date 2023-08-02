@@ -2,9 +2,9 @@ package com.ship.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ship.dto.FosterDto;
-import com.ship.dto.FosterPetDto;
-import com.ship.entity.Foster;
+import com.ship.model.dto.FosterDto;
+import com.ship.model.dto.FosterPetDto;
+import com.ship.model.entity.Foster;
 
 import java.util.List;
 

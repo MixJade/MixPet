@@ -1,11 +1,11 @@
 package com.ship.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ship.entity.Msg;
+import com.ship.model.entity.Msg;
 import com.ship.mapper.MsgMapper;
 import com.ship.service.IMsgService;
-import com.ship.vo.MsgNameVo;
-import com.ship.vo.MsgVo;
+import com.ship.model.vo.MsgNameVo;
+import com.ship.model.vo.MsgVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

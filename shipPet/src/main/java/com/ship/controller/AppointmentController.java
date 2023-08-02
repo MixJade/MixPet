@@ -2,9 +2,9 @@ package com.ship.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.Result;
-import com.ship.dto.AppointmentDto;
-import com.ship.entity.Appointment;
-import com.ship.entity.Client;
+import com.ship.model.dto.AppointmentDto;
+import com.ship.model.entity.Appointment;
+import com.ship.model.entity.Client;
 import com.ship.security.RoleConst;
 import com.ship.service.IAppointmentService;
 import com.ship.util.UserUtil;

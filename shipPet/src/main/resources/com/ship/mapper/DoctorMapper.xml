@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ship.mapper.DoctorMapper">
     <!--分页查询-->
-    <select id="selectDoctorPage" resultType="com.ship.dto.DoctorDto">
+    <select id="selectDoctorPage" resultType="com.ship.model.dto.DoctorDto">
         SELECT
         doctor_id,a.department_id,doctor_code,doctor_name,doctor_gender,doctor_age,doctor_photo,doctor_tel,doctor_job,doctor_info,b.department_name
         FROM doctor AS a
@@ -19,7 +19,7 @@
         </if>
     </select>
     <!--根据id查询单个-->
-    <select id="selectOneId" resultType="com.ship.dto.DoctorDto">
+    <select id="selectOneId" resultType="com.ship.model.dto.DoctorDto">
         SELECT doctor_id,
                doctor_code,
                doctor_name,

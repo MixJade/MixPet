@@ -2,9 +2,9 @@ package com.ship.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.ship.dto.AppointmentDto;
-import com.ship.dto.AppointmentDto2;
-import com.ship.entity.Appointment;
+import com.ship.model.dto.AppointmentDto;
+import com.ship.model.dto.AppointmentDto2;
+import com.ship.model.entity.Appointment;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

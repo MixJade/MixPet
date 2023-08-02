@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ship.mapper.DepartmentMapper">
     <!--分页查询-->
-    <select id="selectDepartmentPage" resultType="com.ship.entity.Department">
+    <select id="selectDepartmentPage" resultType="com.ship.model.entity.Department">
         SELECT
         department_id, department_name, department_info, department_address
         FROM department

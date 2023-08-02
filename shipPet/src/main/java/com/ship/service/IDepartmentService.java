@@ -2,8 +2,8 @@ package com.ship.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.ship.entity.Department;
-import com.ship.vo.NameVo;
+import com.ship.model.entity.Department;
+import com.ship.model.vo.NameVo;
 
 import java.util.List;
 

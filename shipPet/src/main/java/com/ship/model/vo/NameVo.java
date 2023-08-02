@@ -1,4 +1,4 @@
-package com.ship.vo;
+package com.ship.model.vo;
 
 /**
  * 部分下拉框查询名字与对应id

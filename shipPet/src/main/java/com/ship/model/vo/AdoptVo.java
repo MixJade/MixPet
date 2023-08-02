@@ -1,4 +1,4 @@
-package com.ship.vo;
+package com.ship.model.vo;
 
 /**
  * 领养审核所需参数
