@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
 /*=====前台的聊天记录展示，会自动将滚动条划到底=====*/
-import {MsgVo} from "@/modal/VO/MsgVo";
+import {MsgVo} from "@/model/VO/MsgVo";
 import {onBeforeUpdate, onMounted, ref} from "vue";
 import {getDisplayTime} from "@/utils/TimeUtil";
 

@@ -57,12 +57,12 @@ import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";
 import BackPage from "@/components/BackPage.vue";
-import {PageQuery, YClientList} from "@/modal/VO/BackQuery";
+import {PageQuery, YClientList} from "@/model/VO/BackQuery";
 import {getAge} from "@/utils/TimeUtil";
-import {Client} from "@/modal/entiy/Client";
+import {Client} from "@/model/entiy/Client";
 import TagSex from "@/components/TagSex.vue";
 import {reqClientList} from "@/request/ClientApi";
-import {Page} from "@/modal/DO/Page";
+import {Page} from "@/model/DO/Page";
 
 onMounted(() => {
   sendQuery()

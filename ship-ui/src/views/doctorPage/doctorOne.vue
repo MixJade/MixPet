@@ -14,7 +14,7 @@
 import DetailTable, {DetailTabType} from "@/components/DetailTable.vue";
 import {getAge} from "@/utils/TimeUtil";
 import {computed, reactive} from "vue";
-import {DoctorDto, exampleDoctorOne} from "@/modal/DO/DoctorDto";
+import {DoctorDto, exampleDoctorOne} from "@/model/DO/DoctorDto";
 // 设置展示信息
 const doctor: DoctorDto = reactive(exampleDoctorOne())
 const dc = computed((): DetailTabType[] => [

@@ -1,8 +1,8 @@
-import {Page} from "@/modal/DO/Page";
+import {Page} from "@/model/DO/Page";
 import reqApi from "@/request/reqAPI";
-import {Pet} from "@/modal/entiy/Pet";
-import {PageQuery, YPetList} from "@/modal/VO/BackQuery";
-import {PetDto} from "@/modal/DO/PetDto";
+import {Pet} from "@/model/entiy/Pet";
+import {PageQuery, YPetList} from "@/model/VO/BackQuery";
+import {PetDto} from "@/model/DO/PetDto";
 import {Res} from "@/request/Res";
 
 // 主页查询宠物

@@ -1,8 +1,8 @@
-import {YClientList} from "@/modal/VO/BackQuery";
-import {Page} from "@/modal/DO/Page";
+import {YClientList} from "@/model/VO/BackQuery";
+import {Page} from "@/model/DO/Page";
 import reqApi from "@/request/reqAPI";
-import {Client} from "@/modal/entiy/Client";
-import {Name} from "@/modal/entiy/Name";
+import {Client} from "@/model/entiy/Client";
+import {Name} from "@/model/entiy/Name";
 
 // 后台用户列表
 export const reqClientList = (page: YClientList): Promise<Page<Client>> =>

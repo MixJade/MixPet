@@ -1,4 +1,4 @@
-import {Pet} from "@/modal/entiy/Pet";
+import {Pet} from "@/model/entiy/Pet";
 
 /**
  * 后台管理页面的宠物

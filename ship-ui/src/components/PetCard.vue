@@ -25,7 +25,7 @@
 <script lang="ts" setup>
 /*=====前台的宠物卡片批量展示=====*/
 import {getAge} from "@/utils/TimeUtil";
-import {Pet} from "@/modal/entiy/Pet";
+import {Pet} from "@/model/entiy/Pet";
 // 接收参数：宠物卡片
 defineProps<{
   readonly cardList: Pet[]

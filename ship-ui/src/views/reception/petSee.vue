@@ -15,12 +15,12 @@
 
 <script lang="ts" setup>
 // 宠物的卡片信息
-import {Page} from "@/modal/DO/Page";
-import {Pet} from "@/modal/entiy/Pet";
+import {Page} from "@/model/DO/Page";
+import {Pet} from "@/model/entiy/Pet";
 import PetCard from "@/components/PetCard.vue";
 import {onMounted, reactive, watch} from "vue";
 import PageHead from "@/components/PageHead.vue";
-import {PageQuery} from "@/modal/VO/BackQuery";
+import {PageQuery} from "@/model/VO/BackQuery";
 import {reqPetSee} from "@/request/PetApi";
 
 const page: PageQuery = reactive({

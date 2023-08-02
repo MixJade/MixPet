@@ -84,10 +84,10 @@
 
 <script lang="ts" setup>
 import PageHead from "@/components/PageHead.vue";
-import {examplePet, Pet} from "@/modal/entiy/Pet";
+import {examplePet, Pet} from "@/model/entiy/Pet";
 import {getAge} from "@/utils/TimeUtil";
 import {onMounted, reactive, ref} from "vue";
-import {PetAskOne} from "@/modal/VO/PetAskOne";
+import {PetAskOne} from "@/model/VO/PetAskOne";
 import {reqPetOne} from "@/request/PetApi";
 import {reqAdoptPet, reqInAdopt} from "@/request/AdoptApi";
 

@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts" setup>
-import {Pet} from "@/modal/entiy/Pet";
+import {Pet} from "@/model/entiy/Pet";
 import {getAge} from "@/utils/TimeUtil";
 import TagSex from "@/components/TagSex.vue";
 import {onMounted, ref} from "vue";

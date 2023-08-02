@@ -33,5 +33,8 @@ const getChange = (): void => {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.el-radio-group {
+  background-color: #F0F2F5;
+}
 </style>

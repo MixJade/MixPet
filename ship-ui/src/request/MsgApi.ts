@@ -1,6 +1,6 @@
 import reqApi from "@/request/reqAPI";
-import {ChatGroup} from "@/modal/VO/ChatGroup";
-import {MsgVo} from "@/modal/VO/MsgVo";
+import {ChatGroup} from "@/model/VO/ChatGroup";
+import {MsgVo} from "@/model/VO/MsgVo";
 // 用户查看最近聊天的医生
 export const reqClientMsg = (): Promise<number> =>
     reqApi<string, number>("msg")

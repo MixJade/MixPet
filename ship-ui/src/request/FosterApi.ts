@@ -1,8 +1,8 @@
-import {Page} from "@/modal/DO/Page";
+import {Page} from "@/model/DO/Page";
 import reqApi from "@/request/reqAPI";
-import {FosterCardDto} from "@/modal/DO/FosterCardDto";
-import {YFosterList} from "@/modal/VO/BackQuery";
-import {FosterDto} from "@/modal/DO/FosterDto";
+import {FosterCardDto} from "@/model/DO/FosterCardDto";
+import {YFosterList} from "@/model/VO/BackQuery";
+import {FosterDto} from "@/model/DO/FosterDto";
 
 // 主页查询宠物
 export const reqFosterPet = (pageSize: number): Promise<Page<FosterCardDto>> =>

@@ -104,15 +104,15 @@
 import {Delete, Edit} from "@element-plus/icons-vue"
 import {onMounted, reactive, ref} from 'vue'
 import BackOpCol from "@/components/BackOpCol.vue";
-import {PageQuery, YPetList} from "@/modal/VO/BackQuery";
-import {PetDto} from "@/modal/DO/PetDto";
+import {PageQuery, YPetList} from "@/model/VO/BackQuery";
+import {PetDto} from "@/model/DO/PetDto";
 import {getAge} from "@/utils/TimeUtil";
-import {examplePet, Pet} from "@/modal/entiy/Pet";
+import {examplePet, Pet} from "@/model/entiy/Pet";
 import TagSex from "@/components/TagSex.vue";
 import BackPage from "@/components/BackPage.vue";
 import {reqAddPet, reqDelPet, reqDelPetBatch, reqPetList, reqUpdatePet} from "@/request/PetApi";
-import {Page} from "@/modal/DO/Page";
-import {Name} from "@/modal/entiy/Name";
+import {Page} from "@/model/DO/Page";
+import {Name} from "@/model/entiy/Name";
 import {reqClientName} from "@/request/ClientApi";
 import {ElMessageBox, FormInstance, FormRules} from "element-plus";
 import UpImg from "@/components/UpImg.vue";

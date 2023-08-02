@@ -15,12 +15,12 @@
 </template>
 
 <script lang="ts" setup>
-import {Page} from "@/modal/DO/Page";
+import {Page} from "@/model/DO/Page";
 import DoctorCard from "@/components/DoctorCard.vue";
 import {onMounted, reactive, watch} from "vue";
 import PageHead from "@/components/PageHead.vue";
-import {DoctorDto} from "@/modal/DO/DoctorDto";
-import {PageQuery} from "@/modal/VO/BackQuery";
+import {DoctorDto} from "@/model/DO/DoctorDto";
+import {PageQuery} from "@/model/VO/BackQuery";
 import {reqDoctorSee} from "@/request/DoctorApi";
 
 const page: PageQuery = reactive({

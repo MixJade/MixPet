@@ -6,8 +6,8 @@
 </template>
 
 <script lang="ts" setup>
-import {ChatGroup} from "@/modal/VO/ChatGroup";
-import {MsgVo} from "@/modal/VO/MsgVo";
+import {ChatGroup} from "@/model/VO/ChatGroup";
+import {MsgVo} from "@/model/VO/MsgVo";
 import ChatPanel from "@/components/ChatPanel.vue";
 import {onBeforeMount, ref} from "vue";
 import {reqClientMsg, reqClientMsgGroup, reqClientMsgList} from "@/request/MsgApi";

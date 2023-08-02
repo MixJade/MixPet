@@ -7,8 +7,8 @@
 
 <script lang="ts" setup>
 // 宠物的卡片信息
-import {Page} from "@/modal/DO/Page";
-import {FosterCardDto} from "@/modal/DO/FosterCardDto";
+import {Page} from "@/model/DO/Page";
+import {FosterCardDto} from "@/model/DO/FosterCardDto";
 import {onMounted, reactive} from "vue";
 import FosterCard from "@/components/FosterCard.vue";
 import PageHead from "@/components/PageHead.vue";

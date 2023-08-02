@@ -1,7 +1,7 @@
 import reqApi from "@/request/reqAPI";
 import {Res} from "@/request/Res";
-import {LoginVo, RoleEnum} from "@/modal/VO/LoginVo";
-import {Client} from "@/modal/entiy/Client";
+import {LoginVo, RoleEnum} from "@/model/VO/LoginVo";
+import {Client} from "@/model/entiy/Client";
 //登录接口
 export const reqLogin = (data: LoginVo): Promise<Res> =>
     reqApi.post<string, object>("cao/toLogin", data)

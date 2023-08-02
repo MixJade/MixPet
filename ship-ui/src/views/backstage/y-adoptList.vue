@@ -58,12 +58,12 @@ import {onMounted, reactive, ref} from 'vue'
 import {Check, Close, Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";
 import BackPage from "@/components/BackPage.vue";
-import {PageQuery, YAdoptList} from "@/modal/VO/BackQuery";
-import {Adopt} from "@/modal/entiy/Adopt";
-import {AdoptDto} from "@/modal/DO/AdoptDto";
+import {PageQuery, YAdoptList} from "@/model/VO/BackQuery";
+import {Adopt} from "@/model/entiy/Adopt";
+import {AdoptDto} from "@/model/DO/AdoptDto";
 import {moveT} from "@/utils/TimeUtil";
 import {reqAdoptList} from "@/request/AdoptApi";
-import {Page} from "@/modal/DO/Page";
+import {Page} from "@/model/DO/Page";
 
 onMounted(() => {
   sendQuery()

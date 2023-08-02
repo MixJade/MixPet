@@ -57,11 +57,11 @@ import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";
 import BackPage from "@/components/BackPage.vue";
-import {PageQuery, YAppointList} from "@/modal/VO/BackQuery";
-import {Appoint} from "@/modal/entiy/Appoint";
-import {AppointDto} from "@/modal/DO/AppointDto";
+import {PageQuery, YAppointList} from "@/model/VO/BackQuery";
+import {Appoint} from "@/model/entiy/Appoint";
+import {AppointDto} from "@/model/DO/AppointDto";
 import {reqAppointList} from "@/request/AppointApi";
-import {Page} from "@/modal/DO/Page";
+import {Page} from "@/model/DO/Page";
 
 onMounted(() => {
   sendQuery()

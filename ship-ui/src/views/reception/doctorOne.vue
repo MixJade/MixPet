@@ -57,8 +57,8 @@
 <script lang="ts" setup>
 import PageHead from "@/components/PageHead.vue";
 import {getAge, moveT} from "@/utils/TimeUtil";
-import {DoctorDto} from "@/modal/DO/DoctorDto";
-import {AppointDto} from "@/modal/DO/AppointDto";
+import {DoctorDto} from "@/model/DO/DoctorDto";
+import {AppointDto} from "@/model/DO/AppointDto";
 import {onMounted, ref} from "vue";
 import {reqDoctorOne} from "@/request/DoctorApi";
 import {reqDoctorOneA} from "@/request/AppointApi";

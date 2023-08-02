@@ -4,8 +4,8 @@
 </template>
 
 <script lang="ts" setup>
-import {exampleDChatGroup} from "@/modal/VO/ChatGroup";
-import {exampleDMsg} from "@/modal/VO/MsgVo";
+import {exampleDChatGroup} from "@/model/VO/ChatGroup";
+import {exampleDMsg} from "@/model/VO/MsgVo";
 import ChatPanel from "@/components/ChatPanel.vue";
 
 const props = defineProps<{

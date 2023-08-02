@@ -1,7 +1,7 @@
 /**
  * 单个医生
  */
-import {Doctor} from "@/modal/entiy/Doctor";
+import {Doctor} from "@/model/entiy/Doctor";
 
 export interface DoctorDto extends Doctor {
     departmentName: string;
