@@ -1,7 +1,7 @@
 import reqApi from "@/request/reqAPI";
-import {Page} from "@/modal/DO/Page";
-import {DoctorDto} from "@/modal/DO/DoctorDto";
-import {PageQuery, YDoctorList} from "@/modal/VO/BackQuery";
+import {Page} from "@/model/DO/Page";
+import {DoctorDto} from "@/model/DO/DoctorDto";
+import {PageQuery, YDoctorList} from "@/model/VO/BackQuery";
 // 主页查询医生
 export const reqFourDoctor = (): Promise<Page<DoctorDto>> =>
     reqApi<string, object>("doctor/page?numPage=1&pageSize=4")

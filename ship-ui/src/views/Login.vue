@@ -24,7 +24,7 @@ import LoginForm from "@/components/LoginForm.vue";
 import {onMounted} from "vue";
 import {reqGetLogin} from "@/request/PowerApi";
 import {useRouter} from "vue-router";
-import {RoleEnum} from "@/modal/VO/LoginVo";
+import {RoleEnum} from "@/model/VO/LoginVo";
 
 // 登陆的初始化
 onMounted(() => {

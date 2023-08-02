@@ -68,12 +68,12 @@ import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";
 import BackPage from "@/components/BackPage.vue";
-import {PageQuery, YDoctorList} from "@/modal/VO/BackQuery";
+import {PageQuery, YDoctorList} from "@/model/VO/BackQuery";
 import {getAge} from "@/utils/TimeUtil";
-import {Doctor} from "@/modal/entiy/Doctor";
-import {DoctorDto} from "@/modal/DO/DoctorDto";
+import {Doctor} from "@/model/entiy/Doctor";
+import {DoctorDto} from "@/model/DO/DoctorDto";
 import TagSex from "@/components/TagSex.vue";
-import {Page} from "@/modal/DO/Page";
+import {Page} from "@/model/DO/Page";
 import {reqDoctorList} from "@/request/DoctorApi";
 
 onMounted(() => {

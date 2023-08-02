@@ -52,10 +52,10 @@ import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";
 import BackPage from "@/components/BackPage.vue";
-import {PageQuery, YFosterList} from "@/modal/VO/BackQuery";
-import {Foster} from "@/modal/entiy/Foster";
-import {FosterDto} from "@/modal/DO/FosterDto";
-import {Page} from "@/modal/DO/Page";
+import {PageQuery, YFosterList} from "@/model/VO/BackQuery";
+import {Foster} from "@/model/entiy/Foster";
+import {FosterDto} from "@/model/DO/FosterDto";
+import {Page} from "@/model/DO/Page";
 import {reqFosterList} from "@/request/FosterApi";
 
 onMounted(() => {

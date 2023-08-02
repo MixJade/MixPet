@@ -1,4 +1,4 @@
-import {Notice} from "@/modal/entiy/Notice";
+import {Notice} from "@/model/entiy/Notice";
 
 export interface NoticeDto extends Notice {
     createName?: string | null;

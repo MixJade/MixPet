@@ -1,7 +1,7 @@
 import reqApi from "@/request/reqAPI";
-import {AppointDto} from "@/modal/DO/AppointDto";
-import {YAppointList} from "@/modal/VO/BackQuery";
-import {Page} from "@/modal/DO/Page";
+import {AppointDto} from "@/model/DO/AppointDto";
+import {YAppointList} from "@/model/VO/BackQuery";
+import {Page} from "@/model/DO/Page";
 // 用户查看一个医生的挂号
 export const reqDoctorOneA = (doctorId: number): Promise<AppointDto[]> =>
     reqApi<string, object>("appointment/doctor?doctorId=" + doctorId)

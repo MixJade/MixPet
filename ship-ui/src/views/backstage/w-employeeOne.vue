@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
 import DetailTable, {DetailTabType} from "@/components/DetailTable.vue";
-import {Employee} from "@/modal/entiy/Employee";
+import {Employee} from "@/model/entiy/Employee";
 import {getJob} from "@/utils/JobUtil";
 import {getDaysFromToday} from "@/utils/TimeUtil";
 import {computed, reactive} from "vue";

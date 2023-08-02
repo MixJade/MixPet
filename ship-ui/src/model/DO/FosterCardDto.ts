@@ -1,4 +1,4 @@
-import {FosterDto} from "@/modal/DO/FosterDto";
+import {FosterDto} from "@/model/DO/FosterDto";
 
 export interface FosterCardDto extends FosterDto {
     petVariety: string;

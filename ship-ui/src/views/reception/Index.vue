@@ -155,14 +155,14 @@
 <script lang="ts" setup>
 import {DataBoard, EditPen, Football, Phone, SwitchButton, Tickets, User} from "@element-plus/icons-vue"
 import {onBeforeMount, reactive, ref} from "vue";
-import {Pet} from "@/modal/entiy/Pet";
-import {Page} from "@/modal/DO/Page";
+import {Pet} from "@/model/entiy/Pet";
+import {Page} from "@/model/DO/Page";
 import PetCard from "@/components/PetCard.vue";
 import DoctorCard from "@/components/DoctorCard.vue";
 import FosterCard from "@/components/FosterCard.vue";
-import {DoctorDto} from "@/modal/DO/DoctorDto";
-import {FosterCardDto} from "@/modal/DO/FosterCardDto";
-import {NoticeDto} from "@/modal/DO/NoticeDto";
+import {DoctorDto} from "@/model/DO/DoctorDto";
+import {FosterCardDto} from "@/model/DO/FosterCardDto";
+import {NoticeDto} from "@/model/DO/NoticeDto";
 import {reqLoginUser, reqLogout} from "@/request/PowerApi";
 import {reqFourDoctor} from "@/request/DoctorApi";
 import {reqFourPet} from "@/request/PetApi";

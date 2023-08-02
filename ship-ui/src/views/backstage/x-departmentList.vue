@@ -43,10 +43,10 @@ import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";
 import BackPage from "@/components/BackPage.vue";
-import {PageQuery, XDepartmentList} from "@/modal/VO/BackQuery";
-import {Department} from "@/modal/entiy/Department";
+import {PageQuery, XDepartmentList} from "@/model/VO/BackQuery";
+import {Department} from "@/model/entiy/Department";
 import {reqDepartList} from "@/request/DepartApi";
-import {Page} from "@/modal/DO/Page";
+import {Page} from "@/model/DO/Page";
 
 onMounted(() => {
   sendQuery()

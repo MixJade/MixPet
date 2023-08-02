@@ -25,7 +25,7 @@ import {computed, reactive, Ref, ref} from "vue";
 import {Lock, User} from "@element-plus/icons-vue"
 import {buttonTypes} from "element-plus"
 import {reqLogin} from "@/request/PowerApi";
-import {LoginVo, RoleEnum} from "@/modal/VO/LoginVo";
+import {LoginVo, RoleEnum} from "@/model/VO/LoginVo";
 // 定义登录的角色
 const prop = defineProps<{
   role: RoleEnum

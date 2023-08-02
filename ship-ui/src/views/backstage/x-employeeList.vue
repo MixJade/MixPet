@@ -56,12 +56,12 @@ import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";
 import BackPage from "@/components/BackPage.vue";
-import {PageQuery, XEmployeeList} from "@/modal/VO/BackQuery";
+import {PageQuery, XEmployeeList} from "@/model/VO/BackQuery";
 import {getDaysFromToday} from "@/utils/TimeUtil";
 import {getJob} from "@/utils/JobUtil";
-import {Employee} from "@/modal/entiy/Employee";
+import {Employee} from "@/model/entiy/Employee";
 import {reqEmployeeList} from "@/request/EmployeeApi";
-import {Page} from "@/modal/DO/Page";
+import {Page} from "@/model/DO/Page";
 
 onMounted(() => {
   sendQuery()

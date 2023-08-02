@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-import {Client} from "@/modal/entiy/Client";
+import {Client} from "@/model/entiy/Client";
 import DetailTable, {DetailTabType} from "@/components/DetailTable.vue";
 import {computed, onMounted, reactive} from "vue";
 import {reqLoginUser} from "@/request/PowerApi";

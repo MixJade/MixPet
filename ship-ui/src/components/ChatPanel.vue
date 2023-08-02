@@ -42,8 +42,8 @@
 import {PictureRounded, Position} from "@element-plus/icons-vue"
 import PageHead from "@/components/PageHead.vue";
 import {ref} from "vue";
-import {ChatGroup} from "@/modal/VO/ChatGroup";
-import {MsgVo} from "@/modal/VO/MsgVo";
+import {ChatGroup} from "@/model/VO/ChatGroup";
+import {MsgVo} from "@/model/VO/MsgVo";
 import ChatCard from "@/components/ChatMain.vue";
 
 defineProps<{

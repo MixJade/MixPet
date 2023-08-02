@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import {AppointDto} from "@/modal/DO/AppointDto";
+import {AppointDto} from "@/model/DO/AppointDto";
 import {moveT} from "@/utils/TimeUtil";
 import {onMounted, ref} from "vue";
 import {reqClientAppoint} from "@/request/AppointApi";

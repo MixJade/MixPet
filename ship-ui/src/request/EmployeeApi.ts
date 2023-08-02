@@ -1,7 +1,7 @@
 import reqApi from "@/request/reqAPI";
-import {Employee} from "@/modal/entiy/Employee";
-import {XEmployeeList} from "@/modal/VO/BackQuery";
-import {Page} from "@/modal/DO/Page";
+import {Employee} from "@/model/entiy/Employee";
+import {XEmployeeList} from "@/model/VO/BackQuery";
+import {Page} from "@/model/DO/Page";
 
 // 管理员的登陆信息
 export const reqGetLoginE = (): Promise<Employee> =>

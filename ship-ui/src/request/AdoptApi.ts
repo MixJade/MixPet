@@ -1,9 +1,9 @@
 import reqApi from "@/request/reqAPI";
 import {Res} from "@/request/Res";
-import {PetAskOne} from "@/modal/VO/PetAskOne";
-import {YAdoptList} from "@/modal/VO/BackQuery";
-import {Page} from "@/modal/DO/Page";
-import {AdoptDto} from "@/modal/DO/AdoptDto";
+import {PetAskOne} from "@/model/VO/PetAskOne";
+import {YAdoptList} from "@/model/VO/BackQuery";
+import {Page} from "@/model/DO/Page";
+import {AdoptDto} from "@/model/DO/AdoptDto";
 
 // 判断是否领养
 export const reqInAdopt = (petId: number): Promise<number> =>
