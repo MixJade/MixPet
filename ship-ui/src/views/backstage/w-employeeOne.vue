@@ -11,21 +11,13 @@
 
 <script lang="ts" setup>
 import DetailTable, {DetailTabType} from "@/components/DetailTable.vue";
-import {Employee} from "@/model/entiy/Employee";
+import {Employee, exampleEmployee} from "@/model/entiy/Employee";
 import {getJob} from "@/utils/JobUtil";
 import {getDaysFromToday} from "@/utils/TimeUtil";
 import {computed, reactive} from "vue";
 import {reqGetLoginE} from "@/request/EmployeeApi";
 // 设置展示信息
-const employee: Employee = reactive({
-  "employeeId": 0,
-  "employeeUsername": "",
-  "employeeName": "",
-  "employeeLevel": 0,
-  "employeeTel": "",
-  "employeePhoto": "zs.jpg",
-  "createTime": ""
-})
+const employee: Employee = reactive(exampleEmployee())
 // 发起请求
 reqGetLoginE().then(res => {
   Object.keys(res).forEach(key => {

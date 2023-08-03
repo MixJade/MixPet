@@ -29,21 +29,47 @@
       </template>
     </el-table-column>
     <el-table-column fixed="right" label="操作">
-      <el-button-group>
-        <el-button :icon="Edit" circle type="warning" @click="showDialog"/>
-        <el-button :icon="Delete" circle type="danger"/>
-      </el-button-group>
+      <template #default="scope">
+        <el-button-group>
+          <el-button :icon="Edit" circle type="warning" @click="showDialog(scope.row)"/>
+          <el-button :icon="Delete" circle type="danger" @click="delOne(scope.row.employeeId)"/>
+        </el-button-group>
+      </template>
     </el-table-column>
   </el-table>
   <!--分页条-->
   <BackPage :total="employeeList.total" @changePu="changePuB"/>
   <!--修改、新增时的模态框-->
   <el-dialog v-model="modalView" :title="modalTit" draggable width="60%">
-    <span>It's a draggable Dialog</span>
+    <!--头像上传框-->
+    <UpImg :photoNm="form.employeePhoto" @upPhoto="changePhoto"/>
+    <!--表单-->
+    <el-form ref="myFormRef" :model="form" :rules="rules" label-width="120px">
+      <el-form-item label="姓名" prop="employeeName">
+        <el-input v-model="form.employeeName" clearable placeholder="用户姓名"/>
+      </el-form-item>
+      <el-form-item label="帐号" prop="employeeUsername">
+        <el-input v-model="form.employeeUsername" clearable placeholder="用户帐号"/>
+      </el-form-item>
+      <el-form-item label="权限">
+        <el-select v-model="form.employeeLevel" filterable placeholder="权限等级">
+          <el-option :value="6" label="院长"/>
+          <el-option :value="4" label="主任"/>
+          <el-option :value="2" label="护士"/>
+          <el-option :value="0" label="临时工"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="联系方式">
+        <el-input v-model="form.employeeTel" clearable placeholder="联系方式"/>
+      </el-form-item>
+      <el-form-item v-if="modalTit==='新增管理员'" label="密码">
+        <el-input v-model="form.employeePassword" clearable placeholder="123456"/>
+      </el-form-item>
+    </el-form>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="modalView = false">取消</el-button>
-        <el-button type="primary" @click="modalView = false">
+        <el-button type="primary" @click="formSubmit(myFormRef)">
           确认
         </el-button>
       </span>
@@ -59,9 +85,18 @@ import BackPage from "@/components/BackPage.vue";
 import {PageQuery, XEmployeeList} from "@/model/VO/BackQuery";
 import {getDaysFromToday} from "@/utils/TimeUtil";
 import {getJob} from "@/utils/JobUtil";
-import {Employee} from "@/model/entiy/Employee";
-import {reqEmployeeList} from "@/request/EmployeeApi";
+import {Employee, exampleEmployee} from "@/model/entiy/Employee";
+import {
+  reqAddEmployee,
+  reqDelEmployee,
+  reqDelEmployeeBatch,
+  reqEmployeeList,
+  reqUpdateEmployee
+} from "@/request/EmployeeApi";
 import {Page} from "@/model/DO/Page";
+import {Res} from "@/request/Res";
+import UpImg from "@/components/UpImg.vue";
+import {ElMessageBox, FormInstance, FormRules} from "element-plus";
 
 onMounted(() => {
   sendQuery()
@@ -72,13 +107,12 @@ const qp: XEmployeeList = reactive({
   numPage: 1,
   pageSize: 7
 })
+// 添加模态框
 const addRoleB = (): void => {
-  console.log("添加管理员")
+  form.value = exampleEmployee()
+  myFormRef.value?.resetFields()
   modalTit.value = "新增管理员"
   modalView.value = true
-}
-const delBatchB = (): void => {
-  console.log("批量删除")
 }
 // 列表展示
 const employeeList = ref<Page<Employee>>({records: [], total: 0})
@@ -86,7 +120,11 @@ const employeeList = ref<Page<Employee>>({records: [], total: 0})
 const roleIdList = ref<number[]>([])
 const handleSelectionChange = (val: Employee[]): void => {
   roleIdList.value = val.map(obj => obj.employeeId)
-  console.log(roleIdList.value)
+}
+// 批量删除
+const delBatchB = (): void => {
+  if (roleIdList.value.length == 0) return
+  reqDelEmployeeBatch(roleIdList.value).then(res => sureFlush(res))
 }
 // 分页条
 const changePuB = (val: PageQuery) => {
@@ -104,9 +142,48 @@ const sendQuery = (): void => {
 const modalView = ref(false)
 const modalTit = ref<"新增管理员" | "修改管理员">("修改管理员")
 // 修改时展示模态框
-const showDialog = () => {
+const showDialog = (row: Employee) => {
+  myFormRef.value?.clearValidate()
+  form.value = row
   modalView.value = true
   modalTit.value = "修改管理员"
+}
+// 确定请求的返回值，然后刷新
+const sureFlush = (res: Res): void => {
+  if (res.code === 1) sendQuery()
+}
+// 删除单个
+const delOne = (id: number): void => {
+  reqDelEmployee(id).then(res => sureFlush(res))
+}
+// 表单的数据
+const form = ref<Employee>(exampleEmployee()) // 空的默认值
+const myFormRef = ref<FormInstance>()
+// 校验表单并提交
+const formSubmit = async (formEl: FormInstance): Promise<void> => {
+  if (!formEl) return
+  await myFormRef.value?.validate((valid: boolean): void => {
+    if (valid) {
+      // 校验通过，提交
+      modalView.value = false
+      if (modalTit.value == "新增管理员") reqAddEmployee(form.value).then(res => sureFlush(res))
+      else if (modalTit.value === "修改管理员") reqUpdateEmployee(form.value).then(res => sureFlush(res))
+      else ElMessageBox.alert('模块框出错')
+    }
+  })
+}
+// 表单校验规则
+const rules = reactive<FormRules>({
+  "employeeName": [
+    {required: true, message: '请输入姓名', trigger: 'blur'},
+  ],
+  "employeeUsername": [
+    {required: true, message: '请填写帐号', trigger: 'blur'},
+  ],
+})
+// 头像参数的改变:子传父
+const changePhoto = (val: string): void => {
+  form.value.employeePhoto = val
 }
 </script>
 
