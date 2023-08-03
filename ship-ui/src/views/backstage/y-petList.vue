@@ -57,10 +57,10 @@
       <!--表单-->
       <el-form ref="myFormRef" :model="form" :rules="rules" label-width="120px">
         <el-form-item label="宠物姓名" prop="petName">
-          <el-input v-model="form.petName" placeholder="宠物姓名" clearable/>
+          <el-input v-model="form.petName" clearable placeholder="宠物姓名"/>
         </el-form-item>
         <el-form-item label="宠物品种" prop="petVariety">
-          <el-input v-model="form.petVariety" placeholder="宠物品种" clearable/>
+          <el-input v-model="form.petVariety" clearable placeholder="宠物品种"/>
         </el-form-item>
         <el-form-item label="宠物性别">
           <el-radio-group v-model="form.petSex">
@@ -71,13 +71,13 @@
         <el-form-item label="出生日期">
           <el-date-picker
               v-model="form.petAge"
-              type="date"
               placeholder="选择出生日期"
               style="width: 50%"
+              type="date"
           />
         </el-form-item>
         <el-form-item label="健康状况">
-          <el-input v-model="form.petStatus" placeholder="健康状况" clearable/>
+          <el-input v-model="form.petStatus" clearable placeholder="健康状况"/>
         </el-form-item>
         <el-form-item label="宠物主人">
           <el-select v-model="form.clientId" filterable placeholder="选择用户">
@@ -85,7 +85,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="宠物近况">
-          <el-input v-model="form.petInfo" placeholder="宠物近况" clearable/>
+          <el-input v-model="form.petInfo" clearable placeholder="宠物近况"/>
         </el-form-item>
       </el-form>
       <template #footer>

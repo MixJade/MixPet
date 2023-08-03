@@ -8,21 +8,12 @@
 </template>
 
 <script lang="ts" setup>
-import {Client} from "@/model/entiy/Client";
+import {Client, exampleClient} from "@/model/entiy/Client";
 import DetailTable, {DetailTabType} from "@/components/DetailTable.vue";
 import {computed, onMounted, reactive} from "vue";
 import {reqLoginUser} from "@/request/PowerApi";
 // 设置展示信息
-const client = reactive<Client>({
-  "clientId": 0,
-  "clientUsername": "",
-  "clientName": "",
-  "clientGender": false,
-  "clientTel": "",
-  "clientAge": "",
-  "clientInfo": "",
-  "clientPhoto": "",
-})
+const client = reactive<Client>(exampleClient())
 const co = computed((): DetailTabType[] => [
   {tit: "账号", con: client.clientUsername},
   {tit: "姓名", con: client.clientName},

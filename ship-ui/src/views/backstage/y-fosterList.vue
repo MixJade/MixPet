@@ -34,7 +34,7 @@
   <!--分页条-->
   <BackPage :total="fosterList.total" @changePu="changePuB"/>
   <!--修改、新增时的模态框-->
-  <el-dialog v-model="modalView" :title="modalTit" draggable width="30%">
+  <el-dialog v-model="modalView" :title="modalTit" draggable width="60%">
     <span>It's a draggable Dialog</span>
     <template #footer>
       <span class="dialog-footer">
