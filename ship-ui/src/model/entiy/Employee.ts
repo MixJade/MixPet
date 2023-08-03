@@ -12,3 +12,18 @@ export interface Employee {
     createTime: string;
     updateTime?: string | null;
 }
+
+/**
+ * 空数据
+ */
+export const exampleEmployee = (): Employee => {
+    return {
+        "employeeId": 0,
+        "employeeUsername": "",
+        "employeeName": "",
+        "employeeLevel": 0,
+        "employeeTel": "",
+        "employeePhoto": "zs.jpg",
+        "createTime": ""
+    }
+}

@@ -74,6 +74,9 @@
       <el-form-item label="简介">
         <el-input v-model="form.clientInfo" clearable placeholder="用户近况"/>
       </el-form-item>
+      <el-form-item v-if="modalTit==='新增用户'" label="密码">
+        <el-input v-model="form.clientPassword" clearable placeholder="123456"/>
+      </el-form-item>
     </el-form>
     <template #footer>
       <span class="dialog-footer">
@@ -122,7 +125,6 @@ const clientList = ref<Page<Client>>({records: [], total: 0})
 const roleIdList = ref<number[]>([])
 const handleSelectionChange = (val: Client[]): void => {
   roleIdList.value = val.map(obj => obj.clientId)
-  console.log(roleIdList.value)
 }
 // 批量删除
 const delBatchB = (): void => {
