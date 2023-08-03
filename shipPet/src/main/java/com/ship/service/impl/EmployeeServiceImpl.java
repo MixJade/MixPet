@@ -3,10 +3,12 @@ package com.ship.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ship.model.entity.Employee;
 import com.ship.mapper.EmployeeMapper;
+import com.ship.model.entity.Employee;
 import com.ship.service.IEmployeeService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -22,6 +24,14 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     public boolean deleteById(Integer employeeId) {
         return this.lambdaUpdate()
                 .eq(Employee::getEmployeeId, employeeId)
+                .set(Employee::getIsDel, System.currentTimeMillis())
+                .update();
+    }
+
+    @Override
+    public boolean deleteByIds(List<Integer> idGroup) {
+        return this.lambdaUpdate()
+                .in(Employee::getEmployeeId, idGroup)
                 .set(Employee::getIsDel, System.currentTimeMillis())
                 .update();
     }

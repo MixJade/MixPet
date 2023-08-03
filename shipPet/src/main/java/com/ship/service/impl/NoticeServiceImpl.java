@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ship.common.PhotoEnum;
+import com.ship.mapper.NoticeMapper;
 import com.ship.model.dto.NoticeDto;
 import com.ship.model.entity.Notice;
-import com.ship.mapper.NoticeMapper;
 import com.ship.service.INoticeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +57,6 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
             Arrays.stream(list01)
                     .filter(i -> !avatarSet.contains(i))
                     .forEach(fileName -> {
-                        System.out.println("一" + fileName);
                         if (new File(basePath + fileName).delete()) delNum[0]++;
                     });
         }

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * <p>
  * 员工表 前端控制器
@@ -36,15 +38,23 @@ public class EmployeeController {
 
     @PostMapping
     @Secured(RoleConst.ADMIN)
-    public Result save(@RequestBody Employee employee) {
-        if (StrUtil.isWhite(employee.getEmployeePhoto())) employee.setEmployeePhoto(PhotoEnum.CLIENT.getPhotoName());
-        return Result.choice("添加", employeeService.save(employee));
+    public Result save(@RequestBody Employee em) {
+        if (StrUtil.isWhite(em.getEmployeePhoto())) em.setEmployeePhoto(PhotoEnum.CLIENT.getPhotoName());
+        if (StrUtil.isWhite(em.getEmployeePassword())) em.setEmployeePassword("123456");
+        em.setEmployeePassword(StrUtil.tranPwd(em.getEmployeePassword()));
+        return Result.choice("添加", employeeService.save(em));
     }
 
     @DeleteMapping("/{id}")
     @Secured(RoleConst.ADMIN)
     public Result delete(@PathVariable Integer id) {
         return Result.choice("删除单个", employeeService.deleteById(id));
+    }
+
+    @DeleteMapping("/batch/{ids}")
+    @Secured(RoleConst.ADMIN)
+    public Result deleteGroup(@PathVariable List<Integer> ids) {
+        return Result.choice("删除多个", employeeService.deleteByIds(ids));
     }
 
     @PutMapping

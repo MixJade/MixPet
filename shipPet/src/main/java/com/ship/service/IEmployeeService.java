@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ship.model.entity.Employee;
 
+import java.util.List;
+
 /**
  * <p>
  * 员工表 服务类
@@ -22,6 +24,14 @@ public interface IEmployeeService extends IService<Employee> {
     boolean deleteById(Integer employeeId);
 
     /**
+     * 批量逻辑删除
+     *
+     * @param idGroup 一组id
+     * @return 是否批量删除成功
+     */
+    boolean deleteByIds(List<Integer> idGroup);
+
+    /**
      * 分页查询
      *
      * @param employeeName 客户姓名，记得加模糊判别条件
@@ -30,4 +40,5 @@ public interface IEmployeeService extends IService<Employee> {
      * @return 数据的总长度，与分页查询结果
      */
     IPage<Employee> selectByPage(String employeeName, int numPage, int pageSize);
+
 }
