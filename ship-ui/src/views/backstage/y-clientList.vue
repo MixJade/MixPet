@@ -61,9 +61,11 @@
       <el-form-item label="生日">
         <el-date-picker
             v-model="form.clientAge"
+            format="YYYY-MM-DD"
             placeholder="选择出生日期"
             style="width: 50%"
             type="date"
+            value-format="YYYY-MM-DD"
         />
       </el-form-item>
       <el-form-item label="邮箱">
