@@ -71,9 +71,11 @@
         <el-form-item label="出生日期">
           <el-date-picker
               v-model="form.petAge"
+              format="YYYY-MM-DD"
               placeholder="选择出生日期"
               style="width: 50%"
               type="date"
+              value-format="YYYY-MM-DD"
           />
         </el-form-item>
         <el-form-item label="健康状况">
