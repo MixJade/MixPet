@@ -11,7 +11,7 @@
  Target Server Version : 80033
  File Encoding         : 65001
 
- Date: 27/07/2023 23:01:54
+ Date: 03/08/2023 21:13:37
 */
 
 SET NAMES utf8mb4;
@@ -101,7 +101,7 @@ DROP TABLE IF EXISTS `client`;
 CREATE TABLE `client` (
   `client_id` int NOT NULL AUTO_INCREMENT COMMENT '用户id',
   `client_username` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL COMMENT '用户账号',
-  `client_password` varchar(72) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '6b6864bf70c40ccbc2752cd9ef11e77b' COMMENT '用户密码',
+  `client_password` varchar(72) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye' COMMENT '用户密码',
   `client_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL COMMENT '用户姓名',
   `client_gender` tinyint(1) DEFAULT '0' COMMENT '用户性别',
   `client_tel` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL COMMENT '用户电话',
@@ -175,7 +175,7 @@ CREATE TABLE `doctor` (
   `doctor_tel` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL COMMENT '医生联系方式',
   `doctor_job` varchar(16) DEFAULT '医生' COMMENT '医生职位',
   `doctor_info` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL COMMENT '医生简介',
-  `doctor_password` varchar(72) NOT NULL DEFAULT '6b6864bf70c40ccbc2752cd9ef11e77b' COMMENT '医生密码',
+  `doctor_password` varchar(72) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye' COMMENT '医生密码',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   `is_del` bigint NOT NULL DEFAULT '0' COMMENT '逻辑删除，默认0，填充删除日期',
@@ -205,7 +205,7 @@ DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee` (
   `employee_id` int NOT NULL AUTO_INCREMENT COMMENT '管理员id',
   `employee_username` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL COMMENT '管理员账号',
-  `employee_password` varchar(72) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '6b6864bf70c40ccbc2752cd9ef11e77b' COMMENT '管理员密码',
+  `employee_password` varchar(72) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye' COMMENT '管理员密码',
   `employee_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL COMMENT '管理员姓名',
   `employee_level` int NOT NULL DEFAULT '0' COMMENT '管理员等级',
   `employee_tel` varchar(12) NOT NULL COMMENT '管理员联系方式',

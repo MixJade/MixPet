@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.PhotoEnum;
 import com.ship.common.Result;
 import com.ship.model.entity.Client;
+import com.ship.model.vo.NameVo;
 import com.ship.security.RoleConst;
 import com.ship.service.IClientService;
 import com.ship.util.StrUtil;
-import com.ship.model.vo.NameVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -59,6 +59,8 @@ public class ClientController {
         if (StrUtil.isWhite(client.getClientName())) return Result.error("用户名为空");
         if (StrUtil.isWhite(client.getClientUsername())) return Result.error("用户账号为空");
         if (StrUtil.isWhite(client.getClientPhoto())) client.setClientPhoto(PhotoEnum.CLIENT.getPhotoName());
+        if (StrUtil.isWhite(client.getClientPassword())) client.setClientPassword("123456");
+        client.setClientPassword(StrUtil.tranPwd(client.getClientPassword()));
         return Result.choice("添加", clientService.save(client));
     }
 
