@@ -17,6 +17,10 @@ const routes: RouteRecordRaw[] = [
     }, {
         path: '/doctorPage',
         children: [...doctorPage],
+    }, {
+        path: '/:pathMatch(.*)', // 404路由
+        name: 'not-found',
+        component: () => import('@/views/Page404.vue')
     }
 ]
 export const router = createRouter({
