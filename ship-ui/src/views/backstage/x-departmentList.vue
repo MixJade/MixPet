@@ -1,7 +1,7 @@
 <template>
   <!--操作框-->
   <BackOpCol role="部门" @addRole="addRoleB" @delBatch="delBatchB" @query="sendQuery">
-    <el-input v-model="qp.departmentName" placeholder="部门名" size="large"/>
+    <el-input v-model="qp.departmentName" placeholder="部门名" size="large" @keyup.enter="sendQuery"/>
   </BackOpCol>
 
   <!--列表展示-->
