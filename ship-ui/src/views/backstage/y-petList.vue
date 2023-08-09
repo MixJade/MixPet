@@ -2,8 +2,8 @@
   <div>
     <!--操作框-->
     <BackOpCol role="宠物" @addRole="addRoleB" @delBatch="delBatchB" @query="sendQuery">
-      <el-input v-model="qp.petName" placeholder="宠物姓名" size="large"/>
-      <el-input v-model="qp.clientName" placeholder="用户姓名" size="large"/>
+      <el-input v-model="qp.petName" placeholder="宠物姓名" size="large" @keyup.enter="sendQuery"/>
+      <el-input v-model="qp.clientName" placeholder="用户姓名" size="large" @keyup.enter="sendQuery"/>
     </BackOpCol>
     <!--列表展示-->
     <el-table :data="petList.records"

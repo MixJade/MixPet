@@ -7,7 +7,7 @@
       <el-option :value="2" label="医生"/>
       <el-option :value="3" label="科室"/>
     </el-select>
-    <el-input v-model="qp.seaName" placeholder="名称" size="large"/>
+    <el-input v-model="qp.seaName" placeholder="名称" size="large" @keyup.enter="sendQuery"/>
   </BackOpCol>
 
   <!--列表展示-->
