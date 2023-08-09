@@ -84,7 +84,7 @@ const qp: YDoctorList = reactive({
   doctorName: '',
   departmentName: '',
   numPage: 1,
-  pageSize: 7
+  pageSize: 6
 })
 const addRoleB = (): void => {
   console.log("添加医生")

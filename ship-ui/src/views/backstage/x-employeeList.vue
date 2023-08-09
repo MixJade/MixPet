@@ -105,7 +105,7 @@ onMounted(() => {
 const qp: XEmployeeList = reactive({
   employeeName: '',
   numPage: 1,
-  pageSize: 7
+  pageSize: 6
 })
 // 添加模态框
 const addRoleB = (): void => {

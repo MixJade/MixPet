@@ -19,7 +19,7 @@
           </template>
           <el-menu-item-group :title="employeeNow.name">
             <el-menu-item index="/backstage">个人资料</el-menu-item>
-            <el-menu-item index="/backstage/x-departmentList">部门列表</el-menu-item>
+            <el-menu-item index="/backstage/x-departmentList">科室列表</el-menu-item>
             <el-menu-item index="/backstage/x-employeeList">员工列表</el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>

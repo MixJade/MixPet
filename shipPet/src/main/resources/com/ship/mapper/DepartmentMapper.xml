@@ -2,14 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ship.mapper.DepartmentMapper">
     <!--分页查询-->
-    <select id="selectDepartmentPage" resultType="com.ship.model.entity.Department">
+    <select id="selectDepartmentPage" resultType="com.ship.model.dto.DepartmentDto">
         SELECT
-        department_id, department_name, department_info, department_address
-        FROM department
-        WHERE is_del = 0
+        de.department_id, department_name, department_info, department_address,count(d.doctor_id) AS doctor_num
+        FROM department AS de
+        LEFT JOIN doctor d on de.department_id = d.department_id
+        WHERE de.is_del = 0
         <if test="departmentName!=null and departmentName!=''">
             <bind name="departmentName" value="'%'+departmentName+'%'"/>
             and department_name like #{departmentName}
         </if>
+        GROUP BY de.department_id
     </select>
 </mapper>

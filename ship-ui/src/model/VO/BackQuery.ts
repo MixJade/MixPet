@@ -28,7 +28,7 @@ export interface XEmployeeList extends PageQuery {
     employeeName: string
 }
 
-// 部门列表的查询参数
+// 科室列表的查询参数
 export interface XDepartmentList extends PageQuery {
     departmentName: string
 }

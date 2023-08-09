@@ -10,7 +10,7 @@ export const backstage: RouteRecordRaw[] = [
         path: "",
         component: () => import('@/views/backstage/w-employeeOne.vue')
     }, {
-        // 部门表
+        // 科室表
         path: "x-departmentList",
         component: () => import('@/views/backstage/x-departmentList.vue')
     }, {
