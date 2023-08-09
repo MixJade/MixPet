@@ -66,7 +66,7 @@ const qp: YFosterList = reactive({
   petName: '',
   clientName: '',
   numPage: 1,
-  pageSize: 7
+  pageSize: 6
 })
 const addRoleB = (): void => {
   console.log("添加寄养")

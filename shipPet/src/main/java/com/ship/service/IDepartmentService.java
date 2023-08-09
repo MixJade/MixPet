@@ -2,6 +2,8 @@ package com.ship.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ship.common.Result;
+import com.ship.model.dto.DepartmentDto;
 import com.ship.model.entity.Department;
 import com.ship.model.vo.NameVo;
 
@@ -22,7 +24,15 @@ public interface IDepartmentService extends IService<Department> {
      * @param departmentId 客户id
      * @return 是否删除成功
      */
-    boolean deleteById(Integer departmentId);
+    Result deleteById(Integer departmentId);
+
+    /**
+     * 批量逻辑删除
+     *
+     * @param idGroup 一组id
+     * @return 是否批量删除成功
+     */
+    Result deleteByIds(List<Integer> idGroup);
 
     /**
      * 分页查询
@@ -32,7 +42,7 @@ public interface IDepartmentService extends IService<Department> {
      * @param pageSize       当前一页的最大条数
      * @return 数据的总长度，与分页查询结果
      */
-    IPage<Department> selectByPage(String departmentName, int numPage, int pageSize);
+    IPage<DepartmentDto> selectByPage(String departmentName, int numPage, int pageSize);
 
     /**
      * 查询名字与对应id

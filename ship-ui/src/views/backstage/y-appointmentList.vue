@@ -71,7 +71,7 @@ const qp: YAppointList = reactive({
   seaName: '',
   seaType: 0,
   numPage: 1,
-  pageSize: 7
+  pageSize: 6
 })
 const addRoleB = (): void => {
   console.log("添加挂号")

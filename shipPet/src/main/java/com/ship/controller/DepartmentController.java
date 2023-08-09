@@ -2,10 +2,11 @@ package com.ship.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.Result;
+import com.ship.model.dto.DepartmentDto;
 import com.ship.model.entity.Department;
+import com.ship.model.vo.NameVo;
 import com.ship.security.RoleConst;
 import com.ship.service.IDepartmentService;
-import com.ship.model.vo.NameVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/page")
-    public IPage<Department> getPage(int numPage, int pageSize, String departmentName) {
+    public IPage<DepartmentDto> getPage(int numPage, int pageSize, String departmentName) {
         return departService.selectByPage(departmentName, numPage, pageSize);
     }
 
@@ -54,7 +55,13 @@ public class DepartmentController {
     @DeleteMapping("/{id}")
     @Secured(RoleConst.ADMIN)
     public Result delete(@PathVariable Integer id) {
-        return Result.choice("删除单个", departService.deleteById(id));
+        return departService.deleteById(id);
+    }
+
+    @DeleteMapping("/batch/{ids}")
+    @Secured(RoleConst.MANAGER)
+    public Result deleteGroup(@PathVariable List<Integer> ids) {
+        return departService.deleteByIds(ids);
     }
 
     @PutMapping
