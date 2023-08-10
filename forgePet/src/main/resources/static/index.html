@@ -148,7 +148,8 @@
                 <img src="picture/lun-3.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption text-white">
                     <h5>狗狗会“察言观色”</h5>
-                    <p>人类对于狗狗的训练行为，其实并不是狗狗能“听懂”人类语言，而是会“察言观色”，根据一些行为指示来完成某种动作，进而牢记心中。</p>
+                    <p>
+                        人类对于狗狗的训练行为，其实并不是狗狗能“听懂”人类语言，而是会“察言观色”，根据一些行为指示来完成某种动作，进而牢记心中。</p>
                 </div>
             </div>
         </div>
@@ -302,10 +303,7 @@
     </div>
 </section>
 <!--聊天跳转按钮-->
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-chat-dots-fill"
-     viewBox="0 0 16 16" id="chatBtn">
-    <path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-</svg>
+<img id="chatBtn" alt="send" src="assets/icon/chat.svg">发送
 <!--页面底部-->
 <footer>
     <p style="text-align: center;color:#C0C0C0">@宠物医院管理系统</p>
@@ -397,7 +395,7 @@
 
     // 退出登录
     function logout() {
-        axios("login/bye").then(resp=> {
+        axios("login/bye").then(resp => {
             if (resp.data["code"] === 204) location.reload()
         })
     }
