@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Mapper
 public interface DoctorMapper extends BaseMapper<Doctor> {
-    IPage<DoctorDto> selectDoctorPage(IPage<DoctorDto> page, @Param("doctorName") String doctorName, @Param("departmentName") String departmentName);
+    IPage<DoctorDto> selectDoctorPage(IPage<DoctorDto> page, String doctorName, String departmentName);
 
     DoctorDto selectOneById(@Param("doctorId") Integer doctorId);
 

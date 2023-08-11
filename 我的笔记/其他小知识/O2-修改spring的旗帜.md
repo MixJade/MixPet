@@ -1,4 +1,4 @@
-# 修改spring的旗帜
+# O2-修改spring的旗帜
 
 1. 在resources下建立banner.txt
 2. 百度搜索`Banner代码-佛祖保佑`

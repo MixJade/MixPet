@@ -1,4 +1,4 @@
-# shiro重定向失败
+# B8-shiro重定向失败
 
 * shiro有的时候重定向会失败，因为它会默认在重定向链接后面添加JSESSIONID
 * 更过分的是，JSESSIONID前面是分号，直接导致路径访问失败

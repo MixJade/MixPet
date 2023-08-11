@@ -6,7 +6,6 @@ import com.ship.model.dto.DepartmentDto;
 import com.ship.model.entity.Department;
 import com.ship.model.dto.NameDo;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.List;
  */
 @Mapper
 public interface DepartmentMapper extends BaseMapper<Department> {
-    IPage<DepartmentDto> selectDepartmentPage(IPage<Department> page, @Param("departmentName") String departmentName);
+    IPage<DepartmentDto> selectDepartmentPage(IPage<Department> page, String departmentName);
 
     @Select("SELECT department_id as roleId, department_name as roleName FROM department WHERE is_del=0")
     List<NameDo> selectName();

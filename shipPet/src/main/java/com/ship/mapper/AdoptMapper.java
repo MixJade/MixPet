@@ -19,7 +19,16 @@ import org.apache.ibatis.annotations.Update;
  */
 @Mapper
 public interface AdoptMapper extends BaseMapper<Adopt> {
-    IPage<AdoptDto> selectAdoptPage(IPage<AdoptDto> page, @Param("clientName") String clientName, @Param("petName") String petName);
+    /**
+     * 像这种，xml文件中的占位符名称与接口参数名称一样的
+     * <p>可以不用通过Param注解起别名</p>
+     *
+     * @param page       mp的分页插件
+     * @param clientName 用户名
+     * @param petName    宠物名
+     * @return 领养信息
+     */
+    IPage<AdoptDto> selectAdoptPage(IPage<AdoptDto> page, String clientName, String petName);
 
     boolean adoptAdopt(@Param("adoptId") Integer adoptId, @Param("petInfo") String petInfo);
 

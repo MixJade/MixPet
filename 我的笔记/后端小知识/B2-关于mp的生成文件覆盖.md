@@ -1,4 +1,4 @@
-# Q4-关于mp的文件覆盖.md
+# B2-关于mp的生成文件覆盖
 
 * mp逆向生成代码，可以不进行文件覆盖；
 * 我现在设置的是不覆盖已有文件，
@@ -9,22 +9,13 @@
 public class CodeGenerator {
     public static void main(String[] args) {
         FastAutoGenerator.create("jdbc:mysql://localhost:3306/pet_forge?useSSL=true", "root", "root")
-                .globalConfig(builder -> {
-                    builder.author("MixJade")
-                            .disableOpenDir()
-                            .outputDir("./src/main/java"); // 指定输出目录
-                }).packageConfig(builder -> builder.parent("com.forge")
-                        .pathInfo(Collections.singletonMap(OutputFile.xml, "./src/main/resources/com/forge/mapper"))).templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
+                // ... 其它代码
                 .strategyConfig(builder -> builder.entityBuilder().enableFileOverride()
-                        .disableSerialVersionUID()
-                        .addTableFills(
-                                new Column("create_time", FieldFill.INSERT),
-                                new Column("update_time", FieldFill.INSERT_UPDATE)
-                        )
+                        // ...其它代码
                         .mapperBuilder().enableFileOverride().enableMapperAnnotation()
                         .serviceBuilder().enableFileOverride()
-                        .controllerBuilder().enableFileOverride().enableRestStyle())
-                .execute();
+ 						// ...其它代码
+                .execute());
     }
 }
 ```

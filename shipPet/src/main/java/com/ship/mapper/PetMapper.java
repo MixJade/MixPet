@@ -6,7 +6,6 @@ import com.ship.model.dto.PetDto;
 import com.ship.model.entity.Pet;
 import com.ship.model.dto.NameDo;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.List;
  */
 @Mapper
 public interface PetMapper extends BaseMapper<Pet> {
-    IPage<PetDto> selectPetPage(IPage<PetDto> page, @Param("petName") String petName, @Param("clientName") String clientName);
+    IPage<PetDto> selectPetPage(IPage<PetDto> page, String petName, String clientName);
 
     IPage<Pet> selectFour(IPage<Pet> page);
 

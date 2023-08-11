@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Mapper
 public interface AppointmentMapper extends BaseMapper<Appointment> {
-    IPage<AppointmentDto> selectAppointmentPage(IPage<AppointmentDto> page, @Param("seaName") String seaName, @Param("seaType") int seaType);
+    IPage<AppointmentDto> selectAppointmentPage(IPage<AppointmentDto> page, String seaName, int seaType);
 
     /**
      * 用户：根据医生查询订单

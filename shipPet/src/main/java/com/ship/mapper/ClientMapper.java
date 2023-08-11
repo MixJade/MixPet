@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Mapper
 public interface ClientMapper extends BaseMapper<Client> {
-    IPage<Client> selectClientPage(IPage<Client> page, @Param("clientName") String clientName);
+    IPage<Client> selectClientPage(IPage<Client> page, String clientName);
 
     @Select("SELECT client_id as roleId, client_name as roleName FROM client WHERE is_del=0")
     List<NameDo> selectName();
