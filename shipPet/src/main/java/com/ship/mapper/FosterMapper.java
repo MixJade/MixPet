@@ -6,7 +6,6 @@ import com.ship.model.dto.FosterDto;
 import com.ship.model.dto.FosterPetDto;
 import com.ship.model.entity.Foster;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 /**
@@ -19,7 +18,7 @@ import org.apache.ibatis.annotations.Select;
  */
 @Mapper
 public interface FosterMapper extends BaseMapper<Foster> {
-    IPage<FosterDto> selectFosterPage(IPage<FosterDto> page, @Param("clientName") String clientName, @Param("petName") String petName);
+    IPage<FosterDto> selectFosterPage(IPage<FosterDto> page, String clientName, String petName);
 
     @Select("select max(foster_id) from foster")
     Integer getMaxId();
