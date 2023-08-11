@@ -41,21 +41,65 @@
       </template>
     </el-table-column>
     <el-table-column fixed="right" label="操作">
-      <el-button-group>
-        <el-button :icon="Edit" circle type="warning" @click="showDialog"/>
-        <el-button :icon="Delete" circle type="danger"/>
-      </el-button-group>
+      <template #default="scope">
+        <el-button-group>
+          <el-button :icon="Edit" circle type="warning" @click="showDialog(scope.row)"/>
+          <el-button :icon="Delete" circle type="danger" @click="delOne(scope.row.doctorId)"/>
+        </el-button-group>
+      </template>
     </el-table-column>
   </el-table>
   <!--分页条-->
   <BackPage :total="doctorList.total" @changePu="changePuB"/>
   <!--修改、新增时的模态框-->
   <el-dialog v-model="modalView" :title="modalTit" draggable width="60%">
-    <span>It's a draggable Dialog</span>
+    <!--头像上传框-->
+    <UpImg :photoNm="form.doctorPhoto" @upPhoto="changePhoto"/>
+    <!--表单-->
+    <el-form ref="myFormRef" :model="form" :rules="rules" label-width="120px">
+      <el-form-item label="姓名" prop="doctorName">
+        <el-input v-model="form.doctorName" clearable placeholder="医生姓名"/>
+      </el-form-item>
+      <el-form-item label="科室" prop="departmentId">
+        <el-select v-model="form.departmentId" filterable placeholder="科室">
+          <el-option v-for="c in departNameL" :key="c.roleId" :label="c.roleName" :value="c.roleId"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="职位" prop="doctorJob">
+        <el-select v-model="form.doctorJob" placeholder="医生">
+          <el-option v-for="j in doctorJobs" :key="j" :label="j" :value="j"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="性别">
+        <el-radio-group v-model="form.doctorGender">
+          <el-radio :label="true" border>男</el-radio>
+          <el-radio :label="false" border>女</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="生日" prop="doctorAge">
+        <el-date-picker
+            v-model="form.doctorAge"
+            format="YYYY-MM-DD"
+            placeholder="选择出生日期"
+            style="width: 50%"
+            type="date"
+            value-format="YYYY-MM-DD"
+        />
+      </el-form-item>
+      <el-form-item label="邮箱">
+        <el-input v-model="form.doctorTel" clearable placeholder="联系方式"/>
+      </el-form-item>
+      <el-form-item label="简介">
+        <el-input v-model="form.doctorInfo" clearable placeholder="医生简介"/>
+      </el-form-item>
+      <el-form-item v-if="modalTit==='新增医生'" label="密码">
+        <el-input v-model="form.doctorPassword" clearable placeholder="123456"/>
+      </el-form-item>
+    </el-form>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="modalView = false">取消</el-button>
-        <el-button type="primary" @click="modalView = false">
+        <el-button type="primary" @click="formSubmit(myFormRef)">
           确认
         </el-button>
       </span>
@@ -68,17 +112,26 @@ import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";
 import BackPage from "@/components/BackPage.vue";
+import UpImg from "@/components/UpImg.vue";
 import {PageQuery, YDoctorList} from "@/model/VO/BackQuery";
 import {getAge} from "@/utils/TimeUtil";
-import {Doctor} from "@/model/entiy/Doctor";
 import {DoctorDto} from "@/model/DO/DoctorDto";
 import TagSex from "@/components/TagSex.vue";
 import {Page} from "@/model/DO/Page";
-import {reqDoctorList} from "@/request/DoctorApi";
+import {reqAddDoctor, reqDelDoctor, reqDelDoctorBatch, reqDoctorList, reqUpdateDoctor} from "@/request/DoctorApi";
+import {Res} from "@/request/Res";
+import {Doctor, exampleDoctor} from "@/model/entiy/Doctor";
+import {ElMessageBox, FormInstance, FormRules} from "element-plus";
+import {reqDepartName} from "@/request/DepartApi";
+import {Name} from "@/model/entiy/Name";
 
 onMounted(() => {
   sendQuery()
+  reqDepartName().then(res => {
+    departNameL.value = res
+  })
 })
+const doctorJobs: string[] = ["院长", "副院长", "主任", "副主任", "医生", "护士", "临时工", "外聘专家"]
 // 查询的参数
 const qp: YDoctorList = reactive({
   doctorName: '',
@@ -87,21 +140,13 @@ const qp: YDoctorList = reactive({
   pageSize: 6
 })
 const addRoleB = (): void => {
-  console.log("添加医生")
+  form.value = exampleDoctor()
+  myFormRef.value?.resetFields()
   modalTit.value = "新增医生"
   modalView.value = true
 }
-const delBatchB = (): void => {
-  console.log("批量删除")
-}
 // 列表展示
 const doctorList = ref<Page<DoctorDto>>({records: [], total: 0})
-// 多选与反选
-const roleIdList = ref<number[]>([])
-const handleSelectionChange = (val: Doctor[]): void => {
-  roleIdList.value = val.map(obj => obj.doctorId)
-  console.log(roleIdList.value)
-}
 // 分页条
 const changePuB = (val: PageQuery) => {
   qp.numPage = val.numPage
@@ -118,12 +163,64 @@ const sendQuery = (): void => {
 const modalView = ref(false)
 const modalTit = ref<"新增医生" | "修改医生">("修改医生")
 // 修改时展示模态框
-const showDialog = () => {
+const showDialog = (row: Doctor) => {
+  myFormRef.value?.clearValidate()
+  form.value = row
   modalView.value = true
   modalTit.value = "修改医生"
+}
+// 确定请求的返回值，然后刷新
+const sureFlush = (res: Res): void => {
+  if (res.code === 1) sendQuery()
+}
+// 删除单个
+const delOne = (id: number): void => {
+  reqDelDoctor(id).then(res => sureFlush(res))
+}
+// 多选与反选
+const roleIdList = ref<number[]>([])
+const handleSelectionChange = (val: Doctor[]): void => {
+  roleIdList.value = val.map(obj => obj.doctorId)
+}
+// 批量删除
+const delBatchB = (): void => {
+  if (roleIdList.value.length == 0) return
+  reqDelDoctorBatch(roleIdList.value).then(res => sureFlush(res));
+}
+// 表单的数据
+const departNameL = ref<Name[]>([]) // 下拉框部门名称
+const form = ref<Doctor>(exampleDoctor()) // 空的默认值
+const myFormRef = ref<FormInstance>()
+// 校验表单并提交
+const formSubmit = async (formEl: FormInstance): Promise<void> => {
+  if (!formEl) return
+  await myFormRef.value?.validate((valid: boolean): void => {
+    if (valid) {
+      // 校验通过，提交
+      modalView.value = false
+      if (modalTit.value == "新增医生") reqAddDoctor(form.value).then(res => sureFlush(res))
+      else if (modalTit.value === "修改医生") reqUpdateDoctor(form.value).then(res => sureFlush(res))
+      else ElMessageBox.alert('模块框出错')
+    }
+  })
+}
+// 表单校验规则
+const rules = reactive<FormRules>({
+  "doctorName": [
+    {required: true, message: '请输入姓名', trigger: 'blur'},
+  ],
+  "doctorAge": [
+    {required: true, message: '请选择出生日期', trigger: 'blur'},
+  ],
+  "departmentId": [
+    {required: true, message: '请选择科室', trigger: 'blur'},
+  ],
+})
+// 头像参数的改变:子传父
+const changePhoto = (val: string): void => {
+  form.value.doctorPhoto = val
 }
 </script>
 
 <style scoped>
-
 </style>

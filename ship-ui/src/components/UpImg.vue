@@ -46,7 +46,6 @@ const handleAvatarSuccess = (response: string): void => {
  * @param rawFile 上传的头像
  */
 const beforeAvatarUpload = (rawFile) => {
-  console.log(rawFile.type)
   if (rawFile.type !== 'image/png' && rawFile.type !== 'image/jpeg') {
     ElMessage.error('请上传JPG、PNG图片')
     return false
