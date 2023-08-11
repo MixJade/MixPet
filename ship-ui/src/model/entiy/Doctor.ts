@@ -13,3 +13,21 @@ export interface Doctor {
     createTime?: string | null;
     updateTime?: string | null;
 }
+
+/**
+ * 空数据
+ */
+export const exampleDoctor = (): Doctor => {
+    return {
+        doctorId: 0,
+        departmentId: null,
+        doctorCode: "",
+        doctorName: "",
+        doctorGender: false,
+        doctorAge: "",
+        doctorPhoto: "",
+        doctorTel: "",
+        doctorJob: "",
+        doctorInfo: ""
+    }
+}

@@ -5,10 +5,10 @@ import com.ship.common.PhotoEnum;
 import com.ship.common.Result;
 import com.ship.model.dto.DoctorDto;
 import com.ship.model.entity.Doctor;
+import com.ship.model.vo.NameVo;
 import com.ship.security.RoleConst;
 import com.ship.service.IDoctorService;
 import com.ship.util.StrUtil;
-import com.ship.model.vo.NameVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -66,6 +66,8 @@ public class DoctorController {
         if (StrUtil.isWhite(doctor.getDoctorName())) return Result.error("姓名不能为空");
         if (StrUtil.isWhite(doctor.getDoctorJob())) doctor.setDoctorJob("医生");
         if (StrUtil.isWhite(doctor.getDoctorPhoto())) doctor.setDoctorPhoto(PhotoEnum.DOCTOR.getPhotoName());
+        if (StrUtil.isWhite(doctor.getDoctorPassword())) doctor.setDoctorPassword("123456");
+        doctor.setDoctorPassword(StrUtil.tranPwd(doctor.getDoctorPassword()));
         return Result.choice("添加", doctorService.save(doctor));
     }
 
