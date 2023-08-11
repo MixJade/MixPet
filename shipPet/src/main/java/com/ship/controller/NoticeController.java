@@ -3,11 +3,9 @@ package com.ship.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.Result;
 import com.ship.model.dto.NoticeDto;
-import com.ship.model.entity.Employee;
 import com.ship.model.entity.Notice;
 import com.ship.security.RoleConst;
 import com.ship.service.INoticeService;
-import com.ship.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -58,8 +56,6 @@ public class NoticeController {
     @PostMapping
     @Secured(RoleConst.MANAGER)
     public Result save(@RequestBody NoticeDto noticeDto) {
-        Employee employee = (Employee) UserUtil.getUser();
-        noticeDto.setCreatId(employee.getEmployeeId());
         return Result.choice("添加", noticeService.addNotice(noticeDto));
     }
 
@@ -96,8 +92,6 @@ public class NoticeController {
     @PutMapping
     @Secured(RoleConst.MANAGER)
     public Result update(@RequestBody NoticeDto noticeDto) {
-        Employee employee = (Employee) UserUtil.getUser();
-        noticeDto.setUpdateId(employee.getEmployeeId());
         return Result.choice("修改", noticeService.updateNotice(noticeDto));
     }
 

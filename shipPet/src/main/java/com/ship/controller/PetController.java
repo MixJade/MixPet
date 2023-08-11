@@ -1,16 +1,15 @@
 package com.ship.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.ship.common.PhotoEnum;
 import com.ship.common.Result;
 import com.ship.model.dto.PetDto;
 import com.ship.model.entity.Client;
 import com.ship.model.entity.Pet;
+import com.ship.model.vo.NameVo;
 import com.ship.security.RoleConst;
 import com.ship.service.IPetService;
 import com.ship.util.StrUtil;
 import com.ship.util.UserUtil;
-import com.ship.model.vo.NameVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -98,10 +97,7 @@ public class PetController {
     public Result save(@RequestBody Pet pet) {
         if (StrUtil.isWhite(pet.getPetName())) return Result.error("姓名不能为空");
         if (StrUtil.isWhite(pet.getPetVariety())) return Result.error("品种不能为空");
-        if (StrUtil.isWhite(pet.getPetPhoto())) pet.setPetPhoto(PhotoEnum.PET.getPhotoName());
-        if (StrUtil.isWhite(pet.getPetInfo())) pet.setPetInfo("暂无近况");
-        if (StrUtil.isWhite(pet.getPetStatus())) pet.setPetStatus("健康");
-        return Result.choice("添加", petService.save(pet));
+        return Result.choice("添加", petService.addPet(pet));
     }
 
     @DeleteMapping("/{id}")

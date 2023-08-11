@@ -73,4 +73,9 @@ public interface IPetService extends IService<Pet> {
      * 查询没有主人的宠物
      */
     List<NameVo> selectNoClient();
+
+    /**
+     * 添加宠物，关于默认值
+     */
+    boolean addPet(Pet pet);
 }

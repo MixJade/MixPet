@@ -1,7 +1,6 @@
 package com.ship.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.ship.common.PhotoEnum;
 import com.ship.common.Result;
 import com.ship.model.dto.DoctorDto;
 import com.ship.model.entity.Doctor;
@@ -64,11 +63,7 @@ public class DoctorController {
     @Secured(RoleConst.MANAGER)
     public Result save(@RequestBody Doctor doctor) {
         if (StrUtil.isWhite(doctor.getDoctorName())) return Result.error("姓名不能为空");
-        if (StrUtil.isWhite(doctor.getDoctorJob())) doctor.setDoctorJob("医生");
-        if (StrUtil.isWhite(doctor.getDoctorPhoto())) doctor.setDoctorPhoto(PhotoEnum.DOCTOR.getPhotoName());
-        if (StrUtil.isWhite(doctor.getDoctorPassword())) doctor.setDoctorPassword("123456");
-        doctor.setDoctorPassword(StrUtil.tranPwd(doctor.getDoctorPassword()));
-        return Result.choice("添加", doctorService.save(doctor));
+        return Result.choice("添加", doctorService.addDoctor(doctor));
     }
 
     @DeleteMapping("/{id}")

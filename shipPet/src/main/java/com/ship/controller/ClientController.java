@@ -1,7 +1,6 @@
 package com.ship.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.ship.common.PhotoEnum;
 import com.ship.common.Result;
 import com.ship.model.entity.Client;
 import com.ship.model.vo.NameVo;
@@ -58,10 +57,7 @@ public class ClientController {
     public Result save(@RequestBody Client client) {
         if (StrUtil.isWhite(client.getClientName())) return Result.error("用户名为空");
         if (StrUtil.isWhite(client.getClientUsername())) return Result.error("用户账号为空");
-        if (StrUtil.isWhite(client.getClientPhoto())) client.setClientPhoto(PhotoEnum.CLIENT.getPhotoName());
-        if (StrUtil.isWhite(client.getClientPassword())) client.setClientPassword("123456");
-        client.setClientPassword(StrUtil.tranPwd(client.getClientPassword()));
-        return Result.choice("添加", clientService.save(client));
+        return Result.choice("添加", clientService.addClient(client));
     }
 
     @DeleteMapping("/{id}")

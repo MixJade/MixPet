@@ -3,9 +3,11 @@ package com.ship.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ship.common.PhotoEnum;
 import com.ship.mapper.EmployeeMapper;
 import com.ship.model.entity.Employee;
 import com.ship.service.IEmployeeService;
+import com.ship.util.StrUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,5 +41,13 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Override
     public IPage<Employee> selectByPage(String employeeName, int numPage, int pageSize) {
         return baseMapper.selectEmployeePage(new Page<>(numPage, pageSize), employeeName);
+    }
+
+    @Override
+    public boolean addEmployee(Employee em) {
+        if (StrUtil.isWhite(em.getEmployeePhoto())) em.setEmployeePhoto(PhotoEnum.CLIENT.getPhotoName());
+        if (StrUtil.isWhite(em.getEmployeePassword())) em.setEmployeePassword("123456");
+        em.setEmployeePassword(StrUtil.tranPwd(em.getEmployeePassword()));
+        return save(em);
     }
 }

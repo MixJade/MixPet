@@ -66,4 +66,9 @@ public interface IDoctorService extends IService<Doctor> {
      * @return 医生姓名与id
      */
     List<NameVo> selectByDepartment(Integer departmentId);
+
+    /**
+     * 添加医生，关于加密与默认值
+     */
+    boolean addDoctor(Doctor doctor);
 }

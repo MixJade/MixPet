@@ -3,12 +3,14 @@ package com.ship.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ship.common.PhotoEnum;
+import com.ship.mapper.DoctorMapper;
 import com.ship.model.dto.DoctorDto;
 import com.ship.model.entity.Doctor;
-import com.ship.mapper.DoctorMapper;
+import com.ship.model.vo.NameVo;
 import com.ship.service.IDoctorService;
 import com.ship.util.CodeEnum;
-import com.ship.model.vo.NameVo;
+import com.ship.util.StrUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -60,8 +62,13 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorMapper, Doctor> impleme
     }
 
     @Override
-    public boolean save(Doctor doctor) {
+    public boolean addDoctor(Doctor doctor) {
+        if (StrUtil.isWhite(doctor.getDoctorJob())) doctor.setDoctorJob("医生");
+        if (StrUtil.isWhite(doctor.getDoctorInfo())) doctor.setDoctorInfo("暂时没有简介");
+        if (StrUtil.isWhite(doctor.getDoctorPhoto())) doctor.setDoctorPhoto(PhotoEnum.DOCTOR.getPhotoName());
+        if (StrUtil.isWhite(doctor.getDoctorPassword())) doctor.setDoctorPassword("123456");
+        doctor.setDoctorPassword(StrUtil.tranPwd(doctor.getDoctorPassword()));
         doctor.setDoctorCode(CodeEnum.DOCTOR.newCode(baseMapper.getMaxId()));
-        return super.save(doctor);
+        return save(doctor);
     }
 }

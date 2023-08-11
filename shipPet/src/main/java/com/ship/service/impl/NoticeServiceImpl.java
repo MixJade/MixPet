@@ -6,8 +6,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ship.common.PhotoEnum;
 import com.ship.mapper.NoticeMapper;
 import com.ship.model.dto.NoticeDto;
+import com.ship.model.entity.Employee;
 import com.ship.model.entity.Notice;
 import com.ship.service.INoticeService;
+import com.ship.util.UserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -117,13 +119,18 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
 
     @Override
     public boolean addNotice(NoticeDto noticeDto) {
-        String path = UUID.randomUUID() + ".txt";
-        writeText(noticeDto.getTextNotice(), path);
-        return baseMapper.addNotice(noticeDto.getCreatId(), noticeDto.getNoticeTitle(), path);
+        if (UserUtil.getUser() instanceof Employee employee) {
+            noticeDto.setCreatId(employee.getEmployeeId());
+            String path = UUID.randomUUID() + ".txt";
+            writeText(noticeDto.getTextNotice(), path);
+            return baseMapper.addNotice(noticeDto.getCreatId(), noticeDto.getNoticeTitle(), path);
+        } else return false;
     }
 
     @Override
     public boolean updateNotice(NoticeDto noticeDto) {
+        Employee employee = (Employee) UserUtil.getUser();
+        noticeDto.setUpdateId(employee.getEmployeeId());
         writeText(noticeDto.getTextNotice(), noticeDto.getNoticeFile());
         return baseMapper.updateNotice(noticeDto);
     }

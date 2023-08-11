@@ -1,12 +1,10 @@
 package com.ship.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.ship.common.PhotoEnum;
 import com.ship.common.Result;
 import com.ship.model.entity.Employee;
 import com.ship.security.RoleConst;
 import com.ship.service.IEmployeeService;
-import com.ship.util.StrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -39,10 +37,7 @@ public class EmployeeController {
     @PostMapping
     @Secured(RoleConst.ADMIN)
     public Result save(@RequestBody Employee em) {
-        if (StrUtil.isWhite(em.getEmployeePhoto())) em.setEmployeePhoto(PhotoEnum.CLIENT.getPhotoName());
-        if (StrUtil.isWhite(em.getEmployeePassword())) em.setEmployeePassword("123456");
-        em.setEmployeePassword(StrUtil.tranPwd(em.getEmployeePassword()));
-        return Result.choice("添加", employeeService.save(em));
+        return Result.choice("添加", employeeService.addEmployee(em));
     }
 
     @DeleteMapping("/{id}")

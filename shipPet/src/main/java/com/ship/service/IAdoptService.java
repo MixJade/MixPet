@@ -2,8 +2,10 @@ package com.ship.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.ship.common.Result;
 import com.ship.model.dto.AdoptDto;
 import com.ship.model.entity.Adopt;
+import com.ship.model.vo.AdoptVo;
 
 import java.util.List;
 
@@ -44,13 +46,12 @@ public interface IAdoptService extends IService<Adopt> {
     IPage<AdoptDto> selectByPage(String clientName, String petName, int numPage, int pageSize);
 
     /**
-     * 审核通过之后更新相应宠物表
+     * 审核领养单
      *
-     * @param adoptId 领养表ID
-     * @param petInfo 宠物信息
-     * @return 更新成功
+     * @param adoptVo 领养表ID、是否通过
+     * @return 审核结果
      */
-    boolean adoptAdopt(Integer adoptId, String petInfo);
+    Result adoptAdopt(AdoptVo adoptVo);
 
     /**
      * 确认当前宠物是否有待审核订单
@@ -60,9 +61,4 @@ public interface IAdoptService extends IService<Adopt> {
      * @return 订单数量
      */
     int sureInAdopt(Integer petId, Integer clientId);
-
-    /**
-     * 查询宠物是否有主人
-     */
-    boolean petMaster(Integer adoptId);
 }
