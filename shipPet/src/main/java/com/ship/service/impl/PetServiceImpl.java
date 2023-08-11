@@ -3,11 +3,13 @@ package com.ship.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ship.common.PhotoEnum;
+import com.ship.mapper.PetMapper;
 import com.ship.model.dto.PetDto;
 import com.ship.model.entity.Pet;
-import com.ship.mapper.PetMapper;
-import com.ship.service.IPetService;
 import com.ship.model.vo.NameVo;
+import com.ship.service.IPetService;
+import com.ship.util.StrUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -67,5 +69,13 @@ public class PetServiceImpl extends ServiceImpl<PetMapper, Pet> implements IPetS
     @Override
     public List<NameVo> selectNoClient() {
         return baseMapper.selectNoClient();
+    }
+
+    @Override
+    public boolean addPet(Pet pet) {
+        if (StrUtil.isWhite(pet.getPetPhoto())) pet.setPetPhoto(PhotoEnum.PET.getPhotoName());
+        if (StrUtil.isWhite(pet.getPetInfo())) pet.setPetInfo("暂无近况");
+        if (StrUtil.isWhite(pet.getPetStatus())) pet.setPetStatus("健康");
+        return save(pet);
     }
 }

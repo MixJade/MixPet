@@ -55,7 +55,7 @@ public interface INoticeService extends IService<Notice> {
     List<NoticeDto> selectFour();
 
     /**
-     * 添加公告
+     * 管理员添加公告
      *
      * @param noticeDto 公告内容，标题，创建人ID
      * @return 添加成功

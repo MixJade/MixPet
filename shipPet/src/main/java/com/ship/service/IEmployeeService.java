@@ -41,4 +41,11 @@ public interface IEmployeeService extends IService<Employee> {
      */
     IPage<Employee> selectByPage(String employeeName, int numPage, int pageSize);
 
+    /**
+     * 添加管理员，关于加密与默认值
+     *
+     * @param em 管理员信息
+     * @return 添加成功
+     */
+    boolean addEmployee(Employee em);
 }

@@ -48,4 +48,12 @@ public interface IClientService extends IService<Client> {
      * @return 所有用户名字及id
      */
     List<NameVo> selectName();
+
+    /**
+     * 添加用户，关于加密与默认值
+     *
+     * @param client 用户信息
+     * @return 添加成功
+     */
+    boolean addClient(Client client);
 }
