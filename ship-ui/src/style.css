@@ -22,3 +22,23 @@ body {
     background-color: whitesmoke;
     box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5);
 }
+
+/* 设置链接样式 */
+a {
+    /* 去掉下划线 */
+    text-decoration: none;
+    /* 颜色与父元素相同 */
+    color: inherit;
+}
+
+.my-suc {
+    color: #67C23A;
+}
+
+.my-pri {
+    color: #409EFF;
+}
+
+.my-warn {
+    color: #E6A23C;
+}

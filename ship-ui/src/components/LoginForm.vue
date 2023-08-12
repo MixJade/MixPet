@@ -8,7 +8,7 @@
     </div>
     <div class="my-input">
       <input v-model="formLogin.password" placeholder="password" style="background-image: url('/icon/password.svg')"
-             type="password">
+             type="password" @keyup.enter="toLogin">
       <label>密码</label>
     </div>
     <el-form-item label="记住我">

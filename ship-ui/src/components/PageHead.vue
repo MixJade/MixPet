@@ -1,6 +1,6 @@
 <template>
   <!--  封装的公共导航栏-->
-  <el-page-header @back="this.$router.back()">
+  <el-page-header @back="$router.back()">
     <template #title>
       <span style="color: #5b88ea">返回</span>
     </template>

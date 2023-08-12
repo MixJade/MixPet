@@ -93,7 +93,7 @@ import {reqAdoptPet, reqInAdopt} from "@/request/AdoptApi";
 
 // 如此获取传参
 const props = defineProps<{
-  petId: number
+  petId: string
 }>()
 // 样例数据
 const pet = ref<Pet>(examplePet())
@@ -103,7 +103,7 @@ const inAdopt = ref<number>(0)
 // 弹出框设置
 const dialogVisible = ref(false)
 const dialogAsk: PetAskOne = reactive({
-  petId: props.petId,
+  petId: parseInt(props.petId),
   adoptInfo: "",
   adoptMoney: 300
 })
@@ -114,10 +114,10 @@ const adoptPet = () => {
 }
 
 onMounted(() => {
-  reqPetOne(props.petId).then(res => {
+  reqPetOne(parseInt(props.petId)).then(res => {
     pet.value = res
   })
-  reqInAdopt(props.petId).then(res => {
+  reqInAdopt(parseInt(props.petId)).then(res => {
     inAdopt.value = res
   })
 })
