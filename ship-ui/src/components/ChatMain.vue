@@ -22,7 +22,7 @@ import {MsgVo} from "@/model/VO/MsgVo";
 import {onBeforeUpdate, onMounted, ref} from "vue";
 import {getDisplayTime} from "@/utils/TimeUtil";
 
-const prop = defineProps<{
+defineProps<{
   msgList: MsgVo[]
 }>()
 

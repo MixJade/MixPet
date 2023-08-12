@@ -93,7 +93,7 @@
       <template #footer>
       <span class="dialog-footer">
         <el-button @click="modalView = false">取消</el-button>
-        <el-button type="primary" @click="formSubmit(myFormRef)">
+        <el-button type="primary" @click="formSubmit">
           确认
         </el-button>
       </span>
@@ -183,8 +183,7 @@ const clientNameL = ref<Name[]>([]) // 下拉框用户名
 const form = ref<Pet>(examplePet()) // 空的默认值
 const myFormRef = ref<FormInstance>()
 // 校验表单并提交
-const formSubmit = async (formEl: FormInstance): Promise<void> => {
-  if (!formEl) return
+const formSubmit = async (): Promise<void> => {
   await myFormRef.value?.validate((valid: boolean): void => {
     if (valid) {
       // 校验通过，提交

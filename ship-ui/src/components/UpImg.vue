@@ -18,7 +18,7 @@
 /*=====图片上传框=====*/
 import {Plus} from "@element-plus/icons-vue"
 import {ref, watch} from "vue";
-import {ElMessage} from "element-plus";
+import {ElMessage, UploadRawFile} from "element-plus";
 
 const props = defineProps<{
   photoNm: string
@@ -45,7 +45,7 @@ const handleAvatarSuccess = (response: string): void => {
  * 上传前的校验
  * @param rawFile 上传的头像
  */
-const beforeAvatarUpload = (rawFile) => {
+const beforeAvatarUpload = (rawFile: UploadRawFile) => {
   if (rawFile.type !== 'image/png' && rawFile.type !== 'image/jpeg') {
     ElMessage.error('请上传JPG、PNG图片')
     return false

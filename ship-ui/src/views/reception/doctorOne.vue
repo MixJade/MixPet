@@ -65,7 +65,7 @@ import {reqDoctorOneA} from "@/request/AppointApi";
 
 // 如此获取传参
 const props = defineProps<{
-  doctorId: Number
+  doctorId: number
 }>()
 const doctorDetail = ref<DoctorDto>({
   "doctorId": 0,

@@ -4,10 +4,10 @@ import {YAppointList} from "@/model/VO/BackQuery";
 import {Page} from "@/model/DO/Page";
 // 用户查看一个医生的挂号
 export const reqDoctorOneA = (doctorId: number): Promise<AppointDto[]> =>
-    reqApi<string, object>("appointment/doctor?doctorId=" + doctorId)
+    reqApi<string, AppointDto[]>("appointment/doctor?doctorId=" + doctorId)
 // 用户个人中心的挂号
 export const reqClientAppoint = (): Promise<AppointDto[]> =>
-    reqApi<string, object>("appointment/client")
+    reqApi<string, AppointDto[]>("appointment/client")
 // 后台挂号列表
 export const reqAppointList = (page: YAppointList): Promise<Page<AppointDto>> =>
-    reqApi<string, object>("appointment/page", {params: page})
+    reqApi<string, Page<AppointDto>>("appointment/page", {params: page})

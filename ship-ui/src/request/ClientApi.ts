@@ -7,19 +7,19 @@ import {Res} from "@/request/Res";
 
 // 后台用户列表
 export const reqClientList = (page: YClientList): Promise<Page<Client>> =>
-    reqApi<string, object>("client/page", {params: page})
+    reqApi<string, Page<Client>>("client/page", {params: page})
 // 后台下拉框查询用户姓名
 export const reqClientName = (): Promise<Name[]> =>
-    reqApi<string, object>("client")
+    reqApi<string, Name[]>("client")
 // 管理员新增用户
 export const reqAddClient = (data: Client): Promise<Res> =>
-    reqApi.post<string, object>("client", data)
+    reqApi.post<string, Res>("client", data)
 // 管理员修改用户
 export const reqUpdateClient = (data: Client): Promise<Res> =>
-    reqApi.put<string, object>("client", data)
+    reqApi.put<string, Res>("client", data)
 // 管理员删除用户
 export const reqDelClient = (id: number): Promise<Res> =>
-    reqApi.delete<string, object>("client/" + id)
+    reqApi.delete<string, Res>("client/" + id)
 // 管理员批量删除用户
 export const reqDelClientBatch = (ids: number[]): Promise<Res> =>
-    reqApi.delete<string, object>("client/batch/" + ids)
+    reqApi.delete<string, Res>("client/batch/" + ids)

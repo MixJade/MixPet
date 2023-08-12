@@ -70,7 +70,7 @@
       <!--轮播图-->
       <el-carousel :interval="4000" height="200px" type="card">
         <el-carousel-item v-for="item in lun" :key="item">
-          <el-image :src="item.image" fit="scale-down"/>
+          <el-image :src="item.image" fit="scale-down" alt="轮播图"/>
           <div class="carousel-caption">
             <h5>{{ item.tit }}</h5>
             <p>{{ item.text }}</p>
