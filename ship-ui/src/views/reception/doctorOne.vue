@@ -47,7 +47,7 @@
             <el-table-column label="挂号人" prop="clientName"/>
             <el-table-column label="宠物" prop="petName"/>
             <el-table-column label="描述" prop="appointmentInfo"/>
-            <el-table-column label="时间" prop="appointmentDate" width="180px"/>
+            <el-table-column :formatter="removeT" label="时间" prop="appointmentDate" width="180px"/>
           </el-table>
         </el-col>
       </el-row>
@@ -57,7 +57,7 @@
 
 <script lang="ts" setup>
 import PageHead from "@/components/PageHead.vue";
-import {getAge} from "@/utils/TimeUtil";
+import {getAge, moveT} from "@/utils/TimeUtil";
 import {DoctorDto} from "@/model/DO/DoctorDto";
 import {AppointDto} from "@/model/DO/AppointDto";
 import {onMounted, ref} from "vue";
@@ -81,6 +81,7 @@ const doctorDetail = ref<DoctorDto>({
   "departmentName": ""
 })
 const appointDetail = ref<AppointDto[]>([]);
+const removeT = (row: AppointDto) => moveT(row.appointmentDate)
 onMounted(() => {
   reqDoctorOne(parseInt(props.doctorId)).then(res => {
     doctorDetail.value = res

@@ -20,9 +20,14 @@ import {reqGetLoginE} from "@/request/EmployeeApi";
 const employee: Employee = reactive(exampleEmployee())
 // 发起请求
 reqGetLoginE().then(res => {
-  Object.keys(res).forEach(key => {
-    employee[key] = res[key]
-  })
+  employee.employeeId = res.employeeId
+  employee.employeeUsername = res.employeeUsername
+  employee.employeePassword = res.employeePassword
+  employee.employeeName = res.employeeName
+  employee.employeeLevel = res.employeeLevel
+  employee.employeeTel = res.employeeTel
+  employee.employeePhoto = res.employeePhoto
+  employee.createTime = res.createTime
 })
 const em = computed((): DetailTabType[] => [
   {tit: "账号", con: employee.employeeUsername},

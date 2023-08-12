@@ -15,7 +15,7 @@
     <div class="box">
       <div class="str">{{ state.str }}</div>
       <div class="brickBox">
-        <div v-for="(item,index) in state.arr" :key="index" :ref="(el:Element)=>(brickRef[index]=el)"
+        <div v-for="(item,index) in state.arr" :key="index" :ref="setDivs"
              :style="{opacity :item.active ? '0':'1'}"
              class="brick"></div>
       </div>
@@ -85,8 +85,14 @@ const strFun = (strArr: string): void => {
 //移动小球的方法
 // 1. 确定小球碰到 左右上 及移动方块是否回弹
 const bottomMove = ref<HTMLDivElement>()
-// 2. 循环砖块检测小球碰撞到砖块消失
-const brickRef = ref<Element[]>([])
+// 2. 绑定多个砖块
+const brickRef = ref<HTMLDivElement[]>([])
+const setDivs = (el: any): void => {
+  // el为了规避ts报错用了any
+  // 现在断言为HTMLElement类型的数组
+  (brickRef.value as Array<HTMLDivElement>).push(el);
+};
+// 3. 循环砖块检测小球碰撞到砖块消失
 const moveBall = () => {
   const {offsetTop, offsetHeight, offsetLeft, offsetWidth} = bottomMove.value as HTMLDivElement
   if (state.x <= 0) {
@@ -107,7 +113,7 @@ const moveBall = () => {
     clearInterval(timer)
     strFun("游戏结束")
   }
-  Array.from(state.arr).forEach((item, index) => {
+  Array.from(state.arr).forEach((_, index) => {
     const {
       offsetLeft,
       offsetTop,
