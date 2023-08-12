@@ -126,6 +126,7 @@ const doctorToAdmin = () => {
   border-radius: 5px;
   backface-visibility: hidden;
   transition: all 1s;
+  -webkit-user-select: none;
   user-select: none;
   padding: 10px;
 }
