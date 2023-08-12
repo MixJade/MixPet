@@ -7,6 +7,6 @@ export interface Appoint {
     doctorId: number | null;
     appointmentInfo: string;
     isSuc: boolean | null;
-    createTime: string | null;
+    createTime: string;
     updateTime: string | null;
 }

@@ -25,7 +25,7 @@
             <TagSex :sex="pet.petSex"/>
           </el-descriptions-item>
           <el-descriptions-item align="center" label="操作" label-align="right">
-            <el-button type="success" @click="this.$router.push('/reception/petOne/'+pet.petId)">详情
+            <el-button type="success" @click="$router.push('/reception/petOne/'+pet.petId)">详情
             </el-button>
           </el-descriptions-item>
         </el-descriptions>

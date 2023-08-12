@@ -1,10 +1,11 @@
 <template>
   <el-container>
     <el-aside width="200px">
-      <el-avatar :src="'/api/common/download?name='+employeeNow.photo" alt="头像"
-                 @click="this.$router.push('/backstage')"/>
+      <router-link to="/backstage">
+        <el-avatar :src="'/api/common/download?name='+employeeNow.photo" alt="头像"/>
+      </router-link>
       <el-menu
-          :default-active="this.$route.path"
+          :default-active="$route.path"
           active-text-color="#ffd04b"
           background-color="#545c64"
           router

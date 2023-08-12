@@ -13,8 +13,9 @@
             <strong>{{ pet.petName }}</strong>
             <p>{{ getAge(pet.petAge) }}岁，&nbsp;{{ pet.petSex ? "公" : "母" }}</p>
             <p>{{ pet.petInfo }}</p>
-            <el-button type="success" @click="this.$router.push('/reception/petOne/'+pet.petId)">详情
-            </el-button>
+            <router-link :to="'/reception/petOne/'+pet.petId">
+              <el-button type="success">详情</el-button>
+            </router-link>
           </div>
         </div>
       </el-card>

@@ -17,27 +17,27 @@
       <div class="circle">
         <div class="part one">
           <div class="con">
-            <el-button plain round size="large" type="primary" @click="this.$router.push('/doctorPage/d-chat')">
+            <el-button plain round size="large" type="primary" @click="$router.push('/doctorPage/d-chat')">
               在线咨询
             </el-button>
           </div>
         </div>
         <div class="part two">
           <div class="con">
-            <el-button plain round size="large" type="warning" @click="this.$router.push('/doctorPage/d-appoint')">
+            <el-button plain round size="large" type="warning" @click="$router.push('/doctorPage/d-appoint')">
               挂号处理
             </el-button>
           </div>
         </div>
         <div class="part three">
           <div class="con">
-            <el-button plain round size="large" type="danger" @click="this.$router.push('/')">
+            <el-button plain round size="large" type="danger" @click="$router.push('/')">
               退出登录
             </el-button>
           </div>
         </div>
         <div class="happy hover-effect">
-          <el-avatar src="/picture/doctor-ex.jpg" @click="this.$router.push('/doctorPage/doctorOne')"/>
+          <el-avatar src="/picture/doctor-ex.jpg" @click="$router.push('/doctorPage/doctorOne')"/>
         </div>
       </div>
     </el-main>

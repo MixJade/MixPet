@@ -15,7 +15,7 @@
     <div class="box">
       <div class="str">{{ state.str }}</div>
       <div class="brickBox">
-        <div v-for="(item,index) in state.arr" :key="index" :ref="el=>(brickRef[index]=el)"
+        <div v-for="(item,index) in state.arr" :key="index" :ref="(el:Element)=>(brickRef[index]=el)"
              :style="{opacity :item.active ? '0':'1'}"
              class="brick"></div>
       </div>
@@ -27,14 +27,14 @@
 </template>
 
 <script lang="ts" setup>
-import {onMounted, onUnmounted, reactive, ref, watch} from 'vue'
+import {onBeforeUnmount, onMounted, reactive, ref, watch} from 'vue'
 
 // 绑定移动方块事件
 onMounted(() => {
   focusIn()
 })
-// 移动出移动方块事件
-onUnmounted(() => {
+// 移除移动方块事件
+onBeforeUnmount(() => {
   clearInterval(timer)
 })
 // 隐藏的输入框

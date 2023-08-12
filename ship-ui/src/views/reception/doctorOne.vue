@@ -33,8 +33,9 @@
               </tr>
               <tr>
                 <td colspan="2">
-                  <el-button type="primary" @click="this.$router.push('/reception/chat/'+doctorDetail.doctorId)">咨询
-                  </el-button>
+                  <router-link :to="'/reception/chat/'+doctorDetail.doctorId">
+                    <el-button type="primary">咨询</el-button>
+                  </router-link>
                 </td>
               </tr>
             </table>
@@ -56,7 +57,7 @@
 
 <script lang="ts" setup>
 import PageHead from "@/components/PageHead.vue";
-import {getAge, moveT} from "@/utils/TimeUtil";
+import {getAge} from "@/utils/TimeUtil";
 import {DoctorDto} from "@/model/DO/DoctorDto";
 import {AppointDto} from "@/model/DO/AppointDto";
 import {onMounted, ref} from "vue";
@@ -65,7 +66,7 @@ import {reqDoctorOneA} from "@/request/AppointApi";
 
 // 如此获取传参
 const props = defineProps<{
-  doctorId: number
+  doctorId: string
 }>()
 const doctorDetail = ref<DoctorDto>({
   "doctorId": 0,
@@ -80,14 +81,11 @@ const doctorDetail = ref<DoctorDto>({
   "departmentName": ""
 })
 const appointDetail = ref<AppointDto[]>([]);
-for (let i = 0; i < appointDetail.value.length; i++) {
-  appointDetail[i].appointmentDate = moveT(appointDetail[i].appointmentDate)
-}
 onMounted(() => {
-  reqDoctorOne(props.doctorId).then(res => {
+  reqDoctorOne(parseInt(props.doctorId)).then(res => {
     doctorDetail.value = res
   })
-  reqDoctorOneA(props.doctorId).then(res => {
+  reqDoctorOneA(parseInt(props.doctorId)).then(res => {
     appointDetail.value = res
   })
 })

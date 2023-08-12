@@ -16,8 +16,9 @@
             <br>
             {{ doctor.doctorJob }}
             <p>{{ doctor.doctorInfo }}</p>
-            <el-button type="primary" @click="this.$router.push('/reception/doctorOne/'+doctor.doctorId)">详情
-            </el-button>
+            <router-link :to="'/reception/doctorOne/'+doctor.doctorId">
+              <el-button type="primary">详情</el-button>
+            </router-link>
           </div>
         </div>
       </el-card>

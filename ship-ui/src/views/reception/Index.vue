@@ -8,10 +8,9 @@
           mode="horizontal"
           text-color="#fff"
       >
-        <el-menu-item index="1" @click="this.$router.push('reception/clientCenter')"><img alt="商标" height="30"
-                                                                                          src="/mia.svg"
-                                                                                          width="30">
-          宠物医院
+        <el-menu-item index="1">
+          <img alt="商标" height="30" src="/mia.svg" width="30">
+          <router-link to="reception/clientCenter">宠物医院</router-link>
         </el-menu-item>
         <div class="flex-grow"/>
         <el-menu-item index="2" @click="openDialog(notices[0])">
@@ -20,11 +19,11 @@
           </el-icon>
           网站公告
         </el-menu-item>
-        <el-menu-item index="3" @click="this.$router.push('reception/chat')">
+        <el-menu-item index="3">
           <el-icon>
             <Phone/>
           </el-icon>
-          咨询医生
+          <router-link to="reception/chat">咨询医生</router-link>
         </el-menu-item>
         <el-sub-menu v-if="isLogin" index="4">
           <template #title>
@@ -33,23 +32,23 @@
             </el-icon>
             个人中心
           </template>
-          <el-menu-item index="4-1" @click="this.$router.push('reception/clientCenter')">
+          <el-menu-item index="4-1">
             <el-icon>
               <EditPen/>
             </el-icon>
-            个人资料
+            <router-link to="reception/clientCenter">个人资料</router-link>
           </el-menu-item>
-          <el-menu-item index="4-2" @click="this.$router.push('reception/clientCenter/clientPet')">
+          <el-menu-item index="4-2">
             <el-icon>
               <Football/>
             </el-icon>
-            宠物信息
+            <router-link to="reception/clientCenter/clientPet">宠物信息</router-link>
           </el-menu-item>
-          <el-menu-item index="4-3" @click="this.$router.push('reception/clientCenter/clientAppoint')">
+          <el-menu-item index="4-3">
             <el-icon>
               <Tickets/>
             </el-icon>
-            挂号信息
+            <router-link to="reception/clientCenter/clientAppoint">挂号信息</router-link>
           </el-menu-item>
           <el-menu-item index="4-4" style="color: #F56C6C" @click="myLogout">
             <el-icon>
@@ -58,11 +57,11 @@
             退出登录
           </el-menu-item>
         </el-sub-menu>
-        <el-menu-item v-else index="5" style="color: #ffc107" @click="this.$router.push('/')">
+        <el-menu-item v-else index="5" style="color: #ffc107">
           <el-icon>
             <SwitchButton/>
           </el-icon>
-          前往登录
+          <router-link to="/">前往登录</router-link>
         </el-menu-item>
       </el-menu>
     </el-header>
@@ -70,7 +69,7 @@
       <!--轮播图-->
       <el-carousel :interval="4000" height="200px" type="card">
         <el-carousel-item v-for="item in lun" :key="item">
-          <el-image :src="item.image" fit="scale-down" alt="轮播图"/>
+          <el-image :src="item.image" alt="轮播图" fit="scale-down"/>
           <div class="carousel-caption">
             <h5>{{ item.tit }}</h5>
             <p>{{ item.text }}</p>
@@ -103,7 +102,7 @@
       <!-- 用户卡片-->
       <h2>用户入口</h2>
       <p>一些与用户相关的功能入口，也可以前往中心查看。
-        <el-link type="warning" @click="this.$router.push('reception/clientCenter')">点击跳转</el-link>
+        <router-link class="my-warn" to="reception/clientCenter">点击跳转</router-link>
       </p>
       <el-row :gutter="12">
         <el-col v-for="card in userCard" :md="8" :sm="12" :xs="24">
@@ -111,10 +110,9 @@
             <template #header>
               <div class="card-header">
                 <span>{{ card.tit }}</span>
-                <el-button :type="card.btnType" @click="this.$router.push(card.routerPath)">{{
-                    card.btnText
-                  }}
-                </el-button>
+                <router-link :to="card.routerPath">
+                  <el-button :type="card.btnType">{{ card.btnText }}</el-button>
+                </router-link>
               </div>
             </template>
             <div>
@@ -126,19 +124,19 @@
       <!-- 待领养宠物-->
       <h2>待领养宠物</h2>
       <p>它们等待一个温暖的家。
-        <el-link type="success" @click="this.$router.push('/reception/petSee')">查看全部</el-link>
+        <router-link class="my-suc" to="/reception/petSee">查看全部</router-link>
       </p>
       <PetCard :card-list="petCardTxt.records"/>
       <!-- 医生卡片-->
       <h2>医生展示</h2>
       <p>我们拥有虚拟的医生。
-        <el-link type="primary" @click="this.$router.push('/reception/doctorSee')">查看全部</el-link>
+        <router-link class="my-pri" to="/reception/doctorSee">查看全部</router-link>
       </p>
       <DoctorCard :card-list="doctorCardTxt.records"/>
       <!-- 寄养卡片-->
       <h2>寄养宠物展示</h2>
       <p>我们提供寄养服务。
-        <el-link type="warning" @click="this.$router.push('/reception/fosterSee')">查看全部</el-link>
+        <router-link class="my-warn" to="/reception/fosterSee">查看全部</router-link>
       </p>
       <FosterCard :card-list="fosterCardTxt.records"/>
       <!-- 折叠筐-->
