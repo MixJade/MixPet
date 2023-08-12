@@ -1,6 +1,5 @@
 import axios from "axios";
 import {ElMessage} from "element-plus";
-import router from "@/router";
 
 
 //创建axios实例
@@ -19,9 +18,7 @@ reqApi.interceptors.response.use(resp => {
     if (resp.data["code"] != undefined && resp.data["code"] != null) {
         const code = resp.data["code"]
         if (code === 401) {
-            router.replace("/").then((): void => {
-                ElMessage.error("当前未登陆")
-            })
+            location.href = "/"
         } else if (code === 403) {
             ElMessage.warning("未持有操作权限")
         } else if (code === 1) {
