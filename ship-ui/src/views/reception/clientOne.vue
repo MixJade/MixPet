@@ -32,9 +32,15 @@ const updatePwd = () => {
 // 获取用户信息
 onMounted(() => {
   reqLoginUser().then(res => {
-    Object.keys(res).forEach(key => {
-      client[key] = res[key]
-    })
+    client.clientId = res.clientId
+    client.clientUsername = res.clientUsername
+    client.clientPassword = res.clientPassword
+    client.clientName = res.clientName
+    client.clientGender = res.clientGender
+    client.clientTel = res.clientTel
+    client.clientAge = res.clientAge
+    client.clientInfo = res.clientInfo
+    client.clientPhoto = res.clientPhoto
   })
 })
 </script>
