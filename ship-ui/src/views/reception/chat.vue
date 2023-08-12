@@ -9,11 +9,16 @@
 import {ChatGroup} from "@/model/VO/ChatGroup";
 import {MsgVo} from "@/model/VO/MsgVo";
 import ChatPanel from "@/components/ChatPanel.vue";
-import {onBeforeMount, ref} from "vue";
+import {onMounted, ref} from "vue";
 import {reqClientMsg, reqClientMsgGroup, reqClientMsgList} from "@/request/MsgApi";
 
+onMounted(() => {
+  reqClientMsg().then(res => {
+    cutDoctor(res)
+  })
+})
 const props = defineProps<{
-  doctorId?: Number
+  doctorId?: number | string
 }>()
 // 当前医生
 const doctor = {
@@ -24,7 +29,7 @@ if (props.doctorId == null || props.doctorId == '') {
   // 没有收到ID，执行ID的初始化逻辑
   doctor.doctorId = 1;
 } else {
-  doctor.doctorId = props.doctorId
+  doctor.doctorId = props.doctorId as number
 }
 // 得到分组与聊天记录
 const groupList = ref<ChatGroup[]>([])
@@ -44,11 +49,6 @@ const cutDoctor = (doctorID: number): void => {
     groupList.value = res2
   })
 }
-onBeforeMount(() => {
-  reqClientMsg().then(res => {
-    cutDoctor(res)
-  })
-})
 </script>
 
 <style scoped>

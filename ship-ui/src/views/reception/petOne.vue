@@ -93,7 +93,7 @@ import {reqAdoptPet, reqInAdopt} from "@/request/AdoptApi";
 
 // 如此获取传参
 const props = defineProps<{
-  petId: Number
+  petId: number
 }>()
 // 样例数据
 const pet = ref<Pet>(examplePet())

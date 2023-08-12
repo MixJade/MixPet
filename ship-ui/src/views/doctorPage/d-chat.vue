@@ -9,7 +9,7 @@ import {exampleDMsg} from "@/model/VO/MsgVo";
 import ChatPanel from "@/components/ChatPanel.vue";
 
 const props = defineProps<{
-  clientId?: Number
+  clientId?: number | string
 }>()
 // 当前用户的ID
 const client = {
@@ -20,7 +20,7 @@ if (props.clientId == null || props.clientId == '') {
   // 没有收到ID，执行ID的初始化逻辑
   client.clientId = 1;
 } else {
-  client.clientId = props.clientId
+  client.clientId = props.clientId as number
 }
 // 得到分组与聊天记录
 const groupList = exampleDChatGroup(client.clientId);

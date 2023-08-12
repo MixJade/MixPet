@@ -5,6 +5,6 @@ import {MsgVo} from "@/model/VO/MsgVo";
 export const reqClientMsg = (): Promise<number> =>
     reqApi<string, number>("msg")
 export const reqClientMsgList = (doctorId: number): Promise<MsgVo[]> =>
-    reqApi<string, object>("msg/aDoctor?doctorId=" + doctorId)
+    reqApi<string, MsgVo[]>("msg/aDoctor?doctorId=" + doctorId)
 export const reqClientMsgGroup = (doctorId: number): Promise<ChatGroup[]> =>
-    reqApi<string, object>("msg/group?doctorId=" + doctorId)
+    reqApi<string, ChatGroup[]>("msg/group?doctorId=" + doctorId)

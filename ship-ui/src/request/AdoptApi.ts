@@ -10,7 +10,7 @@ export const reqInAdopt = (petId: number): Promise<number> =>
     reqApi<string, number>("adopt/inAdopt?petId=" + petId)
 // 申请领养
 export const reqAdoptPet = (data: PetAskOne): Promise<Res> =>
-    reqApi.post<string, object>("adopt/adoptPet", data)
+    reqApi.post<string, Res>("adopt/adoptPet", data)
 // 管理员后台领养列表
 export const reqAdoptList = (page: YAdoptList): Promise<Page<AdoptDto>> =>
-    reqApi<string, object>("adopt/page", {params: page})
+    reqApi<string, Page<AdoptDto>>("adopt/page", {params: page})

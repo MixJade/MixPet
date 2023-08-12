@@ -7,28 +7,28 @@ import {Res} from "@/request/Res";
 
 // 主页查询宠物
 export const reqFourPet = (): Promise<Page<Pet>> =>
-    reqApi<string, object>("pet/four?numPage=1&pageSize=4")
+    reqApi<string, Page<Pet>>("pet/four?numPage=1&pageSize=4")
 // 查看领养宠物
 export const reqPetSee = (page: PageQuery): Promise<Page<Pet>> =>
-    reqApi<string, object>("pet/four", {params: page})
+    reqApi<string, Page<Pet>>("pet/four", {params: page})
 // 查看宠物详情
 export const reqPetOne = (petId: number): Promise<Pet> =>
-    reqApi<string, object>("pet/one?petId=" + petId)
+    reqApi<string, Pet>("pet/one?petId=" + petId)
 // 查看用户的宠物
 export const reqClientPet = (): Promise<Pet[]> =>
-    reqApi<string, object>("pet/clientOne")
+    reqApi<string, Pet[]>("pet/clientOne")
 // 管理员后台宠物列表
 export const reqPetList = (page: YPetList): Promise<Page<PetDto>> =>
-    reqApi<string, object>("pet/page", {params: page})
+    reqApi<string, Page<PetDto>>("pet/page", {params: page})
 // 管理员新增宠物
 export const reqAddPet = (data: Pet): Promise<Res> =>
-    reqApi.post<string, object>("pet", data)
+    reqApi.post<string, Res>("pet", data)
 // 管理员修改宠物
 export const reqUpdatePet = (data: Pet): Promise<Res> =>
-    reqApi.put<string, object>("pet", data)
+    reqApi.put<string, Res>("pet", data)
 // 管理员删除宠物
 export const reqDelPet = (id: number): Promise<Res> =>
-    reqApi.delete<string, object>("pet/" + id)
+    reqApi.delete<string, Res>("pet/" + id)
 // 管理员批量删除宠物
 export const reqDelPetBatch = (ids: number[]): Promise<Res> =>
-    reqApi.delete<string, object>("pet/batch/" + ids)
+    reqApi.delete<string, Res>("pet/batch/" + ids)
