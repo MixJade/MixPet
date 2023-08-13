@@ -33,5 +33,5 @@ defineProps<{
 }>()
 </script>
 
-<style lang="scss" scoped src="public/pet-info.scss">
+<style scoped src="public/css/pet-info.css">
 </style>
