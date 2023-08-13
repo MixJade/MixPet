@@ -11,8 +11,6 @@ import {
     ElCarousel,
     ElCarouselItem,
     ElCol,
-    ElCollapse,
-    ElCollapseItem,
     ElContainer,
     ElDatePicker,
     ElDescriptions,
@@ -74,9 +72,6 @@ app.component("el-button", ElButton as Component)
     // 轮播图
     .component("el-carousel", ElCarousel as Component)
     .component("el-carousel-item", ElCarouselItem as Component)
-    // 手风琴
-    .component("el-collapse", ElCollapse as Component)
-    .component("el-collapse-item", ElCollapseItem as Component)
     // 消息相关
     .component(ElMessage.name, ElMessage as Component)
     .component("el-dialog", ElDialog as Component)
