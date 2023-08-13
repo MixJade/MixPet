@@ -196,17 +196,6 @@ const lun: Lun[] = [
   }
 ]
 
-// 知识
-interface knowledge {
-  tit: string,
-  txt: string
-}// 知识样例
-const knowledgeList: knowledge[] = [
-  {tit: "狗子总是晚上叫怎么办？", txt: "多半是发情期，送来进行绝育手术"},
-  {tit: "猫猫总是到处乱抓怎么办？", txt: "多半是发情期，送来进行绝育手术"},
-  {tit: "为什么我养的羊不产奶", txt: "你养的是公羊"},
-]
-
 // 公告栏
 const notices = ref<NoticeDto[]>([])
 // 公告弹出框
