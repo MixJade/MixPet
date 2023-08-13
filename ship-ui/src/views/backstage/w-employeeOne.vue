@@ -1,11 +1,13 @@
 <template>
   <div class="one-basePage">
-    <DetailTable
-        :role-photo="employee['employeePhoto']"
-        :tab-con="em"
-        @upPwd="updatePwd"
-        @upRole="updateRole"
-    />
+    <div class="really">
+      <DetailTable
+          :role-photo="employee['employeePhoto']"
+          :tab-con="em"
+          @upPwd="updatePwd"
+          @upRole="updateRole"
+      />
+    </div>
   </div>
 </template>
 
@@ -45,5 +47,4 @@ const updatePwd = () => {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped src="public/css/one-basePage.css"/>
