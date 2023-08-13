@@ -50,10 +50,7 @@ button {
   &:before {
     content: "";
     position: absolute;
-    left: -5px;
-    top: -5px;
-    right: -5px;
-    bottom: -5px;
+    inset: -5px;
     z-index: -1;
     background: linear-gradient(90deg,
         #03a9f4, #f441a5, #ffeb3b, #03a9f4

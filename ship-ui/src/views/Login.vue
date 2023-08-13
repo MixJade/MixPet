@@ -15,6 +15,7 @@
       <path d="M0 80 Q500 280 ,1000 80" fill="url(#Gradient)" stroke="transparent"/>
     </svg>
     <!--登陆卡片-->
+    <h2 class="my-h2">宠物医院系统，点击猫猫反转</h2>
     <!-- 用户登录 -->
     <div :style="{ transform: pairClient }" class="mixJade">
       <img alt="管理员入口" height="48" src="/mia.svg" width="64" @click="clientToAdmin">
@@ -108,6 +109,14 @@ const doctorToAdmin = () => {
     position: fixed;
     height: 50vh;
     width: 98vw;
+  }
+
+  /* 欢迎文字 */
+  .my-h2 {
+    position: fixed;
+    color: #FAFAFA;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
