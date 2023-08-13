@@ -70,10 +70,6 @@
       <el-carousel :interval="4000" height="200px" type="card">
         <el-carousel-item v-for="item in lun" :key="item">
           <el-image :src="item.image" alt="轮播图" fit="scale-down"/>
-          <div class="carousel-caption">
-            <h5>{{ item.tit }}</h5>
-            <p>{{ item.text }}</p>
-          </div>
         </el-carousel-item>
       </el-carousel>
       <!-- 公告栏-->
@@ -191,24 +187,16 @@ onBeforeMount(() => {
 // 主页轮播图
 interface Lun {
   image: string;
-  tit: string;
-  text: string;
 }// 轮播图
 const lun: Lun[] = [
   {
-    image: "/picture/lun-1.jpg",
-    tit: "医院宗旨",
-    text: "致力于为每一只宠物提供最优质的医疗服务，关注宠物健康与福利。"
+    image: "/picture/lun-1.jpg"
   },
   {
-    image: "/picture/lun-2.jpg",
-    tit: "服务理念",
-    text: "始终坚持“宠爱无限，服务永远“五心”服务----用心、细心、贴心的服务，让您的爱宠舒心，让您放心”"
+    image: "/picture/lun-2.jpg"
   },
   {
-    image: "/picture/lun-3.jpg",
-    tit: "狗狗会“察言观色”",
-    text: "人类对于狗狗的训练行为，其实并不是狗狗能“听懂”人类语言，而是会“察言观色”，根据一些行为指示来完成某种动作，进而牢记心中。"
+    image: "/picture/lun-3.jpg"
   }
 ]
 
@@ -288,18 +276,6 @@ const myLogout = () => {
 
   /*主要内容*/
   .el-main {
-    /*轮播图的文本*/
-    .carousel-caption {
-      background-color: black;
-      opacity: 0.5;
-      position: absolute;
-      right: 15%;
-      bottom: 1.25rem;
-      left: 15%;
-      color: #fff;
-      text-align: center;
-    }
-
     /*小标题与介绍文字*/
     h2, p {
       text-align: center;
