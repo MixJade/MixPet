@@ -13,16 +13,6 @@ body {
     margin-top: 9px;
 }
 
-/* 个人中心的展示页面 */
-.one-basePage {
-    position: absolute;
-    width: 50vw;
-    left: 25vw;
-    top: 15vh;
-    background-color: whitesmoke;
-    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5);
-}
-
 /* 设置链接样式 */
 a {
     /* 去掉下划线 */
