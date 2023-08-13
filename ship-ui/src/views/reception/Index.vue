@@ -135,13 +135,8 @@
         <router-link class="my-warn" to="/reception/fosterSee">查看全部</router-link>
       </p>
       <FosterCard :card-list="fosterCardTxt.records"/>
-      <!-- 折叠筐-->
-      <h2>小小知识</h2>
-      <el-collapse accordion>
-        <el-collapse-item v-for="know in knowledgeList" :title="know.tit">
-          <div>{{ know.txt }}</div>
-        </el-collapse-item>
-      </el-collapse>
+      <!--页脚-->
+      <VueFoot/>
     </el-main>
   </el-container>
 </template>
@@ -163,6 +158,7 @@ import {reqFourPet} from "@/request/PetApi";
 import {reqFosterPet} from "@/request/FosterApi";
 import {reqFourNotice} from "@/request/NoticeApi";
 import {useRouter} from "vue-router";
+import VueFoot from "@/components/VueFoot.vue";
 
 // 判断是否登录
 const isLogin = ref<boolean>(false)
@@ -292,18 +288,6 @@ const myLogout = () => {
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-
-    /* 折叠框 */
-    .el-collapse {
-      box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5);
-      width: 60%;
-      margin-left: 20%;;
-      /* 公告栏标题 */
-      :deep(.el-collapse-item__header) {
-        font-size: medium;
-        padding-left: 30px;
-      }
     }
   }
 }
