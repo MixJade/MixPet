@@ -23,6 +23,7 @@
         SELECT pet_id,
                pet_name,
                pet_variety,
+               pet_status,
                pet_sex,
                pet_age,
                pet_info,

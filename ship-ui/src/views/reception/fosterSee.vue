@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="my-space">
     <PageHead>查看全部寄养订单</PageHead>
     <FosterCard :card-list="fosterCardTxt.records"/>
   </div>
@@ -10,7 +10,7 @@
 import {Page} from "@/model/DO/Page";
 import {FosterCardDto} from "@/model/DO/FosterCardDto";
 import {onMounted, reactive} from "vue";
-import FosterCard from "@/components/FosterCard.vue";
+import FosterCard from "@/components/card/FosterCard.vue";
 import PageHead from "@/components/PageHead.vue";
 import {reqFosterPet} from "@/request/FosterApi";
 
@@ -18,11 +18,10 @@ import {reqFosterPet} from "@/request/FosterApi";
 const fosterCardTxt: Page<FosterCardDto> = reactive({records: [], total: 6})
 
 onMounted(() => {
-  reqFosterPet(6).then(res => {
+  reqFosterPet(8).then(res => {
     fosterCardTxt.records = res.records
   })
 })
 </script>
 
-<style scoped>
-</style>
+<style scoped src="public/css/my-space.css"/>

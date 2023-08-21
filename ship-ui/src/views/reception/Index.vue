@@ -1,77 +1,35 @@
 <template>
-  <el-container>
-    <el-header>
-      <!-- 导航栏-->
-      <el-menu
-          :ellipsis="false"
-          background-color="#545c64"
-          mode="horizontal"
-          text-color="#fff"
-      >
-        <el-menu-item index="1">
-          <img alt="商标" height="30" src="/mia.svg" width="30">
-          <router-link to="reception/clientCenter">宠物医院</router-link>
-        </el-menu-item>
-        <div class="flex-grow"/>
-        <el-menu-item index="2" @click="openDialog(notices[0])">
-          <el-icon>
-            <DataBoard/>
-          </el-icon>
-          网站公告
-        </el-menu-item>
-        <el-menu-item index="3">
-          <el-icon>
-            <Phone/>
-          </el-icon>
-          <router-link to="reception/chat">咨询医生</router-link>
-        </el-menu-item>
-        <el-sub-menu v-if="isLogin" index="4">
-          <template #title>
-            <el-icon>
-              <User/>
-            </el-icon>
-            个人中心
-          </template>
-          <el-menu-item index="4-1">
-            <el-icon>
-              <EditPen/>
-            </el-icon>
-            <router-link to="reception/clientCenter">个人资料</router-link>
-          </el-menu-item>
-          <el-menu-item index="4-2">
-            <el-icon>
-              <Football/>
-            </el-icon>
-            <router-link to="reception/clientCenter/clientPet">宠物信息</router-link>
-          </el-menu-item>
-          <el-menu-item index="4-3">
-            <el-icon>
-              <Tickets/>
-            </el-icon>
-            <router-link to="reception/clientCenter/clientAppoint">挂号信息</router-link>
-          </el-menu-item>
-          <el-menu-item index="4-4" style="color: #F56C6C" @click="myLogout">
-            <el-icon>
-              <SwitchButton/>
-            </el-icon>
-            退出登录
-          </el-menu-item>
-        </el-sub-menu>
-        <el-menu-item v-else index="5" style="color: #ffc107">
-          <el-icon>
-            <SwitchButton/>
-          </el-icon>
-          <router-link to="/">前往登录</router-link>
-        </el-menu-item>
-      </el-menu>
-    </el-header>
-    <el-main>
-      <!--轮播图-->
-      <el-carousel :interval="4000" height="200px" type="card">
-        <el-carousel-item v-for="item in lun" :key="item">
-          <el-image :src="item.image" alt="轮播图" fit="scale-down"/>
-        </el-carousel-item>
-      </el-carousel>
+  <div>
+    <header>
+      <router-link to="/reception/clientCenter">
+        MixJade
+      </router-link>
+      <ul>
+        <li><a @click="openDialog(notices[0])">网站公告</a></li>
+        <li>
+          <router-link to="/reception/chat">咨询医生</router-link>
+        </li>
+        <li v-if="isLogin" class="drop">个人中心<span>&#9660</span>
+          <ul class="drop-list">
+            <li>
+              <router-link to="/reception/clientCenter">个人资料</router-link>
+            </li>
+            <li>
+              <router-link to="/reception/clientCenter/clientPet">宠物信息</router-link>
+            </li>
+            <li>
+              <router-link to="/reception/clientCenter/clientAppoint">挂号查看</router-link>
+            </li>
+            <li><a style="color: red" @click="myLogout">退出登陆</a></li>
+          </ul>
+        </li>
+        <li v-else>
+          <router-link style="color: #ffc107" to="/">前往登录</router-link>
+        </li>
+      </ul>
+    </header>
+    <WindRoll :is-login="isLogin"/>
+    <main>
       <!-- 公告栏-->
       <h2>网站公告</h2>
       <p>网站的最新公告</p>
@@ -98,7 +56,7 @@
       <!-- 用户卡片-->
       <h2>用户入口</h2>
       <p>一些与用户相关的功能入口，也可以前往中心查看。
-        <router-link class="my-warn" to="reception/clientCenter">点击跳转</router-link>
+        <router-link style="color: #E6A23C;" to="reception/clientCenter">点击跳转</router-link>
       </p>
       <el-row :gutter="12">
         <el-col v-for="card in userCard" :md="8" :sm="12" :xs="24">
@@ -120,35 +78,34 @@
       <!-- 待领养宠物-->
       <h2>待领养宠物</h2>
       <p>它们等待一个温暖的家。
-        <router-link class="my-suc" to="/reception/petSee">查看全部</router-link>
+        <router-link style="color: #67C23A;" to="/reception/petSee">查看全部</router-link>
       </p>
       <PetCard :card-list="petCardTxt.records"/>
       <!-- 医生卡片-->
       <h2>医生展示</h2>
       <p>我们拥有虚拟的医生。
-        <router-link class="my-pri" to="/reception/doctorSee">查看全部</router-link>
+        <router-link style="color: #409EFF;" to="/reception/doctorSee">查看全部</router-link>
       </p>
       <DoctorCard :card-list="doctorCardTxt.records"/>
       <!-- 寄养卡片-->
       <h2>寄养宠物展示</h2>
       <p>我们提供寄养服务。
-        <router-link class="my-warn" to="/reception/fosterSee">查看全部</router-link>
+        <router-link style="color: #E6A23C;" to="/reception/fosterSee">查看全部</router-link>
       </p>
       <FosterCard :card-list="fosterCardTxt.records"/>
-      <!--页脚-->
-      <VueFoot/>
-    </el-main>
-  </el-container>
+    </main>
+    <!--页脚-->
+    <VueFoot/>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import {DataBoard, EditPen, Football, Phone, SwitchButton, Tickets, User} from "@element-plus/icons-vue"
 import {onBeforeMount, reactive, ref} from "vue";
 import {Pet} from "@/model/entiy/Pet";
 import {Page} from "@/model/DO/Page";
-import PetCard from "@/components/PetCard.vue";
-import DoctorCard from "@/components/DoctorCard.vue";
-import FosterCard from "@/components/FosterCard.vue";
+import PetCard from "@/components/pagePart/PetCard.vue";
+import DoctorCard from "@/components/pagePart/DoctorCard.vue";
+import FosterCard from "@/components/card/FosterCard.vue";
 import {DoctorDto} from "@/model/DO/DoctorDto";
 import {FosterCardDto} from "@/model/DO/FosterCardDto";
 import {NoticeDto} from "@/model/DO/NoticeDto";
@@ -159,6 +116,7 @@ import {reqFosterPet} from "@/request/FosterApi";
 import {reqFourNotice} from "@/request/NoticeApi";
 import {useRouter} from "vue-router";
 import VueFoot from "@/components/VueFoot.vue";
+import WindRoll from "@/components/WindRoll.vue";
 
 // 判断是否登录
 const isLogin = ref<boolean>(false)
@@ -169,7 +127,7 @@ onBeforeMount(() => {
   reqFourPet().then(res => {
     petCardTxt.records = res.records
   })
-  reqFosterPet(3).then(res => {
+  reqFosterPet(4).then(res => {
     fosterCardTxt.records = res.records
   })
   reqFourNotice().then(res => {
@@ -179,22 +137,6 @@ onBeforeMount(() => {
     isLogin.value = (res.clientId != null)
   })
 })
-
-// 主页轮播图
-interface Lun {
-  image: string;
-}// 轮播图
-const lun: Lun[] = [
-  {
-    image: "/picture/lun-1.jpg"
-  },
-  {
-    image: "/picture/lun-2.jpg"
-  },
-  {
-    image: "/picture/lun-3.jpg"
-  }
-]
 
 // 公告栏
 const notices = ref<NoticeDto[]>([])
@@ -252,32 +194,122 @@ const myLogout = () => {
 }
 </script>
 <style lang="scss" scoped>
-.el-container {
-  background-color: #e9e9f5;
-  /*将导航栏除Logo以外放在旁边*/
-  .flex-grow {
-    flex-grow: 1;
+/* 导航栏 */
+header {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 8px;
+  background-color: #228B22;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+
+  & > a:first-child {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5em;
+    font-weight: 700;
   }
 
-  /*主要内容*/
-  .el-main {
-    /*小标题与介绍文字*/
-    h2, p {
+  > ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media (max-width: 768px) {
+      a {
+        padding: 4px 4px;
+      }
+      .drop {
+        padding: 4px 4px;
+      }
+    }
+
+    > li {
+      list-style: none;
+
+      a {
+        text-decoration: none;
+        color: #fff;
+        padding: 4px 24px;
+        border-radius: 20px;
+
+        &:hover, &:active {
+          background-color: #fff;
+          color: #000;
+        }
+      }
+    }
+  }
+
+  /* 导航下拉框 */
+  .drop {
+    cursor: pointer;
+    color: #fff;
+    padding: 4px 24px;
+
+    span {
+      display: inline-block;
+      transform: rotate(0deg);
+      transition: transform 200ms;
+    }
+
+    &:hover {
+      color: #FFD700;
+
+      span {
+        transform: rotate(180deg);
+      }
+
+      .drop-list {
+        visibility: visible;
+        height: 128px;
+      }
+    }
+
+    .drop-list {
+      position: absolute;
+      width: 128px;
+      margin-left: -36px;
+      background: #3CB371;
+      box-shadow: 0 1px 2px #333333;
+      border: dashed seashell;
+      border-radius: 20px;
+      list-style: none;
       text-align: center;
-    }
+      padding: 5px 5px;
+      z-index: 70;
+      transition: height 500ms;
+      height: 0;
+      overflow-y: hidden;
+      visibility: hidden;
 
-    /*公告换行*/
-    .textNotice {
-      white-space: pre-wrap;
-      word-break: break-all;
+      li {
+        padding-top: 4px;
+        padding-bottom: 4px;
+      }
     }
+  }
+}
 
-    /* 卡片 */
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+/*主要内容*/
+main {
+  /*小标题与介绍文字*/
+  h2, p {
+    text-align: center;
+  }
+
+  /*公告换行*/
+  .textNotice {
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  /* 卡片 */
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 </style>
