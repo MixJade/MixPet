@@ -24,9 +24,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http,
                                                    LoginFilter loginFilter,
                                                    RememberService rememberService) throws Exception {
-        // TODO 放行的静态资源，后面会去掉
-        String[] quiet = {"/", "/index.html", "/favicon.ico", "/reception/**", "/picture/**",
-                "/js/**", "/doctorPage/**", "/backstage/**", "/assets/**", "/login.html"};
+        String[] quiet = {"/", "/index.html", "/favicon.ico"};
         // 放行的后端接口
         String[] rearEnd = {"/login/**", "/power/**", "/doctor/page", "/pet/four",
                 "/foster/pet", "/notice/four", "/common/download", "/common/downChat"};
