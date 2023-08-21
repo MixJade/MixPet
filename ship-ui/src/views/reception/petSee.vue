@@ -1,15 +1,13 @@
 <template>
-  <div>
+  <div class="my-space">
     <PageHead>查看全部宠物</PageHead>
-    <el-space direction="vertical">
-      <PetCard :card-list="petCardTxt.records"/>
-      <el-pagination :current-page="page.numPage" :page-size="page.pageSize" :total="petCardTxt.total"
-                     background
-                     hide-on-single-page
-                     layout="total, prev, pager, next"
-                     @current-change="changePage"
-      />
-    </el-space>
+    <PetCard :card-list="petCardTxt.records"/>
+    <el-pagination :current-page="page.numPage" :page-size="page.pageSize" :total="petCardTxt.total"
+                   background
+                   hide-on-single-page
+                   layout="total, prev, pager, next"
+                   @current-change="changePage"
+    />
   </div>
 </template>
 
@@ -17,7 +15,7 @@
 // 宠物的卡片信息
 import {Page} from "@/model/DO/Page";
 import {Pet} from "@/model/entiy/Pet";
-import PetCard from "@/components/PetCard.vue";
+import PetCard from "@/components/pagePart/PetCard.vue";
 import {onMounted, reactive, watch} from "vue";
 import PageHead from "@/components/PageHead.vue";
 import {PageQuery} from "@/model/VO/BackQuery";
@@ -46,5 +44,4 @@ const changePage = (val: number): void => {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped src="public/css/my-space.css"/>

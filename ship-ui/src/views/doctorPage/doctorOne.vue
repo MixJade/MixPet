@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import DetailTable, {DetailTabType} from "@/components/DetailTable.vue";
+import DetailTable, {DetailTabType} from "@/components/card/DetailTable.vue";
 import {getAge} from "@/utils/TimeUtil";
 import {computed, reactive} from "vue";
 import {DoctorDto, exampleDoctorOne} from "@/model/DO/DoctorDto";

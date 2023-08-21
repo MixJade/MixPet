@@ -1,22 +1,20 @@
 <template>
-  <div>
+  <div class="my-space">
     <PageHead>查看全部医生</PageHead>
-    <el-space direction="vertical">
-      <DoctorCard :card-list="doctorCardTxt.records"/>
-      <el-pagination
-          :current-page="page.numPage"
-          :page-size="page.pageSize"
-          :total="doctorCardTxt.total"
-          hide-on-single-page
-          layout="total, prev, pager, next"
-          @current-change="changePage"/>
-    </el-space>
+    <DoctorCard :card-list="doctorCardTxt.records"/>
+    <el-pagination
+        :current-page="page.numPage"
+        :page-size="page.pageSize"
+        :total="doctorCardTxt.total"
+        hide-on-single-page
+        layout="total, prev, pager, next"
+        @current-change="changePage"/>
   </div>
 </template>
 
 <script lang="ts" setup>
 import {Page} from "@/model/DO/Page";
-import DoctorCard from "@/components/DoctorCard.vue";
+import DoctorCard from "@/components/pagePart/DoctorCard.vue";
 import {onMounted, reactive, watch} from "vue";
 import PageHead from "@/components/PageHead.vue";
 import {DoctorDto} from "@/model/DO/DoctorDto";
@@ -47,5 +45,4 @@ const changePage = (val: number): void => {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped src="public/css/my-space.css"/>

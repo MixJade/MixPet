@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 /*=====登录的页面，不同的角色同一个登录页面，不同的请求路径=====*/
 import {computed, reactive} from "vue";
-import MyBtn from "@/components/MyBtn.vue";
+import MyBtn from "@/components/button/MyBtn.vue";
 import {reqLogin} from "@/request/PowerApi";
 import {LoginVo, RoleEnum} from "@/model/VO/LoginVo";
 // 定义登录的角色

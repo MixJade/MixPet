@@ -34,5 +34,13 @@ public interface PetMapper extends BaseMapper<Pet> {
     @Select("SELECT pet_id as roleId, pet_name as roleName FROM pet WHERE is_del = '0' AND isNull(client_id)")
     List<NameVo> selectNoClient();
 
+    /**
+     * 这种使用对象作为唯一参数
+     * <p>在xml中，可以直接使用属性名</p>
+     * <p>甚至这样更新时间也会自动注入</p>
+     *
+     * @param pet 宠物信息
+     * @return 修改成功
+     */
     boolean updatePet(Pet pet);
 }

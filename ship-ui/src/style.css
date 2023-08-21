@@ -20,15 +20,3 @@ a {
     /* 颜色与父元素相同 */
     color: inherit;
 }
-
-.my-suc {
-    color: #67C23A;
-}
-
-.my-pri {
-    color: #409EFF;
-}
-
-.my-warn {
-    color: #E6A23C;
-}

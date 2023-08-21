@@ -1,0 +1,5 @@
+@charset "UTF-8";
+/* 前台查看全部的宠物、医生、寄养 */
+.my-space > *:not(:first-child) {
+    margin-top: 15px;
+}

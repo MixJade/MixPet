@@ -7,7 +7,7 @@ export interface Pet {
     petVariety: string;
     petSex: boolean;
     petAge: string;
-    petStatus: string | null;
+    petStatus: string;
     petInfo: string;
     clientId: number | null;
     petPhoto: string;

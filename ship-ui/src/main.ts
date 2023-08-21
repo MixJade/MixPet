@@ -8,8 +8,6 @@ import {
     ElButton,
     ElButtonGroup,
     ElCard,
-    ElCarousel,
-    ElCarouselItem,
     ElCol,
     ElContainer,
     ElDatePicker,
@@ -37,7 +35,6 @@ import {
     ElRadioGroup,
     ElRow,
     ElSelect,
-    ElSpace,
     ElSubMenu,
     ElSwitch,
     ElTable,
@@ -69,9 +66,6 @@ app.component("el-button", ElButton as Component)
     .component("el-descriptions-item", ElDescriptionsItem as Component)
     .component("el-empty", ElEmpty as Component)
     .component("el-pagination", ElPagination as Component)
-    // 轮播图
-    .component("el-carousel", ElCarousel as Component)
-    .component("el-carousel-item", ElCarouselItem as Component)
     // 消息相关
     .component(ElMessage.name, ElMessage as Component)
     .component("el-dialog", ElDialog as Component)
@@ -95,7 +89,6 @@ app.component("el-button", ElButton as Component)
     .component("el-col", ElCol as Component)
     .component("el-row", ElRow as Component)
     .component("el-page-header", ElPageHeader as Component)
-    .component("el-space", ElSpace as Component)
     // 菜单
     .component("el-menu", ElMenu as Component)
     .component("el-sub-menu", ElSubMenu as Component)

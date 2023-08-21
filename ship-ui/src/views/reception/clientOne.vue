@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import {Client, exampleClient} from "@/model/entiy/Client";
-import DetailTable, {DetailTabType} from "@/components/DetailTable.vue";
+import DetailTable, {DetailTabType} from "@/components/card/DetailTable.vue";
 import {computed, onMounted, reactive} from "vue";
 import {reqLoginUser} from "@/request/PowerApi";
 // 设置展示信息
