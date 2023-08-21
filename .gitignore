@@ -3,5 +3,3 @@
 ## 忽略微信小程序的第三方库 ##
 forgePetWX/node_modules
 forgePetWX/miniprogram_npm
-## 忽略新的前端 ##
-/shipPet/src/main/resources/static/*
