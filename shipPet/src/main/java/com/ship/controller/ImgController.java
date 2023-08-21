@@ -134,6 +134,7 @@ public class ImgController {
      * @param imgPath  图片路径
      */
     private void sendImg(String name, HttpServletResponse response, String imgPath) {
+        if (name == null || "".equals(name)) return;
         try (var fis = new FileInputStream(imgPath + name); var ops = response.getOutputStream()) {
             response.setContentType("image/jpeg");
             int len;
