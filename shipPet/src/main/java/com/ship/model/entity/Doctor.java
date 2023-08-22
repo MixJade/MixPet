@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.io.Serial;
 
 /**
  * <p>
@@ -14,10 +15,10 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author MixJade
- * @since 2023-07-27
+ * @since 2023-08-22
  */
 public class Doctor implements Serializable {
-
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
@@ -208,20 +209,20 @@ public class Doctor implements Serializable {
     @Override
     public String toString() {
         return "Doctor{" +
-            "doctorId = " + doctorId +
-            ", departmentId = " + departmentId +
-            ", doctorCode = " + doctorCode +
-            ", doctorName = " + doctorName +
-            ", doctorGender = " + doctorGender +
-            ", doctorAge = " + doctorAge +
-            ", doctorPhoto = " + doctorPhoto +
-            ", doctorTel = " + doctorTel +
-            ", doctorJob = " + doctorJob +
-            ", doctorInfo = " + doctorInfo +
-            ", doctorPassword = " + doctorPassword +
-            ", createTime = " + createTime +
-            ", updateTime = " + updateTime +
-            ", isDel = " + isDel +
-        "}";
+                "doctorId = " + doctorId +
+                ", departmentId = " + departmentId +
+                ", doctorCode = " + doctorCode +
+                ", doctorName = " + doctorName +
+                ", doctorGender = " + doctorGender +
+                ", doctorAge = " + doctorAge +
+                ", doctorPhoto = " + doctorPhoto +
+                ", doctorTel = " + doctorTel +
+                ", doctorJob = " + doctorJob +
+                ", doctorInfo = " + doctorInfo +
+                ", doctorPassword = " + doctorPassword +
+                ", createTime = " + createTime +
+                ", updateTime = " + updateTime +
+                ", isDel = " + isDel +
+                "}";
     }
 }

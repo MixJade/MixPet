@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.io.Serial;
 
 /**
  * <p>
@@ -13,10 +14,10 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author MixJade
- * @since 2023-07-27
+ * @since 2023-08-22
  */
 public class Appointment implements Serializable {
-
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
@@ -168,17 +169,17 @@ public class Appointment implements Serializable {
     @Override
     public String toString() {
         return "Appointment{" +
-            "appointmentId = " + appointmentId +
-            ", clientId = " + clientId +
-            ", petId = " + petId +
-            ", appointmentDate = " + appointmentDate +
-            ", departmentId = " + departmentId +
-            ", doctorId = " + doctorId +
-            ", appointmentInfo = " + appointmentInfo +
-            ", isSuc = " + isSuc +
-            ", createTime = " + createTime +
-            ", updateTime = " + updateTime +
-            ", isDel = " + isDel +
-        "}";
+                "appointmentId = " + appointmentId +
+                ", clientId = " + clientId +
+                ", petId = " + petId +
+                ", appointmentDate = " + appointmentDate +
+                ", departmentId = " + departmentId +
+                ", doctorId = " + doctorId +
+                ", appointmentInfo = " + appointmentInfo +
+                ", isSuc = " + isSuc +
+                ", createTime = " + createTime +
+                ", updateTime = " + updateTime +
+                ", isDel = " + isDel +
+                "}";
     }
 }

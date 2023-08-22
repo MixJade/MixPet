@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.io.Serial;
 
 /**
  * <p>
@@ -13,10 +14,10 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author MixJade
- * @since 2023-07-27
+ * @since 2023-08-22
  */
 public class Msg implements Serializable {
-
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
@@ -142,15 +143,15 @@ public class Msg implements Serializable {
     @Override
     public String toString() {
         return "Msg{" +
-            "msgId = " + msgId +
-            ", clientId = " + clientId +
-            ", doctorId = " + doctorId +
-            ", isClient = " + isClient +
-            ", msgContent = " + msgContent +
-            ", isImg = " + isImg +
-            ", updateTime = " + updateTime +
-            ", createTime = " + createTime +
-            ", isDel = " + isDel +
-        "}";
+                "msgId = " + msgId +
+                ", clientId = " + clientId +
+                ", doctorId = " + doctorId +
+                ", isClient = " + isClient +
+                ", msgContent = " + msgContent +
+                ", isImg = " + isImg +
+                ", updateTime = " + updateTime +
+                ", createTime = " + createTime +
+                ", isDel = " + isDel +
+                "}";
     }
 }
