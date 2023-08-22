@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.io.Serial;
 
 /**
  * <p>
@@ -14,10 +15,10 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author MixJade
- * @since 2023-07-27
+ * @since 2023-08-22
  */
 public class Pet implements Serializable {
-
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
@@ -182,18 +183,18 @@ public class Pet implements Serializable {
     @Override
     public String toString() {
         return "Pet{" +
-            "petId = " + petId +
-            ", petName = " + petName +
-            ", petVariety = " + petVariety +
-            ", petSex = " + petSex +
-            ", petAge = " + petAge +
-            ", petStatus = " + petStatus +
-            ", petInfo = " + petInfo +
-            ", clientId = " + clientId +
-            ", petPhoto = " + petPhoto +
-            ", createTime = " + createTime +
-            ", updateTime = " + updateTime +
-            ", isDel = " + isDel +
-        "}";
+                "petId = " + petId +
+                ", petName = " + petName +
+                ", petVariety = " + petVariety +
+                ", petSex = " + petSex +
+                ", petAge = " + petAge +
+                ", petStatus = " + petStatus +
+                ", petInfo = " + petInfo +
+                ", clientId = " + clientId +
+                ", petPhoto = " + petPhoto +
+                ", createTime = " + createTime +
+                ", updateTime = " + updateTime +
+                ", isDel = " + isDel +
+                "}";
     }
 }

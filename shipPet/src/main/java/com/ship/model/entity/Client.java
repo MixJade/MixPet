@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.io.Serial;
 
 /**
  * <p>
@@ -14,10 +15,10 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author MixJade
- * @since 2023-07-27
+ * @since 2023-08-22
  */
 public class Client implements Serializable {
-
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
@@ -182,18 +183,18 @@ public class Client implements Serializable {
     @Override
     public String toString() {
         return "Client{" +
-            "clientId = " + clientId +
-            ", clientUsername = " + clientUsername +
-            ", clientPassword = " + clientPassword +
-            ", clientName = " + clientName +
-            ", clientGender = " + clientGender +
-            ", clientTel = " + clientTel +
-            ", clientAge = " + clientAge +
-            ", clientInfo = " + clientInfo +
-            ", clientPhoto = " + clientPhoto +
-            ", createTime = " + createTime +
-            ", updateTime = " + updateTime +
-            ", isDel = " + isDel +
-        "}";
+                "clientId = " + clientId +
+                ", clientUsername = " + clientUsername +
+                ", clientPassword = " + clientPassword +
+                ", clientName = " + clientName +
+                ", clientGender = " + clientGender +
+                ", clientTel = " + clientTel +
+                ", clientAge = " + clientAge +
+                ", clientInfo = " + clientInfo +
+                ", clientPhoto = " + clientPhoto +
+                ", createTime = " + createTime +
+                ", updateTime = " + updateTime +
+                ", isDel = " + isDel +
+                "}";
     }
 }
