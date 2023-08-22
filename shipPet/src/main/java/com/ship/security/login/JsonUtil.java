@@ -28,7 +28,8 @@ class JsonUtil {
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(res);
             // 相应数据
-            resp.setContentType("text/json;charset=utf-8");
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
             resp.getWriter().write(jsonString);
         } catch (IOException e) {
             log.warn("JSON转化失败");
