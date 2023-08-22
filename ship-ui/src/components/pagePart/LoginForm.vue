@@ -11,9 +11,14 @@
              type="password" @keyup.enter="toLogin">
       <label>密码</label>
     </div>
-    <el-form-item label="记住我">
-      <el-switch v-model="formLogin.remember"/>
-    </el-form-item>
+    <div class="remember">
+      <label class="check-label">
+        <input v-model="formLogin.remember" class="check-input" type="checkbox">
+        <span class="check-block">
+          <span class="inner">记住我</span>
+        </span>
+      </label>
+    </div>
     <MyBtn @click="toLogin">登录</MyBtn>
   </div>
 </template>
@@ -127,6 +132,58 @@ const toLogin = () => {
     border: 1px solid transparent;
     transform-origin: 0 0;
     transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+  }
+}
+
+/* 记住我的单选框 */
+.remember {
+  position: relative;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  left: 32px;
+  width: 80px;
+
+  .check-label {
+    .check-block {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 24px;
+      border-radius: 12px;
+      cursor: pointer;
+      -webkit-user-select: none;
+      padding: 2px 8px;
+      background-color: rgba(0, 0, 0, 0.16);
+      color: rgba(255, 255, 255, 0.7);
+      transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+      transition-duration: 500ms;
+      transition-property: color, background-color, box-shadow;
+      box-shadow: rgba(0, 0, 0, 0.15) 0 2px 1px 0 inset, rgba(255, 255, 255, 0.17) 0 1px 1px 0;
+
+      .inner {
+        display: inline-block;
+        padding: 8px;
+        font-size: 14px;
+        font-weight: 300;
+        pointer-events: none;
+      }
+    }
+
+    .check-input {
+      display: none;
+
+      &:checked + .check-block {
+        background-color: #409EFF;
+        color: white;
+        box-shadow: rgba(0, 0, 0, 0.23) 0 -4px 1px 0 inset, rgba(255, 255, 255, 0.17) 0 -1px 1px 0, rgba(0, 0, 0, 0.17) 0 2px 4px 1px;
+
+        &:hover {
+          background-color: #337ecc;
+          box-shadow: rgba(0, 0, 0, 0.26) 0 -4px 1px 0 inset, rgba(255, 255, 255, 0.17) 0 -1px 1px 0, rgba(0, 0, 0, 0.15) 0 3px 6px 2px;
+        }
+      }
+    }
   }
 }
 </style>
