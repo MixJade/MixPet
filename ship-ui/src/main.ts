@@ -36,7 +36,6 @@ import {
     ElRow,
     ElSelect,
     ElSubMenu,
-    ElSwitch,
     ElTable,
     ElTableColumn,
     ElTag,
@@ -52,7 +51,6 @@ app.use(router)
 /* ======Element-Plus引入开始======= */
 // 新增代码：注册特定组件
 app.component("el-button", ElButton as Component)
-    .component("el-switch", ElSwitch as Component)
     .component("el-button-group", ElButtonGroup as Component)
     // 展示组件
     .component("el-card", ElCard as Component)

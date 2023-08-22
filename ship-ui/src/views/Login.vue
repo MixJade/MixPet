@@ -15,7 +15,7 @@
       <path d="M0 80 Q500 280 ,1000 80" fill="url(#Gradient)" stroke="transparent"/>
     </svg>
     <!--登陆卡片-->
-    <h2 class="my-h2">宠物医院系统，点击猫猫反转</h2>
+    <h2 class="my-h2">轻触牌间喵，进入影中境</h2>
     <!-- 用户登录 -->
     <div :style="{ transform: pairClient }" class="mixJade">
       <img alt="管理员入口" height="48" src="/mia.svg" width="64" @click="clientToAdmin">
