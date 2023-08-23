@@ -1,4 +1,4 @@
-package com.ship.security;
+package com.ship.security.model;
 
 public interface RoleConst {
     /**

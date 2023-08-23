@@ -30,9 +30,6 @@ public interface AdoptMapper extends BaseMapper<Adopt> {
      */
     IPage<AdoptDto> selectAdoptPage(IPage<AdoptDto> page, String clientName, String petName);
 
-    @Select("select max(adopt_id) from adopt")
-    Integer getMaxId();
-
     boolean adoptAdopt(@Param("adoptId") Integer adoptId, @Param("petInfo") String petInfo);
 
     /**

@@ -4,10 +4,10 @@ import com.ship.common.Result;
 import com.ship.model.entity.Client;
 import com.ship.model.entity.Doctor;
 import com.ship.model.entity.Msg;
-import com.ship.service.IMsgService;
-import com.ship.util.UserUtil;
 import com.ship.model.vo.MsgNameVo;
 import com.ship.model.vo.MsgVo;
+import com.ship.service.IMsgService;
+import com.ship.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/msg")
 public class MsgController {
-    IMsgService msgService;
+    private final IMsgService msgService;
 
     @Autowired
     public MsgController(IMsgService msgService) {

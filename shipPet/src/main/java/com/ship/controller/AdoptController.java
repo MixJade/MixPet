@@ -6,7 +6,7 @@ import com.ship.model.dto.AdoptDto;
 import com.ship.model.entity.Adopt;
 import com.ship.model.entity.Client;
 import com.ship.model.vo.AdoptVo;
-import com.ship.security.RoleConst;
+import com.ship.security.model.RoleConst;
 import com.ship.service.IAdoptService;
 import com.ship.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;

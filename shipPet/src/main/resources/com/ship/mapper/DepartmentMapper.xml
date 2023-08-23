@@ -4,7 +4,8 @@
     <!--分页查询-->
     <select id="selectDepartmentPage" resultType="com.ship.model.dto.DepartmentDto">
         SELECT
-        de.department_id, department_name, department_info,
+        de.department_id, department_name,
+        department_info, de.head_id,
         d2.doctor_name AS head_name,
         count(d.doctor_id) AS doctor_num
         FROM department AS de

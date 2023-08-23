@@ -5,7 +5,7 @@ import com.ship.common.Result;
 import com.ship.model.dto.FosterDto;
 import com.ship.model.dto.FosterPetDto;
 import com.ship.model.entity.Foster;
-import com.ship.security.RoleConst;
+import com.ship.security.model.RoleConst;
 import com.ship.service.IFosterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;

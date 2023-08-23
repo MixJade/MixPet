@@ -6,12 +6,12 @@ import com.ship.model.dto.AppointmentDto2;
 import com.ship.model.dto.DoctorDto;
 import com.ship.model.entity.Appointment;
 import com.ship.model.entity.Doctor;
-import com.ship.security.RoleConst;
+import com.ship.model.vo.DoctorResetPwdVo;
+import com.ship.security.model.RoleConst;
 import com.ship.service.IAppointmentService;
 import com.ship.service.IDoctorService;
 import com.ship.util.StrUtil;
 import com.ship.util.UserUtil;
-import com.ship.model.vo.DoctorResetPwdVo;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/doctorLog")
-@Secured(RoleConst.DOCTOR)
+@Secured(RoleConst.LOSER)
 public class DoctorLogController {
     private final IDoctorService doctorService;
     private final IAppointmentService appointService;

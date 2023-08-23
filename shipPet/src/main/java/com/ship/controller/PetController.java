@@ -6,7 +6,7 @@ import com.ship.model.dto.PetDto;
 import com.ship.model.entity.Client;
 import com.ship.model.entity.Pet;
 import com.ship.model.vo.NameVo;
-import com.ship.security.RoleConst;
+import com.ship.security.model.RoleConst;
 import com.ship.service.IPetService;
 import com.ship.util.StrUtil;
 import com.ship.util.UserUtil;

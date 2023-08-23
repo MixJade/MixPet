@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.Result;
 import com.ship.model.dto.NoticeDto;
 import com.ship.model.entity.Notice;
-import com.ship.security.RoleConst;
+import com.ship.security.model.RoleConst;
 import com.ship.service.INoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;

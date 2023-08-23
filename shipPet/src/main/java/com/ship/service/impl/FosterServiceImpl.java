@@ -3,15 +3,16 @@ package com.ship.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ship.mapper.FosterMapper;
 import com.ship.model.dto.FosterDto;
 import com.ship.model.dto.FosterPetDto;
 import com.ship.model.entity.Foster;
-import com.ship.mapper.FosterMapper;
 import com.ship.service.IFosterService;
-import com.ship.util.CodeEnum;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -63,7 +64,8 @@ public class FosterServiceImpl extends ServiceImpl<FosterMapper, Foster> impleme
 
     @Override
     public boolean save(Foster entity) {
-        entity.setFosterCode(CodeEnum.FOSTER.newCode(baseMapper.getMaxId()));
+        String nowDate = new SimpleDateFormat("yyMMdd").format(new Date());
+        entity.setFosterCode(1 + nowDate + (baseMapper.getMaxId() + 1));
         return super.save(entity);
     }
 }

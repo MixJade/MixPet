@@ -1,7 +1,7 @@
 package com.ship.security.details;
 
 import com.ship.model.entity.Doctor;
-import com.ship.security.RoleConst;
+import com.ship.security.model.RoleConst;
 import com.ship.security.model.MyUser;
 import com.ship.security.model.RoleEnum;
 import com.ship.service.IDoctorService;
