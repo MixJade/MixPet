@@ -6,7 +6,7 @@ import {doctorPage} from "@/router/doctorPage";
 const routes: RouteRecordRaw[] = [
     {
         path: '/',
-        component: () => import('@/views/Login.vue')
+        component: () => import('@/views/login.vue')
     }, {
         path: '/reception',
         children: [...reception],
@@ -20,7 +20,7 @@ const routes: RouteRecordRaw[] = [
     }, {
         path: '/:pathMatch(.*)', // 404路由
         name: 'not-found',
-        component: () => import('@/views/Page404.vue')
+        component: () => import('@/views/page404.vue')
     }
 ]
 export const router = createRouter({

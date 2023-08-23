@@ -9,7 +9,6 @@ import com.ship.model.dto.AdoptDto;
 import com.ship.model.entity.Adopt;
 import com.ship.model.vo.AdoptVo;
 import com.ship.service.IAdoptService;
-import com.ship.util.CodeEnum;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -64,11 +63,5 @@ public class AdoptServiceImpl extends ServiceImpl<AdoptMapper, Adopt> implements
     @Override
     public int sureInAdopt(Integer petId, Integer clientId) {
         return baseMapper.sureInAdopt(petId, clientId);
-    }
-
-    @Override
-    public boolean save(Adopt entity) {
-        entity.setAdoptCode(CodeEnum.ADOPT.newCode(baseMapper.getMaxId()));
-        return super.save(entity);
     }
 }

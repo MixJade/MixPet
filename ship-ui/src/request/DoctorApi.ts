@@ -4,6 +4,7 @@ import {DoctorDto} from "@/model/DO/DoctorDto";
 import {PageQuery, YDoctorList} from "@/model/VO/BackQuery";
 import {Doctor} from "@/model/entiy/Doctor";
 import {Res} from "@/request/Res";
+import {NameVo} from "@/model/VO/NameVo";
 // 主页查询医生
 export const reqFourDoctor = (): Promise<Page<DoctorDto>> =>
     reqApi<string, Page<DoctorDto>>("doctor/page?numPage=1&pageSize=4")
@@ -28,3 +29,9 @@ export const reqDelDoctor = (id: number): Promise<Res> =>
 // 管理员批量删除医生
 export const reqDelDoctorBatch = (ids: number[]): Promise<Res> =>
     reqApi.delete<string, Res>("doctor/batch/" + ids)
+// 医生的登陆信息
+export const reqGetLoginD = (): Promise<DoctorDto> =>
+    reqApi<string, DoctorDto>("/doctorLog")
+// 医生的姓名列表
+export const reqDoctorName = (): Promise<NameVo[]> =>
+    reqApi<string, NameVo[]>("doctor")

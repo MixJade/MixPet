@@ -26,16 +26,11 @@
         <el-button round type="danger">找回密码</el-button>
       </el-col>
     </div>
-    <!-- 管理员登录 -->
+    <!-- 医生登录 -->
     <div :style="{ transform: pairAdmin }" class="mixJade">
       <img alt="普通入口" height="48" src="/mia.svg" width="64" @click="adminToClient">
-      <LoginForm :role="RoleEnum.ADMIN" @loginSuc="getLoginRole"/>
-      <el-button plain round type="primary" @click="adminToDoctor">医生登录</el-button>
-    </div>
-    <!-- 医生登录 -->
-    <div :style="{ transform: pairDoctor }" class="mixJade">
       <LoginForm :role="RoleEnum.DOCTOR" @loginSuc="getLoginRole"/>
-      <el-button plain round type="success" @click="doctorToAdmin">管理员登录</el-button>
+      <div style="color: #6c757d">智慧唯在沉思中得享</div>
     </div>
   </div>
 </template>
@@ -56,15 +51,12 @@ const router = useRouter()
 const getLoginRole = () => {
   reqGetLogin().then(resp => {
     if (resp === RoleEnum.CLIENT) router.push("/reception")
-    else if (resp === RoleEnum.ADMIN) router.push("/backstage")
-    else if (resp === RoleEnum.DOCTOR) router.push("/doctorPage")
-    else console.log("当前未登陆")
+    else if (resp === RoleEnum.DOCTOR) router.push("/backstage")
   })
 }
 
 const pairClient = ref<string>("rotateY(0deg)")
 const pairAdmin = ref<string>("rotateY(180deg)")
-const pairDoctor = ref<string>("rotateX(180deg)")
 const backColor = reactive({
   begin: "MediumVioletRed",
   end: "MediumOrchid"
@@ -82,20 +74,6 @@ const adminToClient = () => {
   pairClient.value = "rotateY(0deg)"
   backColor.begin = "MediumVioletRed"
   backColor.end = "MediumOrchid"
-}
-
-const adminToDoctor = () => {
-  pairAdmin.value = "rotateX(180deg)"
-  pairDoctor.value = "rotateX(0deg)"
-  backColor.begin = "BlueViolet"
-  backColor.end = "CornflowerBlue"
-}
-
-const doctorToAdmin = () => {
-  pairDoctor.value = "rotateX(180deg)"
-  pairAdmin.value = "rotateX(0deg)"
-  backColor.begin = "ForestGreen"
-  backColor.end = "DeepSkyBlue"
 }
 </script>
 

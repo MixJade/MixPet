@@ -7,7 +7,7 @@ import java.util.Date;
  * 生成新的订单号
  */
 public enum CodeEnum {
-    FOSTER(1), ADOPT(2), DOCTOR(3);
+    FOSTER(1);
     private final int typeNum;
 
     CodeEnum(int typeNum) {

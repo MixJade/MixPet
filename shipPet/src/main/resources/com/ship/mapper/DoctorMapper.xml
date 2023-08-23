@@ -4,7 +4,7 @@
     <!--分页查询-->
     <select id="selectDoctorPage" resultType="com.ship.model.dto.DoctorDto">
         SELECT
-        doctor_id,a.department_id,doctor_code,doctor_name,doctor_gender,doctor_age,doctor_photo,doctor_tel,doctor_job,doctor_info,b.department_name
+        doctor_id,a.department_id,username,doctor_name,doctor_gender,doctor_age,doctor_photo,doctor_tel,auth_lv,doctor_info,b.department_name
         FROM doctor AS a
         LEFT JOIN department AS b
         ON a.department_id=b.department_id
@@ -21,13 +21,13 @@
     <!--根据id查询单个-->
     <select id="selectOneId" resultType="com.ship.model.dto.DoctorDto">
         SELECT doctor_id,
-               doctor_code,
+               username,
                doctor_name,
                doctor_gender,
                doctor_age,
                doctor_photo,
                doctor_tel,
-               doctor_job,
+               auth_lv,
                doctor_info,
                b.department_name
         FROM doctor AS a

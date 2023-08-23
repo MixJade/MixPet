@@ -33,6 +33,16 @@ public class DoctorController {
     }
 
     /**
+     * 管理员：在添加科室主任时，查询医生姓名
+     *
+     * @return 医生姓名与id
+     */
+    @GetMapping
+    public List<NameVo> getName() {
+        return doctorService.selectName();
+    }
+
+    /**
      * 管理员：在添加挂号单时，通过科室查询医生
      *
      * @param departmentId 科室id
@@ -62,6 +72,7 @@ public class DoctorController {
     @PostMapping
     @Secured(RoleConst.MANAGER)
     public Result save(@RequestBody Doctor doctor) {
+        if (StrUtil.isWhite(doctor.getUsername())) return Result.error("帐号不能为空");
         if (StrUtil.isWhite(doctor.getDoctorName())) return Result.error("姓名不能为空");
         return Result.choice("添加", doctorService.addDoctor(doctor));
     }
@@ -82,7 +93,7 @@ public class DoctorController {
     @Secured(RoleConst.MANAGER)
     public Result update(@RequestBody Doctor doctor) {
         if (StrUtil.isWhite(doctor.getDoctorName())) return Result.error("姓名不能为空");
-        if (StrUtil.isWhite(doctor.getDoctorJob())) doctor.setDoctorJob("医生");
+        if (doctor.getAuthLv() == null) doctor.setAuthLv(0);
         return Result.choice("修改", doctorService.updateById(doctor));
     }
 }

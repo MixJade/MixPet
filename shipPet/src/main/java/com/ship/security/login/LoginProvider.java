@@ -2,7 +2,6 @@ package com.ship.security.login;
 
 import com.ship.security.details.ClientDetails;
 import com.ship.security.details.DoctorDetails;
-import com.ship.security.details.EmployeeDetails;
 import com.ship.security.model.LoginVo;
 import com.ship.security.model.RoleEnum;
 import org.slf4j.Logger;
@@ -27,14 +26,11 @@ public class LoginProvider extends AbstractUserDetailsAuthenticationProvider {
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final ClientDetails clientDetails;
     private final DoctorDetails doctorDetails;
-    private final EmployeeDetails employeeDetails;
 
     public LoginProvider(ClientDetails clientDetails,
-                         DoctorDetails doctorDetails,
-                         EmployeeDetails employeeDetails) {
+                         DoctorDetails doctorDetails) {
         this.clientDetails = clientDetails;
         this.doctorDetails = doctorDetails;
-        this.employeeDetails = employeeDetails;
         // 让用户名未找到的异常不被转化为凭证错误异常
         setHideUserNotFoundExceptions(false);
     }
@@ -61,9 +57,7 @@ public class LoginProvider extends AbstractUserDetailsAuthenticationProvider {
     protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         if (authentication.getPrincipal() instanceof LoginVo login) {
             log.info("角色：{}，用户名:{}", login.role(), login.username());
-            if (login.role() == RoleEnum.EMPLOYEE) {
-                return employeeDetails.loadUserByUsername(login.username());
-            } else if (login.role() == RoleEnum.DOCTOR) {
+            if (login.role() == RoleEnum.DOCTOR) {
                 return doctorDetails.loadUserByUsername(login.username());
             } else return clientDetails.loadUserByUsername(login.username());
         }

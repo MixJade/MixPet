@@ -15,7 +15,7 @@ import java.io.Serial;
  * </p>
  *
  * @author MixJade
- * @since 2023-08-22
+ * @since 2023-08-23
  */
 public class Doctor implements Serializable {
     @Serial
@@ -33,9 +33,9 @@ public class Doctor implements Serializable {
     private Integer departmentId;
 
     /**
-     * 医生工号
+     * 医生帐号
      */
-    private String doctorCode;
+    private String username;
 
     /**
      * 医生姓名
@@ -63,9 +63,9 @@ public class Doctor implements Serializable {
     private String doctorTel;
 
     /**
-     * 医生职位
+     * 权限等级
      */
-    private String doctorJob;
+    private Integer authLv;
 
     /**
      * 医生简介
@@ -110,12 +110,12 @@ public class Doctor implements Serializable {
         this.departmentId = departmentId;
     }
 
-    public String getDoctorCode() {
-        return doctorCode;
+    public String getUsername() {
+        return username;
     }
 
-    public void setDoctorCode(String doctorCode) {
-        this.doctorCode = doctorCode;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getDoctorName() {
@@ -158,12 +158,12 @@ public class Doctor implements Serializable {
         this.doctorTel = doctorTel;
     }
 
-    public String getDoctorJob() {
-        return doctorJob;
+    public Integer getAuthLv() {
+        return authLv;
     }
 
-    public void setDoctorJob(String doctorJob) {
-        this.doctorJob = doctorJob;
+    public void setAuthLv(Integer authLv) {
+        this.authLv = authLv;
     }
 
     public String getDoctorInfo() {
@@ -211,13 +211,13 @@ public class Doctor implements Serializable {
         return "Doctor{" +
                 "doctorId = " + doctorId +
                 ", departmentId = " + departmentId +
-                ", doctorCode = " + doctorCode +
+                ", username = " + username +
                 ", doctorName = " + doctorName +
                 ", doctorGender = " + doctorGender +
                 ", doctorAge = " + doctorAge +
                 ", doctorPhoto = " + doctorPhoto +
                 ", doctorTel = " + doctorTel +
-                ", doctorJob = " + doctorJob +
+                ", authLv = " + authLv +
                 ", doctorInfo = " + doctorInfo +
                 ", doctorPassword = " + doctorPassword +
                 ", createTime = " + createTime +

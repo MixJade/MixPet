@@ -19,7 +19,7 @@
       </template>
     </el-table-column>
     <el-table-column label="医生名" prop="doctorName"/>
-    <el-table-column label="工号" prop="doctorCode"/>
+    <el-table-column label="帐号" prop="username"/>
     <el-table-column label="性别">
       <template #default="scope">
         <TagSex :sex="scope.row.doctorGender"/>
@@ -35,9 +35,9 @@
         <el-tag>{{ scope.row.departmentName }}</el-tag>
       </template>
     </el-table-column>
-    <el-table-column label="职位">
+    <el-table-column label="职位" prop="authLv" sortable>
       <template #default="scope">
-        <el-tag>{{ scope.row.doctorJob }}</el-tag>
+        <el-tag>{{ getJob(scope.row.authLv) }}</el-tag>
       </template>
     </el-table-column>
     <el-table-column fixed="right" label="操作">
@@ -57,6 +57,9 @@
     <UpImg :photoNm="form.doctorPhoto" @upPhoto="changePhoto"/>
     <!--表单-->
     <el-form ref="myFormRef" :model="form" :rules="rules" label-width="120px">
+      <el-form-item label="帐号" prop="username">
+        <el-input v-model="form.username" clearable placeholder="医生帐号"/>
+      </el-form-item>
       <el-form-item label="姓名" prop="doctorName">
         <el-input v-model="form.doctorName" clearable placeholder="医生姓名"/>
       </el-form-item>
@@ -66,8 +69,12 @@
         </el-select>
       </el-form-item>
       <el-form-item label="职位" prop="doctorJob">
-        <el-select v-model="form.doctorJob" placeholder="医生">
-          <el-option v-for="j in doctorJobs" :key="j" :label="j" :value="j"/>
+        <el-select v-model="form.authLv" placeholder="医生">
+          <el-option :value="8" label="院长"/>
+          <el-option :value="6" label="主任"/>
+          <el-option :value="4" label="医生"/>
+          <el-option :value="2" label="护士"/>
+          <el-option :value="0" label="临时工"/>
         </el-select>
       </el-form-item>
       <el-form-item label="性别">
@@ -115,6 +122,7 @@ import BackPage from "@/components/BackPage.vue";
 import UpImg from "@/components/UpImg.vue";
 import {PageQuery, YDoctorList} from "@/model/VO/BackQuery";
 import {getAge} from "@/utils/TimeUtil";
+import {getJob} from "@/utils/JobUtil";
 import {DoctorDto} from "@/model/DO/DoctorDto";
 import TagSex from "@/components/TagSex.vue";
 import {Page} from "@/model/DO/Page";
@@ -123,7 +131,7 @@ import {Res} from "@/request/Res";
 import {Doctor, exampleDoctor} from "@/model/entiy/Doctor";
 import {ElMessageBox, FormInstance, FormRules} from "element-plus";
 import {reqDepartName} from "@/request/DepartApi";
-import {Name} from "@/model/entiy/Name";
+import {NameVo} from "@/model/VO/NameVo";
 
 onMounted(() => {
   sendQuery()
@@ -131,7 +139,6 @@ onMounted(() => {
     departNameL.value = res
   })
 })
-const doctorJobs: string[] = ["院长", "副院长", "主任", "副主任", "医生", "护士", "临时工", "外聘专家"]
 // 查询的参数
 const qp: YDoctorList = reactive({
   doctorName: '',
@@ -188,7 +195,7 @@ const delBatchB = (): void => {
   reqDelDoctorBatch(roleIdList.value).then(res => sureFlush(res));
 }
 // 表单的数据
-const departNameL = ref<Name[]>([]) // 下拉框部门名称
+const departNameL = ref<NameVo[]>([]) // 下拉框部门名称
 const form = ref<Doctor>(exampleDoctor()) // 空的默认值
 const myFormRef = ref<FormInstance>()
 // 校验表单并提交
@@ -205,6 +212,9 @@ const formSubmit = async (): Promise<void> => {
 }
 // 表单校验规则
 const rules = reactive<FormRules>({
+  "username": [
+    {required: true, message: '帐号不能为空', trigger: 'blur'},
+  ],
   "doctorName": [
     {required: true, message: '请输入姓名', trigger: 'blur'},
   ],

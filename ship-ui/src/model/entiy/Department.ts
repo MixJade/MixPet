@@ -2,7 +2,7 @@ export interface Department {
     departmentId: number;
     departmentName: string;
     departmentInfo: string;
-    departmentAddress: string;
+    headId: number;
     createTime?: null | string;
     updateTime?: null | string;
 }
@@ -15,6 +15,6 @@ export const exampleDepart = (): Department => {
         "departmentId": 0,
         "departmentName": "",
         "departmentInfo": "",
-        "departmentAddress": ""
+        "headId": 0
     }
 }

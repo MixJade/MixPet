@@ -2,7 +2,7 @@
   <el-container>
     <el-aside width="200px">
       <router-link to="/backstage">
-        <el-avatar :src="'/api/common/download?name='+employeeNow.photo" alt="头像"/>
+        <el-avatar :src="'/api/common/download?name='+doctorNow.photo" alt="头像"/>
       </router-link>
       <el-menu
           :default-active="$route.path"
@@ -18,10 +18,10 @@
             </el-icon>
             <span>个人中心</span>
           </template>
-          <el-menu-item-group :title="employeeNow.name">
+          <el-menu-item-group :title="doctorNow.name">
             <el-menu-item index="/backstage">个人资料</el-menu-item>
             <el-menu-item index="/backstage/x-departmentList">科室列表</el-menu-item>
-            <el-menu-item index="/backstage/x-employeeList">员工列表</el-menu-item>
+            <el-menu-item index="/backstage/x-doctorList">医生列表</el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
         <el-menu-item index="/backstage/y-clientList">
@@ -35,12 +35,6 @@
             <Football/>
           </el-icon>
           <span>宠物列表</span>
-        </el-menu-item>
-        <el-menu-item index="/backstage/y-doctorList">
-          <el-icon>
-            <Apple/>
-          </el-icon>
-          <span>医生列表</span>
         </el-menu-item>
         <el-menu-item index="/backstage/y-appointmentList">
           <el-icon>
@@ -75,26 +69,17 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  Apple,
-  DataBoard,
-  Football,
-  Menu as IconMenu,
-  OfficeBuilding,
-  School,
-  Tickets,
-  User,
-} from '@element-plus/icons-vue'
-import {reqGetLoginE} from "@/request/EmployeeApi";
+import {DataBoard, Football, Menu as IconMenu, OfficeBuilding, School, Tickets, User,} from '@element-plus/icons-vue'
 import {reactive} from "vue";
+import {reqGetLoginD} from "@/request/DoctorApi";
 
-const employeeNow = reactive({
+const doctorNow = reactive({
   name: "",
   photo: "zs.jpg"
 })
-reqGetLoginE().then(res => {
-  employeeNow.photo = res.employeePhoto
-  employeeNow.name = res.employeeName
+reqGetLoginD().then(res => {
+  doctorNow.photo = res.doctorPhoto
+  doctorNow.name = res.doctorName
 })
 </script>
 

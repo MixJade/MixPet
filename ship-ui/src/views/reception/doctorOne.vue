@@ -15,14 +15,14 @@
                 <td colspan="2"><span style="font-weight: bolder">{{ doctorDetail.doctorName }}</span></td>
               </tr>
               <tr>
-                <td colspan="2">工号：{{ doctorDetail.doctorCode }}</td>
+                <td colspan="2">{{ doctorDetail.username }}</td>
               </tr>
               <tr class="hide-narrow">
                 <td class="right-align">{{ getAge(doctorDetail.doctorAge) }}岁&nbsp;</td>
                 <td class="left-align">&nbsp;{{ doctorDetail.doctorGender ? "男" : "女" }}</td>
               </tr>
               <tr class="hide-narrow">
-                <td class="right-align">{{ doctorDetail.doctorJob }}&nbsp;</td>
+                <td class="right-align">{{ getJob(doctorDetail.authLv) }}&nbsp;</td>
                 <td class="left-align">&nbsp;{{ doctorDetail.departmentName }}</td>
               </tr>
               <tr class="hide-narrow">
@@ -58,6 +58,7 @@
 <script lang="ts" setup>
 import PageHead from "@/components/PageHead.vue";
 import {getAge, moveT} from "@/utils/TimeUtil";
+import {getJob} from "@/utils/JobUtil";
 import {DoctorDto} from "@/model/DO/DoctorDto";
 import {AppointDto} from "@/model/DO/AppointDto";
 import {onMounted, ref} from "vue";
@@ -70,13 +71,13 @@ const props = defineProps<{
 }>()
 const doctorDetail = ref<DoctorDto>({
   "doctorId": 0,
-  "doctorCode": "",
+  "username": "",
   "doctorName": "",
   "doctorGender": true,
   "doctorAge": "",
   "doctorPhoto": "",
   "doctorTel": "",
-  "doctorJob": "",
+  "authLv": 0,
   "doctorInfo": "",
   "departmentName": ""
 })

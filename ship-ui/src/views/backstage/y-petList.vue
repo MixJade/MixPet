@@ -114,7 +114,7 @@ import TagSex from "@/components/TagSex.vue";
 import BackPage from "@/components/BackPage.vue";
 import {reqAddPet, reqDelPet, reqDelPetBatch, reqPetList, reqUpdatePet} from "@/request/PetApi";
 import {Page} from "@/model/DO/Page";
-import {Name} from "@/model/entiy/Name";
+import {NameVo} from "@/model/VO/NameVo";
 import {reqClientName} from "@/request/ClientApi";
 import {ElMessageBox, FormInstance, FormRules} from "element-plus";
 import UpImg from "@/components/UpImg.vue";
@@ -179,7 +179,7 @@ const showDialog = (row: Pet): void => {
   modalView.value = true
 }
 // 表单的数据
-const clientNameL = ref<Name[]>([]) // 下拉框用户名
+const clientNameL = ref<NameVo[]>([]) // 下拉框用户名
 const form = ref<Pet>(examplePet()) // 空的默认值
 const myFormRef = ref<FormInstance>()
 // 校验表单并提交

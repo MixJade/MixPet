@@ -9,11 +9,6 @@
         SELECT doctor_photo FROM doctor WHERE doctor_photo IS NOT NULL AND doctor_photo != ''
         UNION
         SELECT pet_photo FROM pet WHERE pet_photo IS NOT NULL AND pet_photo != ''
-        UNION
-        SELECT employee_photo
-        FROM employee
-        WHERE employee_photo IS NOT NULL
-          AND employee_photo != ''
     </select>
     <!-- @formatter:on-->
     <!--分页查询-->
@@ -28,12 +23,12 @@
         a.update_time,
         is_disable,
         a.is_del,
-        b.employee_name AS create_name,
-        c.employee_name AS update_name
+        b.doctor_name AS create_name,
+        c.doctor_name AS update_name
         FROM
         notice AS a
-        LEFT JOIN employee AS b ON a.creat_id = b.employee_id
-        LEFT JOIN employee AS c ON a.update_id = c.employee_id
+        LEFT JOIN doctor AS b ON a.creat_id = b.doctor_id
+        LEFT JOIN doctor AS c ON a.update_id = c.doctor_id
         WHERE
         a.is_del = 0
         <if test="noticeName!=null and noticeName!=''">

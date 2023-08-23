@@ -14,13 +14,13 @@ public interface RoleConst {
      */
     String NURSE = "ROLE_NURSE";
     /**
-     * 临时工
-     */
-    String LOSER = "ROLE_LOSER";
-    /**
      * 医生
      */
     String DOCTOR = "ROLE_DOCTOR";
+    /**
+     * 临时工
+     */
+    String LOSER = "ROLE_LOSER";
     /**
      * 用户
      */

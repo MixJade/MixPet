@@ -8,16 +8,12 @@ export const backstage: RouteRecordRaw[] = [
     {
         // 管理员个人中心
         path: "",
-        component: () => import('@/views/backstage/w-employeeOne.vue')
+        component: () => import('@/views/backstage/w-doctorOne.vue')
     }, {
         // 科室表
         path: "x-departmentList",
         component: () => import('@/views/backstage/x-departmentList.vue')
-    }, {
-        // 员工表
-        path: "x-employeeList",
-        component: () => import('@/views/backstage/x-employeeList.vue')
-    }, {
+    },{
         // 领养表
         path: "y-adoptList",
         component: () => import('@/views/backstage/y-adoptList.vue')
@@ -31,8 +27,8 @@ export const backstage: RouteRecordRaw[] = [
         component: () => import('@/views/backstage/y-clientList.vue')
     }, {
         // 医生表
-        path: "y-doctorList",
-        component: () => import('@/views/backstage/y-doctorList.vue')
+        path: "x-doctorList",
+        component: () => import('@/views/backstage/x-doctorList.vue')
     }, {
         // 寄养表
         path: "y-fosterList",
