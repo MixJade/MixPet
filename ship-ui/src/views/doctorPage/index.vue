@@ -69,7 +69,7 @@
 <script lang="ts" setup>
 
 import {onBeforeUnmount, onMounted, reactive} from "vue";
-import MyRow from "@/components/MyRow.vue";
+import MyRow from "@/components/show/MyRow.vue";
 // 一秒执行一次
 let timeTimer: NodeJS.Timer;
 

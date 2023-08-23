@@ -1,20 +1,43 @@
 <template>
   <!--  封装的公共导航栏-->
-  <el-page-header @back="$router.back()">
-    <template #title>
-      <span style="color: #5b88ea">返回</span>
-    </template>
-    <template #content>
-      <span style="cursor: default;font-size: smaller"><slot></slot></span>
-    </template>
-  </el-page-header>
+  <div class="page-header">
+    <div class="back" @click="$router.back()">
+      <img alt="返回" src="/icon/back.svg">
+      <span>返回</span>
+    </div>
+    <span>
+      <slot></slot>
+    </span>
+  </div>
 </template>
 
 <script lang="ts" setup>
-/*=====前台的返回栏，有当前页面的标题====*/
 </script>
 <style lang="scss" scoped>
-.el-page-header {
+.page-header {
   margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px;
+  height: 32px;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+
+  .back {
+    color: #5b88ea;
+    display: flex;
+    align-items: center;
+    height: 32px;
+    width: 72px;
+    border-right: #606266 dotted 4px;
+  }
+
+  & > span {
+    font-size: large;
+    font-weight: bold;
+    color: #606266;
+  }
 }
 </style>

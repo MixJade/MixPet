@@ -19,7 +19,7 @@
 <script lang="ts" setup>
 /*=====前台的医生卡片批量展示=====*/
 import MyCard from "@/components/card/MyCard.vue";
-import MyRow from "@/components/MyRow.vue";
+import MyRow from "@/components/show/MyRow.vue";
 import {getAge} from "@/utils/TimeUtil";
 import {DoctorDto} from "@/model/DO/DoctorDto";
 // 接收参数：医生卡片
