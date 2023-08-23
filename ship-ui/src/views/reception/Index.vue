@@ -115,8 +115,8 @@ import {reqFourPet} from "@/request/PetApi";
 import {reqFosterPet} from "@/request/FosterApi";
 import {reqFourNotice} from "@/request/NoticeApi";
 import {useRouter} from "vue-router";
-import VueFoot from "@/components/VueFoot.vue";
-import WindRoll from "@/components/WindRoll.vue";
+import VueFoot from "@/components/show/VueFoot.vue";
+import WindRoll from "@/components/show/WindRoll.vue";
 
 // 判断是否登录
 const isLogin = ref<boolean>(false)
