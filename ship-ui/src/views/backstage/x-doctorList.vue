@@ -40,6 +40,9 @@
         <el-tag>{{ getJob(scope.row.authLv) }}</el-tag>
       </template>
     </el-table-column>
+    <el-table-column label="工龄" prop="createTime" sortable>
+      <template #default="scope">{{ getDaysFromToday(scope.row.createTime) }}</template>
+    </el-table-column>
     <el-table-column fixed="right" label="操作">
       <template #default="scope">
         <el-button-group>
@@ -121,7 +124,7 @@ import BackOpCol from "@/components/BackOpCol.vue";
 import BackPage from "@/components/BackPage.vue";
 import UpImg from "@/components/UpImg.vue";
 import {PageQuery, YDoctorList} from "@/model/VO/BackQuery";
-import {getAge} from "@/utils/TimeUtil";
+import {getAge, getDaysFromToday} from "@/utils/TimeUtil";
 import {getJob} from "@/utils/JobUtil";
 import {DoctorDto} from "@/model/DO/DoctorDto";
 import TagSex from "@/components/TagSex.vue";

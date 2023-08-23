@@ -4,11 +4,14 @@
     <!--分页查询-->
     <select id="selectDoctorPage" resultType="com.ship.model.dto.DoctorDto">
         SELECT
-        doctor_id,a.department_id,username,doctor_name,doctor_gender,doctor_age,doctor_photo,doctor_tel,auth_lv,doctor_info,b.department_name
-        FROM doctor AS a
+        doctor_id,d.department_id,username,
+        d.create_time,doctor_name,doctor_gender,
+        doctor_age,doctor_photo,doctor_tel,
+        auth_lv,doctor_info,b.department_name
+        FROM doctor AS d
         LEFT JOIN department AS b
-        ON a.department_id=b.department_id
-        WHERE a.is_del = 0
+        ON d.department_id=b.department_id
+        WHERE d.is_del = 0
         <if test="doctorName!=null and doctorName!=''">
             <bind name="doctorName" value="'%'+doctorName+'%'"/>
             and doctor_name like #{doctorName}
