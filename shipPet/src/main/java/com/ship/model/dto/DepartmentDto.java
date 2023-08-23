@@ -8,11 +8,24 @@ public class DepartmentDto extends Department {
      */
     private int doctorNum;
 
+    /**
+     * 主任名称
+     */
+    private String headName;
+
     public int getDoctorNum() {
         return doctorNum;
     }
 
     public void setDoctorNum(int doctorNum) {
         this.doctorNum = doctorNum;
+    }
+
+    public String getHeadName() {
+        return headName;
+    }
+
+    public void setHeadName(String headName) {
+        this.headName = headName;
     }
 }

@@ -1,13 +1,13 @@
 export interface Doctor {
     doctorId: number;
     departmentId?: number | null;
-    doctorCode: string;
+    username: string;
     doctorName: string;
     doctorGender: boolean;
     doctorAge: string;
     doctorPhoto: string;
     doctorTel: string;
-    doctorJob: string;
+    authLv: number;
     doctorInfo: string;
     doctorPassword?: string | null;
     createTime?: string | null;
@@ -21,13 +21,13 @@ export const exampleDoctor = (): Doctor => {
     return {
         doctorId: 0,
         departmentId: null,
-        doctorCode: "",
+        username: "",
         doctorName: "",
         doctorGender: false,
         doctorAge: "",
         doctorPhoto: "",
         doctorTel: "",
-        doctorJob: "",
+        authLv: 0,
         doctorInfo: ""
     }
 }

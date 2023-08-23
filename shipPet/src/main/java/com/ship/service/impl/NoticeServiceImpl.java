@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ship.common.PhotoEnum;
 import com.ship.mapper.NoticeMapper;
 import com.ship.model.dto.NoticeDto;
-import com.ship.model.entity.Employee;
+import com.ship.model.entity.Doctor;
 import com.ship.model.entity.Notice;
 import com.ship.service.INoticeService;
 import com.ship.util.UserUtil;
@@ -88,7 +88,6 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
 
     @Override
     public boolean deleteById(Integer noticeId) {
-
         return this.lambdaUpdate()
                 .eq(Notice::getNoticeId, noticeId)
                 .set(Notice::getIsDel, System.currentTimeMillis())
@@ -119,8 +118,8 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
 
     @Override
     public boolean addNotice(NoticeDto noticeDto) {
-        if (UserUtil.getUser() instanceof Employee employee) {
-            noticeDto.setCreatId(employee.getEmployeeId());
+        if (UserUtil.getUser() instanceof Doctor doctor) {
+            noticeDto.setCreatId(doctor.getDoctorId());
             String path = UUID.randomUUID() + ".txt";
             writeText(noticeDto.getTextNotice(), path);
             return baseMapper.addNotice(noticeDto.getCreatId(), noticeDto.getNoticeTitle(), path);
@@ -129,10 +128,11 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> impleme
 
     @Override
     public boolean updateNotice(NoticeDto noticeDto) {
-        Employee employee = (Employee) UserUtil.getUser();
-        noticeDto.setUpdateId(employee.getEmployeeId());
-        writeText(noticeDto.getTextNotice(), noticeDto.getNoticeFile());
-        return baseMapper.updateNotice(noticeDto);
+        if (UserUtil.getUser() instanceof Doctor doctor) {
+            noticeDto.setUpdateId(doctor.getDoctorId());
+            writeText(noticeDto.getTextNotice(), noticeDto.getNoticeFile());
+            return baseMapper.updateNotice(noticeDto);
+        } else return false;
     }
 
     @Override

@@ -14,10 +14,6 @@ export const doctorPage: RouteRecordRaw[] = [
         path: "d-appoint",
         component: () => import('@/views/doctorPage/d-appoint.vue'),
     }, {
-        // 医生的个人中心
-        path: "doctorOne",
-        component: () => import('@/views/doctorPage/doctorOne.vue'),
-    }, {
         // 医生的聊天
         path: "d-chat",
         component: () => import('@/views/doctorPage/d-chat.vue'),

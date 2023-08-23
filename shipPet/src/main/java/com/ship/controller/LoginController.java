@@ -4,11 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.ship.common.Result;
 import com.ship.common.SendMail;
+import com.ship.mapper.ClientMapper;
 import com.ship.model.dto.RegisterDto;
 import com.ship.model.entity.Client;
 import com.ship.model.entity.Doctor;
-import com.ship.model.entity.Employee;
-import com.ship.mapper.ClientMapper;
 import com.ship.security.model.RoleEnum;
 import com.ship.util.StrUtil;
 import com.ship.util.UserUtil;
@@ -41,9 +40,7 @@ public class LoginController {
     @GetMapping
     public RoleEnum getLogin() {
         Object principal = UserUtil.getUser();
-        if (principal instanceof Employee) {
-            return RoleEnum.EMPLOYEE;
-        } else if (principal instanceof Client) {
+        if (principal instanceof Client) {
             return RoleEnum.CLIENT;
         } else if (principal instanceof Doctor) {
             return RoleEnum.DOCTOR;

@@ -9,8 +9,10 @@ export const getJob = (level: number): string => {
         case 2:
             return "护士"
         case 4:
-            return "主任"
+            return "医生"
         case 6:
+            return "主任"
+        case 8:
             return "院长"
         default:
             return "啥也不是"

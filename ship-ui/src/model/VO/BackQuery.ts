@@ -23,11 +23,6 @@ export interface YDoctorList extends PageQuery {
     departmentName: string
 }
 
-// 医生列表的查询参数
-export interface XEmployeeList extends PageQuery {
-    employeeName: string
-}
-
 // 科室列表的查询参数
 export interface XDepartmentList extends PageQuery {
     departmentName: string

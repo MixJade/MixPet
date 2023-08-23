@@ -62,19 +62,19 @@ public class AppointmentController {
     }
 
     @DeleteMapping("/{id}")
-    @Secured(RoleConst.MANAGER)
+    @Secured(RoleConst.DOCTOR)
     public Result delete(@PathVariable Integer id) {
         return Result.choice("删除单个", appointmentService.deleteById(id));
     }
 
     @DeleteMapping("/batch/{ids}")
-    @Secured(RoleConst.MANAGER)
+    @Secured(RoleConst.DOCTOR)
     public Result deleteGroup(@PathVariable List<Integer> ids) {
         return Result.choice("删除多个", appointmentService.deleteByIds(ids));
     }
 
     @PutMapping
-    @Secured({RoleConst.MANAGER, RoleConst.DOCTOR})
+    @Secured(RoleConst.DOCTOR)
     public Result update(@RequestBody Appointment appointment) {
         return Result.choice("修改", appointmentService.updateById(appointment));
     }

@@ -4,7 +4,7 @@ import reqApi from "@/request/reqAPI";
 import {DepartDto} from "@/model/DO/DepartDto";
 import {Res} from "@/request/Res";
 import {Department} from "@/model/entiy/Department";
-import {Name} from "@/model/entiy/Name";
+import {NameVo} from "@/model/VO/NameVo";
 
 // 后台科室列表
 export const reqDepartList = (page: XDepartmentList): Promise<Page<DepartDto>> =>
@@ -22,5 +22,5 @@ export const reqDelDepart = (id: number): Promise<Res> =>
 export const reqDelDepartBatch = (ids: number[]): Promise<Res> =>
     reqApi.delete<string, Res>("department/batch/" + ids)
 // 后台科室名称
-export const reqDepartName = (): Promise<Name[]> =>
-    reqApi<string, Name[]>("department")
+export const reqDepartName = (): Promise<NameVo[]> =>
+    reqApi<string, NameVo[]>("department")

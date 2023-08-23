@@ -4,7 +4,7 @@
     <header>
       <ul>
         <li>
-          <router-link to="/doctorPage/doctorOne">个人中心</router-link>
+          <router-link to="/backstage">个人中心</router-link>
         </li>
         <li>
           <router-link to="/doctorPage/d-appoint">处理挂号</router-link>

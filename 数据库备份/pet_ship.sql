@@ -11,7 +11,7 @@
  Target Server Version : 80033
  File Encoding         : 65001
 
- Date: 03/08/2023 21:13:37
+ Date: 23/08/2023 23:47:14
 */
 
 SET NAMES utf8mb4;
@@ -23,7 +23,6 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `adopt`;
 CREATE TABLE `adopt` (
   `adopt_id` int NOT NULL AUTO_INCREMENT COMMENT '领养表的id',
-  `adopt_code` varchar(16) NOT NULL COMMENT '订单编号',
   `pet_id` int NOT NULL COMMENT '领养宠物的id',
   `client_id` int NOT NULL COMMENT '领养人id',
   `adopt_money` int NOT NULL DEFAULT '0' COMMENT '领养押金',
@@ -33,25 +32,25 @@ CREATE TABLE `adopt` (
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   `is_del` bigint NOT NULL DEFAULT '0' COMMENT '逻辑删除，默认0，填充删除日期',
   PRIMARY KEY (`adopt_id`),
-  UNIQUE KEY `adopt_code` (`adopt_code`,`is_del`),
   KEY `pet_id` (`pet_id`),
   KEY `client_id` (`client_id`),
   CONSTRAINT `adopt_ibfk_1` FOREIGN KEY (`pet_id`) REFERENCES `pet` (`pet_id`),
   CONSTRAINT `adopt_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 COMMENT='领养宠物订单';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COMMENT='领养宠物订单';
 
 -- ----------------------------
 -- Records of adopt
 -- ----------------------------
 BEGIN;
-INSERT INTO `adopt` VALUES (1, '22301121', 26, 1, 234, '领养三毛', 1, '2023-01-12 16:45:49', '2023-02-12 21:58:52', 0);
-INSERT INTO `adopt` VALUES (2, '22301122', 34, 3, 300, '小狐狸^_^', 1, '2023-01-12 21:38:33', '2023-01-12 21:38:33', 0);
-INSERT INTO `adopt` VALUES (3, '22301123', 22, 3, 10, '五花比四花多一花', 1, '2023-01-12 21:51:59', '2023-01-12 21:51:59', 0);
-INSERT INTO `adopt` VALUES (4, '22301194', 19, 1, 888, '喵喵喵', 0, '2023-01-19 12:12:01', '2023-01-19 12:12:01', 0);
-INSERT INTO `adopt` VALUES (5, '22301225', 28, 6, 200, '养着玩', 1, '2023-01-22 18:58:42', '2023-01-22 18:58:42', 0);
-INSERT INTO `adopt` VALUES (6, '22302136', 23, 3, 32323, '测试', 2, '2023-02-13 21:25:05', '2023-02-13 21:25:05', 0);
-INSERT INTO `adopt` VALUES (7, '22302137', 19, 2, 2333, '狸二花，名花有主', 2, '2023-02-13 21:39:15', '2023-02-18 15:14:32', 0);
-INSERT INTO `adopt` VALUES (8, '22302188', 24, 6, 233, '金毛嘿嘿嘿', 2, '2023-02-18 14:17:15', '2023-02-18 14:17:15', 0);
+INSERT INTO `adopt` VALUES (1, 26, 1, 234, '领养三毛', 1, '2023-01-12 16:45:49', '2023-02-12 21:58:52', 0);
+INSERT INTO `adopt` VALUES (2, 34, 3, 300, '小狐狸^_^', 1, '2023-01-12 21:38:33', '2023-01-12 21:38:33', 0);
+INSERT INTO `adopt` VALUES (3, 22, 3, 10, '五花比四花多一花', 1, '2023-01-12 21:51:59', '2023-01-12 21:51:59', 0);
+INSERT INTO `adopt` VALUES (4, 19, 1, 888, '喵喵喵', 0, '2023-01-19 12:12:01', '2023-01-19 12:12:01', 0);
+INSERT INTO `adopt` VALUES (5, 28, 6, 200, '养着玩', 1, '2023-01-22 18:58:42', '2023-01-22 18:58:42', 0);
+INSERT INTO `adopt` VALUES (6, 23, 3, 32323, '测试', 2, '2023-02-13 21:25:05', '2023-02-13 21:25:05', 0);
+INSERT INTO `adopt` VALUES (7, 19, 2, 2333, '狸二花，名花有主', 2, '2023-02-13 21:39:15', '2023-02-18 15:14:32', 0);
+INSERT INTO `adopt` VALUES (8, 24, 6, 233, '金毛嘿嘿嘿', 2, '2023-02-18 14:17:15', '2023-02-18 14:17:15', 0);
+INSERT INTO `adopt` VALUES (9, 14, 1, 300, 'ces', 2, '2023-08-23 22:38:08', '2023-08-23 22:38:08', 0);
 COMMIT;
 
 -- ----------------------------
@@ -141,23 +140,25 @@ CREATE TABLE `department` (
   `department_id` int NOT NULL AUTO_INCREMENT COMMENT '科室id',
   `department_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL COMMENT '科室名称',
   `department_info` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL COMMENT '科室简介',
-  `department_address` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL COMMENT '科室地址',
+  `head_id` int DEFAULT NULL COMMENT '主任ID',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   `is_del` bigint NOT NULL DEFAULT '0' COMMENT '逻辑删除，默认0，填充删除日期',
   PRIMARY KEY (`department_id`),
-  UNIQUE KEY `department_name` (`department_name`)
+  UNIQUE KEY `department_name` (`department_name`),
+  KEY `head_id` (`head_id`),
+  CONSTRAINT `department_ibfk_1` FOREIGN KEY (`head_id`) REFERENCES `doctor` (`doctor_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 COMMENT='部门表';
 
 -- ----------------------------
 -- Records of department
 -- ----------------------------
 BEGIN;
-INSERT INTO `department` VALUES (1, '犬猫科', '主要整治猫猫狗狗', '一楼227', '2022-12-22 11:11:19', '2023-03-08 18:16:54', 0);
-INSERT INTO `department` VALUES (2, '骨科', '专治跌打损伤', '三楼238', '2023-01-03 21:00:02', '2023-03-08 18:17:03', 0);
-INSERT INTO `department` VALUES (3, '化验室', '进行化验', '三楼226', '2023-01-03 21:02:17', '2023-03-08 18:19:01', 0);
-INSERT INTO `department` VALUES (4, '美容室', '对宠物进行美容', '三楼327', '2023-01-03 21:04:50', '2023-03-08 18:17:32', 0);
-INSERT INTO `department` VALUES (8, '中兽科', '传统中医治兽', '一楼125', '2023-01-07 20:11:51', '2023-03-08 18:18:35', 0);
+INSERT INTO `department` VALUES (1, '犬猫科', '主要整治猫猫狗狗', 1, '2022-12-22 11:11:19', '2023-03-08 18:16:54', 0);
+INSERT INTO `department` VALUES (2, '骨科', '专治跌打损伤', 8, '2023-01-03 21:00:02', '2023-08-23 23:44:15', 0);
+INSERT INTO `department` VALUES (3, '化验室', '进行化验', NULL, '2023-01-03 21:02:17', '2023-03-08 18:19:01', 0);
+INSERT INTO `department` VALUES (4, '美容室', '对宠物进行美容', 2, '2023-01-03 21:04:50', '2023-03-08 18:17:32', 0);
+INSERT INTO `department` VALUES (8, '中兽科', '传统中医治兽', NULL, '2023-01-07 20:11:51', '2023-03-08 18:18:35', 0);
 COMMIT;
 
 -- ----------------------------
@@ -167,65 +168,36 @@ DROP TABLE IF EXISTS `doctor`;
 CREATE TABLE `doctor` (
   `doctor_id` int NOT NULL AUTO_INCREMENT COMMENT '医生id',
   `department_id` int DEFAULT NULL COMMENT '部门id',
-  `doctor_code` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL COMMENT '医生工号',
+  `username` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL COMMENT '医生帐号',
   `doctor_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL COMMENT '医生姓名',
   `doctor_gender` tinyint(1) NOT NULL DEFAULT '0' COMMENT '医生性别，1男0女',
   `doctor_age` date NOT NULL DEFAULT '2001-01-03' COMMENT '医生生日',
   `doctor_photo` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT 'defaultDoctor.jpg' COMMENT '医生照片名称',
   `doctor_tel` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL COMMENT '医生联系方式',
-  `doctor_job` varchar(16) DEFAULT '医生' COMMENT '医生职位',
+  `auth_lv` int DEFAULT '0' COMMENT '权限等级',
   `doctor_info` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT NULL COMMENT '医生简介',
   `doctor_password` varchar(72) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye' COMMENT '医生密码',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL COMMENT '修改时间',
   `is_del` bigint NOT NULL DEFAULT '0' COMMENT '逻辑删除，默认0，填充删除日期',
   PRIMARY KEY (`doctor_id`),
-  UNIQUE KEY `doctor_code` (`doctor_code`) USING BTREE,
+  UNIQUE KEY `doctor_code` (`username`) USING BTREE,
   KEY `fk_doctor_department` (`department_id`),
   CONSTRAINT `fk_doctor_department` FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COMMENT='医生表，外键部门';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3 COMMENT='医生表，外键部门';
 
 -- ----------------------------
 -- Records of doctor
 -- ----------------------------
 BEGIN;
-INSERT INTO `doctor` VALUES (1, 1, '32312221', '童德统', 1, '1990-10-10', 'doctor-1.jpg', '1114185977@qq.com', '副院长', '国内著名医学专家，擅长绝育', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '2022-12-22 11:16:11', '2023-03-02 22:31:36', 0);
-INSERT INTO `doctor` VALUES (2, 4, '32301062', '爱丽丝', 0, '2003-02-01', 'doctor-2.jpg', 'mix_pet_doctor@sina.com', '麻醉科主任', '擅长麻醉', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '2023-01-06 12:25:54', '2023-04-03 22:02:26', 0);
-INSERT INTO `doctor` VALUES (4, 8, '32301063', '汤姆', 1, '2000-01-11', 'doctor-3.jpg', '1114185977@qq.com', '医生', '擅长x光拍片', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '2023-01-06 12:29:10', '2023-03-08 18:19:36', 0);
-INSERT INTO `doctor` VALUES (5, 4, '32301064', '张大嘴', 0, '2002-01-05', 'doctor-4.jpg', 'mix_pet_doctor@sina.com', '医生', '著名宠物医美专家', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '2023-01-06 12:30:19', '2023-04-03 22:02:39', 0);
-INSERT INTO `doctor` VALUES (6, 3, '32301065', '李妙手', 1, '2001-01-06', '3b161abe-7142-449c-ab36-07a689da65de.jpg', '1114185977@qq.com', '医生', '国外著名医学专家', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '2023-01-06 12:31:30', '2023-04-03 21:36:43', 0);
-INSERT INTO `doctor` VALUES (8, 2, '32301076', '李正骨', 0, '2000-01-28', '3cd8e749-e177-4e5b-846c-930efab7bd38.jpg', '1114185977@qq.com', '医生', '国内外著名骨科专家', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '2023-01-07 16:35:23', '2023-04-03 21:35:09', 0);
-INSERT INTO `doctor` VALUES (9, 8, '32302189', '钟回春', 1, '2000-02-10', '92833192-79d4-42d6-a657-d000d8ca6295.jpg', 'mix_pet_doctor@sina.com', '医生', '多年老中医', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '2023-02-18 14:08:38', '2023-04-03 22:02:53', 0);
-COMMIT;
-
--- ----------------------------
--- Table structure for employee
--- ----------------------------
-DROP TABLE IF EXISTS `employee`;
-CREATE TABLE `employee` (
-  `employee_id` int NOT NULL AUTO_INCREMENT COMMENT '管理员id',
-  `employee_username` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL COMMENT '管理员账号',
-  `employee_password` varchar(72) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL DEFAULT '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye' COMMENT '管理员密码',
-  `employee_name` varchar(32) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL COMMENT '管理员姓名',
-  `employee_level` int NOT NULL DEFAULT '0' COMMENT '管理员等级',
-  `employee_tel` varchar(12) NOT NULL COMMENT '管理员联系方式',
-  `employee_photo` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin DEFAULT 'zs.jpg' COMMENT '管理员照片名称',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `is_del` bigint NOT NULL DEFAULT '0' COMMENT '逻辑删除，默认0，填充删除日期',
-  PRIMARY KEY (`employee_id`),
-  UNIQUE KEY `employee_username` (`employee_username`,`is_del`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COMMENT='员工表';
-
--- ----------------------------
--- Records of employee
--- ----------------------------
-BEGIN;
-INSERT INTO `employee` VALUES (1, 'admin', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '炒鸡管理员', 6, '13882244666', 'admm.jpg', '2022-12-22 11:08:31', '2023-04-04 13:58:16', 0);
-INSERT INTO `employee` VALUES (2, 'yun', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '李云', 4, '13882244666', 'doctor-1.jpg', '2023-01-05 21:34:23', '2023-03-02 23:01:21', 0);
-INSERT INTO `employee` VALUES (3, 'ra9', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '马库斯', 2, '13882244666', 'ju-cat.jpg', '2023-01-05 22:02:30', '2023-01-12 10:36:05', 0);
-INSERT INTO `employee` VALUES (4, 'wheat', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '作者', 4, '13882244666', 'san-yu.jpg', '2023-01-07 20:25:08', '2023-03-02 15:57:58', 0);
-INSERT INTO `employee` VALUES (5, 'zs', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '张三', 0, '13882244666', 'zs.jpg', '2023-01-12 12:25:41', '2023-01-13 16:17:12', 0);
+INSERT INTO `doctor` VALUES (1, 1, 'yun', '童德统', 1, '1990-10-10', 'doctor-1.jpg', '1114185977@qq.com', 6, '国内著名医学专家，擅长绝育', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '2022-12-22 11:16:11', '2023-03-02 22:31:36', 0);
+INSERT INTO `doctor` VALUES (2, 4, 'ais', '爱丽丝', 0, '2003-02-01', 'doctor-2.jpg', 'mix_pet_doctor@sina.com', 6, '擅长麻醉', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '2023-01-06 12:25:54', '2023-08-23 22:39:59', 0);
+INSERT INTO `doctor` VALUES (4, 8, 'tom', '汤姆', 1, '2000-01-11', 'doctor-3.jpg', '1114185977@qq.com', 4, '擅长x光拍片', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '2023-01-06 12:29:10', '2023-08-23 22:40:05', 0);
+INSERT INTO `doctor` VALUES (5, 4, 'zdz', '张大嘴', 0, '2002-01-05', 'doctor-4.jpg', 'mix_pet_doctor@sina.com', 4, '著名宠物医美专家', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '2023-01-06 12:30:19', '2023-08-23 22:40:13', 0);
+INSERT INTO `doctor` VALUES (6, 3, 'ra9', '李妙手', 1, '2001-01-06', '3b161abe-7142-449c-ab36-07a689da65de.jpg', '1114185977@qq.com', 2, '国外著名医学专家', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '2023-01-06 12:31:30', '2023-08-23 22:40:26', 0);
+INSERT INTO `doctor` VALUES (8, 2, 'lzg', '李正骨', 0, '2000-01-28', '3cd8e749-e177-4e5b-846c-930efab7bd38.jpg', '1114185977@qq.com', 4, '国内外著名骨科专家', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '2023-01-07 16:35:23', '2023-08-23 22:40:32', 0);
+INSERT INTO `doctor` VALUES (9, 8, 'zhong', '钟回春', 1, '2000-02-10', '92833192-79d4-42d6-a657-d000d8ca6295.jpg', 'mix_pet_doctor@sina.com', 4, '多年老中医', '$2a$10$isx1czTSQaNBZiYiwo/TjuEb40VFhH6VqAXOsHfFK39ls.DxziPye', '2023-02-18 14:08:38', '2023-08-23 22:40:41', 0);
+INSERT INTO `doctor` VALUES (10, 2, 'admin', '朱元璋', 1, '2000-08-30', 'defaultDoctor.jpg', '1114185977@qq.com', 8, '天下与我何加焉', '$2a$10$6Br1LBrKlZTNlnon7MzD5ucm7ERcXfzMq7CnUOFWFbvxRcb9C8FI6', '2023-08-23 22:30:29', '2023-08-23 22:39:37', 0);
 COMMIT;
 
 -- ----------------------------
@@ -334,7 +306,8 @@ CREATE TABLE `notice` (
   PRIMARY KEY (`notice_id`),
   KEY `creat_id` (`creat_id`),
   KEY `update_id` (`update_id`),
-  CONSTRAINT `notice_ibfk_1` FOREIGN KEY (`creat_id`) REFERENCES `employee` (`employee_id`)
+  CONSTRAINT `notice_ibfk_1` FOREIGN KEY (`update_id`) REFERENCES `doctor` (`doctor_id`),
+  CONSTRAINT `notice_ibfk_2` FOREIGN KEY (`creat_id`) REFERENCES `doctor` (`doctor_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COMMENT='公告表';
 
 -- ----------------------------
@@ -342,12 +315,12 @@ CREATE TABLE `notice` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `notice` VALUES (1, '宠物医院开业公告', 'notice-1.txt', 1, '2023-01-02 17:22:55', 1, '2023-04-04 13:58:38', 0, 0);
-INSERT INTO `notice` VALUES (4, '论纯白', '4d7dcc2e-7465-49aa-b476-c85a255162a9.txt', 2, '2023-01-11 17:52:06', 2, '2023-01-11 17:52:58', 1, 0);
-INSERT INTO `notice` VALUES (5, '做好宠物的疾病防治', 'f91d4670-9d59-44c8-af5d-b74ef6f4dc76.txt', 2, '2023-01-11 17:53:56', 2, '2023-04-04 11:46:40', 0, 0);
-INSERT INTO `notice` VALUES (6, 'dd', 'fa9c33fc-1bb0-446f-8a76-5aed34228976.txt', 3, '2023-01-11 17:54:22', 3, NULL, 0, 1690468063801);
-INSERT INTO `notice` VALUES (7, '开始采用宠物医院管理系统', '4b50890c-a992-4d15-b5da-1dc26306df12.txt', 3, '2023-01-11 19:08:19', 2, '2023-04-04 11:46:49', 0, 0);
-INSERT INTO `notice` VALUES (8, '加强节粮减损，杜绝粮食浪费', '9a9214e5-333c-4146-9f96-4a5c00b52215.txt', 3, '2023-01-11 19:09:20', 3, '2023-01-11 19:43:22', 0, 0);
-INSERT INTO `notice` VALUES (9, '绅士笑话集', 'af588adb-9a60-4506-b058-98012ad9ea2c.txt', 2, '2023-01-15 19:48:42', 2, '2023-01-15 19:48:42', 1, 0);
+INSERT INTO `notice` VALUES (4, '论纯白', '4d7dcc2e-7465-49aa-b476-c85a255162a9.txt', 1, '2023-01-11 17:52:06', 1, '2023-01-11 17:52:58', 1, 0);
+INSERT INTO `notice` VALUES (5, '做好宠物的疾病防治', 'f91d4670-9d59-44c8-af5d-b74ef6f4dc76.txt', 1, '2023-01-11 17:53:56', 1, '2023-04-04 11:46:40', 0, 0);
+INSERT INTO `notice` VALUES (6, 'dd', 'fa9c33fc-1bb0-446f-8a76-5aed34228976.txt', 1, '2023-01-11 17:54:22', 1, NULL, 0, 1690468063801);
+INSERT INTO `notice` VALUES (7, '开始采用宠物医院管理系统', '4b50890c-a992-4d15-b5da-1dc26306df12.txt', 1, '2023-01-11 19:08:19', 1, '2023-04-04 11:46:49', 0, 0);
+INSERT INTO `notice` VALUES (8, '加强节粮减损，杜绝粮食浪费', '9a9214e5-333c-4146-9f96-4a5c00b52215.txt', 1, '2023-01-11 19:09:20', 1, '2023-01-11 19:43:22', 0, 0);
+INSERT INTO `notice` VALUES (9, '绅士笑话集', 'af588adb-9a60-4506-b058-98012ad9ea2c.txt', 1, '2023-01-15 19:48:42', 1, '2023-01-15 19:48:42', 1, 0);
 COMMIT;
 
 -- ----------------------------

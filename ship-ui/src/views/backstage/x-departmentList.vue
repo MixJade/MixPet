@@ -14,7 +14,7 @@
     <el-table-column type="selection" width="30"/>
     <el-table-column label="科室名" prop="departmentName"/>
     <el-table-column label="简介" prop="departmentInfo"/>
-    <el-table-column label="地址" prop="departmentAddress"/>
+    <el-table-column label="主任" prop="headName"/>
     <el-table-column :formatter="doctorNumStr" label="人数" prop="doctorNum" sortable/>
     <el-table-column fixed="right" label="操作">
       <template #default="scope">
@@ -37,8 +37,10 @@
       <el-form-item label="简介" prop="departmentInfo">
         <el-input v-model="form.departmentInfo" clearable placeholder="科室简介"/>
       </el-form-item>
-      <el-form-item label="地址" prop="departmentAddress">
-        <el-input v-model="form.departmentAddress" clearable placeholder="一楼114"/>
+      <el-form-item label="主任">
+        <el-select v-model="form.headId" filterable placeholder="选择用户">
+          <el-option v-for="d in doctorNameL" :key="d.roleId" :label="d.roleName" :value="d.roleId"/>
+        </el-select>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -64,9 +66,14 @@ import {Page} from "@/model/DO/Page";
 import {DepartDto} from "@/model/DO/DepartDto";
 import {ElMessageBox, FormInstance, FormRules} from "element-plus";
 import {Res} from "@/request/Res";
+import {reqDoctorName} from "@/request/DoctorApi";
+import {NameVo} from "@/model/VO/NameVo";
 
 onMounted(() => {
   sendQuery()
+  reqDoctorName().then(res => {
+    doctorNameL.value = res
+  })
 })
 // 格式化人数方法
 const doctorNumStr = (row: DepartDto): string => {
@@ -127,6 +134,7 @@ const delOne = (id: number): void => {
   reqDelDepart(id).then(res => sureFlush(res))
 }
 // 表单的数据
+const doctorNameL = ref<NameVo[]>([]) // 下拉框用户名
 const form = ref<Department>(exampleDepart()) // 空的默认值
 const myFormRef = ref<FormInstance>()
 // 校验表单并提交
@@ -148,10 +156,7 @@ const rules = reactive<FormRules>({
   ],
   "departmentInfo": [
     {required: true, message: '请填写简介', trigger: 'blur'},
-  ],
-  "departmentAddress": [
-    {required: true, message: '请填写地址', trigger: 'blur'},
-  ],
+  ]
 })
 </script>
 

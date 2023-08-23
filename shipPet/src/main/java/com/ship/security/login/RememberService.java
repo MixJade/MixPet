@@ -2,7 +2,6 @@ package com.ship.security.login;
 
 import com.ship.security.details.ClientDetails;
 import com.ship.security.details.DoctorDetails;
-import com.ship.security.details.EmployeeDetails;
 import com.ship.security.model.MyUser;
 import com.ship.security.model.RoleEnum;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,15 +30,12 @@ public class RememberService extends AbstractRememberMeServices {
     private final Log log = LogFactory.getLog(this.getClass());
     private final ClientDetails clientDetails;
     private final DoctorDetails doctorDetails;
-    private final EmployeeDetails employeeDetails;
 
     public RememberService(ClientDetails clientDetails,
-                           DoctorDetails doctorDetails,
-                           EmployeeDetails employeeDetails) {
+                           DoctorDetails doctorDetails) {
         super("MixJade", clientDetails);
         this.clientDetails = clientDetails;
         this.doctorDetails = doctorDetails;
-        this.employeeDetails = employeeDetails;
     }
 
     @Override
@@ -81,9 +77,7 @@ public class RememberService extends AbstractRememberMeServices {
         log.info("收到的cookie" + Arrays.toString(cookieTokens));
         String name = cookieTokens[0];
         // TODO 事实上还要判断当前cookie是否过期
-        if (cookieTokens[2].equals(RoleEnum.EMPLOYEE.name())) {
-            return employeeDetails.loadUserByUsername(name);
-        } else if (cookieTokens[2].equals(RoleEnum.DOCTOR.name())) {
+        if (cookieTokens[2].equals(RoleEnum.DOCTOR.name())) {
             return doctorDetails.loadUserByUsername(name);
         } else return clientDetails.loadUserByUsername(name);
     }

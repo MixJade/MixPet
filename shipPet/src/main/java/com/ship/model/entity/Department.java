@@ -14,7 +14,7 @@ import java.io.Serial;
  * </p>
  *
  * @author MixJade
- * @since 2023-08-22
+ * @since 2023-08-23
  */
 public class Department implements Serializable {
     @Serial
@@ -37,9 +37,9 @@ public class Department implements Serializable {
     private String departmentInfo;
 
     /**
-     * 科室地址
+     * 主任ID
      */
-    private String departmentAddress;
+    private Integer headId;
 
     /**
      * 创建时间
@@ -82,12 +82,12 @@ public class Department implements Serializable {
         this.departmentInfo = departmentInfo;
     }
 
-    public String getDepartmentAddress() {
-        return departmentAddress;
+    public Integer getHeadId() {
+        return headId;
     }
 
-    public void setDepartmentAddress(String departmentAddress) {
-        this.departmentAddress = departmentAddress;
+    public void setHeadId(Integer headId) {
+        this.headId = headId;
     }
 
     public LocalDateTime getCreateTime() {
@@ -120,7 +120,7 @@ public class Department implements Serializable {
                 "departmentId = " + departmentId +
                 ", departmentName = " + departmentName +
                 ", departmentInfo = " + departmentInfo +
-                ", departmentAddress = " + departmentAddress +
+                ", headId = " + headId +
                 ", createTime = " + createTime +
                 ", updateTime = " + updateTime +
                 ", isDel = " + isDel +

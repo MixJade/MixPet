@@ -14,7 +14,7 @@ import java.io.Serial;
  * </p>
  *
  * @author MixJade
- * @since 2023-08-22
+ * @since 2023-08-23
  */
 public class Adopt implements Serializable {
     @Serial
@@ -25,11 +25,6 @@ public class Adopt implements Serializable {
      */
     @TableId(value = "adopt_id", type = IdType.AUTO)
     private Integer adoptId;
-
-    /**
-     * 订单编号
-     */
-    private String adoptCode;
 
     /**
      * 领养宠物的id
@@ -79,14 +74,6 @@ public class Adopt implements Serializable {
 
     public void setAdoptId(Integer adoptId) {
         this.adoptId = adoptId;
-    }
-
-    public String getAdoptCode() {
-        return adoptCode;
-    }
-
-    public void setAdoptCode(String adoptCode) {
-        this.adoptCode = adoptCode;
     }
 
     public Integer getPetId() {
@@ -157,7 +144,6 @@ public class Adopt implements Serializable {
     public String toString() {
         return "Adopt{" +
                 "adoptId = " + adoptId +
-                ", adoptCode = " + adoptCode +
                 ", petId = " + petId +
                 ", clientId = " + clientId +
                 ", adoptMoney = " + adoptMoney +

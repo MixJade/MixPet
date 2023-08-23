@@ -13,7 +13,6 @@
             style="width: 100%"
             @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="30"/>
-    <el-table-column label="订单号" prop="adoptCode"/>
     <el-table-column label="简介" prop="adoptInfo"/>
     <el-table-column label="定金" prop="adoptMoney" sortable/>
     <el-table-column :formatter="removeT" label="创建时间" prop="createTime" sortable/>
