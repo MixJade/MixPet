@@ -1,6 +1,6 @@
 <template>
   <!--  封装的公共导航栏-->
-  <div class="page-header">
+  <header class="page-header">
     <div class="back" @click="$router.back()">
       <img alt="返回" src="/icon/back.svg">
       <span>返回</span>
@@ -8,7 +8,7 @@
     <span>
       <slot></slot>
     </span>
-  </div>
+  </header>
 </template>
 
 <script lang="ts" setup>

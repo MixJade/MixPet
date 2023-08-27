@@ -1,17 +1,15 @@
 <template>
-  <div class="one-basePage">
-    <div class="really">
-      <router-link to="/doctorPage">
-        <el-button style="position: absolute" type="success">悬壶济世</el-button>
-      </router-link>
-      <DetailTable
-          :role-photo="doctor.doctorPhoto"
-          :tab-con="em"
-          @upPwd="updatePwd"
-          @upRole="updateRole"
-      />
-    </div>
-  </div>
+  <LightBox>
+    <router-link to="/doctorPage">
+      <el-button style="position: absolute" type="success">悬壶济世</el-button>
+    </router-link>
+    <DetailTable
+        :role-photo="doctor.doctorPhoto"
+        :tab-con="em"
+        @upPwd="updatePwd"
+        @upRole="updateRole"
+    />
+  </LightBox>
 </template>
 
 <script lang="ts" setup>
@@ -21,6 +19,7 @@ import {getAge} from "@/utils/TimeUtil";
 import {computed, reactive} from "vue";
 import {DoctorDto, exampleDoctorOne} from "@/model/DO/DoctorDto";
 import {reqGetLoginD} from "@/request/DoctorApi";
+import LightBox from "@/components/card/LightBox.vue";
 // 设置展示信息
 const doctor: DoctorDto = reactive(exampleDoctorOne())
 // 发起请求
@@ -52,4 +51,5 @@ const updatePwd = () => {
 }
 </script>
 
-<style scoped src="public/css/one-basePage.css"/>
+<style scoped>
+</style>

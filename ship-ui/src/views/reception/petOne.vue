@@ -1,59 +1,53 @@
 <template>
   <div>
-    <el-container class="base-page">
+    <div class="base-page">
       <!-- 导航栏-->
-      <el-header>
-        <PageHead>宠物详情</PageHead>
-      </el-header>
-      <el-main>
-        <el-row>
-          <!-- 左边div：宠物头像-->
-          <el-col :md="8" :sm="10" :xs="24">
-            <div class="left-div">
-              <el-avatar :src="'/api/common/download?name='+pet.petPhoto"/>
-              <h3>{{ pet.petName }}</h3>
-              <span>{{ getAge(pet.petAge) }}岁</span>
-            </div>
-          </el-col>
+      <PageHead>宠物详情</PageHead>
+      <MyRow2>
+        <!-- 左边div：宠物头像-->
+        <div class="left-div">
+          <img :src="'/api/common/download?name='+pet.petPhoto" alt="头像" class="my-avatar">
+          <h3>{{ pet.petName }}</h3>
+          <span>{{ getAge(pet.petAge) }}岁</span>
+        </div>
+        <template #right>
           <!-- 右边div，宠物信息-->
-          <el-col :md="16" :sm="14" :xs="24" style="text-align: center">
-            <table class="myTable">
-              <tr>
-                <td class="bold">姓名</td>
-                <td>{{ pet.petName }}</td>
-              </tr>
-              <tr>
-                <td class="bold">品种</td>
-                <td>{{ pet.petVariety }}</td>
-              </tr>
-              <tr>
-                <td class="bold">性别</td>
-                <td>{{ pet.petSex ? "公" : "母" }}</td>
-              </tr>
-              <tr>
-                <td class="bold">出生日期</td>
-                <td>{{ pet.petAge }}</td>
-              </tr>
-              <tr>
-                <td class="bold">最近状况</td>
-                <td>{{ pet.petInfo }}</td>
-              </tr>
-              <tr>
-                <td class="bold">健康状况</td>
-                <td>{{ pet.petStatus }}</td>
-              </tr>
-            </table>
-            <el-button v-if="inAdopt===0 && pet.clientId==null" style="width: 50%" type="primary"
-                       @click="dialogVisible = true">
-              申请领养
-            </el-button>
-            <el-button v-else-if="pet.clientId==null" disabled style="width: 50%" type="info">
-              审核中
-            </el-button>
-          </el-col>
-        </el-row>
-      </el-main>
-    </el-container>
+          <table class="myTable">
+            <tr>
+              <td class="bold">姓名</td>
+              <td>{{ pet.petName }}</td>
+            </tr>
+            <tr>
+              <td class="bold">品种</td>
+              <td>{{ pet.petVariety }}</td>
+            </tr>
+            <tr>
+              <td class="bold">性别</td>
+              <td>{{ pet.petSex ? "公" : "母" }}</td>
+            </tr>
+            <tr>
+              <td class="bold">出生日期</td>
+              <td>{{ pet.petAge }}</td>
+            </tr>
+            <tr>
+              <td class="bold">最近状况</td>
+              <td>{{ pet.petInfo }}</td>
+            </tr>
+            <tr>
+              <td class="bold">健康状况</td>
+              <td>{{ pet.petStatus }}</td>
+            </tr>
+          </table>
+          <el-button v-if="inAdopt===0 && pet.clientId==null" style="width: 50%" type="primary"
+                     @click="dialogVisible = true">
+            申请领养
+          </el-button>
+          <el-button v-else-if="pet.clientId==null" disabled style="width: 50%" type="info">
+            审核中
+          </el-button>
+        </template>
+      </MyRow2>
+    </div>
     <!--弹出框-->
     <el-dialog v-model="dialogVisible" title="申请领养">
       <el-form :model="dialogAsk">
@@ -90,6 +84,7 @@ import {onMounted, reactive, ref} from "vue";
 import {PetAskOne} from "@/model/VO/PetAskOne";
 import {reqPetOne} from "@/request/PetApi";
 import {reqAdoptPet, reqInAdopt} from "@/request/AdoptApi";
+import MyRow2 from "@/components/show/MyRow2.vue";
 
 // 如此获取传参
 const props = defineProps<{
@@ -132,6 +127,8 @@ onMounted(() => {
   box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5);
   width: 50vw;
   left: 25vw;
+  padding: 16px;
+  border-radius: 12px;
   @media (min-width: 576px) and (max-width: 768px) {
     width: 60vw;
     left: 20vw;
@@ -141,18 +138,11 @@ onMounted(() => {
     left: 10vw;
   }
 
-  .el-header {
-    height: 5vh;
-  }
-
-  .left-div {
-    text-align: center;
-
-    .el-avatar {
-      margin-top: 10px;
-      width: 128px;
-      height: 128px;
-    }
+  img.my-avatar {
+    border-radius: 50%;
+    margin-top: 10px;
+    width: 128px;
+    height: 128px;
   }
 }
 

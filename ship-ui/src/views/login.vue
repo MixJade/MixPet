@@ -20,11 +20,11 @@
     <div :style="{ transform: pairClient }" class="mixJade">
       <img alt="管理员入口" height="48" src="/mia.svg" width="64" @click="clientToAdmin">
       <LoginForm :role="RoleEnum.CLIENT" @loginSuc="getLoginRole"/>
-      <el-col>
+      <div>
         <el-button round type="success" @click="$router.push('/reception')">游客登录</el-button>
         <el-button round type="warning">账号注册</el-button>
-        <el-button round type="danger">找回密码</el-button>
-      </el-col>
+        <el-button round type="danger" @click="$router.push('/findPwd')">找回密码</el-button>
+      </div>
     </div>
     <!-- 医生登录 -->
     <div :style="{ transform: pairAdmin }" class="mixJade">

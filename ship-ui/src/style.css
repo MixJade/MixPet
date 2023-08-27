@@ -3,16 +3,6 @@ body {
     background-color: #e9e9f5;
 }
 
-/*卡片横向溢出时，有滚动条*/
-.el-card {
-    overflow-x: auto;
-}
-
-/* 对除了第一个class以外的所有class执行的样式 */
-.el-card:not(:first-child) {
-    margin-top: 9px;
-}
-
 /* 设置链接样式 */
 a {
     /* 去掉下划线 */

@@ -1,0 +1,25 @@
+<svg height="152"
+     viewBox="0 0 151 152" width="151" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient gradientUnits="userSpaceOnUse" id="gradient_1" x1="4250.2"
+                        x2="4249" y1="54.05" y2="152.57">
+            <stop offset="0" stop-color="#ffc8c9"/>
+            <stop offset="1" stop-color="#ffb6b2"/>
+        </linearGradient>
+        <linearGradient gradientUnits="userSpaceOnUse" id="gradient_2" x1="74.9"
+                        x2="75.61" y1="94.1" y2="152.6">
+            <stop offset="0" stop-color="#ffb3b3"/>
+            <stop offset="1" stop-color="#ffd5d6"/>
+        </linearGradient>
+    </defs>
+    <g>
+        <path d="M 0.00 54.14 L 138.27 142.73 C 140.06 144.02 140.81 146.32 140.13 148.41 C 139.44 150.51 137.48 151.92 135.27 151.90 L 13.64 151.90 C 6.11 151.90 -0.00 145.79 0.00 138.26 Z"
+              fill="#feadac" stroke="none"/>
+        <path d="M 151.00 54.14 L 18.28 144.23 C 16.78 145.30 16.15 147.22 16.72 148.97 C 17.28 150.72 18.91 151.90 20.75 151.90 L 137.36 151.90 C 144.89 151.90 151.00 145.79 151.00 138.26 Z"
+              fill="url(#gradient_1)" stroke="none"/>
+        <path d="M 84.79 96.62 C 80.65 92.75 74.25 92.66 70.00 96.41 L 4.23 148.13 C 6.76 150.55 10.13 151.90 13.64 151.90 L 137.36 151.90 C 140.92 151.90 144.35 150.50 146.89 148.01 Z"
+              fill="url(#gradient_2)" stroke="none"/>
+        <path d="M 84.80 110.97 C 84.80 114.50 81.94 117.36 78.41 117.36 C 74.88 117.36 72.02 114.50 72.02 110.97 C 72.02 107.44 74.88 104.58 78.41 104.58 C 81.94 104.58 84.80 107.44 84.80 110.97 Z"
+              fill="#ffffff" fill-opacity="0.82" stroke="none"/>
+    </g>
+</svg>

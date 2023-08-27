@@ -10,7 +10,7 @@
         sex: doctor.doctorGender ? "男" : "女",
         job: getJob(doctor.authLv),
         info1: doctor.doctorInfo,
-        info2: doctor.username,
+        info2: "帐号："+doctor.username,
         link:"/reception/doctorOne/"+doctor.doctorId
       }' :type="'primary'"/>
   </MyRow>

@@ -1,5 +1,5 @@
 <template>
-  <div class="vue-foot">
+  <footer class="vue-foot">
     <div class="foot-wave">
       <svg class="waves" preserveAspectRatio="none" shape-rendering="auto"
            viewBox="0 24 150 28" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -39,7 +39,7 @@
     </div>
     <!--页脚-->
     <div class="footer">MixJade携ChatGPT编辑于此</div>
-  </div>
+  </footer>
 </template>
 
 <script lang="ts" setup>

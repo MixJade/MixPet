@@ -1,13 +1,10 @@
 <template>
-  <el-card v-for="pet in petList" :key="pet.petId">
-    <el-row :gutter="20" class="my-pet-card">
-      <el-col
-          :md="6" :sm="8" :xs="24"
-      ><img alt="宠物" src="/picture/pet-ex.jpg"/>
-      </el-col>
-      <el-col
-          :md="18" :sm="14" :xs="24"
-      >
+  <div v-for="pet in petList" :key="pet.petId" class="pa-card">
+    <div class="my-row-2">
+      <div class="left">
+        <img :src="'/api/common/download?name='+pet.petPhoto" alt="宠物" class="my-avatar"/>
+      </div>
+      <div class="right">
         <el-descriptions :column="3" :title="pet.petName" border>
           <el-descriptions-item
               align="center"
@@ -29,10 +26,10 @@
             </el-button>
           </el-descriptions-item>
         </el-descriptions>
-      </el-col>
-    </el-row>
-  </el-card>
-  <el-empty v-if="petList.length===0" description="暂无宠物"/>
+      </div>
+    </div>
+    <el-empty v-if="petList.length===0" description="暂无宠物"/>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -50,5 +47,31 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import url("/css/pa-card.css");
+
+.my-row-2 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas: "left right right right";
+  /* 在屏幕宽度小于992px时改变布局 */
+  @media screen and (max-width: 992px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:"left" "right";
+  }
+
+  .left {
+    grid-area: left;
+
+    img.my-avatar {
+      border-radius: 50%;
+      width: 128px;
+      height: 128px;
+    }
+  }
+
+  .right {
+    grid-area: right;
+  }
+}
 </style>
