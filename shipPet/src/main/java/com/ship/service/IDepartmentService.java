@@ -50,4 +50,12 @@ public interface IDepartmentService extends IService<Department> {
      * @return 相应角色名字与id
      */
     List<NameVo> selectName();
+
+    /**
+     * 更新科室，让主任可以为空
+     *
+     * @param department 科室信息
+     * @return 更新成功
+     */
+    boolean updateDepart(Department department);
 }

@@ -66,4 +66,9 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
     public List<NameVo> selectName() {
         return baseMapper.selectName();
     }
+
+    @Override
+    public boolean updateDepart(Department department) {
+        return baseMapper.updateDepart(department);
+    }
 }
