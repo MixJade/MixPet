@@ -83,6 +83,7 @@
         </el-form-item>
         <el-form-item label="宠物主人">
           <el-select v-model="form.clientId" filterable placeholder="选择用户">
+            <el-option label="无" :value="null"/>
             <el-option v-for="c in clientNameL" :key="c.roleId" :label="c.roleName" :value="c.roleId"/>
           </el-select>
         </el-form-item>

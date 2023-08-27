@@ -42,7 +42,7 @@
         pet_status=#{petStatus},
         pet_info=#{petInfo},
         <choose>
-            <when test="clientId!=''">
+            <when test="clientId!='' and clientId!=0">
                 client_id=#{clientId},
             </when>
             <otherwise>

@@ -18,4 +18,25 @@
         </if>
         GROUP BY de.department_id
     </select>
+    <!--更新科室，让主任可以为null-->
+    <update id="updateDepart">
+        UPDATE department
+        SET
+        <if test="departmentName!=null and departmentName!=''">
+            department_name=#{departmentName},
+        </if>
+        <if test="departmentInfo!=null and departmentInfo!=''">
+            department_info=#{departmentInfo},
+        </if>
+        <choose>
+            <when test="headId!='' and headId!=0">
+                head_id=#{headId},
+            </when>
+            <otherwise>
+                head_id=null,
+            </otherwise>
+        </choose>
+        update_time=#{updateTime}
+        WHERE department_id=#{departmentId}
+    </update>
 </mapper>

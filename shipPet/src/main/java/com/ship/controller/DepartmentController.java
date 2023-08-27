@@ -67,7 +67,7 @@ public class DepartmentController {
     @PutMapping
     @Secured(RoleConst.ADMIN)
     public Result update(@RequestBody Department department) {
-        return Result.choice("修改", departService.updateById(department));
+        return Result.choice("修改", departService.updateDepart(department));
     }
 
 }
