@@ -1,5 +1,5 @@
 <template>
-  <el-avatar :src="'/api/common/download?name='+rolePhoto" alt="详情头像"/>
+  <img :src="'/api/common/download?name='+rolePhoto" alt="头像" class="my-avatar"/>
   <!-- 用户、管理员、医生的个人信息展示-->
   <table class="myTable">
     <tr v-for="t in tabCon">
@@ -58,7 +58,8 @@ const logout = (): void => {
 </script>
 
 <style lang="scss" scoped>
-.el-avatar {
+img.my-avatar {
+  border-radius: 50%;
   width: 128px;
   height: 128px;
   position: relative;

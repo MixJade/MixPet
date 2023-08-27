@@ -53,10 +53,10 @@ export interface CardData {
 
 <style lang="scss" scoped>
 .img-card {
-  --txt-color: v-bind(myColorTxt);
-  --bor-color: v-bind(myColorBor);
-  --act-color: v-bind(myColorAct);
-  --tit-color: v-bind(myColorTit);
+  $txt-color: v-bind(myColorTxt);
+  $bor-color: v-bind(myColorBor);
+  $act-color: v-bind(myColorAct);
+  $tit-color: v-bind(myColorTit);
   $my-white: #FAFAFA;
   width: 370px;
   max-width: 90vw;
@@ -67,7 +67,7 @@ export interface CardData {
   padding: 16px;
   box-sizing: border-box;
   border-radius: 16px;
-  box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.3);
   position: relative;
   -webkit-user-select: none;
   user-select: none;
@@ -75,7 +75,7 @@ export interface CardData {
   &:hover {
     /* 悬浮加阴影 */
     z-index: 1000;
-    box-shadow: 5px 5px 15px var(--act-color);
+    box-shadow: 5px 5px 15px $act-color;
   }
 
   img {
@@ -110,7 +110,7 @@ export interface CardData {
         transition: background-color 0.5s;
 
         &:hover {
-          background-color: var(--tit-color);
+          background-color: $tit-color;
         }
       }
 
@@ -118,9 +118,9 @@ export interface CardData {
         /* 脚注 */
         button {
           background-color: $my-white;
-          color: var(--bor-color);
+          color: $bor-color;
           height: 100%;
-          border: 2px solid var(--bor-color);
+          border: 2px solid $bor-color;
           width: 50%;
           border-radius: 16px;
           transition: width 0.5s;
@@ -128,7 +128,7 @@ export interface CardData {
           &:hover {
             width: 100%;
             border-radius: 0 0 16px 16px;
-            background-color: var(--bor-color);
+            background-color: $bor-color;
             color: $my-white;
           }
         }
@@ -136,11 +136,11 @@ export interface CardData {
 
       &.item-1 {
         /* 特殊文字1 */
-        color: var(--bor-color);
+        color: $bor-color;
         font-size: small;
 
         &:hover {
-          color: var(--txt-color);
+          color: $txt-color;
         }
       }
 

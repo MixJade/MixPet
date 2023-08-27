@@ -2,18 +2,23 @@
   <div class="login-card">
     <h3>{{ getRoleName }}登录</h3>
     <div class="my-input">
-      <input v-model="formLogin.username" placeholder="username" style="background-image: url('/icon/username.svg')"
-             type="text">
-      <label>帐号</label>
+      <label>
+        <input v-model="formLogin.username" autocomplete="off" name="username"
+               placeholder="username"
+               style="background-image: url('/icon/username.svg')" type="text">
+        <span>帐号</span>
+      </label>
     </div>
     <div class="my-input">
-      <input v-model="formLogin.password" placeholder="password" style="background-image: url('/icon/password.svg')"
-             type="password" @keyup.enter="toLogin">
-      <label>密码</label>
+      <label>
+        <input v-model="formLogin.password" name="password" placeholder="password"
+               style="background-image: url('/icon/password.svg')" type="password">
+        <span>密码</span>
+      </label>
     </div>
     <div class="remember">
       <label class="check-label">
-        <input v-model="formLogin.remember" class="check-input" type="checkbox">
+        <input v-model="formLogin.remember" class="check-input" name="remember" type="checkbox">
         <span class="check-block">
           <span class="inner">记住我</span>
         </span>
@@ -107,29 +112,28 @@ const toLogin = () => {
     }
 
     /* 标签上浮 */
-    &:not(:placeholder-shown) ~ label, &:focus ~ label {
+    &:not(:placeholder-shown) + span, &:focus + span {
       color: #c9ab0a;
       opacity: 0.65;
       transform: scale(0.8) translateY(-3px) translateX(3px);
     }
-  }
 
-  /*标签样式*/
-  label {
-    position: absolute;
-    font-size: medium;
-    font-weight: bold;
-    color: #6c757d;
-    top: 0;
-    left: 28px;
-    height: 46px;
-    line-height: 46px;
-    overflow: hidden;
-    white-space: nowrap;
-    pointer-events: none;
-    border: 1px solid transparent;
-    transform-origin: 0 0;
-    transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+    /*标签样式*/
+    & + span {
+      position: absolute;
+      font-size: medium;
+      color: #6c757d;
+      top: 0;
+      left: 28px;
+      height: 46px;
+      line-height: 46px;
+      overflow: hidden;
+      white-space: nowrap;
+      pointer-events: none;
+      border: 1px solid transparent;
+      transform-origin: 0 0;
+      transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+    }
   }
 }
 

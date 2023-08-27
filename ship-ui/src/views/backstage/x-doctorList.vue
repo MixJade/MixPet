@@ -15,7 +15,7 @@
     <el-table-column type="selection" width="30"/>
     <el-table-column label="图像">
       <template #default="scope">
-        <el-avatar :src="'/api/common/download?name='+scope.row.doctorPhoto"/>
+        <MyAvatar :name="scope.row.doctorPhoto"/>
       </template>
     </el-table-column>
     <el-table-column label="医生名" prop="doctorName"/>
@@ -135,6 +135,7 @@ import {Doctor, exampleDoctor} from "@/model/entiy/Doctor";
 import {ElMessageBox, FormInstance, FormRules} from "element-plus";
 import {reqDepartName} from "@/request/DepartApi";
 import {NameVo} from "@/model/VO/NameVo";
+import MyAvatar from "@/components/show/MyAvatar.vue";
 
 onMounted(() => {
   sendQuery()

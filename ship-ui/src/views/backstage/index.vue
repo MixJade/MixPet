@@ -1,8 +1,8 @@
 <template>
-  <el-container>
-    <el-aside width="200px">
-      <router-link to="/backstage">
-        <el-avatar :src="'/api/common/download?name='+doctorNow.photo" alt="头像"/>
+  <div class="backstage">
+    <aside>
+      <router-link :to="$route.path==='/backstage'?'/doctorPage':'/backstage'">
+        <img :src="'/api/common/download?name='+doctorNow.photo" alt="头像" class="my-avatar"/>
       </router-link>
       <el-menu
           :default-active="$route.path"
@@ -61,11 +61,11 @@
           <span>公告列表</span>
         </el-menu-item>
       </el-menu>
-    </el-aside>
-    <el-main>
+    </aside>
+    <main>
       <router-view></router-view>
-    </el-main>
-  </el-container>
+    </main>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -84,14 +84,21 @@ reqGetLoginD().then(res => {
 </script>
 
 <style lang="scss" scoped>
-.el-container {
+.backstage {
   height: 96vh;
+  display: flex;
   /*侧边栏*/
-  .el-aside {
+  aside {
+    max-width: 180px;
+    height: 100%;
     background-color: #545c64;
+    box-sizing: border-box;
+    padding: 4px;
+    -webkit-user-select: none;
     user-select: none;
     /*头像*/
-    .el-avatar {
+    img.my-avatar {
+      border-radius: 50%;
       position: relative;
       height: 72px;
       width: 72px;
@@ -107,14 +114,20 @@ reqGetLoginD().then(res => {
     }
   }
 
-  .el-main {
+  main {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
     background-color: #F0EAD6;
+    z-index: 0;
   }
 }
 
+/* 无奈之举，各个弹出框中的input太宽了 */
 :deep(.el-form-item) {
   .el-input {
     width: 50%;
+    z-index: 0;
   }
 }
 </style>

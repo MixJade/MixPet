@@ -2,11 +2,11 @@
   <div ref="innerRef" style="overflow: auto;height: 100%" @click="rollBottom">
     <!--信息主体-->
     <div v-for="m in msgList" :key="m.msgId" :class="{'right-align':m.isMine}" class="msg-card">
-      <el-avatar :src="'/api/common/download?name='+m.rolePhoto"/>
+      <MyAvatar :name="m.rolePhoto"/>
       <div class="msg">
         <span>{{ m.roleName }}&nbsp;{{ getDisplayTime(m.createTime) }}</span>
         <div :class="m.isMine?'bg-success':'bg-light'" class="msgText">
-          <el-image v-if="m.isImg" :src="'/api/common/downChat?name='+m.msgContent" fit="cover"/>
+          <img v-if="m.isImg" :src="'/api/common/downChat?name='+m.msgContent" alt="聊天图片"/>
           <div v-else style="font-family: serif;">
             {{ m.msgContent }}
           </div>
@@ -21,6 +21,7 @@
 import {MsgVo} from "@/model/VO/MsgVo";
 import {onBeforeUpdate, onMounted, ref} from "vue";
 import {getDisplayTime} from "@/utils/TimeUtil";
+import MyAvatar from "@/components/show/MyAvatar.vue";
 
 defineProps<{
   msgList: MsgVo[]
@@ -62,6 +63,12 @@ onMounted(() => {
       margin: 5px;
       border-radius: 8px;
       text-align: left;
+      /* 聊天图片 */
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
     }
 
     /*用户信息背景*/

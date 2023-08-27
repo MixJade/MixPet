@@ -1,0 +1,15 @@
+@charset "UTF-8";
+/* 个人中心的宠物、挂号 */
+.pa-card {
+    margin-bottom: 8px;
+    padding: 16px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.pa-card .card-tit {
+    padding: 4px;
+    border-bottom: solid #e9e9f5;
+    margin-bottom: 8px;
+}

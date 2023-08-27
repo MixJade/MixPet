@@ -14,7 +14,7 @@
     <el-table-column type="selection" width="30"/>
     <el-table-column label="图像">
       <template #default="scope">
-        <el-avatar :src="'/api/common/download?name='+scope.row.clientPhoto"/>
+        <MyAvatar :name="scope.row.clientPhoto"/>
       </template>
     </el-table-column>
     <el-table-column label="用户名" prop="clientName"/>
@@ -103,6 +103,7 @@ import {Page} from "@/model/DO/Page";
 import {ElMessageBox, FormInstance, FormRules} from "element-plus";
 import {Res} from "@/request/Res";
 import UpImg from "@/components/UpImg.vue";
+import MyAvatar from "@/components/show/MyAvatar.vue";
 
 onMounted(() => {
   sendQuery()

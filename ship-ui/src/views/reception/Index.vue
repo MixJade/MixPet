@@ -33,11 +33,11 @@
       <!-- 公告栏-->
       <h2>网站公告</h2>
       <p>网站的最新公告</p>
-      <el-row :gutter="12">
-        <el-col v-for="notice in notices" :key="notice.noticeId" :md="8" :sm="12" :xs="24">
-          <el-card shadow="hover" @click="openDialog(notice)">{{ notice.noticeTitle }}</el-card>
-        </el-col>
-      </el-row>
+      <MyRow>
+        <NoticeBtn v-for="notice in notices" :key="notice.noticeId" @click="openDialog(notice)">
+          {{ notice.noticeTitle }}
+        </NoticeBtn>
+      </MyRow>
       <!--公告的对话框-->
       <el-dialog
           v-model="showDialog"
@@ -58,23 +58,14 @@
       <p>一些与用户相关的功能入口，也可以前往中心查看。
         <router-link style="color: #E6A23C;" to="reception/clientCenter">点击跳转</router-link>
       </p>
-      <el-row :gutter="12">
-        <el-col v-for="card in userCard" :md="8" :sm="12" :xs="24">
-          <el-card class="box-card">
-            <template #header>
-              <div class="card-header">
-                <span>{{ card.tit }}</span>
-                <router-link :to="card.routerPath">
-                  <el-button :type="card.btnType">{{ card.btnText }}</el-button>
-                </router-link>
-              </div>
-            </template>
-            <div>
-              {{ card.describe }}
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
+      <MyRow>
+        <LinkCard v-for="card in userCard"
+                  :body="card.body"
+                  :router-path="card.routerPath"
+                  :tit="card.tit"
+                  :type="card.type"
+        />
+      </MyRow>
       <!-- 待领养宠物-->
       <h2>待领养宠物</h2>
       <p>它们等待一个温暖的家。
@@ -117,6 +108,9 @@ import {reqFourNotice} from "@/request/NoticeApi";
 import {useRouter} from "vue-router";
 import VueFoot from "@/components/show/VueFoot.vue";
 import WindRoll from "@/components/show/WindRoll.vue";
+import MyRow from "@/components/show/MyRow.vue";
+import NoticeBtn from "@/components/button/NoticeBtn.vue";
+import LinkCard from "@/components/card/LinkCard.vue";
 
 // 判断是否登录
 const isLogin = ref<boolean>(false)
@@ -152,29 +146,25 @@ const openDialog = (notice: NoticeDto) => {
 // 常量：用户卡片
 interface UserCard {
   tit: string;
-  describe: string;
-  btnType: "primary" | "success" | "info";
-  btnText: string;
+  body: string;
+  type: "primary" | "success" | "warning";
   routerPath: string;
 }// 用户卡片的配置信息
 const userCard: UserCard[] = [
   {
     "tit": "挂号信息",
-    "describe": "在此查看自己的历史挂号",
-    "btnType": "primary",
-    "btnText": "查看历史挂号",
+    "body": "在此查看自己的历史挂号",
+    "type": "primary",
     "routerPath": "/reception/clientCenter/clientAppoint"
   }, {
     "tit": "宠物信息",
-    "describe": "查看自己的名下宠物",
-    "btnType": "success",
-    "btnText": "查看当前宠物",
+    "body": "查看自己的名下宠物",
+    "type": "warning",
     "routerPath": "/reception/clientCenter/clientPet"
   }, {
     "tit": "咨询医生",
-    "describe": "向医生发起咨询",
-    "btnType": "info",
-    "btnText": "咨询医生",
+    "body": "向医生发起咨询",
+    "type": "success",
     "routerPath": "/reception/chat"
   },
 ]
@@ -204,6 +194,8 @@ header {
   justify-content: space-between;
   align-items: center;
   z-index: 100;
+  -webkit-user-select: none;
+  user-select: none;
 
   & > a:first-child {
     color: #fff;
@@ -303,13 +295,6 @@ main {
   .textNotice {
     white-space: pre-wrap;
     word-break: break-all;
-  }
-
-  /* 卡片 */
-  .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
 }
 </style>

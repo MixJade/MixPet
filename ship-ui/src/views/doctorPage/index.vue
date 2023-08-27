@@ -34,7 +34,7 @@
             <h2>个人中心</h2>
             <p>或涵盖个人信息</p>
             <p>或守护数据隐私</p>
-            <router-link to="/doctorPage/doctorOne">
+            <router-link to="/backstage">
               <el-button plain size="large" type="success">个人中心</el-button>
             </router-link>
           </div>

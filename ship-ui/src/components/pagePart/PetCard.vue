@@ -9,7 +9,7 @@
         sex: pet.petSex ? "公" : "母",
         job: pet.petVariety,
         info1: pet.petInfo,
-        info2: pet.petStatus,
+        info2: "健康："+pet.petStatus,
         link:"/reception/petOne/"+pet.petId
       }' :type="'success'"/>
   </MyRow>
