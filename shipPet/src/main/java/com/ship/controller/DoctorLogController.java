@@ -114,16 +114,4 @@ public class DoctorLogController {
             return Result.choice("添加", appointService.save(appointment));
         } else return Result.error("未获取登录信息");
     }
-
-    /**
-     * 医生：修改挂号
-     */
-    @PutMapping("/appoint")
-    public Result upAppoint(@RequestBody Appointment appointment) {
-        if (UserUtil.getUser() instanceof Doctor doctorLog) {
-            appointment.setDoctorId(doctorLog.getDoctorId());
-            appointment.setDepartmentId(doctorLog.getDepartmentId());
-            return Result.choice("修改", appointService.updateById(appointment));
-        } else return Result.error("未获取登录信息");
-    }
 }

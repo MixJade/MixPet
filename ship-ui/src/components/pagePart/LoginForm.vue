@@ -12,7 +12,9 @@
     <div class="my-input">
       <label>
         <input v-model="formLogin.password" name="password" placeholder="password"
-               style="background-image: url('/icon/password.svg')" type="password">
+               style="background-image: url('/icon/password.svg')" type="password"
+               @keyup.enter="toLogin"
+        >
         <span>密码</span>
       </label>
     </div>
