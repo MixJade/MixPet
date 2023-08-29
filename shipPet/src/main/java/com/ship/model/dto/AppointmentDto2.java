@@ -15,6 +15,10 @@ public class AppointmentDto2 extends AppointmentDto {
      */
     private String petVariety;
     /**
+     * 宠物状态
+     */
+    private String petStatus;
+    /**
      * 宠物性别，0母1公
      */
     private Boolean petSex;
@@ -45,6 +49,14 @@ public class AppointmentDto2 extends AppointmentDto {
 
     public void setPetVariety(String petVariety) {
         this.petVariety = petVariety;
+    }
+
+    public String getPetStatus() {
+        return petStatus;
+    }
+
+    public void setPetStatus(String petStatus) {
+        this.petStatus = petStatus;
     }
 
     public String getPetPhoto() {

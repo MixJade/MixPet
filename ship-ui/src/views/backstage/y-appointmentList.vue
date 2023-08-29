@@ -18,9 +18,9 @@
             style="width: 100%"
             @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="30"/>
-    <el-table-column label="就诊时间" prop="appointmentDate" sortable/>
+    <el-table-column :formatter="removeT_1" label="就诊时间" prop="appointmentDate" sortable/>
     <el-table-column label="简介" prop="appointmentInfo"/>
-    <el-table-column label="创建时间" prop="createTime" sortable/>
+    <el-table-column :formatter="removeT_2" label="创建时间" prop="createTime" sortable/>
     <el-table-column label="宠物名" prop="petName"/>
     <el-table-column label="挂号人" prop="clientName"/>
     <el-table-column label="医生" prop="doctorName"/>
@@ -62,6 +62,7 @@ import {Appoint} from "@/model/entiy/Appoint";
 import {AppointDto} from "@/model/DO/AppointDto";
 import {reqAppointList} from "@/request/AppointApi";
 import {Page} from "@/model/DO/Page";
+import {moveT} from "@/utils/TimeUtil";
 
 onMounted(() => {
   sendQuery()
@@ -83,6 +84,12 @@ const delBatchB = (): void => {
 }
 // 列表展示
 const appointList = ref<Page<AppointDto>>({records: [], total: 0})
+const removeT_1 = (row: Appoint) => {
+  return moveT(row.appointmentDate)
+}
+const removeT_2 = (row: Appoint) => {
+  return moveT(<string>row.createTime)
+}
 // 多选与反选
 const roleIdList = ref<number[]>([])
 const handleSelectionChange = (val: Appoint[]): void => {

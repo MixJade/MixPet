@@ -11,6 +11,9 @@ const routes: RouteRecordRaw[] = [
         path: '/findPwd',
         component: () => import('@/views/findPwd.vue')
     }, {
+        path: '/register',
+        component: () => import('@/views/register.vue')
+    }, {
         path: '/reception',
         children: [...reception],
     }, {

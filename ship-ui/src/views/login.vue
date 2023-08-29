@@ -22,7 +22,7 @@
       <LoginForm :role="RoleEnum.CLIENT" @loginSuc="getLoginRole"/>
       <div>
         <el-button round type="success" @click="$router.push('/reception')">游客登录</el-button>
-        <el-button round type="warning">账号注册</el-button>
+        <el-button round type="warning" @click="$router.push('/register')">账号注册</el-button>
         <el-button round type="danger" @click="$router.push('/findPwd')">找回密码</el-button>
       </div>
     </div>

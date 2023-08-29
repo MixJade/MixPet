@@ -5,8 +5,11 @@ export const getAge = (birthday: string): number => {
     return nowYear - birthYear
 }
 // 去除时间中的T
-export const moveT = (str: string): string =>
-    str.toString().replaceAll("T", ' ')
+export const moveT = (str: string): string => {
+    let formatTimeArray = str.split("T")
+    formatTimeArray[1] = formatTimeArray[1].split(":")[0] + ":" + formatTimeArray[1].split(":")[1];
+    return formatTimeArray.join("_");
+}
 
 /**
  聊天页面的时间计算

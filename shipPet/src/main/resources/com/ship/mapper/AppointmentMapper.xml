@@ -95,6 +95,7 @@
         c.pet_name,
         c.pet_photo,
         c.pet_variety,
+        c.pet_status,
         c.pet_sex,
         c.pet_age,
         d.department_name,
