@@ -38,8 +38,8 @@ public class PetController {
      * 添加寄养、挂号单时，查询主人对应的宠物
      */
     @GetMapping("/client")
-    public List<NameVo> getByClient(Integer clientId) {
-        return petService.selectByClient(clientId);
+    public List<NameVo> getByClient(Integer clientId, Integer petId) {
+        return petService.selectByClient(clientId, petId);
     }
 
     /**

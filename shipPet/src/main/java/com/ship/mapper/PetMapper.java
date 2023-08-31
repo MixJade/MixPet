@@ -28,8 +28,14 @@ public interface PetMapper extends BaseMapper<Pet> {
     @Select("SELECT pet_id as roleId, pet_name as roleName FROM pet WHERE is_del = '0'")
     List<NameVo> selectName();
 
-    @Select("SELECT pet_id as roleId, pet_name as roleName FROM pet WHERE is_del = '0' AND client_id=#{clientId}")
-    List<NameVo> selectByClient(Integer clientId);
+    /**
+     * 「连接查询」用户名下的宠物，带当前数据
+     *
+     * @param clientId 用户ID
+     * @param petId    当前的宠物ID
+     * @return 用户名+ID
+     */
+    List<NameVo> selectByClient(Integer clientId, Integer petId);
 
     @Select("SELECT pet_id as roleId, pet_name as roleName FROM pet WHERE is_del = '0' AND isNull(client_id)")
     List<NameVo> selectNoClient();
