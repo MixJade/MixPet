@@ -39,3 +39,6 @@ export const reqDoctorName = (): Promise<NameVo[]> =>
 // 医生的查看自己的挂号
 export const reqDoctorAppoint = (): Promise<AppointDto2[]> =>
     reqApi<string, AppointDto2[]>("doctorLog/appoint")
+// 后台通过科室查询医生的姓名列表
+export const reqDoctorNameByDepartId = (departmentId: number): Promise<NameVo[]> =>
+    reqApi<string, NameVo[]>("doctor/department?departmentId=" + departmentId)
