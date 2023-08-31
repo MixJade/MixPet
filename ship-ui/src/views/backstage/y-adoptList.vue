@@ -64,9 +64,20 @@ import {moveT} from "@/utils/TimeUtil";
 import {reqAdoptList} from "@/request/AdoptApi";
 import {Page} from "@/model/DO/Page";
 
+/**
+ ┌───────────────────────────────────┐
+ │=============生命周期相关============│
+ └───────────────────────────────────┘
+ */
 onMounted(() => {
   sendQuery()
 })
+
+/**
+ ┌───────────────────────────────────┐
+ │=============表格查询相关============│
+ └───────────────────────────────────┘
+ */
 // 查询的参数
 const qp: YAdoptList = reactive({
   petName: '',
@@ -74,24 +85,10 @@ const qp: YAdoptList = reactive({
   numPage: 1,
   pageSize: 6
 })
-const addRoleB = (): void => {
-  console.log("添加领养")
-  modalTit.value = "新增领养"
-  modalView.value = true
-}
-const delBatchB = (): void => {
-  console.log("批量删除")
-}
 // 列表展示
 const adoptList = ref<Page<AdoptDto>>({records: [], total: 0})
 const removeT = (row: Adopt) => {
   return moveT(row.createTime)
-}
-// 多选与反选
-const roleIdList = ref<number[]>([])
-const handleSelectionChange = (val: Adopt[]): void => {
-  roleIdList.value = val.map(obj => obj.adoptId)
-  console.log(roleIdList.value)
 }
 // 分页条
 const changePuB = (val: PageQuery) => {
@@ -105,9 +102,38 @@ const sendQuery = (): void => {
     adoptList.value = res
   })
 }
+
+/**
+ ┌───────────────────────────────────┐
+ │=============数据删除相关============│
+ └───────────────────────────────────┘
+ */
+// 多选与反选
+const roleIdList = ref<number[]>([])
+const handleSelectionChange = (val: Adopt[]): void => {
+  roleIdList.value = val.map(obj => obj.adoptId)
+  console.log(roleIdList.value)
+}
+// 批量删除
+const delBatchB = (): void => {
+  console.log("批量删除")
+}
+
+
+/**
+ ┌───────────────────────────────────┐
+ │=============新增修改按钮============│
+ └───────────────────────────────────┘
+ */
 // 模态框
 const modalView = ref(false)
 const modalTit = ref<"新增领养" | "修改领养">("修改领养")
+// 新增
+const addRoleB = (): void => {
+  console.log("添加领养")
+  modalTit.value = "新增领养"
+  modalView.value = true
+}
 // 修改时展示模态框
 const showDialog = () => {
   modalView.value = true

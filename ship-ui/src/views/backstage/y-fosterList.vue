@@ -58,9 +58,20 @@ import {FosterDto} from "@/model/DO/FosterDto";
 import {Page} from "@/model/DO/Page";
 import {reqFosterList} from "@/request/FosterApi";
 
+/**
+ ┌───────────────────────────────────┐
+ │=============生命周期相关============│
+ └───────────────────────────────────┘
+ */
 onMounted(() => {
   sendQuery()
 })
+
+/**
+ ┌───────────────────────────────────┐
+ │=============表格查询相关============│
+ └───────────────────────────────────┘
+ */
 // 查询的参数
 const qp: YFosterList = reactive({
   petName: '',
@@ -68,41 +79,13 @@ const qp: YFosterList = reactive({
   numPage: 1,
   pageSize: 6
 })
-const addRoleB = (): void => {
-  console.log("添加寄养")
-  modalTit.value = "新增寄养"
-  modalView.value = true
-}
-const delBatchB = (): void => {
-  console.log("批量删除")
-}
 // 列表展示
 const fosterList = ref<Page<FosterDto>>({records: [], total: 0})
-// 多选与反选
-const roleIdList = ref<number[]>([])
-const handleSelectionChange = (val: Foster[]): void => {
-  roleIdList.value = val.map(obj => obj.fosterId)
-  console.log(roleIdList.value)
-}
 // 分页条
 const changePuB = (val: PageQuery) => {
   qp.numPage = val.numPage
   qp.pageSize = val.pageSize
   sendQuery()
-}
-// 数据总览
-const sendQuery = (): void => {
-  reqFosterList(qp).then(res => {
-    fosterList.value = res
-  })
-}
-// 模态框
-const modalView = ref(false)
-const modalTit = ref<"新增寄养" | "修改寄养">("修改寄养")
-// 修改时展示模态框
-const showDialog = () => {
-  modalView.value = true
-  modalTit.value = "修改寄养"
 }
 // 数据格式化
 const calculateDays = (inputDate: string): string => {
@@ -118,6 +101,47 @@ const calculateDays = (inputDate: string): string => {
   } else {
     return '已过期';
   }
+}
+// 数据总览
+const sendQuery = (): void => {
+  reqFosterList(qp).then(res => {
+    fosterList.value = res
+  })
+}
+
+/**
+ ┌───────────────────────────────────┐
+ │=============数据删除相关============│
+ └───────────────────────────────────┘
+ */
+// 多选与反选
+const roleIdList = ref<number[]>([])
+const handleSelectionChange = (val: Foster[]): void => {
+  roleIdList.value = val.map(obj => obj.fosterId)
+  console.log(roleIdList.value)
+}
+const delBatchB = (): void => {
+  console.log("批量删除")
+}
+
+/**
+ ┌───────────────────────────────────┐
+ │=============新增修改按钮============│
+ └───────────────────────────────────┘
+ */
+// 模态框
+const modalView = ref(false)
+const modalTit = ref<"新增寄养" | "修改寄养">("修改寄养")
+// 添加
+const addRoleB = (): void => {
+  console.log("添加寄养")
+  modalTit.value = "新增寄养"
+  modalView.value = true
+}
+// 修改时展示模态框
+const showDialog = () => {
+  modalView.value = true
+  modalTit.value = "修改寄养"
 }
 </script>
 

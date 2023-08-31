@@ -122,12 +122,23 @@ import UpImg from "@/components/UpImg.vue";
 import {Res} from "@/request/Res";
 import MyAvatar from "@/components/show/MyAvatar.vue";
 
+/**
+ ┌───────────────────────────────────┐
+ │=============生命周期相关============│
+ └───────────────────────────────────┘
+ */
 onMounted(() => {
   sendQuery()
   reqClientName().then(res => {
     clientNameL.value = res
   })
 })
+
+/**
+ ┌───────────────────────────────────┐
+ │=============表格查询相关============│
+ └───────────────────────────────────┘
+ */
 // 查询的参数
 const qp = reactive<YPetList>({
   petName: '',
@@ -135,15 +146,26 @@ const qp = reactive<YPetList>({
   numPage: 1,
   pageSize: 6
 })
-// 点击添加按钮
-const addRoleB = (): void => {
-  modalTit.value = "新增宠物"
-  form.value = examplePet()
-  myFormRef.value?.resetFields()
-  modalView.value = true
-}
 // 列表展示
 const petList = ref<Page<PetDto>>({records: [], total: 0})
+// 分页条
+const changePuB = (val: PageQuery) => {
+  qp.numPage = val.numPage
+  qp.pageSize = val.pageSize
+  sendQuery()
+}
+// 数据总览
+const sendQuery = (): void => {
+  reqPetList(qp).then(res => {
+    petList.value = res
+  })
+}
+
+/**
+ ┌───────────────────────────────────┐
+ │=============数据删除相关============│
+ └───────────────────────────────────┘
+ */
 // 多选与反选
 const roleIdList = ref<number[]>([])
 const handleSelectionChange = (val: Pet[]): void => {
@@ -158,28 +180,39 @@ const delBatchB = (): void => {
 const delOne = (id: number): void => {
   reqDelPet(id).then(res => sureFlush(res))
 }
-// 分页条
-const changePuB = (val: PageQuery) => {
-  qp.numPage = val.numPage
-  qp.pageSize = val.pageSize
-  sendQuery()
+// 确定请求的返回值，然后刷新
+const sureFlush = (res: Res): void => {
+  if (res.code === 1) sendQuery()
 }
-// 数据总览
-const sendQuery = (): void => {
-  reqPetList(qp).then(res => {
-    petList.value = res
-  })
-}
+
+/**
+ ┌───────────────────────────────────┐
+ │=============新增修改按钮============│
+ └───────────────────────────────────┘
+ */
 // 模态框
 const modalView = ref(false)
 const modalTit = ref<"新增宠物" | "修改宠物">("修改宠物")
-// 修改时展示模态框
+// 新增
+const addRoleB = (): void => {
+  modalTit.value = "新增宠物"
+  form.value = examplePet()
+  myFormRef.value?.resetFields()
+  modalView.value = true
+}
+// 修改
 const showDialog = (row: Pet): void => {
   myFormRef.value?.clearValidate()
   modalTit.value = "修改宠物"
   form.value = row
   modalView.value = true
 }
+
+/**
+ ┌───────────────────────────────────┐
+ │=============表单校验相关============│
+ └───────────────────────────────────┘
+ */
 // 表单的数据
 const clientNameL = ref<NameVo[]>([]) // 下拉框用户名
 const form = ref<Pet>(examplePet()) // 空的默认值
@@ -195,10 +228,6 @@ const formSubmit = async (): Promise<void> => {
       else ElMessageBox.alert('模块框出错')
     }
   })
-}
-// 确定请求的返回值，然后刷新
-const sureFlush = (res: Res): void => {
-  if (res.code === 1) sendQuery()
 }
 // 表单校验规则
 const rules = reactive<FormRules>({

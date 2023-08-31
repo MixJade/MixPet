@@ -58,7 +58,7 @@
         />
       </el-form-item>
       <el-form-item label="主人" prop="clientId">
-        <el-select @change="form.petId=null" v-model="form.clientId" filterable placeholder="选择用户">
+        <el-select v-model="form.clientId" filterable placeholder="选择用户" @change="form.petId=null">
           <el-option v-for="d in clientNameL" :key="d.roleId" :label="d.roleName" :value="d.roleId"/>
         </el-select>
       </el-form-item>
@@ -108,6 +108,11 @@ import {reqClientName} from "@/request/ClientApi";
 import {reqPetNameByClientId} from "@/request/PetApi";
 import {reqDoctorName, reqDoctorNameByDepartId} from "@/request/DoctorApi";
 
+/**
+ ┌───────────────────────────────────┐
+ │=============生命周期相关============│
+ └───────────────────────────────────┘
+ */
 onMounted(() => {
   sendQuery()
   reqClientName().then(res => {
@@ -117,6 +122,12 @@ onMounted(() => {
     departmentNameL.value = res;
   })
 })
+
+/**
+ ┌───────────────────────────────────┐
+ │=============表格查询相关============│
+ └───────────────────────────────────┘
+ */
 // 查询的参数
 const qp: YAppointList = reactive({
   seaName: '',
@@ -124,12 +135,6 @@ const qp: YAppointList = reactive({
   numPage: 1,
   pageSize: 6
 })
-const addRoleB = (): void => {
-  form.value = exampleAppoint()
-  myFormRef.value?.resetFields()
-  modalTit.value = "新增挂号"
-  modalView.value = true
-}
 // 列表展示
 const appointList = ref<Page<AppointDto>>({records: [], total: 0})
 const removeT_1 = (row: Appoint) => {
@@ -137,11 +142,6 @@ const removeT_1 = (row: Appoint) => {
 }
 const removeT_2 = (row: Appoint) => {
   return moveT(<string>row.createTime)
-}
-// 多选与反选
-const roleIdList = ref<number[]>([])
-const handleSelectionChange = (val: Appoint[]): void => {
-  roleIdList.value = val.map(obj => obj.appointmentId)
 }
 // 分页条
 const changePuB = (val: PageQuery) => {
@@ -155,20 +155,16 @@ const sendQuery = (): void => {
     appointList.value = res
   })
 }
-// 模态框
-const modalView = ref(false)
-const modalTit = ref<"新增挂号" | "修改挂号">("修改挂号")
-// 修改时展示模态框
-const showDialog = (row: Appoint) => {
-  myFormRef.value?.clearValidate()
-  form.value = row
-  modalView.value = true
-  modalTit.value = "修改挂号"
-}
 
-// 确定请求的返回值，然后刷新
-const sureFlush = (res: Res): void => {
-  if (res.code === 1) sendQuery()
+/**
+ ┌───────────────────────────────────┐
+ │=============数据删除相关============│
+ └───────────────────────────────────┘
+ */
+// 多选与反选
+const roleIdList = ref<number[]>([])
+const handleSelectionChange = (val: Appoint[]): void => {
+  roleIdList.value = val.map(obj => obj.appointmentId)
 }
 // 批量删除
 const delBatchB = (): void => {
@@ -179,6 +175,49 @@ const delBatchB = (): void => {
 const delOne = (id: number): void => {
   reqDelAppoint(id).then(res => sureFlush(res))
 }
+// 确定请求的返回值，然后刷新
+const sureFlush = (res: Res): void => {
+  if (res.code === 1) sendQuery()
+}
+
+/**
+ ┌───────────────────────────────────┐
+ │=============新增修改按钮============│
+ └───────────────────────────────────┘
+ */
+// 模态框
+const modalView = ref(false)
+const modalTit = ref<"新增挂号" | "修改挂号">("修改挂号")
+// 新增时展示模态框
+const addRoleB = (): void => {
+  form.value = exampleAppoint()
+  myFormRef.value?.resetFields()
+  modalTit.value = "新增挂号"
+  modalView.value = true
+}
+// 修改时展示模态框
+const showDialog = (row: Appoint) => {
+  myFormRef.value?.clearValidate()
+  // ===这样挨个赋值比较好===
+  // 可以避免表单内容变化，表格内容也同步变化
+  // 但感觉不如直接查询单个
+  form.value.appointmentId = row.appointmentId
+  form.value.appointmentDate = row.appointmentDate
+  form.value.appointmentInfo = row.appointmentInfo
+  form.value.clientId = row.clientId
+  form.value.petId = row.petId
+  form.value.departmentId = row.departmentId
+  form.value.doctorId = row.doctorId
+  // ===赋值完成===
+  modalView.value = true
+  modalTit.value = "修改挂号"
+}
+
+/**
+ ┌───────────────────────────────────┐
+ │=============表单校验相关============│
+ └───────────────────────────────────┘
+ */
 // 表单的数据
 const clientNameL = ref<NameVo[]>([]) // 下拉框用户名
 const petNameL = ref<NameVo[]>([])
