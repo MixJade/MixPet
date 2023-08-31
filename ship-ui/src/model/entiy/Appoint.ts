@@ -11,3 +11,17 @@ export interface Appoint {
     updateTime?: string | null;
     isDel: string | null;
 }
+
+export const exampleAppoint = () => {
+    return {
+        appointmentId: 0,
+        clientId: null,
+        petId: null,
+        appointmentDate: "2023-08-31T14:30:00",
+        departmentId: null,
+        doctorId: null,
+        appointmentInfo: "",
+        isSuc: null,
+        isDel: null
+    }
+}

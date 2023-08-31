@@ -4,6 +4,7 @@ import {Pet} from "@/model/entiy/Pet";
 import {PageQuery, YPetList} from "@/model/VO/BackQuery";
 import {PetDto} from "@/model/DO/PetDto";
 import {Res} from "@/request/Res";
+import {NameVo} from "@/model/VO/NameVo";
 
 // 主页查询宠物
 export const reqFourPet = (): Promise<Page<Pet>> =>
@@ -32,3 +33,6 @@ export const reqDelPet = (id: number): Promise<Res> =>
 // 管理员批量删除宠物
 export const reqDelPetBatch = (ids: number[]): Promise<Res> =>
     reqApi.delete<string, Res>("pet/batch/" + ids)
+// 管理员通过用户名查看宠物
+export const reqPetNameByClientId = (clientId: number): Promise<NameVo[]> =>
+    reqApi<string, NameVo[]>("pet/client?clientId=" + clientId)
