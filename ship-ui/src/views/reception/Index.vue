@@ -112,6 +112,11 @@ import MyRow from "@/components/show/MyRow.vue";
 import NoticeBtn from "@/components/button/NoticeBtn.vue";
 import LinkCard from "@/components/card/LinkCard.vue";
 
+/**
+ ┌───────────────────────────────────┐
+ │=============生命周期相关============│
+ └───────────────────────────────────┘
+ */
 // 判断是否登录
 const isLogin = ref<boolean>(false)
 onBeforeMount(() => {
@@ -132,6 +137,11 @@ onBeforeMount(() => {
   })
 })
 
+/**
+ ┌───────────────────────────────────┐
+ │=============公告栏之相关============│
+ └───────────────────────────────────┘
+ */
 // 公告栏
 const notices = ref<NoticeDto[]>([])
 // 公告弹出框
@@ -143,6 +153,11 @@ const openDialog = (notice: NoticeDto) => {
   showDialog.value = true
 }
 
+/**
+ ┌───────────────────────────────────┐
+ │=============个人中心相关============│
+ └───────────────────────────────────┘
+ */
 // 常量：用户卡片
 interface UserCard {
   tit: string;
@@ -169,12 +184,23 @@ const userCard: UserCard[] = [
   },
 ]
 
+/**
+ ┌───────────────────────────────────┐
+ │=============卡片展示相关============│
+ └───────────────────────────────────┘
+ */
 // 宠物的卡片信息
 const petCardTxt: Page<Pet> = reactive({records: [], total: 4})
 // 医生的卡片信息
 const doctorCardTxt: Page<DoctorDto> = reactive({records: [], total: 4})
 // 寄养宠物的卡片信息
 const fosterCardTxt: Page<FosterCardDto> = reactive({records: [], total: 3})
+
+/**
+ ┌───────────────────────────────────┐
+ │=============权限控制相关============│
+ └───────────────────────────────────┘
+ */
 // 退出登录
 const router = useRouter()
 const myLogout = () => {

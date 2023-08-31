@@ -70,39 +70,35 @@ import {Res} from "@/request/Res";
 import {reqDoctorName} from "@/request/DoctorApi";
 import {NameVo} from "@/model/VO/NameVo";
 
+/**
+ ┌───────────────────────────────────┐
+ │=============生命周期相关============│
+ └───────────────────────────────────┘
+ */
 onMounted(() => {
   sendQuery()
   reqDoctorName().then(res => {
     doctorNameL.value = res
   })
 })
-// 格式化人数方法
-const doctorNumStr = (row: DepartDto): string => {
-  if (row.doctorNum > 0) return row.doctorNum + "人"
-  else return "无"
-}
+
+/**
+ ┌───────────────────────────────────┐
+ │=============表格查询相关============│
+ └───────────────────────────────────┘
+ */
 // 查询的参数
 const qp: XDepartmentList = reactive({
   departmentName: '',
   numPage: 1,
   pageSize: 6
 })
-const addRoleB = (): void => {
-  form.value = exampleDepart()
-  myFormRef.value?.resetFields()
-  modalTit.value = "新增科室"
-  modalView.value = true
-}
-const delBatchB = (): void => {
-  if (roleIdList.value.length == 0) return
-  reqDelDepartBatch(roleIdList.value).then(res => sureFlush(res))
-}
 // 列表展示
 const departmentList = ref<Page<DepartDto>>({records: [], total: 0})
-// 多选与反选
-const roleIdList = ref<number[]>([])
-const handleSelectionChange = (val: Department[]): void => {
-  roleIdList.value = val.map(obj => obj.departmentId)
+// 格式化人数方法
+const doctorNumStr = (row: DepartDto): string => {
+  if (row.doctorNum > 0) return row.doctorNum + "人"
+  else return "无"
 }
 // 分页条
 const changePuB = (val: PageQuery) => {
@@ -116,9 +112,46 @@ const sendQuery = (): void => {
     departmentList.value = res
   })
 }
+
+/**
+ ┌───────────────────────────────────┐
+ │=============数据删除相关============│
+ └───────────────────────────────────┘
+ */
+// 多选与反选
+const roleIdList = ref<number[]>([])
+const handleSelectionChange = (val: Department[]): void => {
+  roleIdList.value = val.map(obj => obj.departmentId)
+}
+// 批量删除
+const delBatchB = (): void => {
+  if (roleIdList.value.length == 0) return
+  reqDelDepartBatch(roleIdList.value).then(res => sureFlush(res))
+}
+// 删除单个
+const delOne = (id: number): void => {
+  reqDelDepart(id).then(res => sureFlush(res))
+}
+// 确定请求的返回值，然后刷新
+const sureFlush = (res: Res): void => {
+  if (res.code === 1) sendQuery()
+}
+
+/**
+ ┌───────────────────────────────────┐
+ │=============新增修改按钮============│
+ └───────────────────────────────────┘
+ */
 // 模态框
 const modalView = ref(false)
 const modalTit = ref<"新增科室" | "修改科室">("修改科室")
+// 新增
+const addRoleB = (): void => {
+  form.value = exampleDepart()
+  myFormRef.value?.resetFields()
+  modalTit.value = "新增科室"
+  modalView.value = true
+}
 // 修改时展示模态框
 const showDialog = (row: Department) => {
   myFormRef.value?.clearValidate()
@@ -126,14 +159,12 @@ const showDialog = (row: Department) => {
   modalView.value = true
   modalTit.value = "修改科室"
 }
-// 确定请求的返回值，然后刷新
-const sureFlush = (res: Res): void => {
-  if (res.code === 1) sendQuery()
-}
-// 删除单个
-const delOne = (id: number): void => {
-  reqDelDepart(id).then(res => sureFlush(res))
-}
+
+/**
+ ┌───────────────────────────────────┐
+ │=============表单校验相关============│
+ └───────────────────────────────────┘
+ */
 // 表单的数据
 const doctorNameL = ref<NameVo[]>([]) // 下拉框用户名
 const form = ref<Department>(exampleDepart()) // 空的默认值

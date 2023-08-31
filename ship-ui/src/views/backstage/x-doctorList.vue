@@ -137,12 +137,23 @@ import {reqDepartName} from "@/request/DepartApi";
 import {NameVo} from "@/model/VO/NameVo";
 import MyAvatar from "@/components/show/MyAvatar.vue";
 
+/**
+ ┌───────────────────────────────────┐
+ │=============生命周期相关============│
+ └───────────────────────────────────┘
+ */
 onMounted(() => {
   sendQuery()
   reqDepartName().then(res => {
     departNameL.value = res
   })
 })
+
+/**
+ ┌───────────────────────────────────┐
+ │=============表格查询相关============│
+ └───────────────────────────────────┘
+ */
 // 查询的参数
 const qp: YDoctorList = reactive({
   doctorName: '',
@@ -150,12 +161,6 @@ const qp: YDoctorList = reactive({
   numPage: 1,
   pageSize: 6
 })
-const addRoleB = (): void => {
-  form.value = exampleDoctor()
-  myFormRef.value?.resetFields()
-  modalTit.value = "新增医生"
-  modalView.value = true
-}
 // 列表展示
 const doctorList = ref<Page<DoctorDto>>({records: [], total: 0})
 // 分页条
@@ -170,24 +175,12 @@ const sendQuery = (): void => {
     doctorList.value = res
   })
 }
-// 模态框
-const modalView = ref(false)
-const modalTit = ref<"新增医生" | "修改医生">("修改医生")
-// 修改时展示模态框
-const showDialog = (row: Doctor) => {
-  myFormRef.value?.clearValidate()
-  form.value = row
-  modalView.value = true
-  modalTit.value = "修改医生"
-}
-// 确定请求的返回值，然后刷新
-const sureFlush = (res: Res): void => {
-  if (res.code === 1) sendQuery()
-}
-// 删除单个
-const delOne = (id: number): void => {
-  reqDelDoctor(id).then(res => sureFlush(res))
-}
+
+/**
+ ┌───────────────────────────────────┐
+ │=============数据删除相关============│
+ └───────────────────────────────────┘
+ */
 // 多选与反选
 const roleIdList = ref<number[]>([])
 const handleSelectionChange = (val: Doctor[]): void => {
@@ -198,6 +191,43 @@ const delBatchB = (): void => {
   if (roleIdList.value.length == 0) return
   reqDelDoctorBatch(roleIdList.value).then(res => sureFlush(res));
 }
+// 删除单个
+const delOne = (id: number): void => {
+  reqDelDoctor(id).then(res => sureFlush(res))
+}
+// 确定请求的返回值，然后刷新
+const sureFlush = (res: Res): void => {
+  if (res.code === 1) sendQuery()
+}
+
+/**
+ ┌───────────────────────────────────┐
+ │=============新增修改按钮============│
+ └───────────────────────────────────┘
+ */
+// 模态框
+const modalView = ref(false)
+const modalTit = ref<"新增医生" | "修改医生">("修改医生")
+// 新增
+const addRoleB = (): void => {
+  form.value = exampleDoctor()
+  myFormRef.value?.resetFields()
+  modalTit.value = "新增医生"
+  modalView.value = true
+}
+// 修改时展示模态框
+const showDialog = (row: Doctor) => {
+  myFormRef.value?.clearValidate()
+  form.value = row
+  modalView.value = true
+  modalTit.value = "修改医生"
+}
+
+/**
+ ┌───────────────────────────────────┐
+ │=============表单校验相关============│
+ └───────────────────────────────────┘
+ */
 // 表单的数据
 const departNameL = ref<NameVo[]>([]) // 下拉框部门名称
 const form = ref<Doctor>(exampleDoctor()) // 空的默认值

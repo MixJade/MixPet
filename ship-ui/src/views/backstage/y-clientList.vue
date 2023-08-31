@@ -105,33 +105,28 @@ import {Res} from "@/request/Res";
 import UpImg from "@/components/UpImg.vue";
 import MyAvatar from "@/components/show/MyAvatar.vue";
 
+/**
+ ┌───────────────────────────────────┐
+ │=============生命周期相关============│
+ └───────────────────────────────────┘
+ */
 onMounted(() => {
   sendQuery()
 })
+
+/**
+ ┌───────────────────────────────────┐
+ │=============表格查询相关============│
+ └───────────────────────────────────┘
+ */
 // 查询的参数
 const qp: YClientList = reactive({
   clientName: '',
   numPage: 1,
   pageSize: 6
 })
-const addRoleB = (): void => {
-  form.value = exampleClient()
-  myFormRef.value?.resetFields()
-  modalTit.value = "新增用户"
-  modalView.value = true
-}
 // 列表展示
 const clientList = ref<Page<Client>>({records: [], total: 0})
-// 多选与反选
-const roleIdList = ref<number[]>([])
-const handleSelectionChange = (val: Client[]): void => {
-  roleIdList.value = val.map(obj => obj.clientId)
-}
-// 批量删除
-const delBatchB = (): void => {
-  if (roleIdList.value.length == 0) return
-  reqDelClientBatch(roleIdList.value).then(res => sureFlush(res))
-}
 // 分页条
 const changePuB = (val: PageQuery) => {
   qp.numPage = val.numPage
@@ -144,9 +139,46 @@ const sendQuery = (): void => {
     clientList.value = res
   })
 }
+
+/**
+ ┌───────────────────────────────────┐
+ │=============数据删除相关============│
+ └───────────────────────────────────┘
+ */
+// 多选与反选
+const roleIdList = ref<number[]>([])
+const handleSelectionChange = (val: Client[]): void => {
+  roleIdList.value = val.map(obj => obj.clientId)
+}
+// 批量删除
+const delBatchB = (): void => {
+  if (roleIdList.value.length == 0) return
+  reqDelClientBatch(roleIdList.value).then(res => sureFlush(res))
+}
+// 删除单个
+const delOne = (id: number): void => {
+  reqDelClient(id).then(res => sureFlush(res))
+}
+// 确定请求的返回值，然后刷新
+const sureFlush = (res: Res): void => {
+  if (res.code === 1) sendQuery()
+}
+
+/**
+ ┌───────────────────────────────────┐
+ │=============新增修改按钮============│
+ └───────────────────────────────────┘
+ */
 // 模态框
 const modalView = ref(false)
 const modalTit = ref<"新增用户" | "修改用户">("修改用户")
+// 新增时展示模态框
+const addRoleB = (): void => {
+  form.value = exampleClient()
+  myFormRef.value?.resetFields()
+  modalTit.value = "新增用户"
+  modalView.value = true
+}
 // 修改时展示模态框
 const showDialog = (row: Client) => {
   myFormRef.value?.clearValidate()
@@ -154,14 +186,12 @@ const showDialog = (row: Client) => {
   modalView.value = true
   modalTit.value = "修改用户"
 }
-// 确定请求的返回值，然后刷新
-const sureFlush = (res: Res): void => {
-  if (res.code === 1) sendQuery()
-}
-// 删除单个
-const delOne = (id: number): void => {
-  reqDelClient(id).then(res => sureFlush(res))
-}
+
+/**
+ ┌───────────────────────────────────┐
+ │=============表单校验相关============│
+ └───────────────────────────────────┘
+ */
 // 表单的数据
 const form = ref<Client>(exampleClient()) // 空的默认值
 const myFormRef = ref<FormInstance>()
