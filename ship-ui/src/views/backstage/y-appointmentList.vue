@@ -58,7 +58,7 @@
         />
       </el-form-item>
       <el-form-item label="主人" prop="clientId">
-        <el-select v-model="form.clientId" filterable placeholder="选择用户">
+        <el-select @change="form.petId=null" v-model="form.clientId" filterable placeholder="选择用户">
           <el-option v-for="d in clientNameL" :key="d.roleId" :label="d.roleName" :value="d.roleId"/>
         </el-select>
       </el-form-item>
@@ -142,7 +142,6 @@ const removeT_2 = (row: Appoint) => {
 const roleIdList = ref<number[]>([])
 const handleSelectionChange = (val: Appoint[]): void => {
   roleIdList.value = val.map(obj => obj.appointmentId)
-  console.log(roleIdList.value)
 }
 // 分页条
 const changePuB = (val: PageQuery) => {

@@ -42,7 +42,7 @@
             UNION
             SELECT pet_id as roleId, pet_name as roleName
             FROM pet
-            WHERE pet_id = ${petId}
+            WHERE pet_id = #{petId}
         </if>
     </select>
     <!--更新操作，让主人可以为Null-->
