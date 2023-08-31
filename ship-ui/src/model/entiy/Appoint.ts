@@ -1,3 +1,5 @@
+import {getNowISO} from "@/utils/TimeUtil";
+
 export interface Appoint {
     appointmentId: number;
     clientId: number | null;
@@ -17,7 +19,7 @@ export const exampleAppoint = () => {
         appointmentId: 0,
         clientId: null,
         petId: null,
-        appointmentDate: "2023-08-31T14:30:00",
+        appointmentDate: getNowISO(),
         departmentId: null,
         doctorId: null,
         appointmentInfo: "",

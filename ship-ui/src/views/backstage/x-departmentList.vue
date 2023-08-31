@@ -39,7 +39,7 @@
       </el-form-item>
       <el-form-item label="吉祥物">
         <el-select v-model="form.headId" filterable placeholder="选择用户">
-          <el-option label="无" :value="null"/>
+          <el-option label="无" value=""/>
           <el-option v-for="d in doctorNameL" :key="d.roleId" :label="d.roleName" :value="d.roleId"/>
         </el-select>
       </el-form-item>
