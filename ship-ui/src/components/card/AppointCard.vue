@@ -4,7 +4,7 @@
     <ul class="appoint_con">
       <li>描述：<span class="info">{{ a.appointmentInfo }}</span></li>
       <li>就诊时间：<span class="date">{{ moveT(a.appointmentDate) }}</span></li>
-      <li>挂号时间：<span class="date">{{ moveT(a.createTime) }}</span></li>
+      <li>挂号时间：<span class="date">{{ moveT(a.createTime || "") }}</span></li>
       <li>科室：
         <el-tag>{{ a.departmentName }}</el-tag>
       </li>

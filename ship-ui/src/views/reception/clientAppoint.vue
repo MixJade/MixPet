@@ -20,7 +20,7 @@
         {{ a.appointmentInfo }}
       </el-descriptions-item>
       <el-descriptions-item align="center" label="挂号时间" label-align="right">
-        {{ moveT(a.createTime) }}
+        {{ moveT(a.createTime || "") }}
       </el-descriptions-item>
     </el-descriptions>
     <el-empty v-if="appointList.length===0" description="暂无挂号"/>

@@ -50,6 +50,7 @@
       <el-form-item label="就诊时间" prop="appointmentDate">
         <el-date-picker
             v-model="form.appointmentDate"
+            :value-format="'YYYY-MM-DD'+'T'+'HH:mm:ss'"
             format="YYYY-MM-DD HH:mm"
             placeholder="选择就诊时间"
             style="width: 50%"

@@ -6,9 +6,13 @@ export const getAge = (birthday: string): number => {
 }
 // 去除时间中的T
 export const moveT = (str: string): string => {
-    let formatTimeArray = str.split("T")
-    formatTimeArray[1] = formatTimeArray[1].split(":")[0] + ":" + formatTimeArray[1].split(":")[1];
-    return formatTimeArray.join("_");
+    try {
+        let formatTimeArray = str.split("T")
+        formatTimeArray[1] = formatTimeArray[1].split(":")[0] + ":" + formatTimeArray[1].split(":")[1];
+        return formatTimeArray.join("_");
+    } catch (e) {
+        return "未知"
+    }
 }
 
 /**
@@ -46,4 +50,14 @@ export function getDaysFromToday(dateString: string): string {
     let date = new Date(dateString);
     let timeDiff = Math.abs(today.getTime() - date.getTime());
     return Math.ceil(timeDiff / (1000 * 3600 * 24)) + "天";
+}
+
+/**
+ * 返回当前的时间（直接生成ISO格式会导致时区问题)
+ */
+export const getNowISO = () => {
+    const date = new Date();
+    return date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2)
+        + "-" + ("0" + date.getDate()).slice(-2) + "T" + ("0" + date.getHours()).slice(-2)
+        + ":" + ("0" + date.getMinutes()).slice(-2) + ":00"
 }
