@@ -224,7 +224,7 @@ const rules = reactive<FormRules>({
 // 在用户改变时，查询宠物名
 watch(() => form.value.clientId, (newValue): void => {
   if (newValue == 0 || newValue == null) return;
-  reqPetNameByClientId(newValue).then(res => {
+  reqPetNameByClientId(newValue, <number>form.value.petId).then(res => {
     petNameL.value = res
   })
 })

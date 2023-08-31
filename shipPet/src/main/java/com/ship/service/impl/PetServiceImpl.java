@@ -62,8 +62,8 @@ public class PetServiceImpl extends ServiceImpl<PetMapper, Pet> implements IPetS
     }
 
     @Override
-    public List<NameVo> selectByClient(Integer clientId) {
-        return baseMapper.selectByClient(clientId);
+    public List<NameVo> selectByClient(Integer clientId,Integer petId) {
+        return baseMapper.selectByClient(clientId, petId);
     }
 
     @Override

@@ -65,9 +65,9 @@ public interface IPetService extends IService<Pet> {
     List<NameVo> selectName();
 
     /**
-     * 查询主人对应的宠物
+     * 查询主人对应的宠物，以及当前的宠物
      */
-    List<NameVo> selectByClient(Integer clientId);
+    List<NameVo> selectByClient(Integer clientId, Integer petId);
 
     /**
      * 查询没有主人的宠物
