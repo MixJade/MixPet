@@ -14,7 +14,7 @@ export interface Appoint {
     isDel: string | null;
 }
 
-export const exampleAppoint = () => {
+export const exampleAppoint = ():Appoint => {
     return {
         appointmentId: 0,
         clientId: null,

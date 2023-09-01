@@ -28,10 +28,12 @@
     <el-table-column fixed="right" label="操作">
       <template #default="scope">
         <el-button-group>
-          <el-button v-if="scope.row.inAdopt===2" :icon="Check" circle type="success"/>
-          <el-button v-if="scope.row.inAdopt===2" :icon="Close" circle type="info"/>
-          <el-button v-if="scope.row.inAdopt===1" :icon="Edit" circle type="warning" @click="showDialog"/>
-          <el-button :icon="Delete" circle type="danger"/>
+          <el-button v-if="scope.row.inAdopt===2" :icon="Check" circle type="success"
+                     @click="adoptAdopt(scope.row.adoptId,true)"/>
+          <el-button v-if="scope.row.inAdopt===2" :icon="Close" circle type="info"
+                     @click="adoptAdopt(scope.row.adoptId,false)"/>
+          <el-button v-if="scope.row.inAdopt===1" :icon="Edit" circle type="warning" @click="showDialog(scope.row)"/>
+          <el-button :icon="Delete" circle type="danger" @click="delOne(scope.row.adoptId)"/>
         </el-button-group>
       </template>
     </el-table-column>
@@ -40,11 +42,34 @@
   <BackPage :total="adoptList.total" @changePu="changePuB"/>
   <!--修改、新增时的模态框-->
   <el-dialog v-model="modalView" :title="modalTit" draggable width="60%">
-    <span>It's a draggable Dialog</span>
+    <!--表单-->
+    <el-form ref="myFormRef" :model="form" :rules="rules" label-width="120px">
+      <el-form-item label="简介" prop="adoptInfo">
+        <el-input v-model="form.adoptInfo" clearable placeholder="无"/>
+      </el-form-item>
+      <el-form-item label="定金" prop="adoptMoney">
+        <el-input-number
+            v-model="form.adoptMoney"
+            :max="5000"
+            :min="100"
+            :step="100"
+        />
+      </el-form-item>
+      <el-form-item label="宠物" prop="petId">
+        <el-select v-model="form.petId" filterable placeholder="选择宠物">
+          <el-option v-for="d in petNameL" :key="d.roleId" :label="d.roleName" :value="d.roleId"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="申请人" prop="clientId">
+        <el-select v-model="form.clientId" filterable placeholder="选择用户">
+          <el-option v-for="d in clientNameL" :key="d.roleId" :label="d.roleName" :value="d.roleId"/>
+        </el-select>
+      </el-form-item>
+    </el-form>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="modalView = false">取消</el-button>
-        <el-button type="primary" @click="modalView = false">
+        <el-button type="primary" @click="formSubmit">
           确认
         </el-button>
       </span>
@@ -58,11 +83,23 @@ import {Check, Close, Delete, Edit} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";
 import BackPage from "@/components/BackPage.vue";
 import {PageQuery, YAdoptList} from "@/model/VO/BackQuery";
-import {Adopt} from "@/model/entiy/Adopt";
+import {Adopt, exampleAdopt} from "@/model/entiy/Adopt";
 import {AdoptDto} from "@/model/DO/AdoptDto";
 import {moveT} from "@/utils/TimeUtil";
-import {reqAdoptList} from "@/request/AdoptApi";
+import {
+  reqAddAdopt,
+  reqAdoptAdopt,
+  reqAdoptList,
+  reqDelAdopt,
+  reqDelAdoptBatch,
+  reqUpdateAdopt
+} from "@/request/AdoptApi";
 import {Page} from "@/model/DO/Page";
+import {ElMessage, ElMessageBox, FormInstance, FormRules} from "element-plus";
+import {Res} from "@/request/Res";
+import {NameVo} from "@/model/VO/NameVo";
+import {reqPetNoClient} from "@/request/PetApi";
+import {reqClientName} from "@/request/ClientApi";
 
 /**
  ┌───────────────────────────────────┐
@@ -71,6 +108,12 @@ import {Page} from "@/model/DO/Page";
  */
 onMounted(() => {
   sendQuery()
+  reqClientName().then(res => {
+    clientNameL.value = res
+  })
+  reqPetNoClient().then(res => {
+    petNameL.value = res
+  })
 })
 
 /**
@@ -112,13 +155,44 @@ const sendQuery = (): void => {
 const roleIdList = ref<number[]>([])
 const handleSelectionChange = (val: Adopt[]): void => {
   roleIdList.value = val.map(obj => obj.adoptId)
-  console.log(roleIdList.value)
 }
 // 批量删除
 const delBatchB = (): void => {
-  console.log("批量删除")
+  if (roleIdList.value.length == 0) return
+  ElMessageBox.confirm(
+      '在您做出指示之前，我还是要再次确认，您确定要焚毁这些的订单吗？',
+      '删除多个确认',
+      {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }
+  ).then(() => {
+    reqDelAdoptBatch(roleIdList.value).then(res => sureFlush(res))
+  }).catch(() => {
+    ElMessage.info('删除取消')
+  })
 }
-
+// 删除单个
+const delOne = (id: number): void => {
+  ElMessageBox.confirm(
+      `解脱一纸束缚的契约，赐予其尘归尘的命运。`,
+      '删除单个确认',
+      {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }
+  ).then(() => {
+    reqDelAdopt(id).then(res => sureFlush(res))
+  }).catch(() => {
+    ElMessage.info('删除取消')
+  })
+}
+// 确定请求的返回值，然后刷新
+const sureFlush = (res: Res): void => {
+  if (res.code === 1) sendQuery()
+}
 
 /**
  ┌───────────────────────────────────┐
@@ -130,15 +204,67 @@ const modalView = ref(false)
 const modalTit = ref<"新增领养" | "修改领养">("修改领养")
 // 新增
 const addRoleB = (): void => {
-  console.log("添加领养")
+  form.value = exampleAdopt()
+  myFormRef.value?.resetFields()
   modalTit.value = "新增领养"
   modalView.value = true
 }
 // 修改时展示模态框
-const showDialog = () => {
+const showDialog = (row: Adopt) => {
+  myFormRef.value?.clearValidate()
+  // 赋值，防止响应式引用
+  form.value.adoptId = row.adoptId
+  form.value.adoptInfo = row.adoptInfo
+  form.value.adoptMoney = row.adoptMoney
+  form.value.petId = row.petId
+  form.value.clientId = row.clientId
+  // ===赋值完成===
   modalView.value = true
   modalTit.value = "修改领养"
 }
+// 审核通过
+const adoptAdopt = (adoptId: number, isAdopt: boolean) => {
+  reqAdoptAdopt({adoptId, isAdopt})
+      .then(res => sureFlush(res))
+}
+
+/**
+ ┌───────────────────────────────────┐
+ │=============表单校验相关============│
+ └───────────────────────────────────┘
+ */
+// 表单的数据
+const clientNameL = ref<NameVo[]>([]) // 下拉框用户名
+const petNameL = ref<NameVo[]>([])
+const form = ref<Adopt>(exampleAdopt()) // 空的默认值
+const myFormRef = ref<FormInstance>()
+// 校验表单并提交
+const formSubmit = async (): Promise<void> => {
+  await myFormRef.value?.validate((valid: boolean): void => {
+    if (valid) {
+      // 校验通过，提交
+      modalView.value = false
+      if (modalTit.value == "新增领养") reqAddAdopt(form.value).then(res => sureFlush(res))
+      else if (modalTit.value === "修改领养") reqUpdateAdopt(form.value).then(res => sureFlush(res))
+      else ElMessageBox.alert('模块框出错')
+    }
+  })
+}
+// 表单校验规则
+const rules = reactive<FormRules>({
+  "adoptInfo": [
+    {required: true, message: '请输入描述', trigger: 'blur'},
+  ],
+  "adoptMoney": [
+    {required: true, message: '请给钱', trigger: 'blur'},
+  ],
+  "clientId": [
+    {required: true, message: '请选择用户', trigger: 'blur'},
+  ],
+  "petId": [
+    {required: true, message: '请选择宠物', trigger: 'blur'},
+  ]
+})
 </script>
 
 <style scoped>
