@@ -12,4 +12,18 @@
             and client_name like #{clientName}
         </if>
     </select>
+    <!-- 【子查询】名下有宠物的用户，带上当前用户-->
+    <select id="selectNameHavePet" resultType="com.ship.model.vo.NameVo">
+        SELECT client_id AS roleId,
+        client_name AS roleName
+        FROM client
+        WHERE client_id IN (SELECT DISTINCT client_id FROM pet WHERE is_del = 0)
+        <if test="clientId!=null and clientId!=''">
+            UNION
+            SELECT client_id AS roleId,
+            client_name AS roleName
+            FROM client
+            WHERE client_id = #{clientId}
+        </if>
+    </select>
 </mapper>

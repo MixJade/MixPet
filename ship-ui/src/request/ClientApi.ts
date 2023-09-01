@@ -23,3 +23,8 @@ export const reqDelClient = (id: number): Promise<Res> =>
 // 管理员批量删除用户
 export const reqDelClientBatch = (ids: number[]): Promise<Res> =>
     reqApi.delete<string, Res>("client/batch/" + ids)
+// 订单下拉框查询有宠物的用户姓名，带上已有用户
+export const reqClientNameHavePet = (clientId: number | null): Promise<NameVo[]> => {
+    if (clientId == null || clientId == 0) return reqApi<string, NameVo[]>("client/full")
+    else return reqApi<string, NameVo[]>("client/full?clientId=" + clientId)
+}

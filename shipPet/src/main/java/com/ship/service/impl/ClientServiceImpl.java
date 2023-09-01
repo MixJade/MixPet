@@ -50,6 +50,17 @@ public class ClientServiceImpl extends ServiceImpl<ClientMapper, Client> impleme
         return baseMapper.selectName();
     }
 
+    /**
+     * 【子查询】名下有宠物的用户，带上当前用户
+     *
+     * @param clientId 当前客户ID
+     * @return 客户名称+ID
+     */
+    @Override
+    public List<NameVo> selectNameHavePet(Integer clientId) {
+        return baseMapper.selectNameHavePet(clientId);
+    }
+
     @Override
     public boolean addClient(Client client) {
         if (StrUtil.isWhite(client.getClientPhoto())) client.setClientPhoto(PhotoEnum.CLIENT.getPhotoName());

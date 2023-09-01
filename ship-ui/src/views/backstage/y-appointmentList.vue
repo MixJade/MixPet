@@ -68,7 +68,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="科室" prop="departmentId">
-        <el-select v-model="form.departmentId" filterable placeholder="选择科室">
+        <el-select v-model="form.departmentId" filterable placeholder="选择科室" @change="form.doctorId=null">
           <el-option v-for="d in departmentNameL" :key="d.roleId" :label="d.roleName" :value="d.roleId"/>
         </el-select>
       </el-form-item>
@@ -101,12 +101,12 @@ import {reqAddAppoint, reqAppointList, reqDelAppoint, reqDelAppointBatch, reqUpd
 import {Page} from "@/model/DO/Page";
 import {moveT} from "@/utils/TimeUtil";
 import {Res} from "@/request/Res";
-import {reqDepartName} from "@/request/DepartApi";
+import {reqDepartNameHaveDoctor} from "@/request/DepartApi";
 import {NameVo} from "@/model/VO/NameVo";
 import {ElMessage, ElMessageBox, FormInstance, FormRules} from "element-plus";
-import {reqClientName} from "@/request/ClientApi";
+import {reqClientNameHavePet} from "@/request/ClientApi";
 import {reqPetNameByClientId} from "@/request/PetApi";
-import {reqDoctorName, reqDoctorNameByDepartId} from "@/request/DoctorApi";
+import {reqDoctorNameByDepartId} from "@/request/DoctorApi";
 
 /**
  ┌───────────────────────────────────┐
@@ -115,12 +115,6 @@ import {reqDoctorName, reqDoctorNameByDepartId} from "@/request/DoctorApi";
  */
 onMounted(() => {
   sendQuery()
-  reqClientName().then(res => {
-    clientNameL.value = res;
-  })
-  reqDepartName().then(res => {
-    departmentNameL.value = res;
-  })
 })
 
 /**
@@ -216,6 +210,12 @@ const modalTit = ref<"新增挂号" | "修改挂号">("修改挂号")
 const addRoleB = (): void => {
   form.value = exampleAppoint()
   myFormRef.value?.resetFields()
+  reqClientNameHavePet(null).then(res => {
+    clientNameL.value = res;
+  })
+  reqDepartNameHaveDoctor(null).then(res => {
+    departmentNameL.value = res;
+  })
   modalTit.value = "新增挂号"
   modalView.value = true
 }
@@ -233,6 +233,12 @@ const showDialog = (row: Appoint) => {
   form.value.departmentId = row.departmentId
   form.value.doctorId = row.doctorId
   // ===赋值完成===
+  reqClientNameHavePet(form.value.clientId).then(res => {
+    clientNameL.value = res;
+  })
+  reqDepartNameHaveDoctor(form.value.departmentId).then(res => {
+    departmentNameL.value = res;
+  })
   modalView.value = true
   modalTit.value = "修改挂号"
 }
@@ -291,16 +297,11 @@ watch(() => form.value.clientId, (newValue): void => {
   })
 })
 // 在科室改变时，查询医生名
-watch(() => form.value.departmentId, (newValue) => {
-  if (newValue == 0 || newValue == null) {
-    reqDoctorName().then(res => {
-      doctorNameL.value = res
-    })
-  } else {
-    reqDoctorNameByDepartId(newValue).then(res => {
-      doctorNameL.value = res
-    })
-  }
+watch(() => form.value.departmentId, (newValue): void => {
+  if (newValue == 0 || newValue == null) return;
+  reqDoctorNameByDepartId(newValue).then(res => {
+    doctorNameL.value = res
+  })
 })
 </script>
 

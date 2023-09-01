@@ -35,7 +35,6 @@ export const reqDelPetBatch = (ids: number[]): Promise<Res> =>
     reqApi.delete<string, Res>("pet/batch/" + ids)
 // 管理员通过用户名查看宠物
 export const reqPetNameByClientId = (clientId: number, petId: number): Promise<NameVo[]> => {
-    if (petId == null || petId === 0) {
-        return reqApi<string, NameVo[]>("pet/client?clientId=" + clientId)
-    } else return reqApi<string, NameVo[]>("pet/client?clientId=" + clientId + "&petId=" + petId)
+    if (petId == null || petId === 0) return reqApi<string, NameVo[]>("pet/client?clientId=" + clientId)
+    else return reqApi<string, NameVo[]>("pet/client?clientId=" + clientId + "&petId=" + petId)
 }

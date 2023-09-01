@@ -54,6 +54,9 @@ public interface IDoctorService extends IService<Doctor> {
 
     /**
      * 查询名字与对应id
+     * <p>2023-9-1补充：虽然其它查名字的接口都带了当前角色。</p>
+     * <p>这是为了防止当前角色被删，然后查询其相关信息只有一个id的情况。</p>
+     * <p>但是这里不这样，因为人被删了，与之相关的应该被清除，而不是继续使用。</p>
      *
      * @return 相应角色名字与id
      */

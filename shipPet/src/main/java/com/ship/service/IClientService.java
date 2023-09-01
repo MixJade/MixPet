@@ -50,6 +50,14 @@ public interface IClientService extends IService<Client> {
     List<NameVo> selectName();
 
     /**
+     * 【子查询】名下有宠物的用户，带上当前用户
+     *
+     * @param clientId 当前客户ID
+     * @return 客户名称+ID
+     */
+    List<NameVo> selectNameHavePet(Integer clientId);
+
+    /**
      * 添加用户，关于加密与默认值
      *
      * @param client 用户信息
