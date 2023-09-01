@@ -22,7 +22,7 @@ import java.util.List;
 public interface DepartmentMapper extends BaseMapper<Department> {
     IPage<DepartmentDto> selectDepartmentPage(IPage<Department> page, String departmentName);
 
-    @Select("SELECT department_id as roleId, department_name as roleName FROM department WHERE is_del = '0'")
+    @Select("SELECT department_id as roleId, department_name as roleName FROM department")
     List<NameVo> selectName();
     /**
      * 更新科室，让主任可以为空

@@ -218,7 +218,18 @@ const addRoleB = (): void => {
 // 修改时展示模态框
 const showDialog = (row: Doctor) => {
   myFormRef.value?.clearValidate()
-  form.value = row
+  // 赋值，防止响应式引用
+  form.value.doctorId = row.doctorId
+  form.value.departmentId = row.departmentId
+  form.value.authLv = row.authLv
+  form.value.doctorAge = row.doctorAge
+  form.value.doctorInfo = row.doctorInfo
+  form.value.doctorTel = row.doctorTel
+  form.value.doctorPhoto = row.doctorPhoto
+  form.value.doctorName = row.doctorName
+  form.value.doctorGender = row.doctorGender
+  form.value.username = row.username
+  // 显示
   modalView.value = true
   modalTit.value = "修改医生"
 }

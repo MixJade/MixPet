@@ -182,7 +182,16 @@ const addRoleB = (): void => {
 // 修改时展示模态框
 const showDialog = (row: Client) => {
   myFormRef.value?.clearValidate()
-  form.value = row
+  // 赋值，防止响应式引用
+  form.value.clientId = row.clientId
+  form.value.clientName = row.clientName
+  form.value.clientUsername = row.clientUsername
+  form.value.clientGender = row.clientGender
+  form.value.clientAge = row.clientAge
+  form.value.clientTel = row.clientTel
+  form.value.clientInfo = row.clientInfo
+  form.value.clientPhoto = row.clientPhoto
+  // 显示
   modalView.value = true
   modalTit.value = "修改用户"
 }

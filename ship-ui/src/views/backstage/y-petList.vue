@@ -204,7 +204,17 @@ const addRoleB = (): void => {
 const showDialog = (row: Pet): void => {
   myFormRef.value?.clearValidate()
   modalTit.value = "修改宠物"
-  form.value = row
+  // 赋值，防止响应式引用
+  form.value.petId = row.petId
+  form.value.petName = row.petName
+  form.value.petVariety = row.petVariety
+  form.value.petSex = row.petSex
+  form.value.petAge = row.petAge
+  form.value.petStatus = row.petStatus
+  form.value.clientId = row.clientId
+  form.value.petInfo = row.petInfo
+  form.value.petPhoto = row.petPhoto
+  // 显示
   modalView.value = true
 }
 
