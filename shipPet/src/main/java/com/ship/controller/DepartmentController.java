@@ -41,6 +41,17 @@ public class DepartmentController {
         return departService.selectName();
     }
 
+    /**
+     * 【内联查询】名下有医生的科室，带上当前科室
+     *
+     * @param departmentId 当前科室ID
+     * @return 科室名称+ID
+     */
+    @GetMapping("/full")
+    public List<NameVo> getNameHaveDoctor(Integer departmentId) {
+        return departService.selectNameHaveDoctor(departmentId);
+    }
+
     @GetMapping("/page")
     public IPage<DepartmentDto> getPage(int numPage, int pageSize, String departmentName) {
         return departService.selectByPage(departmentName, numPage, pageSize);

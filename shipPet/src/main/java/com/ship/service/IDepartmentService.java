@@ -52,6 +52,14 @@ public interface IDepartmentService extends IService<Department> {
     List<NameVo> selectName();
 
     /**
+     * 【内联查询】名下有医生的科室，带上当前科室
+     *
+     * @param departmentId 当前科室ID
+     * @return 科室名称+ID
+     */
+    List<NameVo> selectNameHaveDoctor(Integer departmentId);
+
+    /**
      * 更新科室，让主任可以为空
      *
      * @param department 科室信息

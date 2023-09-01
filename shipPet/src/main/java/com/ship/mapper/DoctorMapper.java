@@ -25,7 +25,7 @@ public interface DoctorMapper extends BaseMapper<Doctor> {
 
     DoctorDto selectOneId(@Param("doctorId") Integer doctorId);
 
-    @Select("SELECT doctor_id as roleId,doctor_name as roleName FROM doctor")
+    @Select("SELECT doctor_id as roleId,doctor_name as roleName FROM doctor WHERE is_del=0")
     List<NameVo> selectName();
 
     @Select("SELECT doctor_id as roleId, doctor_name as roleName FROM doctor WHERE is_del = '0' AND department_id=#{departmentId}")

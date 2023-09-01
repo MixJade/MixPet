@@ -23,8 +23,17 @@ import java.util.List;
 public interface DepartmentMapper extends BaseMapper<Department> {
     IPage<DepartmentDto> selectDepartmentPage(IPage<Department> page, @Param("departmentName") String departmentName);
 
-    @Select("SELECT department_id as roleId, department_name as roleName FROM department")
+    @Select("SELECT department_id as roleId, department_name as roleName FROM department WHERE is_del=0")
     List<NameVo> selectName();
+
+    /**
+     * 【内联查询】名下有医生的科室，带上当前科室
+     *
+     * @param departmentId 当前科室ID
+     * @return 科室名称+ID
+     */
+    List<NameVo> selectNameHaveDoctor(Integer departmentId);
+
     /**
      * 更新科室，让主任可以为空
      *

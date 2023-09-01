@@ -24,3 +24,8 @@ export const reqDelDepartBatch = (ids: number[]): Promise<Res> =>
 // 后台科室名称
 export const reqDepartName = (): Promise<NameVo[]> =>
     reqApi<string, NameVo[]>("department")
+// 订单下拉框查询有医生的科室，带上已有科室
+export const reqDepartNameHaveDoctor = (departmentId: number | null): Promise<NameVo[]> => {
+    if (departmentId == null || departmentId == 0) return reqApi<string, NameVo[]>("department/full")
+    else return reqApi<string, NameVo[]>("department/full?departmentId=" + departmentId)
+}

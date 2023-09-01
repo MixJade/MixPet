@@ -22,8 +22,16 @@ import java.util.List;
 public interface ClientMapper extends BaseMapper<Client> {
     IPage<Client> selectClientPage(IPage<Client> page, @Param("clientName") String clientName);
 
-    @Select("SELECT client_id as roleId, client_name as roleName FROM client")
+    @Select("SELECT client_id as roleId, client_name as roleName FROM client WHERE is_del=0")
     List<NameVo> selectName();
+
+    /**
+     * 【子查询】名下有宠物的用户，带上当前用户
+     *
+     * @param clientId 当前客户ID
+     * @return 客户名称+ID
+     */
+    List<NameVo> selectNameHavePet(Integer clientId);
 
     /**
      * 登录控制器：密码找回时确定邮箱是否与账号匹配

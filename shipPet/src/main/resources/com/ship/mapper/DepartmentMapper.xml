@@ -9,7 +9,7 @@
         d2.doctor_name AS head_name,
         count(d.doctor_id) AS doctor_num
         FROM department AS de
-        LEFT JOIN doctor d on de.department_id = d.department_id
+        LEFT JOIN doctor d ON de.department_id = d.department_id
         LEFT JOIN doctor d2 ON de.head_id = d2.doctor_id
         WHERE de.is_del = 0
         <if test="departmentName!=null and departmentName!=''">
@@ -17,6 +17,21 @@
             and department_name like #{departmentName}
         </if>
         GROUP BY de.department_id
+    </select>
+    <!-- 【内联查询】名下有医生的科室，带上当前科室-->
+    <select id="selectNameHaveDoctor" resultType="com.ship.model.vo.NameVo">
+        SELECT DISTINCT de.department_id AS roleId,
+        de.department_name AS roleName
+        FROM department de,
+        doctor d
+        WHERE de.department_id = d.department_id
+        <if test="departmentId!=null and departmentId!=''">
+            UNION
+            SELECT department_id AS roleId,
+            department_name AS roleName
+            FROM department
+            WHERE department_id = #{departmentId}
+        </if>
     </select>
     <!--更新科室，让主任可以为null-->
     <update id="updateDepart">

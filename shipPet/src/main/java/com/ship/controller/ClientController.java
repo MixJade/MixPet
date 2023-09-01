@@ -40,6 +40,17 @@ public class ClientController {
     }
 
     /**
+     * 【子查询】名下有宠物的用户，带上当前用户
+     *
+     * @param clientId 当前客户ID
+     * @return 客户名称+ID
+     */
+    @GetMapping("/full")
+    public List<NameVo> getNameHavePet(Integer clientId) {
+        return clientService.selectNameHavePet(clientId);
+    }
+
+    /**
      * 根据id查询单个用户
      */
     @GetMapping("/one")
