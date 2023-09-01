@@ -125,9 +125,7 @@ reqGetLoginD().then(res => {
 
 /* 无奈之举，各个弹出框中的input太宽了 */
 :deep(.el-form-item) {
-  .el-input {
     width: 50%;
     z-index: 0;
-  }
 }
 </style>

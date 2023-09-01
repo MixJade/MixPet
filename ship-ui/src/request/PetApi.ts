@@ -38,3 +38,6 @@ export const reqPetNameByClientId = (clientId: number, petId: number): Promise<N
     if (petId == null || petId === 0) return reqApi<string, NameVo[]>("pet/client?clientId=" + clientId)
     else return reqApi<string, NameVo[]>("pet/client?clientId=" + clientId + "&petId=" + petId)
 }
+// 管理员查看无主的宠物
+export const reqPetNoClient = (): Promise<NameVo[]> =>
+    reqApi<string, NameVo[]>("pet/noClient")
