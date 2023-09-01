@@ -70,6 +70,6 @@ public class FosterController {
     @Secured(RoleConst.MANAGER)
     public Result update(@RequestBody Foster foster) {
         if (foster.getFosterMoney() <= 0) return Result.error("金额必须大于零");
-        return Result.choice("修改", fosterService.updateById(foster));
+        return Result.choice("修改", fosterService.updateFoster(foster));
     }
 }

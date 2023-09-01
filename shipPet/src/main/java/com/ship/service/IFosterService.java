@@ -58,4 +58,12 @@ public interface IFosterService extends IService<Foster> {
      * @return 订单数量
      */
     Integer haveFoster(Integer petId);
+
+    /**
+     * 更新寄养表，且不更新订单号
+     *
+     * @param foster 寄养信息
+     * @return 修改成功
+     */
+    boolean updateFoster(Foster foster);
 }
