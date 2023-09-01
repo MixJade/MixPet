@@ -25,7 +25,7 @@ public interface PetMapper extends BaseMapper<Pet> {
 
     IPage<Pet> selectFour(IPage<Pet> page);
 
-    @Select("SELECT pet_id as roleId, pet_name as roleName FROM pet WHERE is_del = '0'")
+    @Select("SELECT pet_id as roleId, pet_name as roleName FROM pet")
     List<NameVo> selectName();
 
     /**

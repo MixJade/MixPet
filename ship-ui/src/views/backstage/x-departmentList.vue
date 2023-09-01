@@ -155,7 +155,12 @@ const addRoleB = (): void => {
 // 修改时展示模态框
 const showDialog = (row: Department) => {
   myFormRef.value?.clearValidate()
-  form.value = row
+  // 赋值，防止响应式引用
+  form.value.departmentId = row.departmentId
+  form.value.departmentInfo = row.departmentInfo
+  form.value.departmentName = row.departmentName
+  form.value.headId = row.headId
+  // 显示
   modalView.value = true
   modalTit.value = "修改科室"
 }
