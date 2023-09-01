@@ -4,43 +4,55 @@
     <!--分页查询-->
     <select id="selectFosterPage" resultType="com.ship.model.dto.FosterDto">
         select
-        foster_id, foster_code,a.pet_id, a.client_id, foster_term, foster_money, foster_info, b.pet_name,c.client_name
-        FROM foster as a,pet as b,client as c
-        WHERE a.is_del = 0
-        AND a.pet_id = b.pet_id
-        AND a.client_id = c.client_id
+        foster_id, foster_code,f.pet_id, f.client_id, foster_term, foster_money, foster_info, p.pet_name,c.client_name
+        FROM foster f,pet p,client c
+        WHERE f.is_del = 0
+        AND f.pet_id = p.pet_id
+        AND f.client_id = c.client_id
         <if test="clientName!=null and clientName!=''">
             <bind name="clientName" value="'%'+clientName+'%'"/>
             and c.client_name like #{clientName}
         </if>
         <if test="petName!=null and petName!=''">
             <bind name="petName" value="'%'+petName+'%'"/>
-            and b.pet_name like #{petName}
+            and p.pet_name like #{petName}
         </if>
     </select>
     <!--查询被寄养宠物信息-->
     <select id="fosterPet" resultType="com.ship.model.dto.FosterPetDto">
         SELECT foster_id,
                foster_code,
-               a.pet_id,
-               a.client_id,
+               f.pet_id,
+               f.client_id,
                foster_term,
                foster_money,
                foster_info,
-               b.pet_name,
-               b.pet_variety,
-               b.pet_sex,
-               b.pet_age,
-               b.pet_status,
-               b.pet_info,
-               b.pet_photo,
+               p.pet_name,
+               p.pet_variety,
+               p.pet_sex,
+               p.pet_age,
+               p.pet_status,
+               p.pet_info,
+               p.pet_photo,
                c.client_name
-        FROM foster AS a,
-             pet AS b,
-             client AS c
-        WHERE a.is_del = 0
-          AND a.pet_id = b.pet_id
-          AND a.client_id = c.client_id
+        FROM foster f,
+             pet p,
+             client c
+        WHERE f.is_del = 0
+          AND f.pet_id = p.pet_id
+          AND f.client_id = c.client_id
           AND foster_term >= now()
     </select>
+    <!-- 更新寄养表，且不更新订单号-->
+    <update id="updateFoster">
+        UPDATE foster
+        SET pet_id=#{petId},
+            client_id=#{clientId},
+            foster_term=#{fosterTerm},
+            foster_money=#{fosterMoney},
+            foster_info=#{fosterInfo},
+            update_time=#{updateTime}
+        WHERE foster_id = #{fosterId}
+          AND is_del = 0
+    </update>
 </mapper>

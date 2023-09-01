@@ -68,4 +68,9 @@ public class FosterServiceImpl extends ServiceImpl<FosterMapper, Foster> impleme
         entity.setFosterCode(1 + nowDate + (baseMapper.getMaxId() + 1));
         return super.save(entity);
     }
+
+    @Override
+    public boolean updateFoster(Foster foster) {
+        return baseMapper.updateFoster(foster);
+    }
 }

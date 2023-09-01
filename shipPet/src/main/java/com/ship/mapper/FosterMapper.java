@@ -25,4 +25,12 @@ public interface FosterMapper extends BaseMapper<Foster> {
     Integer getMaxId();
 
     IPage<FosterPetDto> fosterPet(IPage<FosterDto> page);
+
+    /**
+     * 更新寄养表，且不更新订单号
+     *
+     * @param foster 寄养信息
+     * @return 修改成功
+     */
+    boolean updateFoster(Foster foster);
 }
