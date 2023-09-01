@@ -20,7 +20,7 @@
       <template #default="scope">
         <el-button-group>
           <el-button :icon="Edit" circle type="warning" @click="showDialog(scope.row)"/>
-          <el-button :icon="Delete" circle type="danger" @click="delOne(scope.row.departmentId)"/>
+          <el-button :icon="Delete" circle type="danger" @click="delOne(scope.row)"/>
         </el-button-group>
       </template>
     </el-table-column>
@@ -65,7 +65,7 @@ import {Department, exampleDepart} from "@/model/entiy/Department";
 import {reqAddDepart, reqDelDepart, reqDelDepartBatch, reqDepartList, reqUpdateDepart} from "@/request/DepartApi";
 import {Page} from "@/model/DO/Page";
 import {DepartDto} from "@/model/DO/DepartDto";
-import {ElMessageBox, FormInstance, FormRules} from "element-plus";
+import {ElMessage, ElMessageBox, FormInstance, FormRules} from "element-plus";
 import {Res} from "@/request/Res";
 import {reqDoctorName} from "@/request/DoctorApi";
 import {NameVo} from "@/model/VO/NameVo";
@@ -126,11 +126,35 @@ const handleSelectionChange = (val: Department[]): void => {
 // 批量删除
 const delBatchB = (): void => {
   if (roleIdList.value.length == 0) return
-  reqDelDepartBatch(roleIdList.value).then(res => sureFlush(res))
+  ElMessageBox.confirm(
+      '对于这些乱我朝纲的叛乱组织，臣定当以毫不留情的决心和无比坚定的信念去镇压。',
+      '删除多个确认',
+      {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }
+  ).then(() => {
+    reqDelDepartBatch(roleIdList.value).then(res => sureFlush(res))
+  }).catch(() => {
+    ElMessage.info('删除取消')
+  })
 }
 // 删除单个
-const delOne = (id: number): void => {
-  reqDelDepart(id).then(res => sureFlush(res))
+const delOne = (row: Department): void => {
+  ElMessageBox.confirm(
+      `在最后行动之前，我有必要再次确认您的决策，是否决定真的撤销这个【${row.departmentName}】？`,
+      '删除单个确认',
+      {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }
+  ).then(() => {
+    reqDelDepart(row.departmentId).then(res => sureFlush(res))
+  }).catch(() => {
+    ElMessage.info('删除取消')
+  })
 }
 // 确定请求的返回值，然后刷新
 const sureFlush = (res: Res): void => {

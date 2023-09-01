@@ -47,7 +47,7 @@
       <template #default="scope">
         <el-button-group>
           <el-button :icon="Edit" circle type="warning" @click="showDialog(scope.row)"/>
-          <el-button :icon="Delete" circle type="danger" @click="delOne(scope.row.doctorId)"/>
+          <el-button :icon="Delete" circle type="danger" @click="delOne(scope.row)"/>
         </el-button-group>
       </template>
     </el-table-column>
@@ -132,7 +132,7 @@ import {Page} from "@/model/DO/Page";
 import {reqAddDoctor, reqDelDoctor, reqDelDoctorBatch, reqDoctorList, reqUpdateDoctor} from "@/request/DoctorApi";
 import {Res} from "@/request/Res";
 import {Doctor, exampleDoctor} from "@/model/entiy/Doctor";
-import {ElMessageBox, FormInstance, FormRules} from "element-plus";
+import {ElMessage, ElMessageBox, FormInstance, FormRules} from "element-plus";
 import {reqDepartName} from "@/request/DepartApi";
 import {NameVo} from "@/model/VO/NameVo";
 import MyAvatar from "@/components/show/MyAvatar.vue";
@@ -189,11 +189,35 @@ const handleSelectionChange = (val: Doctor[]): void => {
 // 批量删除
 const delBatchB = (): void => {
   if (roleIdList.value.length == 0) return
-  reqDelDoctorBatch(roleIdList.value).then(res => sureFlush(res));
+  ElMessageBox.confirm(
+      '这些被选中者，将迎来一场浩大而又凄美的结局。这是对他们选择和坚持的回报，是既悲痛又美丽的终结。',
+      '删除多个确认',
+      {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }
+  ).then(() => {
+    reqDelDoctorBatch(roleIdList.value).then(res => sureFlush(res));
+  }).catch(() => {
+    ElMessage.info('删除取消')
+  })
 }
 // 删除单个
-const delOne = (id: number): void => {
-  reqDelDoctor(id).then(res => sureFlush(res))
+const delOne = (row: Doctor): void => {
+  ElMessageBox.confirm(
+      `【${row.doctorName}】已无路可退，只能接受命运的裁决。`,
+      '删除单个确认',
+      {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }
+  ).then(() => {
+    reqDelDoctor(row.doctorId).then(res => sureFlush(res))
+  }).catch(() => {
+    ElMessage.info('删除取消')
+  })
 }
 // 确定请求的返回值，然后刷新
 const sureFlush = (res: Res): void => {

@@ -70,7 +70,7 @@ public class DoctorController {
     }
 
     @PostMapping
-    @Secured(RoleConst.MANAGER)
+    @Secured(RoleConst.ADMIN)
     public Result save(@RequestBody Doctor doctor) {
         if (StrUtil.isWhite(doctor.getUsername())) return Result.error("帐号不能为空");
         if (StrUtil.isWhite(doctor.getDoctorName())) return Result.error("姓名不能为空");
@@ -78,19 +78,19 @@ public class DoctorController {
     }
 
     @DeleteMapping("/{id}")
-    @Secured(RoleConst.MANAGER)
+    @Secured(RoleConst.ADMIN)
     public Result delete(@PathVariable Integer id) {
         return Result.choice("删除单个", doctorService.deleteById(id));
     }
 
     @DeleteMapping("/batch/{ids}")
-    @Secured(RoleConst.MANAGER)
+    @Secured(RoleConst.ADMIN)
     public Result deleteGroup(@PathVariable List<Integer> ids) {
         return Result.choice("删除多个", doctorService.deleteByIds(ids));
     }
 
     @PutMapping
-    @Secured(RoleConst.MANAGER)
+    @Secured(RoleConst.ADMIN)
     public Result update(@RequestBody Doctor doctor) {
         if (StrUtil.isWhite(doctor.getDoctorName())) return Result.error("姓名不能为空");
         if (doctor.getAuthLv() == null) doctor.setAuthLv(0);

@@ -103,7 +103,7 @@ import {moveT} from "@/utils/TimeUtil";
 import {Res} from "@/request/Res";
 import {reqDepartName} from "@/request/DepartApi";
 import {NameVo} from "@/model/VO/NameVo";
-import {ElMessageBox, FormInstance, FormRules} from "element-plus";
+import {ElMessage, ElMessageBox, FormInstance, FormRules} from "element-plus";
 import {reqClientName} from "@/request/ClientApi";
 import {reqPetNameByClientId} from "@/request/PetApi";
 import {reqDoctorName, reqDoctorNameByDepartId} from "@/request/DoctorApi";
@@ -169,11 +169,35 @@ const handleSelectionChange = (val: Appoint[]): void => {
 // 批量删除
 const delBatchB = (): void => {
   if (roleIdList.value.length == 0) return
-  reqDelAppointBatch(roleIdList.value).then(res => sureFlush(res))
+  ElMessageBox.confirm(
+      '在您做出指示之前，我还是要再次确认，您确定要焚毁这些的订单吗？',
+      '删除多个确认',
+      {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }
+  ).then(() => {
+    reqDelAppointBatch(roleIdList.value).then(res => sureFlush(res))
+  }).catch(() => {
+    ElMessage.info('删除取消')
+  })
 }
 // 删除单个
 const delOne = (id: number): void => {
-  reqDelAppoint(id).then(res => sureFlush(res))
+  ElMessageBox.confirm(
+      `解脱一纸束缚的契约，赐予其尘归尘的命运。`,
+      '删除单个确认',
+      {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }
+  ).then(() => {
+    reqDelAppoint(id).then(res => sureFlush(res))
+  }).catch(() => {
+    ElMessage.info('删除取消')
+  })
 }
 // 确定请求的返回值，然后刷新
 const sureFlush = (res: Res): void => {
