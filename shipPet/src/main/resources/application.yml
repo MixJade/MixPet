@@ -33,5 +33,3 @@ mybatis-plus:
       logic-delete-field: isDel
       logic-not-delete-value: 0
   mapper-locations: classpath:com/ship/mapper/*.xml
-#  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 打印sql语句

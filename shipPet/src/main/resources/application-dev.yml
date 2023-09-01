@@ -7,3 +7,7 @@ pet-ship:
   images-path: /home/mixjade/mySoft/MixPet/images/ # 照片存储路径
   notice-path: /home/mixjade/mySoft/MixPet/notice/ # 公告存储路径
   chatImg-path: /home/mixjade/mySoft/MixPet/chatImg/ # 聊天图片存储路径
+---
+#mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 打印sql语句
