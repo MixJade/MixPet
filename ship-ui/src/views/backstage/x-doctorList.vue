@@ -91,7 +91,6 @@
             v-model="form.doctorAge"
             format="YYYY-MM-DD"
             placeholder="选择出生日期"
-            style="width: 50%"
             type="date"
             value-format="YYYY-MM-DD"
         />
