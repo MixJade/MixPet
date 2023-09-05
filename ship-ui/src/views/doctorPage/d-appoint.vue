@@ -45,8 +45,8 @@
 </template>
 
 <script lang="ts" setup>
-import PageHead from "@/components/PageHead.vue";
-import MyRow from "@/components/show/MyRow.vue";
+import PageHead from "@/components/row/PageHead.vue";
+import MyRow from "@/components/row/MyRow.vue";
 import {AppointDto2} from "@/model/DO/AppointDto2";
 import AppointCard from "@/components/card/AppointCard.vue";
 import ShakeBtn from "@/components/button/ShakeBtn.vue";

@@ -14,9 +14,9 @@
 
 <script lang="ts" setup>
 import {Page} from "@/model/DO/Page";
-import DoctorCard from "@/components/pagePart/DoctorCard.vue";
+import DoctorCard from "@/components/zoneView/DoctorCard.vue";
 import {onMounted, reactive, watch} from "vue";
-import PageHead from "@/components/PageHead.vue";
+import PageHead from "@/components/row/PageHead.vue";
 import {DoctorDto} from "@/model/DO/DoctorDto";
 import {PageQuery} from "@/model/VO/BackQuery";
 import {reqDoctorSee} from "@/request/DoctorApi";

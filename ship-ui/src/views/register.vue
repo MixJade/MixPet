@@ -58,7 +58,7 @@
 </template>
 
 <script lang="ts" setup>
-import PageHead from "@/components/PageHead.vue";
+import PageHead from "@/components/row/PageHead.vue";
 import {reactive} from "vue";
 import {ElMessage} from "element-plus";
 

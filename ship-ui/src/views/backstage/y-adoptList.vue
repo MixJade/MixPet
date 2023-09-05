@@ -78,8 +78,8 @@
 <script lang="ts" setup>
 import {onMounted, reactive, ref} from 'vue'
 import {Check, Close, Delete, Edit} from '@element-plus/icons-vue'
-import BackOpCol from "@/components/BackOpCol.vue";
-import BackPage from "@/components/BackPage.vue";
+import BackOpCol from "@/components/row/BackOpCol.vue";
+import BackPage from "@/components/row/BackPage.vue";
 import {PageQuery, YAdoptList} from "@/model/VO/BackQuery";
 import {Adopt, exampleAdopt} from "@/model/entiy/Adopt";
 import {AdoptDto} from "@/model/DO/AdoptDto";

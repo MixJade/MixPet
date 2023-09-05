@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts" setup>
-import TagSex from "@/components/TagSex.vue";
+import TagSex from "@/components/show/TagSex.vue";
 import {AppointDto2} from "@/model/DO/AppointDto2";
 import {getAge, moveT} from "@/utils/TimeUtil";
 import {ref} from "vue";

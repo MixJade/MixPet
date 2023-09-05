@@ -104,13 +104,13 @@
 <script lang="ts" setup>
 import {Delete, Edit} from "@element-plus/icons-vue"
 import {onMounted, reactive, ref} from 'vue'
-import BackOpCol from "@/components/BackOpCol.vue";
+import BackOpCol from "@/components/row/BackOpCol.vue";
 import {PageQuery, YPetList} from "@/model/VO/BackQuery";
 import {PetDto} from "@/model/DO/PetDto";
 import {getAge} from "@/utils/TimeUtil";
 import {examplePet, Pet} from "@/model/entiy/Pet";
-import TagSex from "@/components/TagSex.vue";
-import BackPage from "@/components/BackPage.vue";
+import TagSex from "@/components/show/TagSex.vue";
+import BackPage from "@/components/row/BackPage.vue";
 import {reqAddPet, reqDelPet, reqDelPetBatch, reqPetList, reqUpdatePet} from "@/request/PetApi";
 import {Page} from "@/model/DO/Page";
 import {NameVo} from "@/model/VO/NameVo";

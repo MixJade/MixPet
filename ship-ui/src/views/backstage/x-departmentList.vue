@@ -78,8 +78,8 @@
 <script lang="ts" setup>
 import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit, View} from '@element-plus/icons-vue'
-import BackOpCol from "@/components/BackOpCol.vue";
-import BackPage from "@/components/BackPage.vue";
+import BackOpCol from "@/components/row/BackOpCol.vue";
+import BackPage from "@/components/row/BackPage.vue";
 import {PageQuery, XDepartmentList} from "@/model/VO/BackQuery";
 import {Department, exampleDepart} from "@/model/entiy/Department";
 import {reqAddDepart, reqDelDepart, reqDelDepartBatch, reqDepartList, reqUpdateDepart} from "@/request/DepartApi";
@@ -91,7 +91,7 @@ import {reqDoctorByDepartId, reqDoctorName} from "@/request/DoctorApi";
 import {NameVo} from "@/model/VO/NameVo";
 import {getAge} from "@/utils/TimeUtil";
 import {Doctor} from "@/model/entiy/Doctor";
-import TagJob from "@/components/TagJob.vue";
+import TagJob from "@/components/show/TagJob.vue";
 
 /**
  ┌───────────────────────────────────┐

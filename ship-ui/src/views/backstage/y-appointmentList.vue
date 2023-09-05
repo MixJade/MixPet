@@ -89,8 +89,8 @@
 <script lang="ts" setup>
 import {onMounted, reactive, ref, watch} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
-import BackOpCol from "@/components/BackOpCol.vue";
-import BackPage from "@/components/BackPage.vue";
+import BackOpCol from "@/components/row/BackOpCol.vue";
+import BackPage from "@/components/row/BackPage.vue";
 import {PageQuery, YAppointList} from "@/model/VO/BackQuery";
 import {Appoint, exampleAppoint} from "@/model/entiy/Appoint";
 import {AppointDto} from "@/model/DO/AppointDto";
