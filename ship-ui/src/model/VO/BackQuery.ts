@@ -45,3 +45,8 @@ export interface YAppointList extends PageQuery {
     seaName: string
     seaType: number
 }
+
+// 公告表
+export interface YNoticeList extends PageQuery {
+    noticeName: string
+}

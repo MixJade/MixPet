@@ -17,12 +17,9 @@
         notice_id,
         notice_title,
         notice_file,
-        creat_id,
         a.create_time,
-        update_id,
         a.update_time,
         is_disable,
-        a.is_del,
         b.doctor_name AS create_name,
         c.doctor_name AS update_name
         FROM
@@ -32,7 +29,8 @@
         WHERE
         a.is_del = 0
         <if test="noticeName!=null and noticeName!=''">
-            and notice_title like "%"#{noticeName}"%"
+            <bind name="noticeName" value="'%'+noticeName+'%'"/>
+            and notice_title like #{noticeName}
         </if>
     </select>
     <!--主页：查询-->
@@ -40,8 +38,7 @@
         SELECT notice_id, notice_title, notice_file
         FROM notice
         WHERE is_del = 0
-          AND is_disable = 0
-        limit 0,3
+          AND is_disable = 0 LIMIT 3
     </select>
     <!--修改公告信息-->
     <update id="updateNotice">
@@ -54,10 +51,6 @@
     <!--添加公告-->
     <insert id="addNotice">
         INSERT INTO notice (notice_title, notice_file, creat_id, create_time, update_id, update_time)
-            VALUE
-            (#{noticeTitle},
-             #{noticeFile},
-             #{creatId},
-             now(), creat_id, create_time)
+        VALUES (#{noticeTitle}, #{noticeFile}, #{creatId}, now(), creat_id, create_time)
     </insert>
 </mapper>

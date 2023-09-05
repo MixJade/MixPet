@@ -4,13 +4,11 @@
     <el-input v-model="qp.doctorName" placeholder="医生姓名" size="large" @keyup.enter="sendQuery"/>
     <el-input v-model="qp.departmentName" placeholder="科室名" size="large" @keyup.enter="sendQuery"/>
   </BackOpCol>
-
   <!--列表展示-->
   <el-table :data="doctorList.records"
             max-height="80vh"
             row-key="doctorId"
             stripe
-            style="width: 100%"
             @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="30"/>
     <el-table-column label="图像">

@@ -3,13 +3,11 @@
   <BackOpCol role="科室" @addRole="addRoleB" @delBatch="delBatchB" @query="sendQuery">
     <el-input v-model="qp.departmentName" placeholder="科室名" size="large" @keyup.enter="sendQuery"/>
   </BackOpCol>
-
   <!--列表展示-->
   <el-table :data="departmentList.records"
             max-height="80vh"
             row-key="departmentId"
             stripe
-            style="width: 100%"
             @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="30"/>
     <el-table-column label="科室名" prop="departmentName"/>

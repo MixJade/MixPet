@@ -10,7 +10,6 @@
               max-height="80vh"
               row-key="petId"
               stripe
-              style="width: 100%"
               @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="30"/>
       <el-table-column label="图像">
