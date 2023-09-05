@@ -9,19 +9,19 @@
     <DetailTable
         :role-photo="doctor.doctorPhoto"
         :tab-con='[{tit: "账号", con: doctor.username},
-        {tit: "姓名", con: doctor.doctorName},
-        {tit: "简介", con: doctor.doctorInfo},
-        {tit: "性别", con: doctor.doctorGender ? "男" : "女"},
-        {tit: "职位", con: getJob(doctor.authLv)},
-        {tit: "科室", con: doctor.departmentName},
-        {tit: "联系方式", con: doctor.doctorTel},
-        {tit: "年龄", con: getAge(doctor.doctorAge)}]'
+          {tit: "姓名", con: doctor.doctorName},
+          {tit: "简介", con: doctor.doctorInfo},
+          {tit: "性别", con: doctor.doctorGender ? "男" : "女"},
+          {tit: "职位", con: getJob(doctor.authLv)},
+          {tit: "科室", con: doctor.departmentName},
+          {tit: "联系方式", con: doctor.doctorTel},
+          {tit: "年龄", con: getAge(doctor.doctorAge)}]'
         @upPwd="updatePwd"
         @upRole="updateRole"
     />
   </LightBox>
   <!--修改、新增时的模态框-->
-  <el-dialog v-model="modalView" title="修改个人资料" draggable width="60%">
+  <el-dialog v-model="modalView" draggable title="修改个人资料" width="60%">
     <!--头像上传框-->
     <UpImg :photoNm="form.doctorPhoto" @upPhoto="changePhoto"/>
     <!--表单-->
@@ -60,7 +60,7 @@
 </template>
 
 <script lang="ts" setup>
-import DetailTable, {DetailTabType} from "@/components/card/DetailTable.vue";
+import DetailTable from "@/components/card/DetailTable.vue";
 import {getJob} from "@/utils/JobUtil";
 import {getAge} from "@/utils/TimeUtil";
 import {onMounted, ref} from "vue";
