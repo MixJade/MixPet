@@ -35,7 +35,7 @@
     </el-table-column>
     <el-table-column label="职位" prop="authLv" sortable>
       <template #default="scope">
-        <el-tag>{{ getJob(scope.row.authLv) }}</el-tag>
+        <TagJob :auth-lv="scope.row.authLv"/>
       </template>
     </el-table-column>
     <el-table-column label="工龄" prop="createTime" sortable>
@@ -122,7 +122,6 @@ import BackPage from "@/components/BackPage.vue";
 import UpImg from "@/components/UpImg.vue";
 import {PageQuery, YDoctorList} from "@/model/VO/BackQuery";
 import {getAge, getDaysFromToday} from "@/utils/TimeUtil";
-import {getJob} from "@/utils/JobUtil";
 import {DoctorDto} from "@/model/DO/DoctorDto";
 import TagSex from "@/components/TagSex.vue";
 import {Page} from "@/model/DO/Page";
@@ -133,6 +132,7 @@ import {ElMessage, ElMessageBox, FormInstance, FormRules} from "element-plus";
 import {reqDepartName} from "@/request/DepartApi";
 import {NameVo} from "@/model/VO/NameVo";
 import MyAvatar from "@/components/show/MyAvatar.vue";
+import TagJob from "@/components/TagJob.vue";
 
 /**
  ┌───────────────────────────────────┐
