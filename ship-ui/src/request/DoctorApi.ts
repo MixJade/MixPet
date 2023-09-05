@@ -35,6 +35,9 @@ export const reqDelDoctorBatch = (ids: number[]): Promise<Res> =>
 // 医生的登陆信息
 export const reqGetLoginD = (): Promise<DoctorDto> =>
     reqApi<string, DoctorDto>("/doctorLog")
+// 医生修改个人简历
+export const reqUpdateLoginD = (data: Doctor): Promise<Res> =>
+    reqApi.put<string, Res>("/doctorLog", data)
 // 医生的姓名列表
 export const reqDoctorName = (): Promise<NameVo[]> =>
     reqApi<string, NameVo[]>("doctor")

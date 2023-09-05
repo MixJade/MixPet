@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ship.mapper.DoctorMapper">
+    <!--医生更新自己的个人资料-->
+    <update id="updateSelf">
+        UPDATE doctor
+        SET doctor_age=#{doctorAge},
+            doctor_info=#{doctorInfo},
+            doctor_name=#{doctorName},
+            doctor_gender=#{doctorGender},
+            doctor_photo=#{doctorPhoto},
+            update_time=now()
+        WHERE doctor_id = #{doctorId}
+    </update>
     <!--分页查询-->
     <select id="selectDoctorPage" resultType="com.ship.model.dto.DoctorDto">
         SELECT
@@ -22,7 +33,7 @@
         </if>
     </select>
     <!--根据id查询单个-->
-    <select id="selectOneId" resultType="com.ship.model.dto.DoctorDto">
+    <select id="selectOneById" resultType="com.ship.model.dto.DoctorDto">
         SELECT doctor_id,
                username,
                doctor_name,

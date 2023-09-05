@@ -47,7 +47,7 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorMapper, Doctor> impleme
 
     @Override
     public DoctorDto selectById(Integer doctorId) {
-        return baseMapper.selectOneId(doctorId);
+        return baseMapper.selectOneById(doctorId);
     }
 
     @Override
@@ -68,5 +68,10 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorMapper, Doctor> impleme
         if (StrUtil.isWhite(doctor.getDoctorPassword())) doctor.setDoctorPassword("123456");
         doctor.setDoctorPassword(StrUtil.tranPwd(doctor.getDoctorPassword()));
         return save(doctor);
+    }
+
+    @Override
+    public boolean updateSelf(Doctor doctor) {
+        return baseMapper.updateSelf(doctor);
     }
 }

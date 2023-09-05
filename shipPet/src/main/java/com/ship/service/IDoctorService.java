@@ -74,4 +74,12 @@ public interface IDoctorService extends IService<Doctor> {
      * 添加医生，关于加密与默认值
      */
     boolean addDoctor(Doctor doctor);
+
+    /**
+     * 医生更新自己的个人资料
+     *
+     * @param doctor 可以修改的五项信息与医生ID
+     * @return 修改成功
+     */
+    boolean updateSelf(Doctor doctor);
 }
