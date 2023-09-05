@@ -6,6 +6,7 @@ import com.ship.model.dto.AppointmentDto2;
 import com.ship.model.dto.DoctorDto;
 import com.ship.model.entity.Appointment;
 import com.ship.model.entity.Doctor;
+import com.ship.model.vo.DealAppointVo;
 import com.ship.model.vo.DoctorResetPwdVo;
 import com.ship.security.model.RoleConst;
 import com.ship.service.IAppointmentService;
@@ -44,16 +45,6 @@ public class DoctorLogController {
     public DoctorDto getOneLogin() {
         if (UserUtil.getUser() instanceof Doctor doctor) {
             return doctorService.selectById(doctor.getDoctorId());
-        } else return null;
-    }
-
-    /**
-     * 医生：查询自己的订单
-     */
-    @GetMapping("/appoint")
-    public List<AppointmentDto2> getAppoint() {
-        if (UserUtil.getUser() instanceof Doctor doctor) {
-            return appointService.getDoctorLog(doctor.getDoctorId());
         } else return null;
     }
 
@@ -103,6 +94,17 @@ public class DoctorLogController {
         } else return null;
     }
 
+
+    /**
+     * 医生：查询自己的订单
+     */
+    @GetMapping("/appoint")
+    public List<AppointmentDto2> getAppoint() {
+        if (UserUtil.getUser() instanceof Doctor doctor) {
+            return appointService.getDoctorLog(doctor.getDoctorId());
+        } else return null;
+    }
+
     /**
      * 医生：添加挂号
      */
@@ -113,5 +115,16 @@ public class DoctorLogController {
             appointment.setDepartmentId(doctorLog.getDepartmentId());
             return Result.choice("添加", appointService.save(appointment));
         } else return Result.error("未获取登录信息");
+    }
+
+    /**
+     * 医生：处理挂号
+     */
+    @PutMapping("/appoint/deal")
+    public Result dealAppoint(@RequestBody DealAppointVo dealAppointVo) {
+        return Result.choice("处理", appointService.lambdaUpdate()
+                .eq(Appointment::getAppointmentId, dealAppointVo.appointId())
+                .set(Appointment::getIsSuc, dealAppointVo.isSuc())
+                .update());
     }
 }
