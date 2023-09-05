@@ -59,16 +59,16 @@
       <el-table-column label="帐号" prop="username"/>
       <el-table-column label="性别">
         <template #default="scope">
-          <TagSex :sex="scope.row.doctorGender"/>
+          {{ scope.row.doctorGender ? "男" : "女" }}
         </template>
       </el-table-column>
       <el-table-column label="年龄" prop="doctorAge">
         <template #default="scope">{{ getAge(scope.row.doctorAge) }}岁</template>
       </el-table-column>
-      <el-table-column label="联系方式" prop="doctorTel"/>
+      <el-table-column label="联系方式" prop="doctorTel" width="220"/>
       <el-table-column label="职位" prop="authLv">
         <template #default="scope">
-          <el-tag>{{ getJob(scope.row.authLv) }}</el-tag>
+          <TagJob :auth-lv="scope.row.authLv"/>
         </template>
       </el-table-column>
     </el-table>
@@ -90,9 +90,8 @@ import {Res} from "@/request/Res";
 import {reqDoctorByDepartId, reqDoctorName} from "@/request/DoctorApi";
 import {NameVo} from "@/model/VO/NameVo";
 import {getAge} from "@/utils/TimeUtil";
-import {getJob} from "@/utils/JobUtil";
 import {Doctor} from "@/model/entiy/Doctor";
-import TagSex from "@/components/TagSex.vue";
+import TagJob from "@/components/TagJob.vue";
 
 /**
  ┌───────────────────────────────────┐
