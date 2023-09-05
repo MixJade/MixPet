@@ -37,7 +37,7 @@ const emit = defineEmits<{
   (e: "upPwd"): void
 }>()
 
-export interface DetailTabType {
+interface DetailTabType {
   tit: string,
   con: any
 }
