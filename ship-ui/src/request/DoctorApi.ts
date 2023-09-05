@@ -53,3 +53,6 @@ export const reqDoctorAddAppoint = (appoint: Appoint): Promise<Res> =>
 // 医生的新增自己的挂号
 export const reqDealAppoint = (dealAppointVo: DealAppointVo): Promise<Res> =>
     reqApi.put<string, Res>("doctorLog/appoint/deal", dealAppointVo)
+// 科室管理：查看一个科室下面的所有医生
+export const reqDoctorByDepartId = (departmentId: number): Promise<Doctor[]> =>
+    reqApi<string, Doctor[]>("doctor/department/detail?departmentId=" + departmentId)

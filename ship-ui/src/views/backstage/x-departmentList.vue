@@ -18,6 +18,7 @@
       <template #default="scope">
         <el-button-group>
           <el-button :icon="Edit" circle type="warning" @click="showDialog(scope.row)"/>
+          <el-button :icon="View" circle type="primary" @click="showDoctor(scope.row)"/>
           <el-button :icon="Delete" circle type="danger" @click="delOne(scope.row)"/>
         </el-button-group>
       </template>
@@ -51,11 +52,32 @@
       </span>
     </template>
   </el-dialog>
+  <!--查看科室人员的模态框-->
+  <el-dialog v-model="isDoctorShow" :title="departmentTit+'人员详情'" draggable width="60%">
+    <el-table :data="doctorList" row-key="doctorId" stripe>
+      <el-table-column label="医生名" prop="doctorName"/>
+      <el-table-column label="帐号" prop="username"/>
+      <el-table-column label="性别">
+        <template #default="scope">
+          <TagSex :sex="scope.row.doctorGender"/>
+        </template>
+      </el-table-column>
+      <el-table-column label="年龄" prop="doctorAge">
+        <template #default="scope">{{ getAge(scope.row.doctorAge) }}岁</template>
+      </el-table-column>
+      <el-table-column label="联系方式" prop="doctorTel"/>
+      <el-table-column label="职位" prop="authLv">
+        <template #default="scope">
+          <el-tag>{{ getJob(scope.row.authLv) }}</el-tag>
+        </template>
+      </el-table-column>
+    </el-table>
+  </el-dialog>
 </template>
 
 <script lang="ts" setup>
 import {onMounted, reactive, ref} from 'vue'
-import {Delete, Edit} from '@element-plus/icons-vue'
+import {Delete, Edit, View} from '@element-plus/icons-vue'
 import BackOpCol from "@/components/BackOpCol.vue";
 import BackPage from "@/components/BackPage.vue";
 import {PageQuery, XDepartmentList} from "@/model/VO/BackQuery";
@@ -65,8 +87,12 @@ import {Page} from "@/model/DO/Page";
 import {DepartDto} from "@/model/DO/DepartDto";
 import {ElMessage, ElMessageBox, FormInstance, FormRules} from "element-plus";
 import {Res} from "@/request/Res";
-import {reqDoctorName} from "@/request/DoctorApi";
+import {reqDoctorByDepartId, reqDoctorName} from "@/request/DoctorApi";
 import {NameVo} from "@/model/VO/NameVo";
+import {getAge} from "@/utils/TimeUtil";
+import {getJob} from "@/utils/JobUtil";
+import {Doctor} from "@/model/entiy/Doctor";
+import TagSex from "@/components/TagSex.vue";
 
 /**
  ┌───────────────────────────────────┐
@@ -111,6 +137,17 @@ const sendQuery = (): void => {
   })
 }
 
+// 查看科室人员的模态框
+const isDoctorShow = ref(false)
+const departmentTit = ref("某科")
+const doctorList = ref<Doctor[]>([])
+const showDoctor = (row: Department) => {
+  departmentTit.value = row.departmentName
+  reqDoctorByDepartId(row.departmentId).then(res => {
+    doctorList.value = res
+  })
+  isDoctorShow.value = true
+}
 /**
  ┌───────────────────────────────────┐
  │=============数据删除相关============│
