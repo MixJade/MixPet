@@ -88,12 +88,12 @@ public class DoctorLogController {
      */
     @PutMapping
     public Result update(@RequestBody Doctor doctor) {
+        if (StrUtil.isWhite(doctor.getDoctorName())) return Result.error("姓名不能为空");
         if (UserUtil.getUser() instanceof Doctor doctorLog) {
             doctor.setDoctorId(doctorLog.getDoctorId());
-            return Result.choice("修改", doctorService.updateById(doctor));
+            return Result.choice("修改", doctorService.updateSelf(doctor));
         } else return null;
     }
-
 
     /**
      * 医生：查询自己的订单
