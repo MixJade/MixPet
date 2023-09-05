@@ -47,6 +47,7 @@ $bord-color: #887456;
   }
 
   label {
+    max-width: 200px;
     display: flex;
     cursor: pointer;
     font-weight: 500;
