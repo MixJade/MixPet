@@ -117,13 +117,13 @@
 <script lang="ts" setup>
 import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
-import BackOpCol from "@/components/BackOpCol.vue";
-import BackPage from "@/components/BackPage.vue";
+import BackOpCol from "@/components/row/BackOpCol.vue";
+import BackPage from "@/components/row/BackPage.vue";
 import UpImg from "@/components/UpImg.vue";
 import {PageQuery, YDoctorList} from "@/model/VO/BackQuery";
 import {getAge, getDaysFromToday} from "@/utils/TimeUtil";
 import {DoctorDto} from "@/model/DO/DoctorDto";
-import TagSex from "@/components/TagSex.vue";
+import TagSex from "@/components/show/TagSex.vue";
 import {Page} from "@/model/DO/Page";
 import {reqAddDoctor, reqDelDoctor, reqDelDoctorBatch, reqDoctorList, reqUpdateDoctor} from "@/request/DoctorApi";
 import {Res} from "@/request/Res";
@@ -132,7 +132,7 @@ import {ElMessage, ElMessageBox, FormInstance, FormRules} from "element-plus";
 import {reqDepartName} from "@/request/DepartApi";
 import {NameVo} from "@/model/VO/NameVo";
 import MyAvatar from "@/components/show/MyAvatar.vue";
-import TagJob from "@/components/TagJob.vue";
+import TagJob from "@/components/show/TagJob.vue";
 
 /**
  ┌───────────────────────────────────┐

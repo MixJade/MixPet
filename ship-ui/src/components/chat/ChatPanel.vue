@@ -38,7 +38,7 @@
 <script lang="ts" setup>
 /*=====封装的聊天页面，医生与用户只是传递的参数不同=====*/
 import {PictureRounded, Position} from "@element-plus/icons-vue"
-import PageHead from "@/components/PageHead.vue";
+import PageHead from "@/components/row/PageHead.vue";
 import {ref} from "vue";
 import {ChatGroup} from "@/model/VO/ChatGroup";
 import {MsgVo} from "@/model/VO/MsgVo";

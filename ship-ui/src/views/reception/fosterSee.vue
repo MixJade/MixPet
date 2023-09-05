@@ -11,7 +11,7 @@ import {Page} from "@/model/DO/Page";
 import {FosterCardDto} from "@/model/DO/FosterCardDto";
 import {onMounted, reactive} from "vue";
 import FosterCard from "@/components/card/FosterCard.vue";
-import PageHead from "@/components/PageHead.vue";
+import PageHead from "@/components/row/PageHead.vue";
 import {reqFosterPet} from "@/request/FosterApi";
 
 // 寄养宠物的卡片信息

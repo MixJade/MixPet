@@ -35,7 +35,7 @@
 <script lang="ts" setup>
 import {Pet} from "@/model/entiy/Pet";
 import {getAge} from "@/utils/TimeUtil";
-import TagSex from "@/components/TagSex.vue";
+import TagSex from "@/components/show/TagSex.vue";
 import {onMounted, ref} from "vue";
 import {reqClientPet} from "@/request/PetApi";
 

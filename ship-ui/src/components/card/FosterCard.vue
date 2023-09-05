@@ -28,7 +28,7 @@
 /*=====前台的寄养卡片批量展示=====*/
 import {getAge} from "@/utils/TimeUtil";
 import {FosterCardDto} from "@/model/DO/FosterCardDto";
-import MyRow from "@/components/show/MyRow.vue";
+import MyRow from "@/components/row/MyRow.vue";
 
 // 接收参数：宠物卡片
 defineProps<{

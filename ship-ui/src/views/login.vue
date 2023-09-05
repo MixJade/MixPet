@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts" setup>
-import LoginForm from "@/components/pagePart/LoginForm.vue";
+import LoginForm from "@/components/zoneView/LoginForm.vue";
 import {onMounted, reactive, ref} from "vue";
 import {reqGetLogin} from "@/request/PowerApi";
 import {useRouter} from "vue-router";

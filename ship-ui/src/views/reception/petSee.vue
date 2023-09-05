@@ -15,9 +15,9 @@
 // 宠物的卡片信息
 import {Page} from "@/model/DO/Page";
 import {Pet} from "@/model/entiy/Pet";
-import PetCard from "@/components/pagePart/PetCard.vue";
+import PetCard from "@/components/zoneView/PetCard.vue";
 import {onMounted, reactive, watch} from "vue";
-import PageHead from "@/components/PageHead.vue";
+import PageHead from "@/components/row/PageHead.vue";
 import {PageQuery} from "@/model/VO/BackQuery";
 import {reqPetSee} from "@/request/PetApi";
 

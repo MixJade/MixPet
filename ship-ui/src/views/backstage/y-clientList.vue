@@ -89,12 +89,12 @@
 <script lang="ts" setup>
 import {onMounted, reactive, ref} from 'vue'
 import {Delete, Edit} from '@element-plus/icons-vue'
-import BackOpCol from "@/components/BackOpCol.vue";
-import BackPage from "@/components/BackPage.vue";
+import BackOpCol from "@/components/row/BackOpCol.vue";
+import BackPage from "@/components/row/BackPage.vue";
 import {PageQuery, YClientList} from "@/model/VO/BackQuery";
 import {getAge} from "@/utils/TimeUtil";
 import {Client, exampleClient} from "@/model/entiy/Client";
-import TagSex from "@/components/TagSex.vue";
+import TagSex from "@/components/show/TagSex.vue";
 import {reqAddClient, reqClientList, reqDelClient, reqDelClientBatch, reqUpdateClient} from "@/request/ClientApi";
 import {Page} from "@/model/DO/Page";
 import {ElMessage, ElMessageBox, FormInstance, FormRules} from "element-plus";

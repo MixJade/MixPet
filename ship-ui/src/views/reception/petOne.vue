@@ -77,14 +77,14 @@
 </template>
 
 <script lang="ts" setup>
-import PageHead from "@/components/PageHead.vue";
+import PageHead from "@/components/row/PageHead.vue";
 import {examplePet, Pet} from "@/model/entiy/Pet";
 import {getAge} from "@/utils/TimeUtil";
 import {onMounted, reactive, ref} from "vue";
 import {PetAskOne} from "@/model/VO/PetAskOne";
 import {reqPetOne} from "@/request/PetApi";
 import {reqAdoptPet, reqInAdopt} from "@/request/AdoptApi";
-import MyRow2 from "@/components/show/MyRow2.vue";
+import MyRow2 from "@/components/row/MyRow2.vue";
 
 // 如此获取传参
 const props = defineProps<{
