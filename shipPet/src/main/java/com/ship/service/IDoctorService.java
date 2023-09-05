@@ -68,7 +68,15 @@ public interface IDoctorService extends IService<Doctor> {
      * @param departmentId 科室id
      * @return 医生姓名与id
      */
-    List<NameVo> selectByDepartment(Integer departmentId);
+    List<NameVo> selectNameByDepartment(Integer departmentId);
+
+    /**
+     * 科室管理：查看一个科室下面的所有医生
+     *
+     * @param departmentId 科室id
+     * @return 对应科室的所有医生信息
+     */
+    List<Doctor> selectByDepartmentId(Integer departmentId);
 
     /**
      * 添加医生，关于加密与默认值

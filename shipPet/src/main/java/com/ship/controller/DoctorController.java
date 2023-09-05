@@ -50,7 +50,18 @@ public class DoctorController {
      */
     @GetMapping("/department")
     public List<NameVo> getByDepartment(Integer departmentId) {
-        return doctorService.selectByDepartment(departmentId);
+        return doctorService.selectNameByDepartment(departmentId);
+    }
+
+    /**
+     * 科室管理：查看一个科室下面的所有医生
+     *
+     * @param departmentId 科室id
+     * @return 对应科室的所有医生信息
+     */
+    @GetMapping("/department/detail")
+    public List<Doctor> getByDepartmentId(Integer departmentId) {
+        return doctorService.selectByDepartmentId(departmentId);
     }
 
     @GetMapping("/page")

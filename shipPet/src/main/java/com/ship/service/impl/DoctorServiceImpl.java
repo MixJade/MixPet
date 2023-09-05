@@ -56,8 +56,13 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorMapper, Doctor> impleme
     }
 
     @Override
-    public List<NameVo> selectByDepartment(Integer departmentId) {
-        return baseMapper.selectByDepartment(departmentId);
+    public List<NameVo> selectNameByDepartment(Integer departmentId) {
+        return baseMapper.selectNameByDepartment(departmentId);
+    }
+
+    @Override
+    public List<Doctor> selectByDepartmentId(Integer departmentId) {
+        return baseMapper.selectByDepartmentId(departmentId);
     }
 
     @Override
