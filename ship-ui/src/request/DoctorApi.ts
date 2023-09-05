@@ -6,6 +6,8 @@ import {Doctor} from "@/model/entiy/Doctor";
 import {Res} from "@/request/Res";
 import {NameVo} from "@/model/VO/NameVo";
 import {AppointDto2} from "@/model/DO/AppointDto2";
+import {DealAppointVo} from "@/model/VO/DealAppointVo";
+import {Appoint} from "@/model/entiy/Appoint";
 // 主页查询医生
 export const reqFourDoctor = (): Promise<Page<DoctorDto>> =>
     reqApi<string, Page<DoctorDto>>("doctor/page?numPage=1&pageSize=4")
@@ -36,9 +38,15 @@ export const reqGetLoginD = (): Promise<DoctorDto> =>
 // 医生的姓名列表
 export const reqDoctorName = (): Promise<NameVo[]> =>
     reqApi<string, NameVo[]>("doctor")
-// 医生的查看自己的挂号
-export const reqDoctorAppoint = (): Promise<AppointDto2[]> =>
-    reqApi<string, AppointDto2[]>("doctorLog/appoint")
 // 后台通过科室查询医生的姓名列表
 export const reqDoctorNameByDepartId = (departmentId: number): Promise<NameVo[]> =>
     reqApi<string, NameVo[]>("doctor/department?departmentId=" + departmentId)
+// 医生的查看自己的挂号
+export const reqDoctorAppoint = (): Promise<AppointDto2[]> =>
+    reqApi<string, AppointDto2[]>("doctorLog/appoint")
+// 医生的处理自己的挂号
+export const reqDoctorAddAppoint = (appoint: Appoint): Promise<Res> =>
+    reqApi.post<string, Res>("doctorLog/appoint", appoint)
+// 医生的新增自己的挂号
+export const reqDealAppoint = (dealAppointVo: DealAppointVo): Promise<Res> =>
+    reqApi.put<string, Res>("doctorLog/appoint/deal", dealAppointVo)
