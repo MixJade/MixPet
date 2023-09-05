@@ -38,12 +38,12 @@ public interface NoticeMapper extends BaseMapper<Notice> {
      * <p>可以直接用对象，且不需要声明占位符</p>
      * <p>缺点是可读性不太好</p>
      *
-     * @param noticeDto 更新的标题、更新人、时间
+     * @param notice 更新的标题、更新人、时间
      * @return 更新公告成功
      */
-    boolean updateNotice(NoticeDto noticeDto);
+    boolean updateNotice(Notice notice);
 
-    boolean addNotice(@Param("creatId") Integer creatId, @Param("noticeTitle") String noticeTitle, @Param("noticeFile") String noticeFile);
+    boolean addNotice(Integer creatId, String noticeTitle, String noticeFile);
 
     @Update("update notice set is_disable = #{isDis} where notice_id=#{id}")
     boolean disableNotice(@Param("id") Integer noticeId, @Param("isDis") boolean isDis);

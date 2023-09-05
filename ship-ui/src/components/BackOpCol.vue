@@ -4,6 +4,7 @@
       <slot></slot>
       <el-button plain size="large" type="primary" @click="queryB">搜索</el-button>
     </div>
+    <slot name="right"></slot>
     <el-button plain size="large" type="success" @click="addRoleB">新增{{ role }}</el-button>
     <el-button plain size="large" type="danger" @click="delBatchB">批量删除</el-button>
   </div>
@@ -34,6 +35,7 @@ const delBatchB = (): void => {
 .op-col {
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 8px;
   /*搜索框*/
   .op-input {
     flex-grow: 1;

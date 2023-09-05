@@ -4,13 +4,11 @@
     <el-input v-model="qp.clientName" placeholder="申请人" size="large" @keyup.enter="sendQuery"/>
     <el-input v-model="qp.petName" placeholder="宠物名" size="large" @keyup.enter="sendQuery"/>
   </BackOpCol>
-
   <!--列表展示-->
   <el-table :data="adoptList.records"
             max-height="80vh"
             row-key="adoptId"
             stripe
-            style="width: 100%"
             @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="30"/>
     <el-table-column label="简介" prop="adoptInfo"/>

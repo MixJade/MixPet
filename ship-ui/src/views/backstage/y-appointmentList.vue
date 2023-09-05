@@ -9,13 +9,11 @@
     </el-select>
     <el-input v-model="qp.seaName" placeholder="名称" size="large" @keyup.enter="sendQuery"/>
   </BackOpCol>
-
   <!--列表展示-->
   <el-table :data="appointList.records"
             max-height="80vh"
             row-key="appointId"
             stripe
-            style="width: 100%"
             @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="30"/>
     <el-table-column :formatter="removeT_1" label="就诊时间" prop="appointmentDate" sortable/>

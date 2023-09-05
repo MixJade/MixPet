@@ -3,13 +3,11 @@
   <BackOpCol role="用户" @addRole="addRoleB" @delBatch="delBatchB" @query="sendQuery">
     <el-input v-model="qp.clientName" placeholder="用户姓名" size="large" @keyup.enter="sendQuery"/>
   </BackOpCol>
-
   <!--列表展示-->
   <el-table :data="clientList.records"
             max-height="80vh"
             row-key="clientId"
             stripe
-            style="width: 100%"
             @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="30"/>
     <el-table-column label="图像">

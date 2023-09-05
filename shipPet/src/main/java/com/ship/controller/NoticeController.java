@@ -3,7 +3,6 @@ package com.ship.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.Result;
 import com.ship.model.dto.NoticeDto;
-import com.ship.model.entity.Notice;
 import com.ship.security.model.RoleConst;
 import com.ship.service.INoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +27,6 @@ public class NoticeController {
     @Autowired
     public NoticeController(INoticeService noticeService) {
         this.noticeService = noticeService;
-    }
-
-    /**
-     * 调试所用，实际未调用
-     */
-    @GetMapping
-    public List<Notice> getAll() {
-        return noticeService.list();
     }
 
     @GetMapping("/page")

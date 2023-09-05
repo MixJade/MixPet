@@ -9,7 +9,6 @@
             max-height="80vh"
             row-key="fosterId"
             stripe
-            style="width: 100%"
             @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="30"/>
     <el-table-column label="订单号" prop="fosterCode"/>
