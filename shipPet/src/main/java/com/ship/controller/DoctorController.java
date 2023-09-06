@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.Result;
 import com.ship.model.dto.DoctorDto;
 import com.ship.model.entity.Doctor;
-import com.ship.model.vo.NameVo;
+import com.ship.model.dto.NameDo;
 import com.ship.security.model.RoleConst;
 import com.ship.service.IDoctorService;
 import com.ship.util.StrUtil;
@@ -38,7 +38,7 @@ public class DoctorController {
      * @return 医生姓名与id
      */
     @GetMapping
-    public List<NameVo> getName() {
+    public List<NameDo> getName() {
         return doctorService.selectName();
     }
 
@@ -49,7 +49,7 @@ public class DoctorController {
      * @return 医生姓名与id
      */
     @GetMapping("/department")
-    public List<NameVo> getByDepartment(Integer departmentId) {
+    public List<NameDo> getByDepartment(Integer departmentId) {
         return doctorService.selectNameByDepartment(departmentId);
     }
 

@@ -4,7 +4,7 @@ import {Pet} from "@/model/entiy/Pet";
 import {PageQuery, YPetList} from "@/model/VO/BackQuery";
 import {PetDto} from "@/model/DO/PetDto";
 import {Res} from "@/request/Res";
-import {NameVo} from "@/model/VO/NameVo";
+import {NameDo} from "@/model/DO/NameDo";
 
 // 主页查询宠物
 export const reqFourPet = (): Promise<Page<Pet>> =>
@@ -34,10 +34,10 @@ export const reqDelPet = (id: number): Promise<Res> =>
 export const reqDelPetBatch = (ids: number[]): Promise<Res> =>
     reqApi.delete<string, Res>("pet/batch/" + ids)
 // 管理员通过用户名查看宠物
-export const reqPetNameByClientId = (clientId: number, petId: number): Promise<NameVo[]> => {
-    if (petId == null || petId === 0) return reqApi<string, NameVo[]>("pet/client?clientId=" + clientId)
-    else return reqApi<string, NameVo[]>("pet/client?clientId=" + clientId + "&petId=" + petId)
+export const reqPetNameByClientId = (clientId: number, petId: number): Promise<NameDo[]> => {
+    if (petId == null || petId === 0) return reqApi<string, NameDo[]>("pet/client?clientId=" + clientId)
+    else return reqApi<string, NameDo[]>("pet/client?clientId=" + clientId + "&petId=" + petId)
 }
 // 管理员查看无主的宠物
-export const reqPetNoClient = (): Promise<NameVo[]> =>
-    reqApi<string, NameVo[]>("pet/noClient")
+export const reqPetNoClient = (): Promise<NameDo[]> =>
+    reqApi<string, NameDo[]>("pet/noClient")

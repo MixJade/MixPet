@@ -1,4 +1,4 @@
-package com.ship.model.vo;
+package com.ship.model.dto;
 
 /**
  * 查询与用户有过联系的医生
@@ -7,5 +7,5 @@ package com.ship.model.vo;
  * @param roleId   医生id
  * @param roleName 医生名字
  */
-public record MsgNameVo(byte flag, Integer roleId, String roleName) {
+public record MsgNameDo(byte flag, Integer roleId, String roleName) {
 }

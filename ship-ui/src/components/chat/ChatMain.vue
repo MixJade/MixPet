@@ -18,13 +18,13 @@
 
 <script lang="ts" setup>
 /*=====前台的聊天记录展示，会自动将滚动条划到底=====*/
-import {MsgVo} from "@/model/VO/MsgVo";
+import {MsgDo} from "@/model/DO/MsgDo";
 import {onBeforeUpdate, onMounted, ref} from "vue";
 import {getDisplayTime} from "@/utils/TimeUtil";
 import MyAvatar from "@/components/show/MyAvatar.vue";
 
 defineProps<{
-  msgList: MsgVo[]
+  msgList: MsgDo[]
 }>()
 
 // 滚动条到底

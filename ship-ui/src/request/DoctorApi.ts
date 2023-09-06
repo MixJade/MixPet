@@ -4,7 +4,7 @@ import {DoctorDto} from "@/model/DO/DoctorDto";
 import {PageQuery, YDoctorList} from "@/model/VO/BackQuery";
 import {Doctor} from "@/model/entiy/Doctor";
 import {Res} from "@/request/Res";
-import {NameVo} from "@/model/VO/NameVo";
+import {NameDo} from "@/model/DO/NameDo";
 import {AppointDto2} from "@/model/DO/AppointDto2";
 import {DealAppointVo} from "@/model/VO/DealAppointVo";
 import {Appoint} from "@/model/entiy/Appoint";
@@ -39,11 +39,11 @@ export const reqGetLoginD = (): Promise<DoctorDto> =>
 export const reqUpdateLoginD = (data: Doctor): Promise<Res> =>
     reqApi.put<string, Res>("/doctorLog", data)
 // 医生的姓名列表
-export const reqDoctorName = (): Promise<NameVo[]> =>
-    reqApi<string, NameVo[]>("doctor")
+export const reqDoctorName = (): Promise<NameDo[]> =>
+    reqApi<string, NameDo[]>("doctor")
 // 后台通过科室查询医生的姓名列表
-export const reqDoctorNameByDepartId = (departmentId: number): Promise<NameVo[]> =>
-    reqApi<string, NameVo[]>("doctor/department?departmentId=" + departmentId)
+export const reqDoctorNameByDepartId = (departmentId: number): Promise<NameDo[]> =>
+    reqApi<string, NameDo[]>("doctor/department?departmentId=" + departmentId)
 // 医生的查看自己的挂号
 export const reqDoctorAppoint = (): Promise<AppointDto2[]> =>
     reqApi<string, AppointDto2[]>("doctorLog/appoint")

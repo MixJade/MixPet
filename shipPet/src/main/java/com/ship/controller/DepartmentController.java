@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.Result;
 import com.ship.model.dto.DepartmentDto;
 import com.ship.model.entity.Department;
-import com.ship.model.vo.NameVo;
+import com.ship.model.dto.NameDo;
 import com.ship.security.model.RoleConst;
 import com.ship.service.IDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class DepartmentController {
      * @return 相应科室名与id
      */
     @GetMapping
-    public List<NameVo> getName() {
+    public List<NameDo> getName() {
         return departService.selectName();
     }
 
@@ -48,7 +48,7 @@ public class DepartmentController {
      * @return 科室名称+ID
      */
     @GetMapping("/full")
-    public List<NameVo> getNameHaveDoctor(Integer departmentId) {
+    public List<NameDo> getNameHaveDoctor(Integer departmentId) {
         return departService.selectNameHaveDoctor(departmentId);
     }
 

@@ -99,7 +99,7 @@ import {Page} from "@/model/DO/Page";
 import {moveT} from "@/utils/TimeUtil";
 import {Res} from "@/request/Res";
 import {reqDepartNameHaveDoctor} from "@/request/DepartApi";
-import {NameVo} from "@/model/VO/NameVo";
+import {NameDo} from "@/model/DO/NameDo";
 import {ElMessage, ElMessageBox, FormInstance, FormRules} from "element-plus";
 import {reqClientNameHavePet} from "@/request/ClientApi";
 import {reqPetNameByClientId} from "@/request/PetApi";
@@ -246,10 +246,10 @@ const showDialog = (row: Appoint) => {
  └───────────────────────────────────┘
  */
 // 表单的数据
-const clientNameL = ref<NameVo[]>([]) // 下拉框用户名
-const petNameL = ref<NameVo[]>([])
-const doctorNameL = ref<NameVo[]>([])
-const departmentNameL = ref<NameVo[]>([])
+const clientNameL = ref<NameDo[]>([]) // 下拉框用户名
+const petNameL = ref<NameDo[]>([])
+const doctorNameL = ref<NameDo[]>([])
+const departmentNameL = ref<NameDo[]>([])
 const form = ref<Appoint>(exampleAppoint()) // 空的默认值
 const myFormRef = ref<FormInstance>()
 // 校验表单并提交

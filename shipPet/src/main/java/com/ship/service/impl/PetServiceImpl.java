@@ -7,7 +7,7 @@ import com.ship.common.PhotoEnum;
 import com.ship.mapper.PetMapper;
 import com.ship.model.dto.PetDto;
 import com.ship.model.entity.Pet;
-import com.ship.model.vo.NameVo;
+import com.ship.model.dto.NameDo;
 import com.ship.service.IPetService;
 import com.ship.util.StrUtil;
 import org.springframework.stereotype.Service;
@@ -57,17 +57,17 @@ public class PetServiceImpl extends ServiceImpl<PetMapper, Pet> implements IPetS
     }
 
     @Override
-    public List<NameVo> selectName() {
+    public List<NameDo> selectName() {
         return baseMapper.selectName();
     }
 
     @Override
-    public List<NameVo> selectByClient(Integer clientId,Integer petId) {
+    public List<NameDo> selectByClient(Integer clientId, Integer petId) {
         return baseMapper.selectByClient(clientId, petId);
     }
 
     @Override
-    public List<NameVo> selectNoClient() {
+    public List<NameDo> selectNoClient() {
         return baseMapper.selectNoClient();
     }
 

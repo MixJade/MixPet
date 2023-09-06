@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ship.model.entity.Msg;
 import com.ship.mapper.MsgMapper;
 import com.ship.service.IMsgService;
-import com.ship.model.vo.MsgNameVo;
-import com.ship.model.vo.MsgVo;
+import com.ship.model.dto.MsgNameDo;
+import com.ship.model.dto.MsgDo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,12 +27,12 @@ public class MsgServiceImpl extends ServiceImpl<MsgMapper, Msg> implements IMsgS
     }
 
     @Override
-    public List<MsgVo> getADoctor(Integer clientId, Integer doctorId) {
+    public List<MsgDo> getADoctor(Integer clientId, Integer doctorId) {
         return baseMapper.getADoctor(clientId, doctorId);
     }
 
     @Override
-    public List<MsgNameVo> getDoctorGroup(Integer clientId, Integer doctorId) {
+    public List<MsgNameDo> getDoctorGroup(Integer clientId, Integer doctorId) {
         return baseMapper.getDoctorGroup(clientId, doctorId);
     }
 
@@ -42,12 +42,12 @@ public class MsgServiceImpl extends ServiceImpl<MsgMapper, Msg> implements IMsgS
     }
 
     @Override
-    public List<MsgVo> getAClient(Integer doctorId, Integer clientId) {
+    public List<MsgDo> getAClient(Integer doctorId, Integer clientId) {
         return baseMapper.getAClient(doctorId, clientId);
     }
 
     @Override
-    public List<MsgNameVo> getClientGroup(Integer doctorId, Integer clientId) {
+    public List<MsgNameDo> getClientGroup(Integer doctorId, Integer clientId) {
         return baseMapper.getClientGroup(doctorId, clientId);
     }
 }

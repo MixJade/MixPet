@@ -52,7 +52,7 @@ import AppointCard from "@/components/card/AppointCard.vue";
 import ShakeBtn from "@/components/button/ShakeBtn.vue";
 import {reqDealAppoint, reqDoctorAddAppoint, reqDoctorAppoint} from "@/request/DoctorApi";
 import {onMounted, reactive, ref, watch} from "vue";
-import {NameVo} from "@/model/VO/NameVo";
+import {NameDo} from "@/model/DO/NameDo";
 import {Appoint, exampleAppoint} from "@/model/entiy/Appoint";
 import {FormInstance, FormRules} from "element-plus";
 import {reqPetNameByClientId} from "@/request/PetApi";
@@ -81,8 +81,8 @@ const toSuc = (id: number) => {
 
 // 表单的数据
 const modalView = ref(false)
-const clientNameL = ref<NameVo[]>([]) // 下拉框用户名
-const petNameL = ref<NameVo[]>([])
+const clientNameL = ref<NameDo[]>([]) // 下拉框用户名
+const petNameL = ref<NameDo[]>([])
 const form = ref<Appoint>(exampleAppoint()) // 空的默认值
 const myFormRef = ref<FormInstance>()
 // 新增

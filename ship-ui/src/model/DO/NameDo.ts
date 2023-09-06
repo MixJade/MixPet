@@ -1,7 +1,7 @@
 /**
  * 后台下拉框对应的姓名
  */
-export interface NameVo {
+export interface NameDo {
     readonly roleId: number;
     readonly roleName: number;
 }

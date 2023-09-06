@@ -4,7 +4,7 @@ import reqApi from "@/request/reqAPI";
 import {DepartDto} from "@/model/DO/DepartDto";
 import {Res} from "@/request/Res";
 import {Department} from "@/model/entiy/Department";
-import {NameVo} from "@/model/VO/NameVo";
+import {NameDo} from "@/model/DO/NameDo";
 
 // 后台科室列表
 export const reqDepartList = (page: XDepartmentList): Promise<Page<DepartDto>> =>
@@ -22,10 +22,10 @@ export const reqDelDepart = (id: number): Promise<Res> =>
 export const reqDelDepartBatch = (ids: number[]): Promise<Res> =>
     reqApi.delete<string, Res>("department/batch/" + ids)
 // 后台科室名称
-export const reqDepartName = (): Promise<NameVo[]> =>
-    reqApi<string, NameVo[]>("department")
+export const reqDepartName = (): Promise<NameDo[]> =>
+    reqApi<string, NameDo[]>("department")
 // 订单下拉框查询有医生的科室，带上已有科室
-export const reqDepartNameHaveDoctor = (departmentId: number | null): Promise<NameVo[]> => {
-    if (departmentId == null || departmentId == 0) return reqApi<string, NameVo[]>("department/full")
-    else return reqApi<string, NameVo[]>("department/full?departmentId=" + departmentId)
+export const reqDepartNameHaveDoctor = (departmentId: number | null): Promise<NameDo[]> => {
+    if (departmentId == null || departmentId == 0) return reqApi<string, NameDo[]>("department/full")
+    else return reqApi<string, NameDo[]>("department/full?departmentId=" + departmentId)
 }

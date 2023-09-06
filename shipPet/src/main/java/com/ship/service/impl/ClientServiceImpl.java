@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ship.common.PhotoEnum;
 import com.ship.mapper.ClientMapper;
 import com.ship.model.entity.Client;
-import com.ship.model.vo.NameVo;
+import com.ship.model.dto.NameDo;
 import com.ship.service.IClientService;
 import com.ship.util.StrUtil;
 import org.springframework.stereotype.Service;
@@ -46,7 +46,7 @@ public class ClientServiceImpl extends ServiceImpl<ClientMapper, Client> impleme
     }
 
     @Override
-    public List<NameVo> selectName() {
+    public List<NameDo> selectName() {
         return baseMapper.selectName();
     }
 
@@ -57,7 +57,7 @@ public class ClientServiceImpl extends ServiceImpl<ClientMapper, Client> impleme
      * @return 客户名称+ID
      */
     @Override
-    public List<NameVo> selectNameHavePet(Integer clientId) {
+    public List<NameDo> selectNameHavePet(Integer clientId) {
         return baseMapper.selectNameHavePet(clientId);
     }
 

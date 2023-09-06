@@ -3,7 +3,7 @@ package com.ship.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.common.Result;
 import com.ship.model.entity.Client;
-import com.ship.model.vo.NameVo;
+import com.ship.model.dto.NameDo;
 import com.ship.security.model.RoleConst;
 import com.ship.service.IClientService;
 import com.ship.util.StrUtil;
@@ -36,7 +36,7 @@ public class ClientController {
      * 查询用户的名字与id
      */
     @GetMapping
-    public List<NameVo> getName() {
+    public List<NameDo> getName() {
         return clientService.selectName();
     }
 
@@ -47,7 +47,7 @@ public class ClientController {
      * @return 客户名称+ID
      */
     @GetMapping("/full")
-    public List<NameVo> getNameHavePet(Integer clientId) {
+    public List<NameDo> getNameHavePet(Integer clientId) {
         return clientService.selectNameHavePet(clientId);
     }
 

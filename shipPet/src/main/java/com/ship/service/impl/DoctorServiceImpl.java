@@ -7,7 +7,7 @@ import com.ship.common.PhotoEnum;
 import com.ship.mapper.DoctorMapper;
 import com.ship.model.dto.DoctorDto;
 import com.ship.model.entity.Doctor;
-import com.ship.model.vo.NameVo;
+import com.ship.model.dto.NameDo;
 import com.ship.service.IDoctorService;
 import com.ship.util.StrUtil;
 import org.springframework.stereotype.Service;
@@ -51,12 +51,12 @@ public class DoctorServiceImpl extends ServiceImpl<DoctorMapper, Doctor> impleme
     }
 
     @Override
-    public List<NameVo> selectName() {
+    public List<NameDo> selectName() {
         return baseMapper.selectName();
     }
 
     @Override
-    public List<NameVo> selectNameByDepartment(Integer departmentId) {
+    public List<NameDo> selectNameByDepartment(Integer departmentId) {
         return baseMapper.selectNameByDepartment(departmentId);
     }
 

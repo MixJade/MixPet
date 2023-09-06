@@ -93,7 +93,7 @@ import {reqAddFoster, reqDelFoster, reqDelFosterBatch, reqFosterList, reqUpdateF
 import {ElMessage, ElMessageBox, FormInstance, FormRules} from "element-plus";
 import {Res} from "@/request/Res";
 import {reqClientNameHavePet} from "@/request/ClientApi";
-import {NameVo} from "@/model/VO/NameVo";
+import {NameDo} from "@/model/DO/NameDo";
 import {reqPetNameByClientId} from "@/request/PetApi";
 
 /**
@@ -237,8 +237,8 @@ const showDialog = (row: Foster) => {
  └───────────────────────────────────┘
  */
 // 表单的数据
-const clientNameL = ref<NameVo[]>([]) // 下拉框用户名
-const petNameL = ref<NameVo[]>([])
+const clientNameL = ref<NameDo[]>([]) // 下拉框用户名
+const petNameL = ref<NameDo[]>([])
 const form = ref<Foster>(exampleFoster()) // 空的默认值
 const myFormRef = ref<FormInstance>()
 // 校验表单并提交

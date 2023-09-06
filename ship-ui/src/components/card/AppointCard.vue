@@ -19,7 +19,7 @@
     <div class="card_content">
       <div class="card-tit">宠物：{{ a.petName }}</div>
       <div class="pet-con">
-        <img alt="头像" src="/picture/pet-ex.jpg">
+        <img :src="'/api/common/download?name='+a.petPhoto" alt="头像"/>
         <ul>
           <li>品种：
             <el-tag>{{ a.petVariety }}</el-tag>

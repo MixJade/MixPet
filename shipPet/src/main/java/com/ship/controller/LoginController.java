@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.ship.common.Result;
 import com.ship.common.SendMail;
 import com.ship.mapper.ClientMapper;
-import com.ship.model.dto.RegisterDto;
+import com.ship.model.vo.RegisterVo;
 import com.ship.model.entity.Client;
 import com.ship.model.entity.Doctor;
 import com.ship.security.model.RoleEnum;
@@ -95,7 +95,7 @@ public class LoginController {
      * @return 注册成功
      */
     @PostMapping("/register")
-    public Result register(@RequestBody RegisterDto registerDto, HttpSession session) {
+    public Result register(@RequestBody RegisterVo registerDto, HttpSession session) {
         String username = registerDto.getClientUsername();
         if (StrUtil.isWhite(username)) return Result.error("用户名不能为空");
         String checkCode = registerDto.getCheckCode();
@@ -138,7 +138,7 @@ public class LoginController {
      * @return 注册成功
      */
     @PostMapping("/find")
-    public Result find(@RequestBody RegisterDto registerDto, HttpSession session) {
+    public Result find(@RequestBody RegisterVo registerDto, HttpSession session) {
         String checkCode = registerDto.getCheckCode();
         String mail = registerDto.getClientTel();
         if (StrUtil.isWhite(mail)) return Result.error("未获取到邮箱");
