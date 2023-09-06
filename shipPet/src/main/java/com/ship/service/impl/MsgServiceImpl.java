@@ -1,11 +1,12 @@
 package com.ship.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.ship.model.entity.Msg;
 import com.ship.mapper.MsgMapper;
-import com.ship.service.IMsgService;
-import com.ship.model.dto.MsgNameDo;
 import com.ship.model.dto.MsgDo;
+import com.ship.model.dto.MsgNameDo;
+import com.ship.model.dto.NameDo;
+import com.ship.model.entity.Msg;
+import com.ship.service.IMsgService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,32 +23,36 @@ import java.util.List;
 public class MsgServiceImpl extends ServiceImpl<MsgMapper, Msg> implements IMsgService {
 
     @Override
-    public Integer getByClient(Integer clientId) {
-        return baseMapper.getByClient(clientId);
+    public NameDo clientGetNearDoctor(Integer clientId) {
+        NameDo nameDo = baseMapper.clientGetNearDoctor(clientId);
+        if (nameDo != null) return nameDo;
+        else return new NameDo(1, "三月七");
     }
 
     @Override
-    public List<MsgDo> getADoctor(Integer clientId, Integer doctorId) {
-        return baseMapper.getADoctor(clientId, doctorId);
+    public List<MsgDo> clientGetADoctor(Integer clientId, Integer doctorId) {
+        return baseMapper.clientGetADoctor(clientId, doctorId);
     }
 
     @Override
-    public List<MsgNameDo> getDoctorGroup(Integer clientId, Integer doctorId) {
-        return baseMapper.getDoctorGroup(clientId, doctorId);
+    public List<MsgNameDo> clientGetDoctorGroup(Integer clientId, Integer doctorId) {
+        return baseMapper.clientGetDoctorGroup(clientId, doctorId);
     }
 
     @Override
-    public Integer getByDoctor(Integer doctorId) {
-        return baseMapper.getByDoctor(doctorId);
+    public NameDo doctorGetNearClient(Integer doctorId) {
+        NameDo nameDo = baseMapper.doctorGetNearClient(doctorId);
+        if (nameDo != null) return nameDo;
+        else return new NameDo(1, "七月三");
     }
 
     @Override
-    public List<MsgDo> getAClient(Integer doctorId, Integer clientId) {
-        return baseMapper.getAClient(doctorId, clientId);
+    public List<MsgDo> doctorGetAClient(Integer doctorId, Integer clientId) {
+        return baseMapper.doctorGetAClient(doctorId, clientId);
     }
 
     @Override
-    public List<MsgNameDo> getClientGroup(Integer doctorId, Integer clientId) {
-        return baseMapper.getClientGroup(doctorId, clientId);
+    public List<MsgNameDo> doctorGetClientGroup(Integer doctorId, Integer clientId) {
+        return baseMapper.doctorGetClientGroup(doctorId, clientId);
     }
 }

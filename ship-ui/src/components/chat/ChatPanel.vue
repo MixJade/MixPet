@@ -19,9 +19,17 @@
           <ChatMain :msg-list="msgList"/>
         </main>
         <footer>
-          <el-icon size="36">
-            <PictureRounded/>
-          </el-icon>
+          <el-upload
+              :before-upload="beforeImgUpload"
+              :on-success="handleAvatarSuccess"
+              :show-file-list="false"
+              action="/api/common/upChat"
+              name="myFile"
+          >
+            <el-icon size="36">
+              <PictureRounded/>
+            </el-icon>
+          </el-upload>
           <el-input
               v-model="textarea1"
               autosize
@@ -43,6 +51,7 @@ import {ref} from "vue";
 import {ChatGroup} from "@/model/DO/ChatGroup";
 import {MsgDo} from "@/model/DO/MsgDo";
 import ChatMain from "@/components/chat/ChatMain.vue";
+import {ElMessage, UploadRawFile} from "element-plus";
 
 defineProps<{
   opType: "用户" | "医生",
@@ -54,14 +63,38 @@ defineProps<{
 // 待发送的消息
 const textarea1 = ref("")
 const emit = defineEmits<{
-  (e: "sendMsg", value: string): void,
+  (e: "sendTxtMsg", value: string): void,
+  (e: "sendImgMsg", value: string): void,
   (e: "cutOther", value: number): void
 }>()
 const sendMsgB = (): void => {
-  emit("sendMsg", textarea1.value)
+  emit("sendTxtMsg", textarea1.value)
+  textarea1.value = ""
 }
 const cutOtherB = (roleId: number) => {
   emit("cutOther", roleId)
+}
+
+/**
+ * 图片上传框：上传成功之后的事件
+ * @param response 图片名称
+ */
+const handleAvatarSuccess = (response: string): void => {
+  emit("sendImgMsg", response)
+}
+/**
+ * 图片上传框：上传前的校验
+ * @param rawFile 上传的聊天图片
+ */
+const beforeImgUpload = (rawFile: UploadRawFile) => {
+  if (rawFile.type !== 'image/png' && rawFile.type !== 'image/jpeg') {
+    ElMessage.error('请上传JPG、PNG图片')
+    return false
+  } else if (rawFile.size > 3145000) {
+    ElMessage.error('图片大小不能大于3MB')
+    return false
+  }
+  return true
 }
 </script>
 

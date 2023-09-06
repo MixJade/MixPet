@@ -2,15 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ship.mapper.MsgMapper">
     <!--查询用户最近谈话的医生-->
-    <select id="getByClient" resultType="Integer">
-        SELECT doctor_id
-        FROM msg
-        WHERE is_del = 0
-          AND client_id = #{clientId}
-        ORDER BY create_time DESC LIMIT 0,1
+    <select id="clientGetNearDoctor" resultType="com.ship.model.dto.NameDo">
+        SELECT m.doctor_id   AS role_id,
+               d.doctor_name AS role_name
+        FROM msg m,
+             doctor d
+        WHERE m.is_del = 0
+          AND m.client_id = #{clientId}
+          AND d.doctor_id = m.doctor_id
+        ORDER BY m.create_time DESC
+        LIMIT 1
     </select>
     <!-- 查询特定用户与医生对话-->
-    <select id="getADoctor" resultType="com.ship.model.dto.MsgDo">
+    <select id="clientGetADoctor" resultType="com.ship.model.dto.MsgDo">
         SELECT msg_id,
                (CASE is_client WHEN 0 THEN d.doctor_name ELSE c.client_name END)   AS role_name,
                (CASE is_client WHEN 0 THEN d.doctor_photo ELSE c.client_photo END) AS role_photo,
@@ -27,28 +31,37 @@
           AND m.client_id = c.client_id
           AND m.doctor_id = d.doctor_id
     </select>
-    <!-- 查询与用户有过联系的医生-->
-    <select id="getDoctorGroup" resultType="com.ship.model.dto.MsgNameDo">
-        SELECT if(m.doctor_id = #{doctorId}, 0, 1) AS flag,
-               m.doctor_id                         AS role_id,
-               d.doctor_name                       AS role_name
+    <!-- 查询与用户有过联系的医生，这里使用全参构造接收结果，不必指定字段名-->
+    <select id="clientGetDoctorGroup" resultType="com.ship.model.dto.MsgNameDo">
+        SELECT IF(m.doctor_id = #{doctorId}, 0, 1) AS flag,
+               m.doctor_id,
+               d.doctor_name
         FROM msg m,
              doctor d
         WHERE client_id = #{clientId}
           AND m.doctor_id = d.doctor_id
-        GROUP BY role_id
-        ORDER BY flag
+        GROUP BY m.doctor_id
+                 -- 连接当前的医生
+        UNION
+        SELECT 0 AS flag, d.doctor_id, d.doctor_name
+        FROM doctor d
+        WHERE d.doctor_id = #{doctorId}
+        ORDER BY flag -- 最后进行排序
     </select>
     <!--查询医生最近谈话的用户-->
-    <select id="getByDoctor" resultType="Integer">
-        SELECT client_id
-        FROM msg
-        WHERE is_del = 0
-          AND doctor_id = #{doctorId}
-        ORDER BY create_time DESC LIMIT 0,1
+    <select id="doctorGetNearClient" resultType="com.ship.model.dto.NameDo">
+        SELECT m.client_id   AS role_id,
+               c.client_name AS role_name
+        FROM msg m,
+             client c
+        WHERE m.is_del = 0
+          AND m.doctor_id = #{doctorId}
+          AND m.client_id = c.client_id
+        ORDER BY m.create_time DESC
+        LIMIT 1
     </select>
     <!-- 查询特定医生与用户对话-->
-    <select id="getAClient" resultType="com.ship.model.dto.MsgDo">
+    <select id="doctorGetAClient" resultType="com.ship.model.dto.MsgDo">
         SELECT msg_id,
                (CASE is_client WHEN 0 THEN d.doctor_name ELSE c.client_name END)   AS role_name,
                (CASE is_client WHEN 0 THEN d.doctor_photo ELSE c.client_photo END) AS role_photo,
@@ -66,7 +79,7 @@
           AND m.doctor_id = d.doctor_id
     </select>
     <!-- 医生谈过话的用户-->
-    <select id="getClientGroup" resultType="com.ship.model.dto.MsgNameDo">
+    <select id="doctorGetClientGroup" resultType="com.ship.model.dto.MsgNameDo">
         SELECT if(m.client_id = #{clientId}, 0, 1) AS flag,
                m.client_id                         AS role_id,
                c.client_name                       AS role_name

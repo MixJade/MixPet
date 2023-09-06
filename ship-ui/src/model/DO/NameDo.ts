@@ -3,5 +3,5 @@
  */
 export interface NameDo {
     readonly roleId: number;
-    readonly roleName: number;
+    readonly roleName: string;
 }
