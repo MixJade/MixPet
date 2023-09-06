@@ -32,7 +32,7 @@ const innerRef = ref<HTMLDivElement>()
 const rollBottom = () => {
   setTimeout(() => {
     innerRef.value!.scrollTop = innerRef.value!.scrollHeight
-  }, 300)
+  }, 500)
 }
 onBeforeUpdate(() => {
   rollBottom()
