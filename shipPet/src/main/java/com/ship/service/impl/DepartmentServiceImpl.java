@@ -8,7 +8,7 @@ import com.ship.mapper.DepartmentMapper;
 import com.ship.model.dto.DepartmentDto;
 import com.ship.model.entity.Department;
 import com.ship.model.entity.Doctor;
-import com.ship.model.vo.NameVo;
+import com.ship.model.dto.NameDo;
 import com.ship.service.IDepartmentService;
 import com.ship.service.IDoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,12 +63,12 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
     }
 
     @Override
-    public List<NameVo> selectName() {
+    public List<NameDo> selectName() {
         return baseMapper.selectName();
     }
 
     @Override
-    public List<NameVo> selectNameHaveDoctor(Integer departmentId) {
+    public List<NameDo> selectNameHaveDoctor(Integer departmentId) {
         return baseMapper.selectNameHaveDoctor(departmentId);
     }
 

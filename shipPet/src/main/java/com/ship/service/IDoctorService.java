@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ship.model.dto.DoctorDto;
 import com.ship.model.entity.Doctor;
-import com.ship.model.vo.NameVo;
+import com.ship.model.dto.NameDo;
 
 import java.util.List;
 
@@ -60,7 +60,7 @@ public interface IDoctorService extends IService<Doctor> {
      *
      * @return 相应角色名字与id
      */
-    List<NameVo> selectName();
+    List<NameDo> selectName();
 
     /**
      * 管理员：在添加挂号单时，通过科室查询医生
@@ -68,7 +68,7 @@ public interface IDoctorService extends IService<Doctor> {
      * @param departmentId 科室id
      * @return 医生姓名与id
      */
-    List<NameVo> selectNameByDepartment(Integer departmentId);
+    List<NameDo> selectNameByDepartment(Integer departmentId);
 
     /**
      * 科室管理：查看一个科室下面的所有医生

@@ -1,11 +1,11 @@
-package com.ship.model.vo;
+package com.ship.model.dto;
 
 import java.time.LocalDateTime;
 
 /**
  * 消息类
  */
-public record MsgVo(
+public record MsgDo(
         Integer msgId,
         String roleName,
         String rolePhoto,

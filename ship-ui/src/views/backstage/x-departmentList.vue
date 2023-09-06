@@ -88,7 +88,7 @@ import {DepartDto} from "@/model/DO/DepartDto";
 import {ElMessage, ElMessageBox, FormInstance, FormRules} from "element-plus";
 import {Res} from "@/request/Res";
 import {reqDoctorByDepartId, reqDoctorName} from "@/request/DoctorApi";
-import {NameVo} from "@/model/VO/NameVo";
+import {NameDo} from "@/model/DO/NameDo";
 import {getAge} from "@/utils/TimeUtil";
 import {Doctor} from "@/model/entiy/Doctor";
 import TagJob from "@/components/show/TagJob.vue";
@@ -229,7 +229,7 @@ const showDialog = (row: Department) => {
  └───────────────────────────────────┘
  */
 // 表单的数据
-const doctorNameL = ref<NameVo[]>([]) // 下拉框用户名
+const doctorNameL = ref<NameDo[]>([]) // 下拉框用户名
 const form = ref<Department>(exampleDepart()) // 空的默认值
 const myFormRef = ref<FormInstance>()
 // 校验表单并提交

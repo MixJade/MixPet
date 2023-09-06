@@ -40,15 +40,15 @@
 import {PictureRounded, Position} from "@element-plus/icons-vue"
 import PageHead from "@/components/row/PageHead.vue";
 import {ref} from "vue";
-import {ChatGroup} from "@/model/VO/ChatGroup";
-import {MsgVo} from "@/model/VO/MsgVo";
+import {ChatGroup} from "@/model/DO/ChatGroup";
+import {MsgDo} from "@/model/DO/MsgDo";
 import ChatMain from "@/components/chat/ChatMain.vue";
 
 defineProps<{
   opType: "用户" | "医生",
   roleName: string,
   groupList: ChatGroup[],
-  msgList: MsgVo[]
+  msgList: MsgDo[]
 }>()
 
 // 待发送的消息

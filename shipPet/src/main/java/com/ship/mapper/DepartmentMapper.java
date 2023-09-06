@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.model.dto.DepartmentDto;
 import com.ship.model.entity.Department;
-import com.ship.model.vo.NameVo;
+import com.ship.model.dto.NameDo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -23,7 +23,7 @@ public interface DepartmentMapper extends BaseMapper<Department> {
     IPage<DepartmentDto> selectDepartmentPage(IPage<Department> page, String departmentName);
 
     @Select("SELECT department_id as roleId, department_name as roleName FROM department WHERE is_del=0")
-    List<NameVo> selectName();
+    List<NameDo> selectName();
 
     /**
      * 【内联查询】名下有医生的科室，带上当前科室
@@ -31,7 +31,7 @@ public interface DepartmentMapper extends BaseMapper<Department> {
      * @param departmentId 当前科室ID
      * @return 科室名称+ID
      */
-    List<NameVo> selectNameHaveDoctor(Integer departmentId);
+    List<NameDo> selectNameHaveDoctor(Integer departmentId);
 
     /**
      * 更新科室，让主任可以为空

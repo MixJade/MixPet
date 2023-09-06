@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.ship.common.Result;
 import com.ship.model.dto.DepartmentDto;
 import com.ship.model.entity.Department;
-import com.ship.model.vo.NameVo;
+import com.ship.model.dto.NameDo;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public interface IDepartmentService extends IService<Department> {
      *
      * @return 相应角色名字与id
      */
-    List<NameVo> selectName();
+    List<NameDo> selectName();
 
     /**
      * 【内联查询】名下有医生的科室，带上当前科室
@@ -57,7 +57,7 @@ public interface IDepartmentService extends IService<Department> {
      * @param departmentId 当前科室ID
      * @return 科室名称+ID
      */
-    List<NameVo> selectNameHaveDoctor(Integer departmentId);
+    List<NameDo> selectNameHaveDoctor(Integer departmentId);
 
     /**
      * 更新科室，让主任可以为空

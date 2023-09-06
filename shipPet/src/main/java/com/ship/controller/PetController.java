@@ -5,7 +5,7 @@ import com.ship.common.Result;
 import com.ship.model.dto.PetDto;
 import com.ship.model.entity.Client;
 import com.ship.model.entity.Pet;
-import com.ship.model.vo.NameVo;
+import com.ship.model.dto.NameDo;
 import com.ship.security.model.RoleConst;
 import com.ship.service.IPetService;
 import com.ship.util.StrUtil;
@@ -38,7 +38,7 @@ public class PetController {
      * 添加寄养、挂号单时，查询主人对应的宠物
      */
     @GetMapping("/client")
-    public List<NameVo> getByClient(Integer clientId, Integer petId) {
+    public List<NameDo> getByClient(Integer clientId, Integer petId) {
         return petService.selectByClient(clientId, petId);
     }
 
@@ -62,7 +62,7 @@ public class PetController {
      * @return 无主宠物的姓名与ID
      */
     @GetMapping("/noClient")
-    public List<NameVo> getNoClient() {
+    public List<NameDo> getNoClient() {
         return petService.selectNoClient();
     }
 

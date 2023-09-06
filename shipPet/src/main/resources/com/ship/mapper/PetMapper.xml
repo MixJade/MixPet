@@ -33,7 +33,7 @@
           and ISNULL(client_id)
     </select>
     <!--「连接查询」用户名下的宠物，带当前数据-->
-    <select id="selectByClient" resultType="com.ship.model.vo.NameVo">
+    <select id="selectByClient" resultType="com.ship.model.dto.NameDo">
         SELECT pet_id as roleId, pet_name as roleName
         FROM pet
         WHERE is_del = '0'

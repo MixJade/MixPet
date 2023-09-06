@@ -13,7 +13,7 @@
         </if>
     </select>
     <!-- 【子查询】名下有宠物的用户，带上当前用户-->
-    <select id="selectNameHavePet" resultType="com.ship.model.vo.NameVo">
+    <select id="selectNameHavePet" resultType="com.ship.model.dto.NameDo">
         SELECT client_id AS roleId,
         client_name AS roleName
         FROM client

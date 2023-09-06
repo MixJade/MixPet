@@ -6,14 +6,14 @@
 </template>
 
 <script lang="ts" setup>
-import {ChatGroup} from "@/model/VO/ChatGroup";
-import {MsgVo} from "@/model/VO/MsgVo";
+import {ChatGroup} from "@/model/DO/ChatGroup";
+import {MsgDo} from "@/model/DO/MsgDo";
 import ChatPanel from "@/components/chat/ChatPanel.vue";
 import {onMounted, ref} from "vue";
-import {reqClientMsg, reqClientMsgGroup, reqClientMsgList} from "@/request/MsgApi";
+import {reqDoctorIdMsg, reqClientMsgGroup, reqClientMsgList} from "@/request/MsgApi";
 
 onMounted(() => {
-  reqClientMsg().then(res => {
+  reqDoctorIdMsg().then(res => {
     cutDoctor(res)
   })
 })
@@ -33,7 +33,7 @@ if (props.doctorId == null || props.doctorId == '') {
 }
 // 得到分组与聊天记录
 const groupList = ref<ChatGroup[]>([])
-const msgList = ref<MsgVo[]>([])
+const msgList = ref<MsgDo[]>([])
 // 发送消息
 const sendMsg = (val: string): void => {
   console.log(val)

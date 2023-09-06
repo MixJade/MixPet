@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ship.model.dto.PetDto;
 import com.ship.model.entity.Pet;
-import com.ship.model.vo.NameVo;
+import com.ship.model.dto.NameDo;
 
 import java.util.List;
 
@@ -62,17 +62,17 @@ public interface IPetService extends IService<Pet> {
      *
      * @return 相应角色名字与id
      */
-    List<NameVo> selectName();
+    List<NameDo> selectName();
 
     /**
      * 查询主人对应的宠物，以及当前的宠物
      */
-    List<NameVo> selectByClient(Integer clientId, Integer petId);
+    List<NameDo> selectByClient(Integer clientId, Integer petId);
 
     /**
      * 查询没有主人的宠物
      */
-    List<NameVo> selectNoClient();
+    List<NameDo> selectNoClient();
 
     /**
      * 添加宠物，关于默认值

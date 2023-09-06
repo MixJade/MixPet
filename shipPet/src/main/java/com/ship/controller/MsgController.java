@@ -4,8 +4,8 @@ import com.ship.common.Result;
 import com.ship.model.entity.Client;
 import com.ship.model.entity.Doctor;
 import com.ship.model.entity.Msg;
-import com.ship.model.vo.MsgNameVo;
-import com.ship.model.vo.MsgVo;
+import com.ship.model.dto.MsgNameDo;
+import com.ship.model.dto.MsgDo;
 import com.ship.service.IMsgService;
 import com.ship.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class MsgController {
      * 用户：查询特定用户与医生对话
      */
     @GetMapping("/aDoctor")
-    public List<MsgVo> getADoctor(Integer doctorId) {
+    public List<MsgDo> getADoctor(Integer doctorId) {
         if (UserUtil.getUser() instanceof Client client)
             return msgService.getADoctor(client.getClientId(), doctorId);
         return null;
@@ -55,7 +55,7 @@ public class MsgController {
      * 用户：查询用户谈过话的医生
      */
     @GetMapping("/group")
-    public List<MsgNameVo> getDoctorGroup(Integer doctorId) {
+    public List<MsgNameDo> getDoctorGroup(Integer doctorId) {
         if (UserUtil.getUser() instanceof Client client)
             return msgService.getDoctorGroup(client.getClientId(), doctorId);
         return null;
@@ -88,7 +88,7 @@ public class MsgController {
      * 医生：查询特定医生与用户对话
      */
     @GetMapping("/aClient")
-    public List<MsgVo> getAClient(Integer clientId) {
+    public List<MsgDo> getAClient(Integer clientId) {
         if (UserUtil.getUser() instanceof Doctor doctor)
             return msgService.getAClient(doctor.getDoctorId(), clientId);
         return null;
@@ -98,7 +98,7 @@ public class MsgController {
      * 医生：医生谈过话的用户
      */
     @GetMapping("/d/group")
-    public List<MsgNameVo> getClientGroup(Integer clientId) {
+    public List<MsgNameDo> getClientGroup(Integer clientId) {
         if (UserUtil.getUser() instanceof Doctor doctor)
             return msgService.getClientGroup(doctor.getDoctorId(), clientId);
         return null;

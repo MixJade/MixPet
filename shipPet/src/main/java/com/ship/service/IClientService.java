@@ -3,7 +3,7 @@ package com.ship.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ship.model.entity.Client;
-import com.ship.model.vo.NameVo;
+import com.ship.model.dto.NameDo;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public interface IClientService extends IService<Client> {
      *
      * @return 所有用户名字及id
      */
-    List<NameVo> selectName();
+    List<NameDo> selectName();
 
     /**
      * 【子查询】名下有宠物的用户，带上当前用户
@@ -55,7 +55,7 @@ public interface IClientService extends IService<Client> {
      * @param clientId 当前客户ID
      * @return 客户名称+ID
      */
-    List<NameVo> selectNameHavePet(Integer clientId);
+    List<NameDo> selectNameHavePet(Integer clientId);
 
     /**
      * 添加用户，关于加密与默认值

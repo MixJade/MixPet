@@ -19,7 +19,7 @@
         GROUP BY de.department_id
     </select>
     <!-- 【内联查询】名下有医生的科室，带上当前科室-->
-    <select id="selectNameHaveDoctor" resultType="com.ship.model.vo.NameVo">
+    <select id="selectNameHaveDoctor" resultType="com.ship.model.dto.NameDo">
         SELECT DISTINCT de.department_id AS roleId,
         de.department_name AS roleName
         FROM department de,

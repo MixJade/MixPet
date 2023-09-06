@@ -130,7 +130,7 @@ import {Res} from "@/request/Res";
 import {Doctor, exampleDoctor} from "@/model/entiy/Doctor";
 import {ElMessage, ElMessageBox, FormInstance, FormRules} from "element-plus";
 import {reqDepartName} from "@/request/DepartApi";
-import {NameVo} from "@/model/VO/NameVo";
+import {NameDo} from "@/model/DO/NameDo";
 import MyAvatar from "@/components/show/MyAvatar.vue";
 import TagJob from "@/components/show/TagJob.vue";
 
@@ -261,7 +261,7 @@ const showDialog = (row: Doctor) => {
  └───────────────────────────────────┘
  */
 // 表单的数据
-const departNameL = ref<NameVo[]>([]) // 下拉框部门名称
+const departNameL = ref<NameDo[]>([]) // 下拉框部门名称
 const form = ref<Doctor>(exampleDoctor()) // 空的默认值
 const myFormRef = ref<FormInstance>()
 // 校验表单并提交

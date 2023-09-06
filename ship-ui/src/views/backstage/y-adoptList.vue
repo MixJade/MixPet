@@ -95,7 +95,7 @@ import {
 import {Page} from "@/model/DO/Page";
 import {ElMessage, ElMessageBox, FormInstance, FormRules} from "element-plus";
 import {Res} from "@/request/Res";
-import {NameVo} from "@/model/VO/NameVo";
+import {NameDo} from "@/model/DO/NameDo";
 import {reqPetNoClient} from "@/request/PetApi";
 import {reqClientName} from "@/request/ClientApi";
 
@@ -232,8 +232,8 @@ const adoptAdopt = (adoptId: number, isAdopt: boolean) => {
  └───────────────────────────────────┘
  */
 // 表单的数据
-const clientNameL = ref<NameVo[]>([]) // 下拉框用户名
-const petNameL = ref<NameVo[]>([])
+const clientNameL = ref<NameDo[]>([]) // 下拉框用户名
+const petNameL = ref<NameDo[]>([])
 const form = ref<Adopt>(exampleAdopt()) // 空的默认值
 const myFormRef = ref<FormInstance>()
 // 校验表单并提交

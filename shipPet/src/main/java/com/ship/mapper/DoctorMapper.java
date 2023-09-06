@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ship.model.dto.DoctorDto;
 import com.ship.model.entity.Doctor;
-import com.ship.model.vo.NameVo;
+import com.ship.model.dto.NameDo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -26,10 +26,10 @@ public interface DoctorMapper extends BaseMapper<Doctor> {
     DoctorDto selectOneById(@Param("doctorId") Integer doctorId);
 
     @Select("SELECT doctor_id as roleId,doctor_name as roleName FROM doctor WHERE is_del=0")
-    List<NameVo> selectName();
+    List<NameDo> selectName();
 
     @Select("SELECT doctor_id as roleId, doctor_name as roleName FROM doctor WHERE is_del = '0' AND department_id=#{departmentId}")
-    List<NameVo> selectNameByDepartment(Integer departmentId);
+    List<NameDo> selectNameByDepartment(Integer departmentId);
 
     List<Doctor> selectByDepartmentId(Integer departmentId);
 
