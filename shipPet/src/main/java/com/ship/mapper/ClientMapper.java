@@ -51,4 +51,12 @@ public interface ClientMapper extends BaseMapper<Client> {
      */
     @Select("select count(*) from client where is_del=0 and client_username=#{username}")
     int isExist(@Param("username") String username);
+
+    /**
+     * 用户修改自己的资料
+     *
+     * @param client 用户信息
+     * @return 修改成功
+     */
+    boolean updateSelfById(Client client);
 }

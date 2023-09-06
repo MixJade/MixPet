@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--导航-->
     <div class="radio-group">
       <label>
         <input v-model="checkValue" name="radio" type="radio" value="/reception">
@@ -18,6 +19,7 @@
         <span>挂号查看</span>
       </label>
     </div>
+    <!--盒子-->
     <LightBox>
       <router-view></router-view>
     </LightBox>
