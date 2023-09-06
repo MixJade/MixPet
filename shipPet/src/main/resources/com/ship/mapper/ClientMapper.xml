@@ -26,4 +26,16 @@
             WHERE client_id = #{clientId}
         </if>
     </select>
+    <!-- 用户修改自己的资料-->
+    <update id="updateSelfById">
+        UPDATE client
+        SET client_name=#{clientName},
+            client_username=#{clientUsername},
+            client_gender=#{clientGender},
+            client_age=#{clientAge},
+            client_info=#{clientInfo},
+            client_photo=#{clientPhoto},
+            update_time=now()
+        WHERE client_id = #{clientId}
+    </update>
 </mapper>

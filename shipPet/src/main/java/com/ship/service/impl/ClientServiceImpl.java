@@ -69,4 +69,9 @@ public class ClientServiceImpl extends ServiceImpl<ClientMapper, Client> impleme
         client.setClientPassword(StrUtil.tranPwd(client.getClientPassword()));
         return save(client);
     }
+
+    @Override
+    public boolean updateSelf(Client client) {
+        return baseMapper.updateSelfById(client);
+    }
 }

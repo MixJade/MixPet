@@ -64,4 +64,12 @@ public interface IClientService extends IService<Client> {
      * @return 添加成功
      */
     boolean addClient(Client client);
+
+    /**
+     * 用户修改自己的资料
+     *
+     * @param client 用户信息
+     * @return 修改成功
+     */
+    boolean updateSelf(Client client);
 }

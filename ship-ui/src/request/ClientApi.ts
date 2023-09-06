@@ -28,3 +28,6 @@ export const reqClientNameHavePet = (clientId: number | null): Promise<NameVo[]>
     if (clientId == null || clientId == 0) return reqApi<string, NameVo[]>("client/full")
     else return reqApi<string, NameVo[]>("client/full?clientId=" + clientId)
 }
+// 用户修改自己的资料
+export const reqUpdateClientSelf = (data: Client): Promise<Res> =>
+    reqApi.put<string, Res>("client/self", data)

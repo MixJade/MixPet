@@ -7,6 +7,7 @@ import com.ship.model.vo.NameVo;
 import com.ship.security.model.RoleConst;
 import com.ship.service.IClientService;
 import com.ship.util.StrUtil;
+import com.ship.util.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -68,6 +69,7 @@ public class ClientController {
     public Result save(@RequestBody Client client) {
         if (StrUtil.isWhite(client.getClientName())) return Result.error("用户名为空");
         if (StrUtil.isWhite(client.getClientUsername())) return Result.error("用户账号为空");
+        if (StrUtil.isWhite(client.getClientTel())) return Result.error("联系方式为空");
         return Result.choice("添加", clientService.addClient(client));
     }
 
@@ -84,10 +86,28 @@ public class ClientController {
     }
 
     @PutMapping
-    @Secured({RoleConst.MANAGER, RoleConst.CLIENT})
+    @Secured(RoleConst.MANAGER)
     public Result update(@RequestBody Client client) {
         if (StrUtil.isWhite(client.getClientName())) return Result.error("用户名为空");
+        if (StrUtil.isWhite(client.getClientUsername())) return Result.error("用户账号为空");
+        if (StrUtil.isWhite(client.getClientTel())) return Result.error("联系方式为空");
         return Result.choice("修改", clientService.updateById(client));
     }
 
+    /**
+     * 用户修改自己的资料
+     *
+     * @param client 用户信息
+     * @return 修改成功
+     */
+    @PutMapping("/self")
+    @Secured(RoleConst.CLIENT)
+    public Result updateSelf(@RequestBody Client client) {
+        if (StrUtil.isWhite(client.getClientName())) return Result.error("用户名为空");
+        if (StrUtil.isWhite(client.getClientUsername())) return Result.error("用户账号为空");
+        if (UserUtil.getUser() instanceof Client client1) {
+            client.setClientId(client1.getClientId());
+            return Result.choice("修改", clientService.updateSelf(client));
+        } else return Result.error("未得到登录人信息");
+    }
 }
