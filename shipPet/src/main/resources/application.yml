@@ -20,6 +20,10 @@ server:
   # 设置报错时的路径
   error:
     path: /power/error
+  # 设置session过期时间为20分钟
+  servlet:
+    session:
+      timeout: 20m
 ---
 # 设置日志输出
 logging:

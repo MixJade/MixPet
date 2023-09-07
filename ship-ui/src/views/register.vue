@@ -61,6 +61,7 @@
 import PageHead from "@/components/row/PageHead.vue";
 import {reactive} from "vue";
 import {ElMessage} from "element-plus";
+import {reqSendRegMail} from "@/request/PowerApi";
 
 const regVo = reactive({
   username: "",
@@ -85,6 +86,7 @@ const sendMail = (): void => {
     mailBtn.btnTxt = "等待中(" + countDown + ")";
     countDown--;
   }, 1000)
+  reqSendRegMail(regVo.mail)
 }
 
 // 邮箱格式验证
@@ -137,11 +139,11 @@ const toReg = (): void => {
     width: 320px;
     max-width: 90vw;
     margin-top: -220px;
-    margin-left: -160px;
+    margin-left: -196px;
     text-align: center;
     -webkit-user-select: none;
     user-select: none;
-    padding: 12px;
+    padding: 12px 36px;
     border-radius: 24px;
     background-color: rgba(0, 0, 0, 0.1); /* 子元素的背景颜色，含半透明 */
     backdrop-filter: blur(10px);

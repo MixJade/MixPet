@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.ship.common.Result;
 import com.ship.common.SendMail;
 import com.ship.mapper.ClientMapper;
-import com.ship.model.vo.RegisterVo;
 import com.ship.model.entity.Client;
 import com.ship.model.entity.Doctor;
+import com.ship.model.vo.RegisterVo;
 import com.ship.security.model.RoleEnum;
 import com.ship.util.StrUtil;
 import com.ship.util.UserUtil;
@@ -68,9 +68,16 @@ public class LoginController {
      * @param session 建立session所需
      */
     @GetMapping("/regMail")
-    public void sendMail(String mail, HttpSession session) {
+    public Result sendRegMail(String mail, HttpSession session) {
+        if (session.getAttribute(mail) != null) {
+            if (System.currentTimeMillis() - session.getCreationTime() < 30 * 1000)
+                return Result.error("发送邮件需要间隔30s");
+        }
         String code = sendMail.sendQQEmail(mail);
-        if (code != null) session.setAttribute(mail, code);
+        if (code != null) {
+            session.setAttribute(mail, code);
+            return Result.success("邮件发送成功");
+        } else return Result.error("邮件发送失败");
     }
 
     /**
@@ -121,13 +128,11 @@ public class LoginController {
      * @return 邮箱不匹配、验证成功
      */
     @GetMapping("/finMail")
-    public Result sendMail(String mail, String username, HttpSession session) {
+    public Result sendFindMail(String mail, String username, HttpSession session) {
         if (StrUtil.isWhite(username)) return Result.error("账号不能为空");
         if (StrUtil.isWhite(mail)) return Result.error("邮箱不能为空");
         if (clientMapper.sureMail(username, mail) == 0) return Result.error("账号邮箱不匹配");
-        String code = sendMail.sendQQEmail(mail);
-        if (code != null) session.setAttribute(mail, code);
-        return Result.success("发送成功");
+        return sendRegMail(mail, session);
     }
 
     /**
