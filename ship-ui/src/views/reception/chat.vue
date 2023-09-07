@@ -84,6 +84,7 @@ ws.onmessage = (ev) => {
  */
 // 发送文字消息
 const sendTextMsg = (val: string): void => {
+  if (val==="") return;
   const msg: Msg = {
     doctorId: doctor.doctorId,
     isImg: false,

@@ -66,6 +66,7 @@ const cutClient = (clientId: number): void => {
 
 // 发送文字消息
 const sendTextMsg = (val: string): void => {
+  if (val === "") return;
   const msg: Msg = {
     clientId: client.clientId,
     isImg: false,
