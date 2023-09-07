@@ -1,7 +1,5 @@
 package com.ship.controller;
 
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.ship.common.Result;
 import com.ship.common.SendMail;
 import com.ship.mapper.ClientMapper;
@@ -103,19 +101,22 @@ public class LoginController {
      */
     @PostMapping("/register")
     public Result register(@RequestBody RegisterVo registerVo, HttpSession session) {
-        String username = registerVo.getClientUsername();
-        if (StrUtil.isWhite(username)) return Result.error("用户名不能为空");
-        String checkCode = registerVo.getCheckCode();
-        String sessionCode = (String) session.getAttribute(registerVo.getClientTel());
+        if (StrUtil.isWhite(registerVo.username())) return Result.error("用户名不能为空");
+        String checkCode = registerVo.code();
+        String sessionCode = (String) session.getAttribute(registerVo.mail());
         if (StrUtil.isWhite(checkCode)) return Result.error("验证码不能为空");
         else if (sessionCode == null) return Result.error("未发送验证码");
         else if (sessionCode.equals(checkCode.toUpperCase())) {
             session.invalidate();//销毁验证码
             // 设置部分默认信息
-            registerVo.setClientAge(LocalDate.now());
-            String password = registerVo.getClientPassword();
-            registerVo.setClientPassword(StrUtil.tranPwd(password));
-            return Result.choice("注册", clientMapper.insert(registerVo) > 0);
+            Client client = new Client();
+            client.setClientUsername(registerVo.username());
+            client.setClientPassword(registerVo.getReallyPwd());
+            client.setClientName(registerVo.name());
+            client.setClientGender(registerVo.sex());
+            client.setClientTel(registerVo.mail());
+            client.setClientAge(LocalDate.now());
+            return Result.choice("注册", clientMapper.insert(client) > 0);
         } else return Result.error("验证码不正确");
     }
 
@@ -138,14 +139,14 @@ public class LoginController {
     /**
      * 找回密码
      *
-     * @param registerVo 客户信息，附带验证码
+     * @param regVo 客户信息，附带验证码
      * @param session    获取服务端验证码所需
      * @return 注册成功
      */
     @PostMapping("/find")
-    public Result find(@RequestBody RegisterVo registerVo, HttpSession session) {
-        String checkCode = registerVo.getCheckCode();
-        String mail = registerVo.getClientTel();
+    public Result find(@RequestBody RegisterVo regVo, HttpSession session) {
+        String checkCode = regVo.code();
+        String mail = regVo.mail();
         if (StrUtil.isWhite(mail)) return Result.error("未获取到邮箱");
         String sessionCode = (String) session.getAttribute(mail);
         if (StrUtil.isWhite(checkCode)) return Result.error("验证码不能为空");
@@ -153,12 +154,8 @@ public class LoginController {
         else if (sessionCode.equals(checkCode.toUpperCase())) {
             session.invalidate();//销毁验证码
             // 重新设置密码
-            var updateWrapper = new LambdaUpdateWrapper<Client>();
-            String username = registerVo.getClientUsername();
-            updateWrapper.eq(StringUtils.isNotBlank(username), Client::getClientUsername, username);
-            String password = StrUtil.tranPwd(registerVo.getClientPassword());
-            updateWrapper.set(Client::getClientPassword, password);
-            return Result.choice("密码重置", clientMapper.update(null, updateWrapper) > 0);
+            boolean isFind = clientMapper.updatePwdByUsername(regVo.getReallyPwd(), regVo.username());
+            return Result.choice("密码重置", isFind);
         } else return Result.error("验证码不正确");
     }
 }
