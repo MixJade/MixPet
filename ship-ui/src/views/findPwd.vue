@@ -39,7 +39,6 @@ import PageHead from "@/components/row/PageHead.vue";
 import {reactive} from "vue";
 import {reqFindPwd, reqSendFindMail} from "@/request/PowerApi";
 import {RegisterVo} from "@/model/VO/RegisterVo";
-import {useRouter} from "vue-router";
 import {noMail} from "@/utils/MailUtil";
 
 const findPwd = reactive<RegisterVo>({
@@ -74,7 +73,7 @@ const sendMail = () => {
 const toFind = () => {
   if (noMail(findPwd.mail)) return;
   reqFindPwd(findPwd).then(res => {
-    if (res.code === 1) useRouter().back()
+    if (res.code === 1) history.back()
   })
 }
 </script>
