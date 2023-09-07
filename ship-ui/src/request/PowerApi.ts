@@ -2,6 +2,7 @@ import reqApi from "@/request/reqAPI";
 import {Res} from "@/request/Res";
 import {LoginVo, RoleEnum} from "@/model/VO/LoginVo";
 import {Client} from "@/model/entiy/Client";
+import {RegisterVo} from "@/model/VO/RegisterVo";
 //登录接口
 export const reqLogin = (data: LoginVo): Promise<Res> =>
     reqApi.post<string, Res>("cao/toLogin", data)
@@ -20,3 +21,6 @@ export const reqSendRegMail = (mail:string): Promise<Res> =>
 // 注册时检查当前账号是否存在
 export const reqRegisExist = (regUse:string): Promise<Res> =>
     reqApi<string, Res>("login/isExist?regUse="+regUse)
+// 注册
+export const reqRegister = (data: RegisterVo): Promise<Res> =>
+    reqApi.post<string, Res>("login/register", data)

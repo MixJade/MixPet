@@ -25,7 +25,7 @@
       <label>
         账号：
         <input v-model="regVo.username" autocomplete="off" class="input" name="username" placeholder="username"
-               type="text">
+               type="text" @change="isExist">
       </label>
       <label>
         密码：
@@ -33,7 +33,7 @@
       </label>
       <label>
         姓名：
-        <input v-model="regVo.clientName" autocomplete="off" class="input" name="clientName" placeholder="name"
+        <input v-model="regVo.name" autocomplete="off" class="input" name="clientName" placeholder="name"
                type="text">
       </label>
       <label>
@@ -61,12 +61,14 @@
 import PageHead from "@/components/row/PageHead.vue";
 import {reactive} from "vue";
 import {ElMessage} from "element-plus";
-import {reqSendRegMail} from "@/request/PowerApi";
+import {reqLogin, reqRegisExist, reqRegister, reqSendRegMail} from "@/request/PowerApi";
+import {RegisterVo} from "@/model/VO/RegisterVo";
+import {LoginVo, RoleEnum} from "@/model/VO/LoginVo";
 
-const regVo = reactive({
+const regVo = reactive<RegisterVo>({
   username: "",
   password: "",
-  clientName: "",
+  name: "",
   sex: true,
   mail: "",
   code: ""
@@ -98,6 +100,11 @@ const noMail = (): boolean => {
   } else return false;
 }
 
+// 用户名是否存在
+const isExist = () => {
+  reqRegisExist(regVo.username)
+}
+
 // 进行注册
 const toReg = (): void => {
   if (regVo.username == '') {
@@ -108,15 +115,23 @@ const toReg = (): void => {
     ElMessage.warning("密码长度不能低于5位")
     return;
   }
-  if (regVo.clientName == '') {
+  if (regVo.name == '') {
     ElMessage.warning("请填写姓名")
     return;
   }
-  ElMessage.success(`账号：${regVo.username},
-  密码：${regVo.password},
-  姓名:${regVo.clientName},
-  性别:${regVo.sex},
-  邮箱:${regVo.mail}`)
+  reqRegister(regVo).then(res => {
+    if (res.code === 1) {
+      const loginVo: LoginVo = {
+        username: regVo.username,
+        password: regVo.password,
+        remember: false,
+        role: RoleEnum.CLIENT,
+      }
+      reqLogin(loginVo).then(res => {
+        if (res.code === 1) location.href = "/#/reception"
+      })
+    }
+  })
 }
 </script>
 <style lang="scss" scoped>

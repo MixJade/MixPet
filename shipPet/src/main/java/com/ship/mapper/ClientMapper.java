@@ -2,11 +2,12 @@ package com.ship.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.ship.model.entity.Client;
 import com.ship.model.dto.NameDo;
+import com.ship.model.entity.Client;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -59,4 +60,14 @@ public interface ClientMapper extends BaseMapper<Client> {
      * @return 修改成功
      */
     boolean updateSelfById(Client client);
+
+    /**
+     * 找回密码时，通过用户名修改密码
+     *
+     * @param password 修改之后的密码
+     * @param username 用户名
+     * @return 修改成功
+     */
+    @Update("UPDATE client SET client_password=#{password} WHERE client_username=#{username}")
+    boolean updatePwdByUsername(String password, String username);
 }

@@ -1,18 +1,20 @@
 package com.ship.model.vo;
 
-import com.ship.model.entity.Client;
+import com.ship.util.StrUtil;
 
 /**
- * 附带验证码、记住我
+ * 注册时所传的模型
  */
-public class RegisterVo extends Client {
-    private String checkCode;
-
-    public String getCheckCode() {
-        return checkCode;
-    }
-
-    public void setCheckCode(String checkCode) {
-        this.checkCode = checkCode;
+public record RegisterVo(String username,
+                         String password,
+                         String name,
+                         boolean sex,
+                         String mail,
+                         String code) {
+    /**
+     * 得到加密后的密码
+     */
+    public String getReallyPwd() {
+        return StrUtil.tranPwd(password);
     }
 }
