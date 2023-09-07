@@ -97,25 +97,25 @@ public class LoginController {
     /**
      * 进行注册
      *
-     * @param registerDto 客户信息，附带验证码
-     * @param session     获取服务端验证码所需
+     * @param registerVo 客户信息，附带验证码
+     * @param session    获取服务端验证码所需
      * @return 注册成功
      */
     @PostMapping("/register")
-    public Result register(@RequestBody RegisterVo registerDto, HttpSession session) {
-        String username = registerDto.getClientUsername();
+    public Result register(@RequestBody RegisterVo registerVo, HttpSession session) {
+        String username = registerVo.getClientUsername();
         if (StrUtil.isWhite(username)) return Result.error("用户名不能为空");
-        String checkCode = registerDto.getCheckCode();
-        String sessionCode = (String) session.getAttribute(registerDto.getClientTel());
+        String checkCode = registerVo.getCheckCode();
+        String sessionCode = (String) session.getAttribute(registerVo.getClientTel());
         if (StrUtil.isWhite(checkCode)) return Result.error("验证码不能为空");
         else if (sessionCode == null) return Result.error("未发送验证码");
         else if (sessionCode.equals(checkCode.toUpperCase())) {
             session.invalidate();//销毁验证码
             // 设置部分默认信息
-            registerDto.setClientAge(LocalDate.now());
-            String password = registerDto.getClientPassword();
-            registerDto.setClientPassword(StrUtil.tranPwd(password));
-            return Result.choice("注册", clientMapper.insert(registerDto) > 0);
+            registerVo.setClientAge(LocalDate.now());
+            String password = registerVo.getClientPassword();
+            registerVo.setClientPassword(StrUtil.tranPwd(password));
+            return Result.choice("注册", clientMapper.insert(registerVo) > 0);
         } else return Result.error("验证码不正确");
     }
 
@@ -138,14 +138,14 @@ public class LoginController {
     /**
      * 找回密码
      *
-     * @param registerDto 客户信息，附带验证码
-     * @param session     获取服务端验证码所需
+     * @param registerVo 客户信息，附带验证码
+     * @param session    获取服务端验证码所需
      * @return 注册成功
      */
     @PostMapping("/find")
-    public Result find(@RequestBody RegisterVo registerDto, HttpSession session) {
-        String checkCode = registerDto.getCheckCode();
-        String mail = registerDto.getClientTel();
+    public Result find(@RequestBody RegisterVo registerVo, HttpSession session) {
+        String checkCode = registerVo.getCheckCode();
+        String mail = registerVo.getClientTel();
         if (StrUtil.isWhite(mail)) return Result.error("未获取到邮箱");
         String sessionCode = (String) session.getAttribute(mail);
         if (StrUtil.isWhite(checkCode)) return Result.error("验证码不能为空");
@@ -154,9 +154,9 @@ public class LoginController {
             session.invalidate();//销毁验证码
             // 重新设置密码
             var updateWrapper = new LambdaUpdateWrapper<Client>();
-            String username = registerDto.getClientUsername();
+            String username = registerVo.getClientUsername();
             updateWrapper.eq(StringUtils.isNotBlank(username), Client::getClientUsername, username);
-            String password = StrUtil.tranPwd(registerDto.getClientPassword());
+            String password = StrUtil.tranPwd(registerVo.getClientPassword());
             updateWrapper.set(Client::getClientPassword, password);
             return Result.choice("密码重置", clientMapper.update(null, updateWrapper) > 0);
         } else return Result.error("验证码不正确");

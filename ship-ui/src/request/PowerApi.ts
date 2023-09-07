@@ -17,3 +17,6 @@ export const reqLoginUser = (): Promise<Client> =>
 // 注册时发送邮件
 export const reqSendRegMail = (mail:string): Promise<Res> =>
     reqApi<string, Res>("login/regMail?mail="+mail)
+// 注册时检查当前账号是否存在
+export const reqRegisExist = (regUse:string): Promise<Res> =>
+    reqApi<string, Res>("login/isExist?regUse="+regUse)
