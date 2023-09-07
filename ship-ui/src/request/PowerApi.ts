@@ -14,3 +14,6 @@ export const reqGetLogin = (): Promise<RoleEnum> =>
 // 当前登陆的用户信息
 export const reqLoginUser = (): Promise<Client> =>
     reqApi<string, Client>("login/user")
+// 注册时发送邮件
+export const reqSendRegMail = (mail:string): Promise<Res> =>
+    reqApi<string, Res>("login/regMail?mail="+mail)

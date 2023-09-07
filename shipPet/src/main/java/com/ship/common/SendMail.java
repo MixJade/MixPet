@@ -13,6 +13,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 发送邮件验证码
@@ -32,6 +34,19 @@ public class SendMail {
     }
 
     /**
+     * 验证一个邮箱格式是否合格，只验证常用的邮箱格式
+     *
+     * @param email 待验证邮箱
+     * @return 验证通过
+     */
+    public static boolean isValidEmail(String email) {
+        String EMAIL_PATTERN = "^[A-Za-z0-9][A-Za-z0-9._]*@[A-Za-z0-9]+\\.[A-Za-z0-9.-]+[A-Za-z]$";
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    /**
      * 使用系统默认字符源生成验证码
      *
      * @param verifySize 验证码长度
@@ -48,8 +63,12 @@ public class SendMail {
 
     /**
      * 发送简单文本邮件
+     *
+     * @param to 接收方的邮箱
+     * @return 验证码
      */
     public String sendQQEmail(String to) {
+        if (!isValidEmail(to)) return null;
         MimeMessage message = mailSender.createMimeMessage();
         try {
             MimeMessageHelper messageHelper = new MimeMessageHelper(message, true);
