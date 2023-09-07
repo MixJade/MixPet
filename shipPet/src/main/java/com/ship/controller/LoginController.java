@@ -128,7 +128,7 @@ public class LoginController {
      * @param session  建立session所需
      * @return 邮箱不匹配、验证成功
      */
-    @GetMapping("/finMail")
+    @GetMapping("/findMail")
     public Result sendFindMail(String mail, String username, HttpSession session) {
         if (StrUtil.isWhite(username)) return Result.error("账号不能为空");
         if (StrUtil.isWhite(mail)) return Result.error("邮箱不能为空");

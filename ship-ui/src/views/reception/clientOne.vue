@@ -10,7 +10,7 @@
         {tit: "出生日期", con: client.clientAge},
         {tit: "简介", con: client.clientInfo},
       ]'
-      @upPwd="updatePwd"
+      @upPwd="$router.push('/findPwd')"
       @upRole="updateRole"
   />
   <!--修改页面-->
@@ -71,9 +71,6 @@ onMounted(() => {
   })
 })
 
-const updatePwd = () => {
-  console.log("修改密码")
-}
 /**
  ┌───────────────────────────────────┐
  │=============修改个人资料============│
