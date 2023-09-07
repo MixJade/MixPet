@@ -55,6 +55,10 @@ public class DoctorLogController {
     public Result sendMail(HttpSession session) {
         if (UserUtil.getUser() instanceof Doctor doctor) {
             String mail = doctor.getDoctorTel();
+            if (session.getAttribute(mail) != null) {
+                if (System.currentTimeMillis() - session.getCreationTime() < 30 * 1000)
+                    return Result.error("发送邮件需要间隔30s");
+            }
             String code = sendMail.sendQQEmail(mail);
             if (code != null) session.setAttribute(mail, code);
             return Result.success("验证码已发送至邮箱");
@@ -70,9 +74,9 @@ public class DoctorLogController {
         String checkCode = pwdVo.checkCode();
         if (UserUtil.getUser() instanceof Doctor doctor) {
             String mail = doctor.getDoctorTel();
-            var sessionCode = session.getAttribute(mail);
+            String sessionCode = (String) session.getAttribute(mail);
             if (StrUtil.isWhite(checkCode)) return Result.error("验证码不能为空");
-            if (StrUtil.isWhite(password)) return Result.error("密码不能为框");
+            if (StrUtil.isWhite(password)) return Result.error("密码不能为空");
             else if (sessionCode == null) return Result.error("请点击发送验证码");
             else if (sessionCode.equals(checkCode.toUpperCase())) {
                 session.invalidate();//销毁验证码

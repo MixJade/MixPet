@@ -8,6 +8,7 @@ import {NameDo} from "@/model/DO/NameDo";
 import {AppointDto2} from "@/model/DO/AppointDto2";
 import {DealAppointVo} from "@/model/VO/DealAppointVo";
 import {Appoint} from "@/model/entiy/Appoint";
+import {DoctorResetPwdVo} from "@/model/VO/DoctorResetPwdVo";
 // 主页查询医生
 export const reqFourDoctor = (): Promise<Page<DoctorDto>> =>
     reqApi<string, Page<DoctorDto>>("doctor/page?numPage=1&pageSize=4")
@@ -56,3 +57,9 @@ export const reqDealAppoint = (dealAppointVo: DealAppointVo): Promise<Res> =>
 // 科室管理：查看一个科室下面的所有医生
 export const reqDoctorByDepartId = (departmentId: number): Promise<Doctor[]> =>
     reqApi<string, Doctor[]>("doctor/department/detail?departmentId=" + departmentId)
+// 医生在重置自己密码时，发送邮件
+export const reqDoctorSendMail = (): Promise<Res> =>
+    reqApi<string, Res>("doctorLog/resetPwd")
+// 医生在重置自己密码
+export const reqDoctorResetPwd = (data: DoctorResetPwdVo): Promise<Res> =>
+    reqApi.put<string, Res>("doctorLog/resetPwd", data)
