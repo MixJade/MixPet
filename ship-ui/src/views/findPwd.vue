@@ -17,12 +17,12 @@
           </label>
           <label class="check-code">
             验证码
-            <input v-model="findPwd.checkCode" autocomplete="off" name="checkCode" placeholder="验证码" type="text">
+            <input v-model="findPwd.code" autocomplete="off" name="checkCode" placeholder="验证码" type="text">
             <button type="button" v-bind:disabled="mailBtn.dis" @click="sendMail">{{ mailBtn.btnTxt }}</button>
           </label>
           <label>
             密码：
-            <input v-model="findPwd.newPwd" autocomplete="off" name="password" placeholder="密码" type="password">
+            <input v-model="findPwd.password" autocomplete="off" name="password" placeholder="密码" type="password">
           </label>
           <button type="button" @click="toFind">重置密码</button>
         </div>
@@ -38,19 +38,17 @@
 import PageHead from "@/components/row/PageHead.vue";
 import {reactive} from "vue";
 import {ElMessage} from "element-plus";
+import {reqFindPwd, reqSendFindMail} from "@/request/PowerApi";
+import {RegisterVo} from "@/model/VO/RegisterVo";
+import {useRouter} from "vue-router";
 
-interface FindPwd {
-  username: string;
-  mail: string;
-  checkCode: string;
-  newPwd: string;
-}
-
-const findPwd = reactive<FindPwd>({
+const findPwd = reactive<RegisterVo>({
   username: "",
   mail: "",
-  checkCode: "",
-  newPwd: ""
+  code: "",
+  password: "",
+  name: "找回密码",
+  sex: false,
 })
 
 // 发送邮件
@@ -69,17 +67,15 @@ const sendMail = () => {
     mailBtn.btnTxt = "等待中(" + countDown + ")";
     countDown--;
   }, 1000)
+  reqSendFindMail(findPwd.mail, findPwd.username)
 }
 
 // 进行密码找回
 const toFind = () => {
   if (noMail()) return;
-  ElMessage.success(
-      `登录成功!账号:${findPwd.username},
-      邮箱：${findPwd.mail},
-      验证码：${findPwd.checkCode},
-      密码:${findPwd.newPwd}`,
-  )
+  reqFindPwd(findPwd).then(res => {
+    if (res.code === 1) useRouter().back()
+  })
 }
 
 // 邮箱格式验证
