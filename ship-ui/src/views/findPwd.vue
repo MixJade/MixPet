@@ -37,10 +37,10 @@
 <script lang="ts" setup>
 import PageHead from "@/components/row/PageHead.vue";
 import {reactive} from "vue";
-import {ElMessage} from "element-plus";
 import {reqFindPwd, reqSendFindMail} from "@/request/PowerApi";
 import {RegisterVo} from "@/model/VO/RegisterVo";
 import {useRouter} from "vue-router";
+import {noMail} from "@/utils/MailUtil";
 
 const findPwd = reactive<RegisterVo>({
   username: "",
@@ -54,7 +54,7 @@ const findPwd = reactive<RegisterVo>({
 // 发送邮件
 const mailBtn = reactive({btnTxt: "发送验证码", dis: false})
 const sendMail = () => {
-  if (noMail()) return;
+  if (noMail(findPwd.mail)) return;
   mailBtn.dis = true;
   let countDown = 30;
   let intVal = setInterval(function () {
@@ -72,19 +72,10 @@ const sendMail = () => {
 
 // 进行密码找回
 const toFind = () => {
-  if (noMail()) return;
+  if (noMail(findPwd.mail)) return;
   reqFindPwd(findPwd).then(res => {
     if (res.code === 1) useRouter().back()
   })
-}
-
-// 邮箱格式验证
-const noMail = (): boolean => {
-  const reg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  if (!reg.test(findPwd.mail)) {
-    ElMessage.warning("邮箱格式不对")
-    return true;
-  } else return false;
 }
 </script>
 

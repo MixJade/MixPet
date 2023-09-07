@@ -64,6 +64,7 @@ import {ElMessage} from "element-plus";
 import {reqLogin, reqRegisExist, reqRegister, reqSendRegMail} from "@/request/PowerApi";
 import {RegisterVo} from "@/model/VO/RegisterVo";
 import {LoginVo, RoleEnum} from "@/model/VO/LoginVo";
+import {noMail} from "@/utils/MailUtil";
 
 const regVo = reactive<RegisterVo>({
   username: "",
@@ -75,7 +76,7 @@ const regVo = reactive<RegisterVo>({
 })
 const mailBtn = reactive({btnTxt: "发送验证码", dis: false})
 const sendMail = (): void => {
-  if (noMail()) return;
+  if (noMail(regVo.mail)) return;
   mailBtn.dis = true;
   let countDown = 30;
   let intVal = setInterval(function () {
@@ -89,15 +90,6 @@ const sendMail = (): void => {
     countDown--;
   }, 1000)
   reqSendRegMail(regVo.mail)
-}
-
-// 邮箱格式验证
-const noMail = (): boolean => {
-  const reg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  if (!reg.test(regVo.mail)) {
-    ElMessage.warning("邮箱格式不对")
-    return true;
-  } else return false;
 }
 
 // 用户名是否存在
