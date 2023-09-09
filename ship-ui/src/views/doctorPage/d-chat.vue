@@ -1,8 +1,8 @@
 <template>
   <ChatPanel :groupList="groupList" :msg-list="msgList" :role-name="client.clientName" opType="用户"
              @cutOther="cutClient "
-             @sendTxtMsg="sendTextMsg"
              @sendImgMsg="sendImgMsg"
+             @sendTxtMsg="sendTextMsg"
   />
 </template>
 
@@ -13,7 +13,8 @@ import ChatPanel from "@/components/chat/ChatPanel.vue";
 import {onBeforeUnmount, onMounted, ref} from "vue";
 import {reqDoctorGetNearClient, reqDoctorMsgGroup, reqDoctorMsgList, reqSendDoctorMsg} from "@/request/MsgApi";
 import {ElMessage} from "element-plus";
-import {Msg} from "@/model/VO/Msg";
+import {Msg} from "@/model/entiy/Msg";
+import {getNowISO} from "@/utils/TimeUtil";
 
 /**
  ┌───────────────────────────────────┐
@@ -30,7 +31,8 @@ onMounted(() => {
 // 当前用户的ID
 const client = {
   clientId: 1,
-  clientName: "无"
+  clientName: "无",
+  clientPhoto: "defaultDoctor.jpg",
 }
 // 得到分组与聊天记录
 const groupList = ref<ChatGroup[]>([]);
@@ -42,10 +44,19 @@ ws.onclose = () => {
   ElMessage.warning("你已离开聊天页面")
 }
 // 这里是接受到消息之后刷新
-ws.onmessage = () => {
-  reqDoctorMsgList(client.clientId).then(res1 => {
-    msgList.value = res1
-  })
+ws.onmessage = (ev) => {
+  const dataMsg = <Msg>JSON.parse(ev.data)
+  if (dataMsg.clientId === client.clientId) {
+    const msgDo: MsgDo = {
+      createTime: getNowISO(),
+      isImg: dataMsg.isImg,
+      isMine: false,
+      msgContent: dataMsg.msgContent,
+      roleName: client.clientName,
+      rolePhoto: client.clientPhoto
+    }
+    msgList.value.push(msgDo)
+  }
 }
 /**
  ┌───────────────────────────────────┐
@@ -60,6 +71,7 @@ const cutClient = (clientId: number): void => {
   })
   reqDoctorMsgGroup(clientId).then(res2 => {
     client.clientName = res2[0].roleName
+    client.clientPhoto = res2[0].rolePhoto
     groupList.value = res2
   })
 }

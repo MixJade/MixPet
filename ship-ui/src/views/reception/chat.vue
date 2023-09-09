@@ -1,8 +1,8 @@
 <template>
   <ChatPanel :groupList="groupList" :msg-list="msgList" :role-name="doctor.doctorName" opType="医生"
              @cutOther="cutDoctor"
-             @sendTxtMsg="sendTextMsg"
              @sendImgMsg="sendImgMsg"
+             @sendTxtMsg="sendTextMsg"
   />
 </template>
 
@@ -13,7 +13,8 @@ import ChatPanel from "@/components/chat/ChatPanel.vue";
 import {onBeforeUnmount, ref} from "vue";
 import {reqClientGetNearDoctor, reqClientMsgGroup, reqClientMsgList, reqSendClientMsg} from "@/request/MsgApi";
 import {ElMessage} from "element-plus";
-import {Msg} from "@/model/VO/Msg";
+import {Msg} from "@/model/entiy/Msg";
+import {getNowISO} from "@/utils/TimeUtil";
 
 /**
  ┌───────────────────────────────────┐
@@ -26,7 +27,8 @@ const msgList = ref<MsgDo[]>([])
 // 当前医生
 const doctor = {
   doctorId: 1,
-  doctorName: "无"
+  doctorName: "无",
+  doctorPhoto: "defaultDoctor.jpg"
 }
 // 切换医生
 const cutDoctor = (doctorID: number): void => {
@@ -36,6 +38,7 @@ const cutDoctor = (doctorID: number): void => {
   })
   reqClientMsgGroup(doctorID).then(res2 => {
     doctor.doctorName = res2[0].roleName
+    doctor.doctorPhoto = res2[0].rolePhoto
     groupList.value = res2
   })
 }
@@ -69,12 +72,18 @@ ws.onclose = () => {
 }
 // WebSocket生命周期【接收消息时的操作】
 ws.onmessage = (ev) => {
-  const dataStr = ev.data;
-  console.log(dataStr)
-  // 这里是接受到消息之后刷新
-  reqClientMsgList(doctor.doctorId).then(res1 => {
-    msgList.value = res1
-  })
+  const dataMsg = <Msg>JSON.parse(ev.data)
+  if (dataMsg.doctorId === doctor.doctorId) {
+    const msgDo: MsgDo = {
+      createTime: getNowISO(),
+      isImg: dataMsg.isImg,
+      isMine: false,
+      msgContent: dataMsg.msgContent,
+      roleName: doctor.doctorName,
+      rolePhoto: doctor.doctorPhoto
+    }
+    msgList.value.push(msgDo)
+  }
 }
 
 /**
@@ -84,7 +93,7 @@ ws.onmessage = (ev) => {
  */
 // 发送文字消息
 const sendTextMsg = (val: string): void => {
-  if (val==="") return;
+  if (val === "") return;
   const msg: Msg = {
     doctorId: doctor.doctorId,
     isImg: false,

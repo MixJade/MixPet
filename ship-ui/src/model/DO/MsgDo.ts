@@ -2,7 +2,7 @@
  * 聊天记录
  */
 export interface MsgDo {
-    msgId: number;
+    msgId?: number;
     isMine: boolean;
     msgContent: string;
     isImg: boolean;

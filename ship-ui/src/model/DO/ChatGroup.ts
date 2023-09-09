@@ -5,4 +5,5 @@ export interface ChatGroup {
     flag: number;
     roleId: number;
     roleName: string;
+    rolePhoto:string;
 }
