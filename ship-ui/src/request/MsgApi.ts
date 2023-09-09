@@ -2,7 +2,7 @@ import reqApi from "@/request/reqAPI";
 import {ChatGroup} from "@/model/DO/ChatGroup";
 import {MsgDo} from "@/model/DO/MsgDo";
 import {NameDo} from "@/model/DO/NameDo";
-import {Msg} from "@/model/VO/Msg";
+import {Msg} from "@/model/entiy/Msg";
 import {Res} from "@/request/Res";
 // 用户查看最近聊天的医生ID
 export const reqClientGetNearDoctor = (): Promise<NameDo> =>

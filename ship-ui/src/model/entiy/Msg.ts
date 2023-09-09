@@ -6,4 +6,5 @@ export interface Msg {
     doctorId?: number;
     msgContent: string;
     isImg: boolean;
+    createTime?: string;
 }

@@ -1,7 +1,7 @@
 <template>
   <div ref="innerRef" style="overflow: auto;height: 100%" @click="rollBottom">
     <!--信息主体-->
-    <div v-for="m in msgList" :key="m.msgId" :class="{'right-align':m.isMine}" class="msg-card">
+    <div v-for="m in msgList" :class="{'right-align':m.isMine}" class="msg-card">
       <MyAvatar :name="m.rolePhoto"/>
       <div class="msg">
         <span>{{ m.roleName }}&nbsp;{{ getDisplayTime(m.createTime) }}</span>

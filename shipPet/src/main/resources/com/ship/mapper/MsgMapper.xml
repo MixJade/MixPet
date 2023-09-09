@@ -10,8 +10,7 @@
         WHERE m.is_del = 0
           AND m.client_id = #{clientId}
           AND d.doctor_id = m.doctor_id
-        ORDER BY m.create_time DESC
-        LIMIT 1
+        ORDER BY m.create_time DESC LIMIT 1
     </select>
     <!-- 查询特定用户与医生对话-->
     <select id="clientGetADoctor" resultType="com.ship.model.dto.MsgDo">
@@ -35,7 +34,8 @@
     <select id="clientGetDoctorGroup" resultType="com.ship.model.dto.MsgNameDo">
         SELECT IF(m.doctor_id = #{doctorId}, 0, 1) AS flag,
                m.doctor_id,
-               d.doctor_name
+               d.doctor_name,
+               d.doctor_photo
         FROM msg m,
              doctor d
         WHERE client_id = #{clientId}
@@ -43,7 +43,7 @@
         GROUP BY m.doctor_id
                  -- 连接当前的医生
         UNION
-        SELECT 0 AS flag, d.doctor_id, d.doctor_name
+        SELECT 0 AS flag, d.doctor_id, d.doctor_name, d.doctor_photo
         FROM doctor d
         WHERE d.doctor_id = #{doctorId}
         ORDER BY flag -- 最后进行排序
@@ -57,8 +57,7 @@
         WHERE m.is_del = 0
           AND m.doctor_id = #{doctorId}
           AND m.client_id = c.client_id
-        ORDER BY m.create_time DESC
-        LIMIT 1
+        ORDER BY m.create_time DESC LIMIT 1
     </select>
     <!-- 查询特定医生与用户对话-->
     <select id="doctorGetAClient" resultType="com.ship.model.dto.MsgDo">
@@ -82,7 +81,8 @@
     <select id="doctorGetClientGroup" resultType="com.ship.model.dto.MsgNameDo">
         SELECT if(m.client_id = #{clientId}, 0, 1) AS flag,
                m.client_id                         AS role_id,
-               c.client_name                       AS role_name
+               c.client_name                       AS role_name,
+               c.client_photo
         FROM msg m,
              client c
         WHERE m.doctor_id = #{doctorId}
