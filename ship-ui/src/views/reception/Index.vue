@@ -138,7 +138,7 @@ const noticeDialog = reactive({tit: "标题", content: "文本内容"})
 const openDialog = (notice: NoticeDto) => {
   noticeDialog.tit = notice.noticeTitle
   noticeDialog.content = notice.textNotice
-  myShow.value.showMe()
+  myShow.value?.showMe()
 }
 
 /**
