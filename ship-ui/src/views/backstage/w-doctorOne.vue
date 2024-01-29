@@ -166,7 +166,7 @@ const mailBtn = reactive({btnTxt: "发送验证码", dis: false})
 const sendCheckMail = () => {
   mailBtn.dis = true;
   let countDown = 30;
-  let intVal = setInterval(function () {
+  let intVal = setInterval(() => {
     if (countDown === 0) {
       clearInterval(intVal)
       mailBtn.dis = false;
