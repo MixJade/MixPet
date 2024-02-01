@@ -62,7 +62,7 @@ public class LoginController {
     /**
      * 发送验证码邮件，并将之存入session
      *
-     * @param mail    接受者邮箱 1114185977@qq.com
+     * @param mail    接受者邮箱 sanyu0201@163.com
      * @param session 建立session所需
      */
     @GetMapping("/regMail")
