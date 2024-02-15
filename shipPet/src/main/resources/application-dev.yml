@@ -1,7 +1,8 @@
+# -Dspring.profiles.active=local
 spring:
   mail:
     username: 2231973602@qq.com # 发送者的邮箱，必须是QQ邮箱
-    password: dspwtwceobsfeafa # 发送者邮箱的授权码，我将这个服务关闭了
+    password: LocalLocalLocal # 发送者邮箱的授权码，我将这个服务关闭了
 ---
 pet-ship:
   images-path: C:\MyCode\MixPet\images\ # 照片存储路径
