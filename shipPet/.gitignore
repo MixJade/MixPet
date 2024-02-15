@@ -2,6 +2,7 @@
 application-dev.yml.bak
 
 HELP.md
+application-local.yml
 target/
 !.mvn/wrapper/maven-wrapper.jar
 
