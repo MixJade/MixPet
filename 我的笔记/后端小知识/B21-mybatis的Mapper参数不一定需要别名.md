@@ -15,65 +15,6 @@ public interface ProInfoMapper extends BaseMapper<ProInfo> {
 }
 ```
 
-* 以下是xml中的sql
-
-```xml
-<!-- 通用查询映射结果 -->
-<resultMap id="BaseResultMap" type="com.model.entity.ProInfo">
-    <id column="PRO_ID" property="proId"/>
-    <result column="START_DATE" property="startDate"/>
-    <result column="END_DATE" property="endDate"/>
-    <result column="CANCEL_DATE" property="cancelDate"/>
-    <result column="USE_STATE" property="useState"/>
-</resultMap>
-
-<resultMap id="BaseResultMapDTO" type="com.model.domain.ProInfoDTO" extends="BaseResultMap">
-    <result column="PRO_REL_NO" property="proRelNo"/>
-    <result column="PRO_REL_NM" property="proRelNm"/>
-</resultMap>
-
-    <!-- @formatter:off -->
-    <!-- 别名查询结果列 -->
-    <sql id="Alias_Column_List">
-        <if test="true"/>
-        ${alias}.PRO_ID,
-        ${alias}.START_DATE, 
-        ${alias}.END_DATE, 
-        ${alias}.CANCEL_DATE, 
-        ${alias}.USE_STATE
-    </sql>
-    <!-- @formatter:on -->
-    <!-- 聚合查询 -->
-    <select id="queryProInfo" resultType="com.model.domain.ProInfoDTO">
-        SELECT
-        <include refid="Alias_Column_List">
-            <property name="alias" value="pi"/>
-        </include>
-        ,
-        LISTAGG(DISTINCT agi.GROUP_NM, ',') WITHIN GROUP ( ORDER BY pi.PRO_ID ) AS GROUP_NMS,
-        LISTAGG(DISTINCT pr.USR_NM, ',') WITHIN GROUP ( ORDER BY pi.PRO_ID ) AS PRO_REL_NMS
-        FROM _PRO_INFO pi
-        JOIN _UGROUP_REL aur ON aur.PRO_ID = pi.PRO_ID
-        JOIN _GROUP_INFO agi ON agi.GROUP_ID = aur.GROUP_ID
-        LEFT JOIN _PRO_REL pr ON pr.PRO_ID = pi.PRO_ID
-        GROUP BY
-        <include refid="Alias_Column_List">
-            <property name="alias" value="pi"/>
-        </include>
-        HAVING
-        pi.USE_STATE = '1'
-        <if test="queryProInfo.prjNm != null and queryProInfo.prjNm != '' ">
-            <bind name="prjNm" value="'%'+queryProInfo.prjNm+'%'"/>
-            AND LISTAGG ( DISTINCT agi.GROUP_NM, ',' ) WITHIN GROUP ( ORDER BY pi.PRO_ID ) LIKE #{prjNm}
-        </if>
-        <if test="queryProInfo.usrNm != null and queryProInfo.usrNm != '' ">
-            <bind name="usrNm" value="'%'+queryProInfo.usrNm+'%'"/>
-            AND LISTAGG ( DISTINCT pr.USR_NM, ',' ) WITHIN GROUP ( ORDER BY pi.PRO_ID ) LIKE #{usrNm}
-        </if>
-    </select>
-</mapper>
-```
-
 ## 更简单的代码示例
 
 ```java
