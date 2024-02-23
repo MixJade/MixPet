@@ -1,3 +1,5 @@
+# O1-打包为jar
+
 * 在pom中引入插件，插件位置可以自己新建一个spring项目看看
 * version版本号与自己的spring版本一样
 
