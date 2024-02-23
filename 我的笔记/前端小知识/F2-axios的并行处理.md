@@ -1,4 +1,4 @@
-# axios的并行处理
+# F2-axios的并行处理
 
 * axios可以进行并行处理，就是axios.all
 * 但是它的官网推荐使用Promise.all

@@ -1,4 +1,4 @@
-# Spring将一个对象赋予另外一个对象
+# B10-Spring对象复制
 
 ```
 import org.springframework.beans.BeanUtils;

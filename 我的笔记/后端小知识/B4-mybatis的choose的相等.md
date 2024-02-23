@@ -1,4 +1,4 @@
-# mybatis的choose的相等
+# B4-mybatis的choose的相等
 
 * 里面的等号是`==`
 * 并且会自动判断类型，如果你放一个长得像`int`的String数据，就按照int来判定
