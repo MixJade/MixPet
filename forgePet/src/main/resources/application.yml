@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/pet_forge?useSSL=true
     username: root # mysql用户名
-    password: root # mysql密码
+    password: MC@:(==ni2024 # mysql密码
   mail:
     host: smtp.qq.com
     port: 587
@@ -40,6 +40,6 @@ shiro:
   unauthorizedUrl: /login/noPower # 没有权限
 ---
 pet-forge:
-  images-path: C:\MixJade\MixPet\images\ # 照片存储路径
-  notice-path: C:\MixJade\MixPet\notice\ # 公告存储路径
-  chatImg-path: C:\MixJade\MixPet\chatImg\ # 聊天图片存储路径
+  images-path: C:\MyCode\MixPet\images\ # 照片存储路径
+  notice-path: C:\MyCode\MixPet\notice\ # 公告存储路径
+  chatImg-path: C:\MyCode\MixPet\chatImg\ # 聊天图片存储路径

@@ -39,7 +39,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/pet_forge?useSSL=true
     username: root # mysql用户名
-    password: root # mysql密码
+    password: MC@:(==ni2024 # mysql密码
   mail:
     host: smtp.qq.com
     port: 587
@@ -162,7 +162,7 @@ pet-forge:
 ## 额外补充
 
 * 想参与可以fork一个自己改，如果有什么问题，在issue中新建话题报告
-* 本项目于2024年3月29日清理了已删除文件、以及部分重复信息的的历史记录。因此这之前fork仓库的历史提交记录可能会多点，但已存在文件是一样的。
+* 本项目于2024年3月29日清理了已删除文件、以及部分重复信息的历史记录。因此这之前fork仓库的历史提交记录可能会多点，但已存在文件是一样的。
 * 本项目是完全公开免费的，有所谓的“毕设代做”会把本项目代码拿去卖钱，请不要相信
 * 【宠物医院管理系统(带微信小程序)演示】 https://www.bilibili.com/video/BV1pv4y1s7Gz
 * 【重置版的视频演示】 https://www.bilibili.com/video/BV1BN411p72g
