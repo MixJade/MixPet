@@ -33,6 +33,12 @@
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <!--Oracle驱动-->
+        <!--<dependency>-->
+        <!--    <groupId>com.oracle.database.jdbc</groupId>-->
+        <!--    <artifactId>ojdbc8</artifactId>-->
+        <!--    <scope>runtime</scope>-->
+        <!--</dependency>-->
         <!--mybatis-plus基础包-->
         <dependency>
             <groupId>com.baomidou</groupId>
