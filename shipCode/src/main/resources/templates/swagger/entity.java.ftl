@@ -5,55 +5,32 @@ import ${pkg};
 </#list>
 <#if springdoc>
 import io.swagger.v3.oas.annotations.media.Schema;
-<#elseif swagger>
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 </#if>
 <#if entityLombokModel>
-import lombok.Getter;
-import lombok.Setter;
-    <#if chainModel>
-import lombok.experimental.Accessors;
-    </#if>
-</#if>
-<#if entitySerialVersionUID>
-import java.io.Serial;
+import lombok.Data;
 </#if>
 
 /**
- * <p>
  * ${table.comment!}
- * </p>
  *
  * @author ${author}
  * @since ${date}
  */
 <#if entityLombokModel>
-@Getter
-@Setter
-    <#if chainModel>
-@Accessors(chain = true)
-    </#if>
+@Data
 </#if>
 <#if table.convert>
 @TableName("${schemaName}${table.name}")
 </#if>
 <#if springdoc>
-@Schema(name = "${entity}", description = "$!{table.comment}")
-<#elseif swagger>
-@ApiModel(value = "${entity}对象", description = "${table.comment!}")
+@Schema(description = "${table.comment!}")
 </#if>
-<#if superEntityClass??>
-public class ${entity} extends ${superEntityClass}<#if activeRecord><${entity}></#if> {
-<#elseif activeRecord>
-public class ${entity} extends Model<${entity}> {
-<#elseif entitySerialVersionUID>
+<#if entitySerialVersionUID>
 public class ${entity} implements Serializable {
 <#else>
 public class ${entity} {
 </#if>
 <#if entitySerialVersionUID>
-    @Serial
     private static final long serialVersionUID = 1L;
 </#if>
 <#-- ----------  BEGIN 字段循环遍历  ---------->
@@ -65,8 +42,6 @@ public class ${entity} {
     <#if field.comment!?length gt 0>
         <#if springdoc>
     @Schema(description = "${field.comment}")
-        <#elseif swagger>
-    @ApiModelProperty("${field.comment}")
         <#else>
     /**
      * ${field.comment}

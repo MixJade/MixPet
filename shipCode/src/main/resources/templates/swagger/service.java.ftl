@@ -4,17 +4,18 @@ import ${package.Entity}.${entity};
 import ${superServiceClassPackage};
 
 /**
- * <p>
  * ${table.comment!} 服务类
- * </p>
  *
  * @author ${author}
- * @since ${date}
+ * @date ${date}
  */
-<#if kotlin>
-interface ${table.serviceName} : ${superServiceClass}<${entity}>
-<#else>
 public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
 
+   /**
+   * 按照编号查询
+   *
+   * @author: ${author}
+   * @date: ${date}
+   */
+   ${entity} detailById(String id);
 }
-</#if>
