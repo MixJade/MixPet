@@ -11,8 +11,8 @@
     <groupId>com</groupId>
     <artifactId>shipCode</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>shipCode</name>
-    <description>shipCode</description>
+    <name>代码生成器</name>
+    <description>宠物医院代码生成器</description>
     <properties>
         <java.version>17</java.version>
     </properties>

@@ -11,8 +11,8 @@
     <groupId>com</groupId>
     <artifactId>ship</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>shipPet</name>
-    <description>shipPet</description>
+    <name>宠物医院2.0</name>
+    <description>宠物医院管理系统重置版的后端</description>
     <properties>
         <java.version>17</java.version>
     </properties>
