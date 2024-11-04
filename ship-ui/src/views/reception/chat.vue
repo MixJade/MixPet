@@ -49,7 +49,7 @@ const cutDoctor = (doctorID: number): void => {
  └───────────────────────────────────┘
  */
 const props = defineProps<{
-  doctorId?: number | string
+  doctorId?: string
 }>()
 if (props.doctorId == null || props.doctorId == '') {
   // 没有收到ID，执行ID的初始化逻辑
@@ -60,7 +60,7 @@ if (props.doctorId == null || props.doctorId == '') {
   })
 } else {
   // 收到了ID，切换过去
-  doctor.doctorId = props.doctorId as number
+  doctor.doctorId = parseInt(props.doctorId)
   cutDoctor(doctor.doctorId)
 }
 
