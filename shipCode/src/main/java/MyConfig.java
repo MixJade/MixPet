@@ -9,7 +9,7 @@ interface MyConfig {
      */
     String url = "jdbc:mysql://localhost:3306/pet_ship?useSSL=true",
             username = "root",
-            password = "root";
+            password = "MC@:(==ni2024";
 
     /**
      * 输出目录的路径，到项目名称为止

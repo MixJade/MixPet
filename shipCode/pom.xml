@@ -2,12 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
     <groupId>com</groupId>
     <artifactId>shipCode</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -17,20 +11,17 @@
         <java.version>17</java.version>
     </properties>
     <dependencies>
+        <!-- Logback 作为 SLF4J 的具体实现 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-        <!-- Spring的snakeyaml版本为1.33，引入这个消除警告-->
-        <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>2.0</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.11</version>
         </dependency>
         <!--mysql驱动-->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.33</version>
             <scope>runtime</scope>
         </dependency>
         <!--Oracle驱动-->
@@ -42,7 +33,7 @@
         <!--mybatis-plus基础包-->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <artifactId>mybatis-plus-core</artifactId>
             <version>3.5.3.1</version>
         </dependency>
         <!--代码生成器-->
@@ -58,15 +49,5 @@
             <version>2.3.31</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.1.0</version>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
